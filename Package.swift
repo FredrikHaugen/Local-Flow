@@ -17,5 +17,9 @@ let package = Package(
             swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .testTarget(name: "LocalFlowCoreTests", dependencies: ["LocalFlowCore"]),
+        .testTarget(
+            name: "LocalFlowIntegrationTests",
+            dependencies: ["LocalFlowCore", "whisper"]
+        ),
     ]
 )
