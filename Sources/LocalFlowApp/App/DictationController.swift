@@ -112,14 +112,16 @@ final class DictationController: ObservableObject {
                     lastTranscript = "Didn't catch that"
                     return
                 }
-                machine.handle(.transcriptReady); setPhase(machine.phase)
+                guard machine.handle(.transcriptReady) else { return } // cancelled mid-transcription
+                setPhase(machine.phase)
                 let level = CleanupLevel(
                     rawValue: UserDefaults.standard.string(forKey: "cleanupLevel") ?? "light") ?? .light
                 let llmID = UserDefaults.standard.string(forKey: "llmModel") ?? CleanupEngine.defaultModelID
                 let glossary = vocab.glossaryTerms
                 let cleaned = await cleanup.cleanup(
                     corrected, level: level, glossary: glossary, modelID: llmID)
-                machine.handle(.cleanupDone); setPhase(machine.phase)
+                guard machine.handle(.cleanupDone) else { return } // cancelled mid-cleanup
+                setPhase(machine.phase)
                 lastTranscript = cleaned
                 NSLog("LocalFlow transcript: \(cleaned)")
                 let method = InjectionMethod(

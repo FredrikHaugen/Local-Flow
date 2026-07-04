@@ -82,7 +82,10 @@ actor CleanupEngine {
         modelID: String, progress: @Sendable @escaping (Double) -> Void
     ) async throws -> ModelContainer {
         unloadTask?.cancel()
-        if let container, loadedModelID == modelID { return container }
+        if let container, loadedModelID == modelID {
+            scheduleUnload()
+            return container
+        }
         container = nil
 
         let client = HubClient(cache: HubCache(location: .fixed(directory: llmDir)))

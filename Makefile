@@ -45,7 +45,7 @@ check-vendor:
 build: check-vendor
 	swift build --arch arm64
 
-test:
+test: check-vendor
 	swift test
 
 bundle: check-vendor

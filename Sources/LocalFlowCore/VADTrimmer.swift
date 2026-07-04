@@ -13,6 +13,7 @@ public struct VADTrimmer: Sendable {
     }
 
     public func trim(_ samples: [Float]) -> [Float] {
+        guard windowSize > 0 else { return samples }
         guard !samples.isEmpty else { return [] }
         var firstLoud: Int? = nil
         var lastLoud: Int? = nil

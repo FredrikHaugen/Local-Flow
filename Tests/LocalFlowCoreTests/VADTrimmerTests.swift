@@ -33,4 +33,9 @@ final class VADTrimmerTests: XCTestCase {
         let out = trimmer.trim([0.5, 0.5])
         XCTAssertEqual(out, [0.5, 0.5])
     }
+
+    func testNonPositiveWindowSizeReturnsInputUnchanged() {
+        let bad = VADTrimmer(threshold: 0.05, windowSize: 0, padding: 8)
+        XCTAssertEqual(bad.trim([0.5, 0.0, 0.5]), [0.5, 0.0, 0.5])
+    }
 }

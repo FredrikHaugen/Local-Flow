@@ -13,6 +13,7 @@ clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 
 ## Quick start
 
+    make vendor   # one-time: fetch + checksum-verify the whisper engine
     make cert     # one-time: stable local signing identity (keeps permissions across rebuilds)
     make run      # build, bundle, launch
 
@@ -31,6 +32,8 @@ clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 | Alternative toggle | configurable in Settings → General |
 
 ## Development
+
+A fresh clone needs `make vendor` once before `make test`/`make bundle` will work.
 
     make test     # unit + integration tests
     make bundle   # build dist/LocalFlow.app

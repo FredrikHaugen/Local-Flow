@@ -24,8 +24,11 @@ final class TextInjector {
                 return .clipboardOnly
             }
         case .type:
-            await type(text)
-            return .typed
+            if await type(text) { return .typed }
+            let pb = NSPasteboard.general
+            pb.clearContents()
+            pb.setString(text, forType: .string)
+            return .clipboardOnly
         }
     }
 
@@ -94,8 +97,8 @@ final class TextInjector {
 
     /// Fallback: synthetic unicode typing in ≤20-UTF16-unit chunks.
     /// Async so the inter-chunk pacing never blocks the main thread.
-    private func type(_ text: String) async {
-        let src = CGEventSource(stateID: .combinedSessionState)
+    private func type(_ text: String) async -> Bool {
+        guard let src = CGEventSource(stateID: .combinedSessionState) else { return false }
         let units = Array(text.utf16)
         var i = 0
         while i < units.count {
@@ -115,5 +118,6 @@ final class TextInjector {
             try? await Task.sleep(for: .milliseconds(8))
             i = end
         }
+        return true
     }
 }
