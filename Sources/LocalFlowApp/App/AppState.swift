@@ -1,17 +1,23 @@
 import SwiftUI
+import LocalFlowCore
 
 @MainActor
 final class AppState: ObservableObject {
     static let shared = AppState()
-    @Published var statusText: String = "Idle"
     let permissions = PermissionsService()
-    let hotkey = HotkeyMonitor()
+    let dictation = DictationController()
+
+    var statusText: String {
+        switch dictation.phase {
+        case .idle: dictation.lastTranscript.isEmpty ? "Idle" : dictation.lastTranscript
+        case .recording: "● Recording…"
+        case .transcribing: "Transcribing…"
+        case .cleaning: "Cleaning…"
+        case .injecting: "Inserting…"
+        }
+    }
 
     func startServices() {
-        hotkey.onIntent = { [weak self] intent in
-            self?.statusText = "Hotkey: \(intent)"
-            NSLog("LocalFlow hotkey intent: \(intent)")
-        }
-        hotkey.start()
+        dictation.start()
     }
 }
