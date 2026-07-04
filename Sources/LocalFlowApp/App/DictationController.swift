@@ -75,6 +75,7 @@ final class DictationController: ObservableObject {
     private func process(samples: [Float]) {
         Task { [weak self] in
             guard let self else { return }
+            let vocab = VocabularyEngine(entries: VocabularyStore.shared.entries)
             do {
                 let modelID = UserDefaults.standard.string(forKey: "whisperModel") ?? WhisperModel.default.id
                 guard let model = WhisperModel.catalog.first(where: { $0.id == modelID }),
@@ -83,9 +84,10 @@ final class DictationController: ObservableObject {
                 }
                 let language = UserDefaults.standard.string(forKey: "language") ?? "auto"
                 let raw = try await transcriber.transcribe(
-                    samples: samples, modelPath: path.path, language: language, prompt: nil)
+                    samples: samples, modelPath: path.path, language: language, prompt: vocab.promptText)
                 let filtered = filter.clean(raw)
-                guard !filtered.isEmpty else {
+                let corrected = vocab.apply(to: filtered)
+                guard !corrected.isEmpty else {
                     machine.handle(.failed); setPhase(machine.phase, message: "Didn't catch that")
                     lastTranscript = "Didn't catch that"
                     return
@@ -94,9 +96,9 @@ final class DictationController: ObservableObject {
                 let level = CleanupLevel(
                     rawValue: UserDefaults.standard.string(forKey: "cleanupLevel") ?? "light") ?? .light
                 let llmID = UserDefaults.standard.string(forKey: "llmModel") ?? CleanupEngine.defaultModelID
-                let glossary: [String] = []   // VOCAB — Task 13 supplies terms
+                let glossary = vocab.glossaryTerms
                 let cleaned = await cleanup.cleanup(
-                    filtered, level: level, glossary: glossary, modelID: llmID)
+                    corrected, level: level, glossary: glossary, modelID: llmID)
                 machine.handle(.cleanupDone); setPhase(machine.phase)
                 lastTranscript = cleaned
                 NSLog("LocalFlow transcript: \(cleaned)")
