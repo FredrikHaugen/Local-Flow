@@ -1,5 +1,7 @@
 import SwiftUI
 import LocalFlowCore
+import KeyboardShortcuts
+import ServiceManagement
 
 struct GeneralTab: View {
     @AppStorage("cleanupLevel") private var cleanupLevel = "light"
@@ -10,6 +12,14 @@ struct GeneralTab: View {
                 LabeledContent("Hold to talk", value: "Right ⌥ (Option)")
                 LabeledContent("Hands-free lock", value: "Double-tap Right ⌥ · press once to stop")
                 LabeledContent("Cancel", value: "Esc")
+            }
+            Section("Shortcuts") {
+                KeyboardShortcuts.Recorder("Toggle dictation (alternative):", name: .toggleDictation)
+                Text("The primary hold-to-talk key stays Right ⌥.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            Section("Startup") {
+                Toggle("Launch LocalFlow at login", isOn: launchAtLogin)
             }
             Section("AI cleanup") {
                 Picker("Cleanup level", selection: $cleanupLevel) {
@@ -24,5 +34,18 @@ struct GeneralTab: View {
             }
         }
         .formStyle(.grouped)
+    }
+
+    private var launchAtLogin: Binding<Bool> {
+        Binding(
+            get: { SMAppService.mainApp.status == .enabled },
+            set: { enable in
+                do {
+                    if enable { try SMAppService.mainApp.register() }
+                    else { try SMAppService.mainApp.unregister() }
+                } catch {
+                    NSLog("LocalFlow launch-at-login failed: \(error)")
+                }
+            })
     }
 }

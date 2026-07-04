@@ -1,10 +1,16 @@
 import SwiftUI
 import LocalFlowCore
+import KeyboardShortcuts
+
+extension KeyboardShortcuts.Name {
+    static let toggleDictation = Self("toggleDictation")
+}
 
 @MainActor
 final class DictationController: ObservableObject {
     @Published private(set) var phase: DictationPhase = .idle
     @Published private(set) var lastTranscript: String = ""
+    @Published private(set) var history: [String] = []
     var onLevel: ((Float) -> Void)?
 
     private var machine = DictationStateMachine()
@@ -38,6 +44,20 @@ final class DictationController: ObservableObject {
             }
         }
         hotkey.start()
+
+        Task { [weak self] in
+            for await event in KeyboardShortcuts.events(for: .toggleDictation) where event == .keyDown {
+                self?.toggleDictation()
+            }
+        }
+    }
+
+    func toggleDictation() {
+        switch phase {
+        case .idle: beginRecording()
+        case .recording: endRecording()
+        default: break
+        }
     }
 
     private func beginRecording() {
@@ -109,9 +129,13 @@ final class DictationController: ObservableObject {
                 switch result {
                 case .pasted, .typed:
                     lastTranscript = cleaned
+                    self.history.insert(cleaned, at: 0)
+                    if self.history.count > 10 { self.history.removeLast() }
                     setPhase(machine.phase, message: "✓ Inserted")
                 case .clipboardOnly:
                     lastTranscript = "⚠️ Copied to clipboard — press ⌘V (injection blocked)"
+                    self.history.insert(cleaned, at: 0)
+                    if self.history.count > 10 { self.history.removeLast() }
                     setPhase(machine.phase, message: "Copied — press ⌘V")
                 case .blockedSecureField:
                     lastTranscript = "Secure field — dictation blocked"
