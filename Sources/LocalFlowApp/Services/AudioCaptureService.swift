@@ -13,6 +13,9 @@ final class AudioCaptureService {
     func start() throws {
         lock.lock(); samples.removeAll(); lock.unlock()
 
+        // Defensive cleanup: remove any stale tap from a previous failed start()
+        engine.inputNode.removeTap(onBus: 0)
+
         let input = engine.inputNode
         let inputFormat = input.outputFormat(forBus: 0)
         guard inputFormat.sampleRate > 0 else {
@@ -48,7 +51,12 @@ final class AudioCaptureService {
         }
 
         engine.prepare()
-        try engine.start()
+        do {
+            try engine.start()
+        } catch {
+            input.removeTap(onBus: 0)
+            throw error
+        }
     }
 
     func stop() -> [Float] {

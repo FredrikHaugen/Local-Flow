@@ -33,6 +33,7 @@ final class DictationController: ObservableObject {
             try audio.start()
             phase = machine.phase
         } catch {
+            _ = audio.stop()
             machine.handle(.failed)
             phase = machine.phase
             NSLog("LocalFlow audio start failed: \(error.localizedDescription)")
