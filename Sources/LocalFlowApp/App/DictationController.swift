@@ -14,11 +14,20 @@ final class DictationController: ObservableObject {
     private let transcriber = TranscriptionEngine()
     private let filter = HallucinationFilter()
     private let injector = TextInjector()
+    private let overlay = OverlayController()
     /// Anything shorter than 0.3 s of trimmed audio is an accidental tap.
     private let minSamples = 4_800
 
+    private func setPhase(_ p: DictationPhase, message: String? = nil) {
+        phase = p
+        overlay.update(phase: p, message: message)
+    }
+
     func start() {
-        audio.onLevel = { [weak self] level in self?.onLevel?(level) }
+        audio.onLevel = { [weak self] level in
+            self?.onLevel?(level)
+            self?.overlay.model.push(level: level)
+        }
         hotkey.onIntent = { [weak self] intent in
             guard let self else { return }
             switch intent {
@@ -34,23 +43,23 @@ final class DictationController: ObservableObject {
         guard machine.handle(.startRecording) else { return }
         do {
             try audio.start()
-            phase = machine.phase
+            setPhase(machine.phase)
         } catch {
             _ = audio.stop()
             machine.handle(.failed)
-            phase = machine.phase
+            setPhase(machine.phase, message: error.localizedDescription)
             NSLog("LocalFlow audio start failed: \(error.localizedDescription)")
         }
     }
 
     private func endRecording() {
         guard machine.handle(.stopRecording) else { return }
-        phase = machine.phase
+        setPhase(machine.phase)
         let raw = audio.stop()
         let trimmed = trimmer.trim(raw)
         guard trimmed.count >= minSamples else {
             machine.handle(.failed)
-            phase = machine.phase
+            setPhase(machine.phase)
             return
         }
         process(samples: trimmed)
@@ -59,7 +68,7 @@ final class DictationController: ObservableObject {
     private func cancelDictation() {
         guard machine.handle(.cancel) else { return }
         _ = audio.stop()
-        phase = machine.phase
+        setPhase(machine.phase)
     }
 
     private func process(samples: [Float]) {
@@ -76,31 +85,35 @@ final class DictationController: ObservableObject {
                     samples: samples, modelPath: path.path, language: language, prompt: nil)
                 let filtered = filter.clean(raw)
                 guard !filtered.isEmpty else {
-                    machine.handle(.failed); phase = machine.phase
+                    machine.handle(.failed); setPhase(machine.phase, message: "Didn't catch that")
                     lastTranscript = "Didn't catch that"
                     return
                 }
-                machine.handle(.transcriptReady); phase = machine.phase
+                machine.handle(.transcriptReady); setPhase(machine.phase)
                 let cleaned = filtered // CLEANUP — Task 12 replaces this line with CleanupEngine
-                machine.handle(.cleanupDone); phase = machine.phase
+                machine.handle(.cleanupDone); setPhase(machine.phase)
                 lastTranscript = cleaned
                 NSLog("LocalFlow transcript: \(cleaned)")
                 let method = InjectionMethod(
                     rawValue: UserDefaults.standard.string(forKey: "injectionMethod") ?? "paste") ?? .paste
                 let result = await injector.inject(cleaned, method: method)
-                machine.handle(.injectionDone); phase = machine.phase
+                machine.handle(.injectionDone)
                 switch result {
                 case .pasted, .typed:
                     lastTranscript = cleaned
+                    setPhase(machine.phase, message: "✓ Inserted")
                 case .clipboardOnly:
                     lastTranscript = "⚠️ Copied to clipboard — press ⌘V (injection blocked)"
+                    setPhase(machine.phase, message: "Copied — press ⌘V")
                 case .blockedSecureField:
                     lastTranscript = "Secure field — dictation blocked"
+                    setPhase(machine.phase, message: "Secure field — blocked")
                 case .noText:
                     lastTranscript = "Didn't catch that"
+                    setPhase(machine.phase, message: "Didn't catch that")
                 }
             } catch {
-                machine.handle(.failed); phase = machine.phase
+                machine.handle(.failed); setPhase(machine.phase, message: error.localizedDescription)
                 lastTranscript = error.localizedDescription
             }
         }
