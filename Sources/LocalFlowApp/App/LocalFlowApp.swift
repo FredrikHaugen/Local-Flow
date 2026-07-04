@@ -17,6 +17,7 @@ struct LocalFlowApp: App {
             Image(systemName: "mic")
                 .onAppear {
                     OnboardingWindowController.showIfNeeded(permissions: appState.permissions)
+                    appState.startServices()
                 }
         }
 
