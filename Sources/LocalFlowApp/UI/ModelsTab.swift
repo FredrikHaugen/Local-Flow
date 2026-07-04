@@ -1,0 +1,104 @@
+import SwiftUI
+import LocalFlowCore
+
+@MainActor
+final class LLMDownloadState: ObservableObject {
+    @Published var progress: Double?
+    @Published var error: String?
+}
+
+struct ModelsTab: View {
+    @ObservedObject private var models = ModelManager.shared
+    @AppStorage("whisperModel") private var selectedModel = WhisperModel.default.id
+    @AppStorage("language") private var language = "auto"
+    @AppStorage("llmModel") private var llmModel = CleanupEngine.defaultModelID
+    @StateObject private var llmState = LLMDownloadState()
+    private var cleanupEngine: CleanupEngine { AppState.shared.dictation.cleanup }
+
+    var body: some View {
+        Form {
+            Section("Transcription (Whisper)") {
+                Picker("Language", selection: $language) {
+                    Text("Auto-detect").tag("auto")
+                    Text("English").tag("en")
+                    Text("Norwegian").tag("no")
+                    Text("Swedish").tag("sv")
+                    Text("Danish").tag("da")
+                    Text("German").tag("de")
+                    Text("Spanish").tag("es")
+                    Text("French").tag("fr")
+                }
+                ForEach(WhisperModel.catalog) { model in
+                    modelRow(model)
+                }
+                if let err = models.lastError {
+                    Text(err).foregroundStyle(.red).font(.caption)
+                }
+            }
+            Section("AI cleanup model (local LLM)") {
+                Picker("Model", selection: $llmModel) {
+                    Text("Qwen3 4B — best quality (2.3 GB)").tag(CleanupEngine.defaultModelID)
+                    Text("Llama 3.2 1B — light & fast (0.7 GB)").tag(CleanupEngine.lightModelID)
+                }
+                HStack {
+                    if let p = llmState.progress {
+                        ProgressView(value: p).frame(width: 140)
+                        Text("\(Int(p * 100))%").monospacedDigit()
+                    } else if cleanupEngine.isModelDownloaded(modelID: llmModel) {
+                        Label("Downloaded", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
+                    } else {
+                        Button("Download & warm up") {
+                            llmState.progress = 0
+                            llmState.error = nil
+                            let id = llmModel
+                            Task {
+                                do {
+                                    try await cleanupEngine.warmUp(modelID: id) { frac in
+                                        Task { @MainActor in llmState.progress = frac }
+                                    }
+                                } catch {
+                                    llmState.error = error.localizedDescription
+                                }
+                                llmState.progress = nil
+                            }
+                        }
+                    }
+                }
+                if let err = llmState.error {
+                    Text(err).foregroundStyle(.red).font(.caption)
+                }
+                Text("Downloaded once from Hugging Face, then used fully offline.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+        }
+        .formStyle(.grouped)
+        .onAppear { models.refresh() }
+    }
+
+    @ViewBuilder
+    private func modelRow(_ model: WhisperModel) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(model.displayName)
+                Text(ByteCountFormatter.string(fromByteCount: model.sizeBytes, countStyle: .file))
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            Spacer()
+            if let p = models.progress[model.id] {
+                ProgressView(value: p).frame(width: 100)
+                Button("Cancel") { models.cancelDownload(model) }
+            } else if models.installed.contains(model.id) {
+                if selectedModel == model.id {
+                    Label("Active", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
+                } else {
+                    Button("Use") { selectedModel = model.id }
+                    Button(role: .destructive) { models.delete(model) } label: {
+                        Image(systemName: "trash")
+                    }
+                }
+            } else {
+                Button("Download") { models.download(model) }
+            }
+        }
+    }
+}
