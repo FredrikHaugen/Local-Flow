@@ -46,7 +46,7 @@ final class ModelManager: ObservableObject {
         lastError = nil
         progress[model.id] = 0
 
-        // Refuse if the volume doesn't have room (model + 200 MB slack).
+        // Best-effort check: fails open if capacity metadata is unavailable.
         if let values = try? whisperDir.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey]),
            let free = values.volumeAvailableCapacityForImportantUsage,
            free < model.sizeBytes + 200_000_000 {
@@ -61,43 +61,56 @@ final class ModelManager: ObservableObject {
         tasks[model.id] = Task {
             defer { tasks[model.id] = nil }
             do {
-                let (bytes, response) = try await URLSession.shared.bytes(from: model.url)
-                guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
-                    throw URLError(.badServerResponse)
+                try await Self.performDownload(model: model, partial: partial, dest: dest) { [weak self] frac in
+                    Task { @MainActor in self?.progress[model.id] = frac }
                 }
-                FileManager.default.createFile(atPath: partial.path, contents: nil)
-                let handle = try FileHandle(forWritingTo: partial)
-                defer { try? handle.close() }
-
-                var buffer = Data(); buffer.reserveCapacity(1 << 20)
-                var written: Int64 = 0
-                for try await byte in bytes {
-                    buffer.append(byte)
-                    if buffer.count >= 1 << 20 {
-                        try handle.write(contentsOf: buffer)
-                        written += Int64(buffer.count)
-                        buffer.removeAll(keepingCapacity: true)
-                        progress[model.id] = Double(written) / Double(model.sizeBytes)
-                        try Task.checkCancellation()
-                    }
-                }
-                try handle.write(contentsOf: buffer)
-                written += Int64(buffer.count)
-
-                guard written == model.sizeBytes else {
-                    throw URLError(.cannotParseResponse)
-                }
-                try? FileManager.default.removeItem(at: dest)
-                try FileManager.default.moveItem(at: partial, to: dest)
                 progress[model.id] = nil
                 refresh()
             } catch {
-                try? FileManager.default.removeItem(at: partial)
                 progress[model.id] = nil
                 if !(error is CancellationError) {
                     lastError = "Download failed: \(error.localizedDescription)"
                 }
             }
+        }
+    }
+
+    /// Runs OFF the Main Actor (nonisolated async): streaming + disk writes must never block UI.
+    private nonisolated static func performDownload(
+        model: WhisperModel, partial: URL, dest: URL,
+        onProgress: @escaping @Sendable (Double) -> Void
+    ) async throws {
+        let (bytes, response) = try await URLSession.shared.bytes(from: model.url)
+        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        FileManager.default.createFile(atPath: partial.path, contents: nil)
+        do {
+            let handle = try FileHandle(forWritingTo: partial)
+            defer { try? handle.close() }
+
+            var buffer = Data(); buffer.reserveCapacity(1 << 20)
+            var written: Int64 = 0
+            for try await byte in bytes {
+                buffer.append(byte)
+                if buffer.count >= 1 << 20 {
+                    try handle.write(contentsOf: buffer)
+                    written += Int64(buffer.count)
+                    buffer.removeAll(keepingCapacity: true)
+                    onProgress(Double(written) / Double(model.sizeBytes))
+                    try Task.checkCancellation()
+                }
+            }
+            try Task.checkCancellation() // cover the sub-1MB tail
+            try handle.write(contentsOf: buffer)
+            written += Int64(buffer.count)
+
+            guard written == model.sizeBytes else { throw URLError(.cannotParseResponse) }
+            try? FileManager.default.removeItem(at: dest)
+            try FileManager.default.moveItem(at: partial, to: dest)
+        } catch {
+            try? FileManager.default.removeItem(at: partial)
+            throw error
         }
     }
 
