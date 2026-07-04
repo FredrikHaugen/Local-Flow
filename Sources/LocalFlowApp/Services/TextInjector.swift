@@ -14,19 +14,23 @@ final class TextInjector {
 
         switch method {
         case .paste:
-            if await paste(text) { return .pasted }
-            // CGEvent posting failed — leave the text on the clipboard so nothing is lost.
-            let pb = NSPasteboard.general
-            pb.clearContents()
-            pb.setString(text, forType: .string)
-            return .clipboardOnly
+            switch await paste(text) {
+            case .posted:
+                return .pasted
+            case .blockedSecureField:
+                return .blockedSecureField
+            case .eventFailure:
+                // paste() already left the transcript on the clipboard; nothing is lost.
+                return .clipboardOnly
+            }
         case .type:
-            type(text)
+            await type(text)
             return .typed
         }
     }
 
     /// True when the focused UI element is a secure (password) field.
+    /// Checks both subrole and role — apps report AXSecureTextField either way.
     /// Fails open (false) when AX is unavailable — the paste itself still
     /// requires user-granted Accessibility.
     private func focusedElementIsSecure() -> Bool {
@@ -36,15 +40,19 @@ final class TextInjector {
             systemWide, kAXFocusedUIElementAttribute as CFString, &focused) == .success,
             let element = focused, CFGetTypeID(element) == AXUIElementGetTypeID() else { return false }
         let ax = element as! AXUIElement
-        var subrole: CFTypeRef?
-        if AXUIElementCopyAttributeValue(ax, kAXSubroleAttribute as CFString, &subrole) == .success,
-           let s = subrole as? String, s == "AXSecureTextField" {
-            return true
+        for attribute in [kAXSubroleAttribute, kAXRoleAttribute] {
+            var value: CFTypeRef?
+            if AXUIElementCopyAttributeValue(ax, attribute as CFString, &value) == .success,
+               let s = value as? String, s == "AXSecureTextField" {
+                return true
+            }
         }
         return false
     }
 
-    private func paste(_ text: String) async -> Bool {
+    private enum PasteOutcome { case posted, eventFailure, blockedSecureField }
+
+    private func paste(_ text: String) async -> PasteOutcome {
         let pb = NSPasteboard.general
         let saved = pb.string(forType: .string)
         pb.clearContents()
@@ -53,10 +61,19 @@ final class TextInjector {
 
         try? await Task.sleep(for: .milliseconds(120))
 
+        // Focus can move during the settle delay — re-check before posting (TOCTOU guard).
+        if focusedElementIsSecure() {
+            if pb.changeCount == ourChange {
+                pb.clearContents()
+                if let saved { pb.setString(saved, forType: .string) }
+            }
+            return .blockedSecureField
+        }
+
         guard let src = CGEventSource(stateID: .combinedSessionState),
               let down = CGEvent(keyboardEventSource: src, virtualKey: 9, keyDown: true),
               let up = CGEvent(keyboardEventSource: src, virtualKey: 9, keyDown: false) else {
-            return false
+            return .eventFailure
         }
         down.flags = .maskCommand
         up.flags = .maskCommand
@@ -72,16 +89,22 @@ final class TextInjector {
                 if let saved { pb.setString(saved, forType: .string) }
             }
         }
-        return true
+        return .posted
     }
 
     /// Fallback: synthetic unicode typing in ≤20-UTF16-unit chunks.
-    private func type(_ text: String) {
+    /// Async so the inter-chunk pacing never blocks the main thread.
+    private func type(_ text: String) async {
         let src = CGEventSource(stateID: .combinedSessionState)
         let units = Array(text.utf16)
         var i = 0
         while i < units.count {
-            let chunk = Array(units[i..<min(i + 20, units.count)])
+            var end = min(i + 20, units.count)
+            // Never split a surrogate pair across chunk boundaries.
+            if end < units.count, end - i > 1, (0xD800...0xDBFF).contains(units[end - 1]) {
+                end -= 1
+            }
+            let chunk = Array(units[i..<end])
             if let down = CGEvent(keyboardEventSource: src, virtualKey: 0, keyDown: true) {
                 down.keyboardSetUnicodeString(stringLength: chunk.count, unicodeString: chunk)
                 down.post(tap: .cghidEventTap)
@@ -89,8 +112,8 @@ final class TextInjector {
             if let up = CGEvent(keyboardEventSource: src, virtualKey: 0, keyDown: false) {
                 up.post(tap: .cghidEventTap)
             }
-            usleep(8_000)
-            i += 20
+            try? await Task.sleep(for: .milliseconds(8))
+            i = end
         }
     }
 }
