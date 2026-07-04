@@ -9,6 +9,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "LocalFlowCore"),
+        // Vendored locally; fetch/verify with `make vendor` (see Makefile) before building.
         .binaryTarget(name: "whisper", path: "Vendor/whisper.xcframework"),
         .executableTarget(
             name: "LocalFlowApp",
