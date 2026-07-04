@@ -50,10 +50,11 @@ actor CleanupEngine {
                 group.cancelAll()
                 return first
             }
-            MLX.GPU.set(cacheLimit: 32 * 1024 * 1024)
+            MLX.Memory.cacheLimit = 32 * 1024 * 1024
             scheduleUnload()
             return builder.acceptOutput(output, input: text)
         } catch {
+            scheduleUnload()
             NSLog("LocalFlow: cleanup fell back to raw transcript (\(error))")
             return text
         }
@@ -97,6 +98,7 @@ actor CleanupEngine {
 
         container = c
         loadedModelID = modelID
+        scheduleUnload()
         return c
     }
 
@@ -105,7 +107,7 @@ actor CleanupEngine {
         unloadTask = Task { [idleUnloadAfter] in
             try? await Task.sleep(for: idleUnloadAfter)
             guard !Task.isCancelled else { return }
-            await self.unload()
+            self.unload()
         }
     }
 

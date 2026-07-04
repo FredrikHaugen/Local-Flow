@@ -39,6 +39,9 @@ check-vendor:
 		exit 1; \
 	fi
 
+# swift build remains the dev/test loop build; it cannot compile MLX's Metal
+# shaders (see mlx-swift README), so it must never be used for the bundled app.
+# `make bundle` uses xcodebuild instead — see scripts/bundle.sh.
 build: check-vendor
 	swift build --arch arm64
 
