@@ -62,13 +62,18 @@ final class ModelManager: ObservableObject {
             defer { tasks[model.id] = nil }
             do {
                 try await Self.performDownload(model: model, partial: partial, dest: dest) { [weak self] frac in
-                    Task { @MainActor in self?.progress[model.id] = frac }
+                    Task { @MainActor in
+                        guard let self, self.tasks[model.id] != nil else { return }
+                        self.progress[model.id] = frac
+                    }
                 }
                 progress[model.id] = nil
                 refresh()
             } catch {
                 progress[model.id] = nil
-                if !(error is CancellationError) {
+                let isCancel = error is CancellationError
+                    || (error as? URLError)?.code == .cancelled
+                if !isCancel {
                     lastError = "Download failed: \(error.localizedDescription)"
                 }
             }
