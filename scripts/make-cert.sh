@@ -23,8 +23,11 @@ basicConstraints = critical,CA:false
 CNF
 openssl req -x509 -newkey rsa:2048 -days 3650 -nodes \
     -keyout "$TMP/key.pem" -out "$TMP/cert.pem" -config "$TMP/ext.cnf"
+# Explicit legacy algorithms: OpenSSL 3.x defaults (AES + SHA-256 MAC) are
+# rejected by macOS's keychain importer ("MAC verification failed").
 openssl pkcs12 -export -inkey "$TMP/key.pem" -in "$TMP/cert.pem" \
-    -name "LocalFlow Dev" -out "$TMP/dev.p12" -passout pass:localflow
+    -name "LocalFlow Dev" -out "$TMP/dev.p12" -passout pass:localflow \
+    -certpbe PBE-SHA1-3DES -keypbe PBE-SHA1-3DES -macalg sha1
 security import "$TMP/dev.p12" -k "$HOME/Library/Keychains/login.keychain-db" \
     -P localflow -T /usr/bin/codesign
 echo ""
