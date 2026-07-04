@@ -15,12 +15,12 @@ final class HotkeyMonitor {
     func start() {
         stop()
         if let global = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: { [weak self] event in
-            Task { @MainActor in self?.handle(event) }
+            DispatchQueue.main.async { self?.handle(event) }
         }) {
             monitors.append(global)
         }
         let local = NSEvent.addLocalMonitorForEvents(matching: mask) { [weak self] event in
-            self?.handle(event)
+            DispatchQueue.main.async { self?.handle(event) }
             return event
         }
         if let local { monitors.append(local) }
