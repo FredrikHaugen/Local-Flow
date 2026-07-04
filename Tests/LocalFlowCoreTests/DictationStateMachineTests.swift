@@ -22,7 +22,8 @@ final class DictationStateMachineTests: XCTestCase {
     func testCancelFromEachActiveState() {
         for events in [[DictationEvent.startRecording],
                        [.startRecording, .stopRecording],
-                       [.startRecording, .stopRecording, .transcriptReady]] {
+                       [.startRecording, .stopRecording, .transcriptReady],
+                       [.startRecording, .stopRecording, .transcriptReady, .cleanupDone]] {
             m = DictationStateMachine()
             events.forEach { _ = m.handle($0) }
             XCTAssertTrue(m.handle(.cancel))
@@ -31,9 +32,15 @@ final class DictationStateMachineTests: XCTestCase {
     }
 
     func testFailureReturnsToIdle() {
-        _ = m.handle(.startRecording); _ = m.handle(.stopRecording)
-        XCTAssertTrue(m.handle(.failed))
-        XCTAssertEqual(m.phase, .idle)
+        for events in [[DictationEvent.startRecording],
+                       [.startRecording, .stopRecording],
+                       [.startRecording, .stopRecording, .transcriptReady],
+                       [.startRecording, .stopRecording, .transcriptReady, .cleanupDone]] {
+            m = DictationStateMachine()
+            events.forEach { _ = m.handle($0) }
+            XCTAssertTrue(m.handle(.failed))
+            XCTAssertEqual(m.phase, .idle)
+        }
     }
 
     func testIllegalEventsIgnored() {
