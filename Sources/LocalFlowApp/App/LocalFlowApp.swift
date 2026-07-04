@@ -15,11 +15,13 @@ struct LocalFlowApp: App {
                 .keyboardShortcut("q")
         } label: {
             Image(systemName: "mic")
+                .onAppear {
+                    OnboardingWindowController.showIfNeeded(permissions: appState.permissions)
+                }
         }
 
         Settings {
-            Text("Settings placeholder") // replaced in Task 3
-                .frame(width: 480, height: 320)
+            SettingsView().environmentObject(appState)
         }
     }
 }
