@@ -37,19 +37,43 @@ public struct VocabularyEngine: Sendable {
     }
 
     /// Deterministic post-transcription corrections: alias → canonical term.
+    /// Single-pass: all matches are located in the ORIGINAL text, so one
+    /// entry's replacement can never be re-matched by another entry's alias.
     public func apply(to text: String) -> String {
-        var result = text
+        struct Replacement {
+            let range: Range<String.Index>
+            let term: String
+        }
+        var replacements: [Replacement] = []
         for entry in entries {
             for alias in entry.soundsLike where !alias.isEmpty {
                 let pattern = "\\b" + NSRegularExpression.escapedPattern(for: alias) + "\\b"
                 guard let regex = try? NSRegularExpression(
                     pattern: pattern, options: [.caseInsensitive]) else { continue }
-                result = regex.stringByReplacingMatches(
-                    in: result,
-                    range: NSRange(result.startIndex..., in: result),
-                    withTemplate: NSRegularExpression.escapedTemplate(for: entry.term))
+                let full = NSRange(text.startIndex..., in: text)
+                for match in regex.matches(in: text, range: full) {
+                    if let range = Range(match.range, in: text) {
+                        replacements.append(Replacement(range: range, term: entry.term))
+                    }
+                }
             }
         }
+        replacements.sort { a, b in
+            if a.range.lowerBound != b.range.lowerBound {
+                return a.range.lowerBound < b.range.lowerBound
+            }
+            return a.range.upperBound > b.range.upperBound
+        }
+
+        var result = ""
+        var cursor = text.startIndex
+        for replacement in replacements {
+            guard replacement.range.lowerBound >= cursor else { continue } // overlapping match: first wins
+            result += text[cursor..<replacement.range.lowerBound]
+            result += replacement.term
+            cursor = replacement.range.upperBound
+        }
+        result += text[cursor...]
         return result
     }
 }

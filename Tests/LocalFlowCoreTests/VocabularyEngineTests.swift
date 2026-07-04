@@ -36,4 +36,15 @@ final class VocabularyEngineTests: XCTestCase {
     func testEmptyVocabularyHasNilPrompt() {
         XCTAssertNil(VocabularyEngine(entries: []).promptText)
     }
+
+    func testNoChainedRewrites() {
+        let chained = VocabularyEngine(entries: [
+            VocabularyEntry(term: "Wispr", soundsLike: ["whisper"]),
+            VocabularyEntry(term: "X", soundsLike: ["Wispr"]),
+        ])
+        // "whisper" becomes "Wispr" but must NOT then cascade into "X".
+        XCTAssertEqual(chained.apply(to: "i said whisper"), "i said Wispr")
+        // A literal "Wispr" in the ORIGINAL text is still replaced.
+        XCTAssertEqual(chained.apply(to: "i said Wispr"), "i said X")
+    }
 }

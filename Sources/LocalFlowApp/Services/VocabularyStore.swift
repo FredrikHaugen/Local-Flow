@@ -23,6 +23,8 @@ final class VocabularyStore: ObservableObject {
     }
 
     private func save() {
+        try? FileManager.default.createDirectory(
+            at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         if let data = try? encoder.encode(entries) {
