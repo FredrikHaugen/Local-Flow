@@ -15,6 +15,7 @@ final class DictationController: ObservableObject {
     private let filter = HallucinationFilter()
     private let injector = TextInjector()
     private let overlay = OverlayController()
+    let cleanup = CleanupEngine(llmDir: ModelManager.shared.llmDir)
     /// Anything shorter than 0.3 s of trimmed audio is an accidental tap.
     private let minSamples = 4_800
 
@@ -90,7 +91,12 @@ final class DictationController: ObservableObject {
                     return
                 }
                 machine.handle(.transcriptReady); setPhase(machine.phase)
-                let cleaned = filtered // CLEANUP — Task 12 replaces this line with CleanupEngine
+                let level = CleanupLevel(
+                    rawValue: UserDefaults.standard.string(forKey: "cleanupLevel") ?? "light") ?? .light
+                let llmID = UserDefaults.standard.string(forKey: "llmModel") ?? CleanupEngine.defaultModelID
+                let glossary: [String] = []   // VOCAB — Task 13 supplies terms
+                let cleaned = await cleanup.cleanup(
+                    filtered, level: level, glossary: glossary, modelID: llmID)
                 machine.handle(.cleanupDone); setPhase(machine.phase)
                 lastTranscript = cleaned
                 NSLog("LocalFlow transcript: \(cleaned)")
