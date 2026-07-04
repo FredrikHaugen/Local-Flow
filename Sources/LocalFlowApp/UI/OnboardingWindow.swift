@@ -61,7 +61,12 @@ final class OnboardingWindowController {
 
     static func showIfNeeded(permissions: PermissionsService) {
         permissions.refresh()
-        guard !permissions.allGranted, window == nil else { return }
+        guard !permissions.allGranted else { return }
+        if let window {
+            window.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
+            return
+        }
         let win = NSWindow(
             contentRect: .zero,
             styleMask: [.titled, .closable],
@@ -70,6 +75,11 @@ final class OnboardingWindowController {
         win.contentView = NSHostingView(rootView: OnboardingView(permissions: permissions))
         win.center()
         win.isReleasedWhenClosed = false
+        NotificationCenter.default.addObserver(
+            forName: NSWindow.willCloseNotification, object: win, queue: .main
+        ) { _ in
+            Task { @MainActor in Self.window = nil }
+        }
         window = win
         win.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)

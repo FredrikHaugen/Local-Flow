@@ -20,6 +20,7 @@ final class PermissionsService: ObservableObject {
     @Published var micGranted = false
     @Published var accessibilityGranted = false
     private var timer: Timer?
+    private var pollingClients = 0
 
     var allGranted: Bool { micGranted && accessibilityGranted }
 
@@ -45,13 +46,16 @@ final class PermissionsService: ObservableObject {
     }
 
     func startPolling() {
-        stopPolling()
+        pollingClients += 1
+        guard timer == nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             Task { @MainActor in self?.refresh() }
         }
     }
 
     func stopPolling() {
+        pollingClients = max(0, pollingClients - 1)
+        guard pollingClients == 0 else { return }
         timer?.invalidate()
         timer = nil
     }
