@@ -13,6 +13,7 @@ final class DictationController: ObservableObject {
     private let trimmer = VADTrimmer()
     private let transcriber = TranscriptionEngine()
     private let filter = HallucinationFilter()
+    private let injector = TextInjector()
     /// Anything shorter than 0.3 s of trimmed audio is an accidental tap.
     private let minSamples = 4_800
 
@@ -84,8 +85,20 @@ final class DictationController: ObservableObject {
                 machine.handle(.cleanupDone); phase = machine.phase
                 lastTranscript = cleaned
                 NSLog("LocalFlow transcript: \(cleaned)")
-                // INJECT — Task 10 replaces this line with TextInjector
+                let method = InjectionMethod(
+                    rawValue: UserDefaults.standard.string(forKey: "injectionMethod") ?? "paste") ?? .paste
+                let result = await injector.inject(cleaned, method: method)
                 machine.handle(.injectionDone); phase = machine.phase
+                switch result {
+                case .pasted, .typed:
+                    lastTranscript = cleaned
+                case .clipboardOnly:
+                    lastTranscript = "⚠️ Copied to clipboard — press ⌘V (injection blocked)"
+                case .blockedSecureField:
+                    lastTranscript = "Secure field — dictation blocked"
+                case .noText:
+                    lastTranscript = "Didn't catch that"
+                }
             } catch {
                 machine.handle(.failed); phase = machine.phase
                 lastTranscript = error.localizedDescription
