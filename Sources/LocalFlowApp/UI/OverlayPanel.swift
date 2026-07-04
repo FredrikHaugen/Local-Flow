@@ -9,9 +9,14 @@ final class OverlayController {
     private var dismissWork: DispatchWorkItem?
 
     func update(phase: DictationPhase, message: String? = nil) {
+        let wasRecording = model.phase == .recording
         model.phase = phase
         model.message = message
         dismissWork?.cancel()
+
+        if phase == .recording && !wasRecording {
+            model.resetLevels()   // fresh session starts with a flat waveform
+        }
 
         if phase != .idle {
             show()
