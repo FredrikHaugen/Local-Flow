@@ -38,5 +38,5 @@ A fresh clone needs `make vendor` once before `make test`/`make bundle` will wor
     make test     # unit + integration tests
     make bundle   # build dist/LocalFlow.app
 
-See `docs/superpowers/specs/` for the design spec and `docs/TESTING.md` for
-the manual test checklist (TCC/permission flows can't be automated).
+See `docs/TESTING.md` for the manual test checklist (TCC/permission flows
+can't be automated).
