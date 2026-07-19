@@ -25,9 +25,10 @@ actor CompletionEngine {
     private let llmDir: URL
     private var container: ModelContainer?
     private var loadedModelID: String?
-    /// Coalesces concurrent loads: debounce fires during a multi-second cold
-    /// start must all await ONE load, never start duplicates.
-    private var loadTask: (modelID: String, epoch: UInt64, task: Task<ModelContainer, Error>)?
+    /// Coalesces concurrent loads per model id: debounce fires during a
+    /// multi-second cold start must all await ONE load, never duplicates —
+    /// including when a Settings model-switch load overlaps a completion load.
+    private var loadTasks: [String: (epoch: UInt64, task: Task<ModelContainer, Error>)] = [:]
     /// Bumped by unloadNow(); loads started before the bump discard their result.
     private var epoch: UInt64 = 0
     private let builder = CompletionPromptBuilder()
@@ -90,8 +91,8 @@ actor CompletionEngine {
     /// Called when the autocomplete toggle turns off: off = zero RAM.
     func unloadNow() {
         epoch &+= 1
-        loadTask?.task.cancel()
-        loadTask = nil
+        for entry in loadTasks.values { entry.task.cancel() }
+        loadTasks.removeAll()
         container = nil
         loadedModelID = nil
         NSLog("LocalFlow: completion model unloaded")
@@ -122,8 +123,8 @@ actor CompletionEngine {
         progress: @Sendable @escaping (Double) -> Void
     ) async throws -> ModelContainer {
         if let container, loadedModelID == modelID { return container }
-        if let loadTask, loadTask.modelID == modelID {
-            return try await loadTask.task.value
+        if let entry = loadTasks[modelID] {
+            return try await entry.task.value
         }
         container = nil
         loadedModelID = nil
@@ -147,7 +148,11 @@ actor CompletionEngine {
         // actor's isolation, so touching self inside is safe.
         let task = Task { () throws -> ModelContainer in
             defer {
-                if self.loadTask?.epoch == startEpoch { self.loadTask = nil }
+                // Keyed by model id AND epoch: this defer must never clear
+                // another model's registration or a post-unload re-register.
+                if self.loadTasks[modelID]?.epoch == startEpoch {
+                    self.loadTasks[modelID] = nil
+                }
             }
             let c = try await loadModelContainer(
                 from: #hubDownloader(client),
@@ -166,7 +171,7 @@ actor CompletionEngine {
             self.loadedModelID = modelID
             return c
         }
-        loadTask = (modelID, startEpoch, task)
+        loadTasks[modelID] = (startEpoch, task)
         return try await task.value
     }
 }
