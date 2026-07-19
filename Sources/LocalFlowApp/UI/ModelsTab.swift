@@ -14,6 +14,9 @@ struct ModelsTab: View {
     @AppStorage("llmModel") private var llmModel = CleanupEngine.defaultModelID
     @StateObject private var llmState = LLMDownloadState()
     private var cleanupEngine: CleanupEngine { AppState.shared.dictation.cleanup }
+    @AppStorage("completionModel") private var completionModel = CompletionEngine.defaultModelID
+    @StateObject private var completionState = LLMDownloadState()
+    private var completionEngine: CompletionEngine { AppState.shared.completionEngine }
 
     var body: some View {
         Form {
@@ -68,6 +71,42 @@ struct ModelsTab: View {
                     Text(err).foregroundStyle(.red).font(.caption)
                 }
                 Text("Downloaded once from Hugging Face, then used fully offline.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            Section("Autocomplete model (local LLM)") {
+                Picker("Model", selection: $completionModel) {
+                    Text("Qwen2.5 0.5B — fastest (0.3 GB)").tag(CompletionEngine.defaultModelID)
+                    Text("Llama 3.2 1B — shared with light cleanup (0.7 GB)")
+                        .tag(CompletionEngine.sharedLightModelID)
+                }
+                HStack {
+                    if let p = completionState.progress {
+                        ProgressView(value: p).frame(width: 140)
+                        Text("\(Int(p * 100))%").monospacedDigit()
+                    } else if completionEngine.isModelDownloaded(modelID: completionModel) {
+                        Label("Downloaded", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
+                    } else {
+                        Button("Download & warm up") {
+                            completionState.progress = 0
+                            completionState.error = nil
+                            let id = completionModel
+                            Task {
+                                do {
+                                    try await completionEngine.warmUp(modelID: id) { frac in
+                                        Task { @MainActor in completionState.progress = frac }
+                                    }
+                                } catch {
+                                    completionState.error = error.localizedDescription
+                                }
+                                completionState.progress = nil
+                            }
+                        }
+                    }
+                }
+                if let err = completionState.error {
+                    Text(err).foregroundStyle(.red).font(.caption)
+                }
+                Text("Used only while the Autocomplete input mode is on.")
                     .font(.caption).foregroundStyle(.secondary)
             }
         }

@@ -7,6 +7,9 @@ final class AppState: ObservableObject {
     let permissions = PermissionsService()
     let dictation = DictationController()
     let autocomplete = AutocompleteController()
+    /// One engine instance app-wide: Settings uses it for downloads, the
+    /// controller for completions. Creation is cheap — weights load lazily.
+    let completionEngine = CompletionEngine(llmDir: ModelManager.shared.llmDir)
 
     var statusText: String {
         switch dictation.phase {
@@ -33,9 +36,17 @@ final class AppState: ObservableObject {
             dictation.stop()
         }
         if defaults.bool(forKey: "autocompleteEnabled") {
-            autocomplete.start(dictation: dictation)
+            autocomplete.start(dictation: dictation, engine: completionEngine)
+            // Pre-warm so the first suggestion doesn't pay multi-second load
+            // latency. Only when already downloaded — never a network trigger.
+            let modelID = defaults.string(forKey: "completionModel")
+                ?? CompletionEngine.defaultModelID
+            if completionEngine.isModelDownloaded(modelID: modelID) {
+                Task { try? await completionEngine.warmUp(modelID: modelID, progress: { _ in }) }
+            }
         } else {
             autocomplete.stop()
+            Task { await completionEngine.unloadNow() }
         }
     }
 }
