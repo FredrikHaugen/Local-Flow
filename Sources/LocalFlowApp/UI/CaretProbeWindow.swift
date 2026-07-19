@@ -15,6 +15,7 @@ struct ProbeRow: Identifiable {
     let collapsedBoundsOK: Bool
     let charBoundsOK: Bool
     let rect: String
+    let enhanced: Bool
 
     // Field-wise on purpose: the stdlib's tuple == stops at arity 6, and a
     // synthesized Equatable would compare the always-unique `id`.
@@ -22,12 +23,15 @@ struct ProbeRow: Identifiable {
         a.app == b.app && a.role == b.role && a.secure == b.secure
             && a.rangeOK == b.rangeOK && a.textOK == b.textOK
             && a.collapsedBoundsOK == b.collapsedBoundsOK && a.charBoundsOK == b.charBoundsOK
+            && a.enhanced == b.enhanced
     }
 }
 
 @MainActor
 final class CaretProbeModel: ObservableObject {
     @Published var rows: [ProbeRow] = []
+    @Published var enhanceAX = false
+    private var enhancedPIDs: Set<pid_t> = []
     private var timer: Timer?
 
     func start() {
@@ -37,17 +41,39 @@ final class CaretProbeModel: ObservableObject {
         }
     }
 
+    /// Electron/Chromium and Safari build full AX trees only when an
+    /// assistive client announces itself. These two attributes are the
+    /// conventional announcement. Diagnostic use only for now.
+    private static func setEnhanced(_ on: Bool, pid: pid_t) {
+        let appElement = AXUIElementCreateApplication(pid)
+        let value: CFBoolean = on ? kCFBooleanTrue : kCFBooleanFalse
+        AXUIElementSetAttributeValue(appElement, "AXManualAccessibility" as CFString, value)
+        AXUIElementSetAttributeValue(appElement, "AXEnhancedUserInterface" as CFString, value)
+    }
+
     func stop() {
+        for pid in enhancedPIDs { Self.setEnhanced(false, pid: pid) }
+        enhancedPIDs.removeAll()
         timer?.invalidate()
         timer = nil
     }
 
     private func sample() {
-        let app = NSWorkspace.shared.frontmostApplication?.localizedName ?? "?"
+        let frontmost = NSWorkspace.shared.frontmostApplication
+        let app = frontmost?.localizedName ?? "?"
         guard app != "LocalFlow" else { return }
+        var appEnhanced = false
+        if let pid = frontmost?.processIdentifier {
+            if enhanceAX && !enhancedPIDs.contains(pid) {
+                Self.setEnhanced(true, pid: pid)
+                enhancedPIDs.insert(pid)
+            }
+            appEnhanced = enhancedPIDs.contains(pid)
+        }
         guard let el = AXFocus.focusedElement() else {
             append(ProbeRow(app: app, role: "no focused element", secure: false, rangeOK: false,
-                            textOK: false, collapsedBoundsOK: false, charBoundsOK: false, rect: "—"))
+                            textOK: false, collapsedBoundsOK: false, charBoundsOK: false, rect: "—",
+                            enhanced: appEnhanced))
             return
         }
         // Secure fields: never read — not even diagnostically. The row still
@@ -55,7 +81,7 @@ final class CaretProbeModel: ObservableObject {
         if AXFocus.isSecure(el) {
             append(ProbeRow(app: app, role: AXFocus.role(el), secure: true, rangeOK: false,
                             textOK: false, collapsedBoundsOK: false, charBoundsOK: false,
-                            rect: "secure — probes skipped"))
+                            rect: "secure — probes skipped", enhanced: appEnhanced))
             return
         }
         let sel = AXFocus.selectedRange(el)
@@ -79,7 +105,8 @@ final class CaretProbeModel: ObservableObject {
             app: app, role: AXFocus.role(el), secure: false,
             rangeOK: sel != nil,
             textOK: AXFocus.textBeforeCaret(el, maxChars: 40) != nil,
-            collapsedBoundsOK: collapsedOK, charBoundsOK: charOK, rect: rectDesc))
+            collapsedBoundsOK: collapsedOK, charBoundsOK: charOK, rect: rectDesc,
+            enhanced: appEnhanced))
     }
 
     private func append(_ row: ProbeRow) {
@@ -90,11 +117,11 @@ final class CaretProbeModel: ObservableObject {
 
     var markdownTable: String {
         var lines = [
-            "| App | Role | Secure | Range | Text | Caret bounds (collapsed) | Caret bounds (prev char) | Rect |",
-            "|---|---|---|---|---|---|---|---|",
+            "| App | Role | Secure | Range | Text | Caret bounds (collapsed) | Caret bounds (prev char) | AX+ | Rect |",
+            "|---|---|---|---|---|---|---|---|---|",
         ]
         for r in rows {
-            lines.append("| \(r.app) | \(r.role) | \(r.secure ? "yes" : "no") | \(r.rangeOK ? "✓" : "✗") | \(r.textOK ? "✓" : "✗") | \(r.collapsedBoundsOK ? "✓" : "✗") | \(r.charBoundsOK ? "✓" : "✗") | \(r.rect) |")
+            lines.append("| \(r.app) | \(r.role) | \(r.secure ? "yes" : "no") | \(r.rangeOK ? "✓" : "✗") | \(r.textOK ? "✓" : "✗") | \(r.collapsedBoundsOK ? "✓" : "✗") | \(r.charBoundsOK ? "✓" : "✗") | \(r.enhanced ? "✓" : "—") | \(r.rect) |")
         }
         return lines.joined(separator: "\n")
     }
@@ -107,6 +134,9 @@ struct CaretProbeView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Click into a text field in another app and type. Rows appear when the focused element or its capabilities change.")
                 .font(.caption).foregroundStyle(.secondary)
+            Toggle("Enhance AX on sampled apps (Electron/Safari full accessibility)", isOn: $model.enhanceAX)
+            Text("After enabling: click back into the app's text field and type a character — the app rebuilds its AX tree lazily. Enhancement is reverted when this window closes.")
+                .font(.caption).foregroundStyle(.secondary)
             Table(model.rows) {
                 TableColumn("App") { Text($0.app) }
                 TableColumn("Role") { Text($0.role) }
@@ -115,6 +145,7 @@ struct CaretProbeView: View {
                 TableColumn("Text") { Text($0.textOK ? "✓" : "✗") }
                 TableColumn("Caret ∅") { Text($0.collapsedBoundsOK ? "✓" : "✗") }
                 TableColumn("Caret ←") { Text($0.charBoundsOK ? "✓" : "✗") }
+                TableColumn("AX+") { Text($0.enhanced ? "✓" : "—") }
                 TableColumn("Rect") { Text($0.rect).font(.caption.monospaced()) }
             }
             HStack {
