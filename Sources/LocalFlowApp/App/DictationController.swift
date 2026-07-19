@@ -24,6 +24,8 @@ final class DictationController: ObservableObject {
     let cleanup = CleanupEngine(llmDir: ModelManager.shared.llmDir)
     /// Anything shorter than 0.3 s of trimmed audio is an accidental tap.
     private let minSamples = 4_800
+    private var started = false
+    private var shortcutTask: Task<Void, Never>?
 
     private func setPhase(_ p: DictationPhase, message: String? = nil) {
         phase = p
@@ -31,6 +33,8 @@ final class DictationController: ObservableObject {
     }
 
     func start() {
+        guard !started else { return }
+        started = true
         audio.onLevel = { [weak self] level in
             self?.onLevel?(level)
             self?.overlay.model.push(level: level)
@@ -45,10 +49,23 @@ final class DictationController: ObservableObject {
         }
         hotkey.start()
 
-        Task { [weak self] in
+        shortcutTask = Task { [weak self] in
             for await event in KeyboardShortcuts.events(for: .toggleDictation) where event == .keyDown {
                 self?.toggleDictation()
             }
+        }
+    }
+
+    func stop() {
+        guard started else { return }
+        started = false
+        hotkey.stop()
+        shortcutTask?.cancel()
+        shortcutTask = nil
+        if phase == .recording {
+            machine.handle(.cancel)
+            _ = audio.stop()
+            setPhase(machine.phase)
         }
     }
 

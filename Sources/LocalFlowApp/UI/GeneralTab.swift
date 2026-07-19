@@ -5,9 +5,17 @@ import ServiceManagement
 
 struct GeneralTab: View {
     @AppStorage("cleanupLevel") private var cleanupLevel = "light"
+    @AppStorage("dictationEnabled") private var dictationEnabled = true
+    @AppStorage("autocompleteEnabled") private var autocompleteEnabled = false
 
     var body: some View {
         Form {
+            Section("Input modes") {
+                Toggle("Dictation (Whisper)", isOn: $dictationEnabled)
+                Toggle("Autocomplete (experimental)", isOn: $autocompleteEnabled)
+                Text("Autocomplete keeps a model loaded only while enabled — off means zero memory and zero CPU. Dictation stops listening when off; its models unload when the app quits.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
             Section("Dictation") {
                 LabeledContent("Hold to talk", value: "Right ⌥ (Option)")
                 LabeledContent("Hands-free lock", value: "Double-tap Right ⌥ · press once to stop")
@@ -34,6 +42,8 @@ struct GeneralTab: View {
             }
         }
         .formStyle(.grouped)
+        .onChange(of: dictationEnabled) { _, _ in AppState.shared.applyInputModeSettings() }
+        .onChange(of: autocompleteEnabled) { _, _ in AppState.shared.applyInputModeSettings() }
     }
 
     private var launchAtLogin: Binding<Bool> {
