@@ -43,6 +43,7 @@ private struct MenuContent: View {
             Divider()
         }
         SettingsLink { Text("Settings…") }.keyboardShortcut(",")
+        Button("Caret probe…") { CaretProbeWindowController.show() }
         Divider()
         Button("Quit LocalFlow") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q")
     }
