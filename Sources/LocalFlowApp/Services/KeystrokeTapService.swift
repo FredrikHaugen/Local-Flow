@@ -29,9 +29,15 @@ final class KeystrokeTapService: @unchecked Sendable {
     var onConsumedKey: (@Sendable (CGKeyCode) -> Void)?
     var onPointerActivity: (@Sendable () -> Void)?
 
-    private var tap: CFMachPort?
+    /// Lock-boxed: the tap thread's re-arm path reads it while stop() clears
+    /// it on the main thread.
+    private let port = OSAllocatedUnfairLock<CFMachPort?>(initialState: nil)
     private var thread: Thread?
     private var runLoop: CFRunLoop?
+
+    /// start() retains self into the tap's userInfo; stop() balances it. The
+    /// service therefore cannot deinit while the tap can still call out.
+    private var selfRetain: Unmanaged<KeystrokeTapService>?
 
     /// Which key-downs to swallow ([] = swallow nothing). Called by the
     /// controller when a suggestion shows/hides.
@@ -52,6 +58,7 @@ final class KeystrokeTapService: @unchecked Sendable {
             | (1 << CGEventType.leftMouseDown.rawValue)
             | (1 << CGEventType.rightMouseDown.rawValue)
             | (1 << CGEventType.otherMouseDown.rawValue)
+        let retained = Unmanaged.passRetained(self)
         guard let tap = CGEvent.tapCreate(
             tap: .cgSessionEventTap,
             place: .headInsertEventTap,
@@ -62,17 +69,20 @@ final class KeystrokeTapService: @unchecked Sendable {
                 let service = Unmanaged<KeystrokeTapService>.fromOpaque(info).takeUnretainedValue()
                 return service.handle(type: type, event: event)
             },
-            userInfo: Unmanaged.passUnretained(self).toOpaque()
+            userInfo: retained.toOpaque()
         ) else {
+            retained.release()
             NSLog("LocalFlow: keystroke tap creation failed (Accessibility not granted?)")
             return false
         }
-        self.tap = tap
+        selfRetain = retained
+        port.withLock { $0 = tap }
         let ready = DispatchSemaphore(value: 0)
+        // The thread closure captures the port directly — it never reads
+        // mutable service state.
         let thread = Thread { [weak self] in
-            guard let self, let tap = self.tap else { ready.signal(); return }
             let source = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, tap, 0)
-            self.runLoop = CFRunLoopGetCurrent()
+            self?.runLoop = CFRunLoopGetCurrent()
             CFRunLoopAddSource(CFRunLoopGetCurrent(), source, .commonModes)
             CGEvent.tapEnable(tap: tap, enable: true)
             ready.signal()
@@ -82,20 +92,27 @@ final class KeystrokeTapService: @unchecked Sendable {
         thread.qualityOfService = .userInteractive
         self.thread = thread
         thread.start()
-        ready.wait()
+        ready.wait()   // runLoop is set before this returns (semaphore = happens-before)
         return true
     }
 
     func stop() {
+        let tap = port.withLock { boxed -> CFMachPort? in
+            let v = boxed
+            boxed = nil
+            return v
+        }
         if let tap {
             CGEvent.tapEnable(tap: tap, enable: false)
             CFMachPortInvalidate(tap)
         }
         if let runLoop { CFRunLoopStop(runLoop) }
-        tap = nil
         runLoop = nil
         thread = nil
         state.withLock { $0.keys = []; $0.pendingKeyUps = [] }
+        // Balance start()'s passRetained now that the port cannot call out.
+        selfRetain?.release()
+        selfRetain = nil
     }
 
     deinit { stop() }
@@ -105,7 +122,7 @@ final class KeystrokeTapService: @unchecked Sendable {
         switch type {
         case .tapDisabledByTimeout, .tapDisabledByUserInput:
             // The system disables taps it thinks are stalling; re-arm ours.
-            if let tap { CGEvent.tapEnable(tap: tap, enable: true) }
+            port.withLock { if let tap = $0 { CGEvent.tapEnable(tap: tap, enable: true) } }
             return Unmanaged.passUnretained(event)
         case .keyDown:
             // LocalFlow's own synthesized events (dictation's ⌘V paste, the
