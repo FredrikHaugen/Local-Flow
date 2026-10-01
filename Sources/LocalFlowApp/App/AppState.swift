@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import LocalFlowCore
 
 @MainActor
@@ -21,8 +22,35 @@ final class AppState: ObservableObject {
         }
     }
 
+    private var accessibilityObserver: AnyCancellable?
+
     func startServices() {
         UserDefaults.standard.register(defaults: ["dictationEnabled": true])
+        applyInputModeSettings()
+        guard !permissions.accessibilityGranted, accessibilityObserver == nil else { return }
+        // Poll even if the setup window gets closed, so the hotkey comes alive
+        // whenever trust is granted, without a relaunch.
+        permissions.startPolling()
+        // Once trusted, wait for dictation to be idle (it can be running via the
+        // toggle shortcut) so the restart never cancels an in-flight transcript.
+        accessibilityObserver = permissions.$accessibilityGranted
+            .filter { $0 }
+            .first()
+            .map { [dictation] _ in dictation.$phase.filter { $0 == .idle }.first() }
+            .switchToLatest()
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self.permissions.stopPolling()
+                self.restartInputModes()
+            }
+    }
+
+    /// Event monitors and taps created before Accessibility was granted never
+    /// deliver events; recreate them once trust arrives.
+    func restartInputModes() {
+        guard dictation.phase == .idle else { return }
+        dictation.stop()
+        autocomplete.stop()
         applyInputModeSettings()
     }
 

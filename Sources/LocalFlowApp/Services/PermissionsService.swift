@@ -1,6 +1,7 @@
 import AVFoundation
 import ApplicationServices
 import AppKit
+import LocalFlowCore
 
 enum PermissionPane {
     case microphone, accessibility
@@ -27,8 +28,54 @@ final class PermissionsService: ObservableObject {
     init() { refresh() }
 
     func refresh() {
-        micGranted = AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
-        accessibilityGranted = AXIsProcessTrusted()
+        // Assign only on change: this runs every second while polling.
+        let mic = AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
+        if mic != micGranted { micGranted = mic }
+        let ax = AXIsProcessTrusted()
+        if ax != accessibilityGranted { accessibilityGranted = ax }
+    }
+
+    var micAuthorization: MicAuthorization {
+        switch AVCaptureDevice.authorizationStatus(for: .audio) {
+        case .notDetermined: .notDetermined
+        case .denied: .denied
+        case .restricted: .restricted
+        case .authorized: .authorized
+        @unknown default: .denied
+        }
+    }
+
+    /// One action per click: the system prompt while it can still appear, Settings after that.
+    func grantMic() async {
+        switch micAction {
+        case .requestPrompt: await requestMic()
+        case .openSystemSettings: openSystemSettings(pane: .microphone)
+        case .none: break
+        }
+    }
+
+    private static let accessibilityPromptKey = "accessibilityPromptShown"
+
+    var micAction: PermissionAction { PermissionGuidance.micAction(for: micAuthorization) }
+
+    var accessibilityAction: PermissionAction {
+        PermissionGuidance.accessibilityAction(
+            trusted: accessibilityGranted,
+            promptedBefore: UserDefaults.standard.bool(forKey: Self.accessibilityPromptKey))
+    }
+
+    func grantAccessibility() {
+        refresh()
+        switch accessibilityAction {
+        case .requestPrompt:
+            UserDefaults.standard.set(true, forKey: Self.accessibilityPromptKey)
+            objectWillChange.send()
+            promptAccessibility()
+        case .openSystemSettings:
+            openSystemSettings(pane: .accessibility)
+        case .none:
+            break
+        }
     }
 
     func requestMic() async {
@@ -48,9 +95,12 @@ final class PermissionsService: ObservableObject {
     func startPolling() {
         pollingClients += 1
         guard timer == nil else { return }
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        let t = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
             Task { @MainActor in self?.refresh() }
         }
+        // .common so it keeps firing while a menu is open.
+        RunLoop.main.add(t, forMode: .common)
+        timer = t
     }
 
     func stopPolling() {

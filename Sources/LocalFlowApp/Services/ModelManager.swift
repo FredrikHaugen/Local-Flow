@@ -37,6 +37,18 @@ final class ModelManager: ObservableObject {
         installed = found
     }
 
+    /// The speech model dictation will use: the selected one if installed, else
+    /// any installed model (default first). Nil means nothing usable is on disk.
+    /// Setup and the dictation guard both use this, so they never disagree.
+    var activeModel: WhisperModel? {
+        let selectedID = UserDefaults.standard.string(forKey: "whisperModel") ?? WhisperModel.default.id
+        let preference = [selectedID, WhisperModel.default.id]
+        for id in preference where installed.contains(id) {
+            if let m = WhisperModel.catalog.first(where: { $0.id == id }) { return m }
+        }
+        return WhisperModel.catalog.first { installed.contains($0.id) }
+    }
+
     func installedPath(for model: WhisperModel) -> URL? {
         installed.contains(model.id) ? whisperDir.appendingPathComponent(model.fileName) : nil
     }
@@ -71,11 +83,7 @@ final class ModelManager: ObservableObject {
                 refresh()
             } catch {
                 progress[model.id] = nil
-                let isCancel = error is CancellationError
-                    || (error as? URLError)?.code == .cancelled
-                if !isCancel {
-                    lastError = "Download failed: \(error.localizedDescription)"
-                }
+                lastError = DownloadErrorMessage.text(for: error, item: model.displayName)
             }
         }
     }
