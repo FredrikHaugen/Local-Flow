@@ -3,7 +3,7 @@
 # A stable signing identity keeps TCC (Accessibility/Microphone) grants across rebuilds.
 set -euo pipefail
 
-if security find-identity -v -p codesigning | grep -q "LocalFlow Dev"; then
+if security find-identity -p codesigning | grep -q '"LocalFlow Dev"'; then
     echo "Identity 'LocalFlow Dev' already exists."; exit 0
 fi
 
