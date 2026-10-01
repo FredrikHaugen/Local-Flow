@@ -234,6 +234,77 @@ body {
   animation: key-press 3.2s ease-in-out infinite;
 }
 
+/*
+ * The hero demo plays itself on a 12 s loop and rests on the finished result: the pasted text
+ * shows for the first half, then the take replays (key held, words spoken, key released) and the
+ * clean paragraph lands again. Only opacity, transform and clip-path move, so nothing reflows.
+ */
+@keyframes demo-heard {
+  0%,
+  50% {
+    clip-path: inset(0 0 0 0);
+  }
+  53% {
+    clip-path: inset(0 0 100% 0);
+  }
+  82%,
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes demo-paste {
+  0%,
+  49% {
+    opacity: 1;
+    transform: none;
+  }
+  52%,
+  87% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  91%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The held key: pressed in its resting state; it pops up as the take resets and again as you let go. */
+@keyframes hold-key {
+  0%,
+  50%,
+  56%,
+  81%,
+  90%,
+  100% {
+    transform: none;
+    background: var(--ink-accent);
+    color: var(--ink);
+  }
+  52%,
+  54%,
+  83%,
+  88% {
+    transform: translateY(-2px);
+    background: color-mix(in oklab, var(--ink-foreground) 10%, transparent);
+    color: var(--ink-foreground);
+  }
+}
+
+.demo-heard {
+  animation: demo-heard 12s linear infinite;
+}
+
+.demo-paste {
+  animation: demo-paste 12s ease-in-out infinite;
+}
+
+.hold-key {
+  animation: hold-key 12s ease-in-out infinite;
+}
+
 .wave-bar {
   animation: wave 1.1s ease-in-out infinite;
   transform-origin: center;
@@ -254,6 +325,9 @@ body {
   .caret,
   .rec-dot,
   .key-press,
+  .demo-heard,
+  .demo-paste,
+  .hold-key,
   *,
   *::before,
   *::after {

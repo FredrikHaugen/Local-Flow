@@ -21,6 +21,13 @@ describe("Hero", () => {
     const ctaBlock = download.closest("[data-cta]");
     expect(ctaBlock?.textContent).toContain("macOS 14+");
     expect(ctaBlock?.textContent).toContain("Apple Silicon");
+    expect(ctaBlock?.textContent).toContain(`v${SITE.version}`);
+  });
+
+  test("labels both halves of the demo: what you said and what got typed", () => {
+    render(<Hero />);
+    expect(screen.getByText(DEMO.heardLabel)).toBeDefined();
+    expect(screen.getByText(DEMO.typedLabel)).toBeDefined();
   });
 
   test("shows the before/after cleanup example, waveform hidden from screen readers", () => {

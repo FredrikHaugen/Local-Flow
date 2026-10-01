@@ -15,7 +15,10 @@ export const SITE = {
   license: "MIT",
 } as const;
 
-export const HERO_FINEPRINT = `Free & open source · macOS 14+ · Apple Silicon · v${SITE.version}`;
+// Shown right under the hero Download button, so an Intel or macOS 13 visitor knows before clicking.
+export const HERO_REQUIREMENT = "macOS 14+ · Apple Silicon";
+export const HERO_TERMS = `Free & open source · v${SITE.version}`;
+export const HERO_FINEPRINT = `Free & open source · ${HERO_REQUIREMENT} · v${SITE.version}`;
 
 export const NAV = [
   { href: "#anywhere", label: "Use it anywhere" },
@@ -45,6 +48,9 @@ export const DEMO = {
   to: "Priya",
   subject: "Friday release",
   heardLabel: "What you said",
+  typedLabel: "What LocalFlow typed",
+  // The key you're holding while the overlay listens.
+  holdKey: "right ⌥",
   // The real overlay's label while recording (Sources/LocalFlowApp/UI/OverlayView.swift).
   overlayLabel: "Listening…  (esc to cancel)",
   menuItems: ["Mail", "File", "Edit", "View", "Message"],
