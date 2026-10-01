@@ -1,0 +1,33 @@
+import { render, screen } from "@testing-library/react";
+import { describe, expect, test } from "vitest";
+import { Hero } from "@/components/Hero";
+import { DEMO, SITE } from "@/lib/site";
+
+describe("Hero", () => {
+  test("leads with the tagline as the h1", () => {
+    render(<Hero />);
+    expect(screen.getByRole("heading", { level: 1, name: SITE.tagline })).toBeDefined();
+  });
+
+  test("offers Download and GitHub", () => {
+    render(<Hero />);
+    expect(screen.getByRole("link", { name: "Download for Mac" }).getAttribute("href")).toBe(SITE.releasesUrl);
+    expect(screen.getByRole("link", { name: "View on GitHub" }).getAttribute("href")).toBe(SITE.repoUrl);
+  });
+
+  test("states the requirements right next to the Download button", () => {
+    render(<Hero />);
+    const download = screen.getByRole("link", { name: "Download for Mac" });
+    const ctaBlock = download.closest("[data-cta]");
+    expect(ctaBlock?.textContent).toContain("macOS 14+");
+    expect(ctaBlock?.textContent).toContain("Apple Silicon");
+  });
+
+  test("shows the before/after cleanup example, waveform hidden from screen readers", () => {
+    const { container } = render(<Hero />);
+    expect(screen.getByText(DEMO.raw)).toBeDefined();
+    expect(screen.getByText(DEMO.cleaned)).toBeDefined();
+    const bar = container.querySelector(".wave-bar");
+    expect(bar?.closest("[aria-hidden='true']")).not.toBeNull();
+  });
+});
