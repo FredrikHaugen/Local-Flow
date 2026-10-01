@@ -1,28 +1,18 @@
 import { Kbd } from "@/components/Kbd";
 import { DesktopDemo } from "@/components/DesktopDemo";
-import { Glyph } from "@/components/MacWindow";
+import { Marked, Marker } from "@/components/Brand";
 import { HERO, HERO_FINEPRINT, SITE } from "@/lib/site";
 
 export function Hero() {
-  const [before, after] = SITE.tagline.split(HERO.emphasis);
   return (
     <section id="top" aria-labelledby="hero-title" className="relative scroll-mt-16 overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="dot-grid-light absolute inset-x-0 top-0 h-[34rem] [mask-image:linear-gradient(to_bottom,black,transparent)]"
-      />
       <div className="relative mx-auto max-w-5xl px-4 pt-14 sm:px-6 sm:pt-20">
-        <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium text-muted">
-          <Glyph className="text-accent" />
-          {HERO.eyebrow}
-        </p>
+        <Marker label={HERO.eyebrow} />
         <h1
           id="hero-title"
-          className="font-display mt-7 max-w-[13ch] text-[clamp(2.75rem,10.5vw,6.5rem)] font-bold leading-[0.92] tracking-[-0.045em]"
+          className="font-display mt-7 max-w-[16ch] text-[clamp(3.75rem,17vw,9rem)] font-extrabold leading-[0.88] tracking-[-0.01em]"
         >
-          {before}
-          <span className="text-accent">{HERO.emphasis}</span>
-          {after}
+          <Marked text={SITE.tagline} mark={HERO.emphasis} />
         </h1>
         <div className="mt-10 grid gap-8 sm:mt-12 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
           <p className="max-w-xl text-lg leading-relaxed text-muted sm:text-xl">

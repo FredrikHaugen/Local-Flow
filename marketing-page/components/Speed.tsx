@@ -1,4 +1,4 @@
-import { Glyph } from "@/components/MacWindow";
+import { Marked, Marker } from "@/components/Brand";
 import { SPEED } from "@/lib/site";
 
 // Deterministic "speech" for the talk bar, so server and client render the same thing.
@@ -21,22 +21,19 @@ export function Speed() {
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[auto_1fr] lg:items-end lg:gap-16">
           <p aria-hidden="true" className="font-display flex items-start leading-[0.78] text-ink-accent">
-            <span className="text-[clamp(1.75rem,5vw,3.5rem)] font-bold tracking-tight">≈</span>
-            <span className="text-[clamp(10rem,38vw,20rem)] font-bold tracking-[-0.08em]">{SPEED.numeral}</span>
-            <span className="self-end pb-[0.12em] text-[clamp(3.5rem,12vw,7rem)] font-bold tracking-tight">
+            <span className="text-[clamp(2.5rem,7vw,4.5rem)] font-extrabold">≈</span>
+            <span className="text-[clamp(13rem,52vw,26rem)] font-extrabold tracking-[-0.02em]">{SPEED.numeral}</span>
+            <span className="self-end pb-[0.12em] text-[clamp(4.5rem,16vw,9rem)] font-extrabold">
               {SPEED.numeralUnit}
             </span>
           </p>
           <div className="lg:pb-3">
-            <p className="flex items-center gap-2 text-sm font-semibold text-ink-accent">
-              <Glyph />
-              {SPEED.kicker}
-            </p>
+            <Marker label={SPEED.kicker} tone="ink" />
             <h2
               id="speed-title"
-              className="font-display mt-4 text-4xl font-bold leading-[1.02] tracking-[-0.03em] text-balance sm:text-6xl"
+              className="font-display mt-6 text-[clamp(3.25rem,13vw,6.25rem)] font-extrabold leading-[0.9] tracking-[-0.01em] text-balance"
             >
-              {SPEED.title}
+              <Marked text={SPEED.title} mark={SPEED.mark} />
             </h2>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink-muted">{SPEED.intro}</p>
           </div>
@@ -92,7 +89,7 @@ export function Speed() {
         <ul className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink-border bg-ink-border sm:grid-cols-3">
           {SPEED.facts.map((fact) => (
             <li key={fact.label} className="bg-ink px-6 py-5">
-              <p className="font-display text-3xl font-bold tracking-tight">{fact.value}</p>
+              <p className="font-display text-4xl font-extrabold">{fact.value}</p>
               <p className="mt-1 text-sm text-ink-muted">{fact.label}</p>
             </li>
           ))}

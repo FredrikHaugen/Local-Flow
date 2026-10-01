@@ -32,7 +32,7 @@ function MessagesMock() {
 function NotesMock() {
   return (
     <MacWindow title={notes.app} bodyClassName="h-60 p-5 md:h-72">
-      <p className="font-display text-xl font-bold tracking-tight">{notes.title}</p>
+      <p className="font-display text-2xl font-extrabold">{notes.title}</p>
       <p className="mt-3 text-sm leading-relaxed">
         <span className="just-pasted">{notes.body}</span>
         <Caret />
@@ -81,7 +81,7 @@ const MOCKS = [MessagesMock, NotesMock, CodeMock];
 
 export function Anywhere() {
   return (
-    <Section id="anywhere" tone="ink" kicker={KICKERS.anywhere} title={ANYWHERE.title} intro={ANYWHERE.intro}>
+    <Section id="anywhere" tone="ink" kicker={KICKERS.anywhere} title={ANYWHERE.title} mark={ANYWHERE.mark} intro={ANYWHERE.intro}>
       <ul className="grid gap-10 md:grid-cols-3 md:gap-5">
         {ANYWHERE.apps.map((app, i) => {
           const Mock = MOCKS[i];
@@ -90,7 +90,7 @@ export function Anywhere() {
               <div className="window-shadow rounded-xl">
                 <Mock />
               </div>
-              <h3 className="font-display mt-6 text-2xl font-bold tracking-tight">{app.caption}</h3>
+              <h3 className="font-display mt-6 text-3xl font-extrabold">{app.caption}</h3>
               <p className="mt-1 text-ink-muted">in {app.app}</p>
             </li>
           );

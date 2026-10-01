@@ -1,4 +1,4 @@
-import { Glyph } from "@/components/MacWindow";
+import { Marked, Marker } from "@/components/Brand";
 import { Kbd } from "@/components/Kbd";
 import { CONTROLS, HOW, KICKERS, STEPS } from "@/lib/site";
 
@@ -12,7 +12,7 @@ const VOICE = Array.from({ length: 34 }, (_, i) => {
 function KeyVisual() {
   return (
     <div className="key-press relative grid h-36 w-36 place-items-center rounded-[1.75rem] bg-accent text-accent-foreground sm:h-44 sm:w-44 sm:rounded-[2.25rem]">
-      <span className="font-display text-7xl font-bold leading-none sm:text-8xl">⌥</span>
+      <span className="font-display text-8xl font-extrabold leading-none sm:text-9xl">⌥</span>
       <span className="absolute bottom-3.5 left-4 text-xs font-semibold opacity-80 sm:bottom-5 sm:left-5 sm:text-sm">
         {HOW.keyLegend}
       </span>
@@ -47,7 +47,7 @@ function TextVisual() {
     <div className="w-full max-w-xs rounded-2xl border border-border bg-card p-5 text-left shadow-[0_24px_48px_-28px_var(--foreground)]">
       <span className="block h-2 w-2/3 rounded-full bg-border" />
       <span className="mt-2.5 block h-2 w-5/6 rounded-full bg-border" />
-      <p className="font-display mt-4 text-lg font-bold leading-snug tracking-tight">
+      <p className="font-display mt-4 text-xl font-extrabold leading-snug">
         <span className="just-pasted">{HOW.pasted}</span>
         <span className="caret ml-0.5 inline-block h-[1.1em] w-[3px] translate-y-[0.2em] rounded-full bg-accent" />
       </p>
@@ -63,15 +63,12 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" aria-labelledby="how-it-works-title" className="scroll-mt-16 overflow-hidden pt-24 sm:pt-32">
       <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
-        <p className="flex items-center justify-center gap-2 text-sm font-semibold text-accent">
-          <Glyph />
-          {KICKERS["how-it-works"]}
-        </p>
+        <Marker label={KICKERS["how-it-works"]} />
         <h2
           id="how-it-works-title"
-          className="font-display mx-auto mt-4 text-5xl font-bold leading-[0.95] tracking-[-0.04em] sm:text-8xl"
+          className="font-display mx-auto mt-6 text-[clamp(4rem,19vw,10rem)] font-extrabold leading-[0.88] tracking-[-0.01em]"
         >
-          How it works
+          <Marked text={HOW.title} mark={HOW.mark} />
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">{HOW.intro}</p>
       </div>
@@ -97,10 +94,10 @@ export function HowItWorks() {
                   <Visual />
                 </div>
                 <div className="mt-8 max-w-xs">
-                  <span aria-hidden="true" className="font-display text-sm font-bold text-accent">
+                  <span aria-hidden="true" className="font-display text-base font-extrabold text-accent">
                     0{i + 1}
                   </span>
-                  <h3 className="font-display mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{step.title}</h3>
+                  <h3 className="font-display mt-1 text-4xl font-extrabold sm:text-5xl">{step.title}</h3>
                   <p className="mt-3 leading-relaxed text-muted">{step.body}</p>
                 </div>
               </li>

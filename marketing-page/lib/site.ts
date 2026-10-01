@@ -26,8 +26,8 @@ export const NAV = [
 
 export const HERO = {
   eyebrow: "Free, open-source dictation for macOS",
-  // The h1 is SITE.tagline; this is the part set in the accent color.
-  emphasis: "never leaves",
+  // The h1 is SITE.tagline; this is the phrase set as "just typed" (selected, cursor after it).
+  emphasis: "never leaves your Mac.",
   pitchBefore: "Hold",
   pitchAfter:
     ", speak, let go — clean text appears in whatever app you're using. Transcription and cleanup run entirely on-device.",
@@ -57,6 +57,7 @@ export const SPEED = {
   realtime: ">15× real-time",
   kicker: "Speed",
   title: "Let go. It's typed in about a second.",
+  mark: "about a second.",
   intro:
     "There's no upload and no server queue. The moment you release the key, your Mac transcribes, tidies and pastes — typically in about a second with the Base model.",
   // Shown as a giant numeral; "≈ 1 s" is the sourced "about a second".
@@ -82,6 +83,7 @@ export const SPEED = {
 // "Use it anywhere": the same hotkey in different apps. LocalFlow pastes into whatever field is focused.
 export const ANYWHERE = {
   title: "Wherever your cursor is",
+  mark: "your cursor is",
   intro:
     "If you can type there, you can talk there. LocalFlow pastes into the focused app — no plugins, no integrations, nothing to switch to.",
   apps: [
@@ -115,7 +117,7 @@ export const ANYWHERE = {
 // The short promises under the hero; each one is backed by the README.
 export const PROMISES = ["No cloud", "No telemetry", "No accounts", "MIT licensed"] as const;
 
-// Small mono labels above each section title.
+// Section labels, each set in the overlay-capsule marker.
 export const KICKERS = {
   anywhere: "Any app",
   "how-it-works": "Three moves",
@@ -132,6 +134,8 @@ export const UNDER_THE_HOOD = {
 
 // The "How it works" storyboard.
 export const HOW = {
+  title: "How it works",
+  mark: "works",
   intro: "One key, held. No app to switch to, no window to click — it works wherever your cursor is.",
   keyLegend: "option",
   keySide: "right",
@@ -196,6 +200,12 @@ export const PRIVACY_DIAGRAM = {
   outsideNote: "Model downloads only, when you ask",
 } as const;
 
+export const PRIVACY = {
+  title: "Private by construction",
+  mark: "construction",
+  intro: "Not a privacy setting — the architecture. There's no server for your voice to go to.",
+} as const;
+
 export const PRIVACY_POINTS = [
   {
     title: "No cloud",
@@ -234,6 +244,7 @@ export const REQUIREMENTS = [
 
 export const FINAL_CTA = {
   title: "Hold ⌥ and start talking.",
+  mark: "start talking.",
   body: "One download, one setup window, and every word stays on your Mac.",
 } as const;
 

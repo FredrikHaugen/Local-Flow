@@ -96,20 +96,53 @@ body {
   outline-color: var(--accent-foreground);
 }
 
+/* The signature face: Archivo at its narrowest width, heavy. Every headline uses it. */
 .font-display {
   font-family: var(--font-display-face), var(--font-geist-sans), system-ui, sans-serif;
-  font-optical-sizing: auto;
+  word-spacing: 0.03em;
 }
 
-/* Hairline dot grid — the "graph paper" texture behind ink panels. */
-.dot-grid {
-  background-image: radial-gradient(var(--ink-border) 1px, transparent 1px);
-  background-size: 18px 18px;
+/*
+ * The signature move: in every headline, the key phrase is "just typed" — a solid selection
+ * block in the signal color with the text cursor parked after it.
+ */
+.typed {
+  --typed-bg: var(--accent);
+  /* A painted band rather than a full background, so stacked lines don't merge into one slab. */
+  background: linear-gradient(var(--typed-bg), var(--typed-bg)) no-repeat 0 62% / 100% 80%;
+  color: var(--accent-foreground);
+  padding: 0 0.07em;
+  margin: 0 -0.02em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
-.dot-grid-light {
-  background-image: radial-gradient(var(--border) 1px, transparent 1px);
-  background-size: 22px 22px;
+.surface-ink .typed {
+  --typed-bg: var(--ink-accent);
+  color: var(--ink);
+}
+
+.surface-accent .typed {
+  --typed-bg: var(--ink);
+  color: var(--ink-foreground);
+}
+
+.typed-caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.86em;
+  margin-left: 0.07em;
+  vertical-align: -0.06em;
+  border-radius: 0.03em;
+  background: var(--accent);
+}
+
+.surface-ink .typed-caret {
+  background: var(--ink-accent);
+}
+
+.surface-accent .typed-caret {
+  background: var(--ink);
 }
 
 /* Keycap: flat top, deeper bottom edge. */
@@ -117,12 +150,6 @@ body {
   box-shadow:
     inset 0 -2px 0 var(--border),
     0 1px 0 var(--border);
-}
-
-/* Giant faint wordmark in the footer (pseudo-element: decoration, not text). */
-.giant-word::before {
-  content: attr(data-word);
-  color: var(--border);
 }
 
 /* The orange "desktop": a soft vignette over the accent so the band has depth. */

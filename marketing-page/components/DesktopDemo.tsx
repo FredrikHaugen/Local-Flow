@@ -9,12 +9,6 @@ const OVERLAY_BARS = [
   0.35, 0.5,
 ];
 
-// The wallpaper's skyline of bars: deterministic, so server and client render the same thing.
-const SKYLINE = Array.from({ length: 96 }, (_, i) => {
-  const h = 0.18 + 0.82 * Math.abs(Math.sin(i * 0.37) * Math.cos(i * 0.11 + 1.3));
-  return Math.round(h * 100) / 100;
-});
-
 // The real overlay: a near-black capsule with white level bars and a status label.
 function OverlayPill() {
   return (
@@ -68,19 +62,6 @@ export function DesktopDemo() {
   const words = DEMO.raw.split(" ");
   return (
     <figure className="surface-accent wallpaper relative overflow-hidden text-accent-foreground">
-      {/* A skyline of waveform bars across the whole band — the page's signature. */}
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 960 200"
-        preserveAspectRatio="none"
-        className="pointer-events-none absolute inset-x-0 top-[38%] h-[46%] w-full opacity-[0.16]"
-        fill="currentColor"
-      >
-        {SKYLINE.map((h, i) => (
-          <rect key={i} x={i * 10 + 2} y={100 - h * 95} width="5" height={h * 190} rx="2.5" />
-        ))}
-      </svg>
-
       <MenuBar />
 
       <div className="relative mx-auto max-w-5xl px-4 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-16">

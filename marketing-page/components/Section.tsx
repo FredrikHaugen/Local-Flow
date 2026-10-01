@@ -1,8 +1,9 @@
-import { Glyph } from "@/components/MacWindow";
+import { Marked, Marker } from "@/components/Brand";
 
 export function Section({
   id,
   title,
+  mark,
   intro,
   kicker,
   tone = "plain",
@@ -11,6 +12,8 @@ export function Section({
 }: {
   id: string;
   title: string;
+  // The phrase inside `title` set as "just typed".
+  mark?: string;
   intro?: string;
   kicker?: string;
   tone?: "plain" | "ink";
@@ -29,19 +32,12 @@ export function Section({
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:items-end lg:gap-16">
           <div>
-            {kicker && (
-              <p
-                className={`flex items-center gap-2 text-sm font-semibold ${ink ? "text-ink-accent" : "text-accent"}`}
-              >
-                <Glyph />
-                {kicker}
-              </p>
-            )}
+            {kicker && <Marker label={kicker} tone={ink ? "ink" : "plain"} />}
             <h2
               id={headingId}
-              className="font-display mt-4 text-4xl font-bold leading-[1.02] tracking-[-0.03em] text-balance sm:text-6xl"
+              className="font-display mt-6 text-[clamp(3.25rem,13vw,6.25rem)] font-extrabold leading-[0.9] tracking-[-0.01em] text-balance"
             >
-              {title}
+              <Marked text={title} mark={mark} />
             </h2>
           </div>
           {intro && (

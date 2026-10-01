@@ -1,5 +1,5 @@
 import { Section } from "@/components/Section";
-import { KICKERS, PIPELINE, PRIVACY_DIAGRAM, PRIVACY_POINTS, UNDER_THE_HOOD } from "@/lib/site";
+import { KICKERS, PIPELINE, PRIVACY, PRIVACY_DIAGRAM, PRIVACY_POINTS, UNDER_THE_HOOD } from "@/lib/site";
 
 const ICONS = [
   // No cloud
@@ -22,7 +22,7 @@ function BoundaryDiagram() {
           {PRIVACY_DIAGRAM.boundary}
         </span>
         <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
-          <h3 id="under-the-hood-title" className="font-display text-2xl font-bold tracking-tight">
+          <h3 id="under-the-hood-title" className="font-display text-3xl font-extrabold">
             {UNDER_THE_HOOD.title}
           </h3>
           <p className="max-w-md text-[0.95rem] leading-relaxed text-muted sm:text-right">{UNDER_THE_HOOD.intro}</p>
@@ -38,7 +38,7 @@ function BoundaryDiagram() {
                   {i + 1}
                 </span>
                 <div className="min-w-0">
-                  <h4 className="font-display text-lg font-bold leading-tight">{stage.name}</h4>
+                  <h4 className="font-display text-xl font-extrabold leading-tight">{stage.name}</h4>
                   <p className="mt-1 text-[0.8rem] leading-snug text-ink-muted">{stage.tag}</p>
                 </div>
               </div>
@@ -66,8 +66,9 @@ export function Privacy() {
     <Section
       id="privacy"
       kicker={KICKERS.privacy}
-      title="Private by construction"
-      intro="Not a privacy setting — the architecture. There's no server for your voice to go to."
+      title={PRIVACY.title}
+      mark={PRIVACY.mark}
+      intro={PRIVACY.intro}
     >
       <ul className="grid gap-x-12 sm:grid-cols-2 [&>li:last-child]:pb-0 sm:[&>li:nth-last-child(-n+2)]:pb-0">
         {PRIVACY_POINTS.map((point, i) => (
@@ -85,7 +86,7 @@ export function Privacy() {
               <path d={ICONS[i]} />
             </svg>
             <div>
-              <h3 className="font-display text-xl font-bold tracking-tight">{point.title}</h3>
+              <h3 className="font-display text-2xl font-extrabold">{point.title}</h3>
               <p className="mt-2 leading-relaxed text-muted">{point.body}</p>
             </div>
           </li>

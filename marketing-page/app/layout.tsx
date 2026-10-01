@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -15,11 +16,13 @@ const geistMono = Geist_Mono({
   preload: false,
 });
 
-const display = Bricolage_Grotesque({
+// The signature face: Archivo pinned to its narrowest width (wdth 62) at 800, so every headline
+// reads tall and compressed. A static instance, self-hosted (see app/fonts/README.md).
+const display = localFont({
   variable: "--font-display-face",
-  subsets: ["latin"],
-  // One static weight keeps the preloaded display font small (it renders the LCP h1).
-  weight: "700",
+  src: "./fonts/archivo-extracondensed-800.woff2",
+  weight: "800",
+  display: "swap",
 });
 
 export const metadata: Metadata = {

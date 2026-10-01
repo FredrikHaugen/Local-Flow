@@ -1,7 +1,5 @@
+import { Marked } from "@/components/Brand";
 import { FINAL_CTA, HERO_FINEPRINT, REQUIREMENTS, SITE } from "@/lib/site";
-
-// Skyline bars for the closing band, echoing the hero wallpaper.
-const BARS = Array.from({ length: 72 }, (_, i) => 0.15 + 0.85 * Math.abs(Math.sin(i * 0.43) * Math.cos(i * 0.17 + 0.6)));
 
 // The closing orange band: the last call to download, with the requirements as one strip right under it.
 export function Requirements() {
@@ -11,20 +9,9 @@ export function Requirements() {
       aria-labelledby="requirements-title"
       className="surface-accent wallpaper relative scroll-mt-16 overflow-hidden text-accent-foreground"
     >
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 720 200"
-        preserveAspectRatio="none"
-        className="pointer-events-none absolute inset-x-0 top-10 h-[45%] w-full opacity-[0.14]"
-        fill="currentColor"
-      >
-        {BARS.map((h, i) => (
-          <rect key={i} x={i * 10 + 2} y={100 - h * 100} width="5" height={h * 200} rx="2.5" />
-        ))}
-      </svg>
       <div className="relative mx-auto max-w-5xl px-4 pb-14 pt-20 sm:px-6 sm:pb-16 sm:pt-28">
-        <p className="font-display max-w-[12ch] text-[clamp(3rem,9vw,6.5rem)] font-bold leading-[0.92] tracking-[-0.045em]">
-          {FINAL_CTA.title}
+        <p className="font-display max-w-[12ch] text-[clamp(4rem,17vw,9rem)] font-extrabold leading-[0.88] tracking-[-0.01em]">
+          <Marked text={FINAL_CTA.title} mark={FINAL_CTA.mark} />
         </p>
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
           <p className="max-w-lg text-lg sm:text-xl">{FINAL_CTA.body}</p>
@@ -43,7 +30,7 @@ export function Requirements() {
         </div>
 
         <div className="mt-16 rounded-3xl bg-ink p-6 text-ink-foreground sm:mt-24 sm:p-8">
-          <h2 id="requirements-title" className="font-display text-xl font-bold tracking-tight">
+          <h2 id="requirements-title" className="font-display text-3xl font-extrabold">
             Requirements
           </h2>
           <dl className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
