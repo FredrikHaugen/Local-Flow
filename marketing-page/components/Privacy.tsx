@@ -1,4 +1,5 @@
 import { Section } from "@/components/Section";
+import { SwipeHint } from "@/components/SwipeHint";
 import { KICKERS, PIPELINE, PRIVACY, PRIVACY_DIAGRAM, PRIVACY_POINTS, SITE, UNDER_THE_HOOD, VERIFY } from "@/lib/site";
 
 const ICONS = [
@@ -25,12 +26,18 @@ function BoundaryDiagram() {
           <h3 id="under-the-hood-title" className="font-display text-3xl font-extrabold">
             {UNDER_THE_HOOD.title}
           </h3>
-          <p className="max-w-md text-[0.95rem] leading-relaxed text-muted sm:text-right">{UNDER_THE_HOOD.intro}</p>
+          <p className="mb-5 max-w-md text-[0.95rem] leading-relaxed text-muted sm:mb-0 sm:text-right">{UNDER_THE_HOOD.intro}</p>
         </div>
-        <ol className="mt-6 grid gap-2 lg:grid-cols-5">
+        <SwipeHint count={PIPELINE.length} />
+        {/* Phones swipe through the stages; tablets stack them; desktops line all five up. */}
+        <ol
+          tabIndex={0}
+          aria-label={UNDER_THE_HOOD.railLabel}
+          className="no-scrollbar -mx-4 -my-1 flex snap-x snap-mandatory scroll-px-4 gap-2 overflow-x-auto px-4 py-1 sm:mx-0 sm:mt-6 sm:my-0 sm:grid sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-5"
+        >
           {PIPELINE.map((stage, i) => (
-            <li key={stage.name} className="flex">
-              <div className="flex flex-1 items-center gap-3 rounded-2xl bg-ink px-4 py-3 text-ink-foreground sm:py-3.5 lg:flex-col lg:items-start lg:gap-6 lg:py-5">
+            <li key={stage.name} className="flex w-[44%] shrink-0 snap-start sm:w-auto">
+              <div className="flex flex-1 flex-col items-start gap-5 rounded-2xl bg-ink px-4 py-4 text-ink-foreground sm:flex-row sm:items-center sm:gap-3 sm:py-3.5 lg:flex-col lg:items-start lg:gap-6 lg:py-5">
                 <span
                   aria-hidden="true"
                   className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ink-accent text-xs font-bold text-ink"
@@ -147,11 +154,18 @@ function Verify() {
         <h3 className="font-display text-[2.75rem] font-extrabold leading-[0.95] sm:text-5xl">{VERIFY.title}</h3>
         <p className="max-w-sm leading-relaxed text-muted">{VERIFY.intro}</p>
       </div>
-      <ol className="mt-8 grid gap-4 lg:grid-cols-3">
+      <div className="mt-8">
+        <SwipeHint count={VERIFY.checks.length} />
+      </div>
+      <ol
+        tabIndex={0}
+        aria-label={VERIFY.railLabel}
+        className="no-scrollbar -mx-4 -my-2 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 py-2 sm:mx-0 sm:my-0 sm:grid sm:gap-4 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
+      >
         {VERIFY.checks.map((check, i) => {
           const Proof = PROOFS[check.id];
           return (
-            <li key={check.id} className="flex flex-col rounded-3xl border border-border bg-card p-2.5">
+            <li key={check.id} className="flex w-[84%] shrink-0 snap-start flex-col rounded-3xl border border-border bg-card p-2.5 sm:w-auto">
               <div className="surface-ink h-44 rounded-2xl bg-ink p-5 text-ink-foreground">
                 <Proof />
               </div>

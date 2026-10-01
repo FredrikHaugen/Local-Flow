@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Anywhere } from "@/components/Anywhere";
 import { Speed } from "@/components/Speed";
-import { ANYWHERE, CONTROLS, SPEED, STEPS } from "@/lib/site";
+import { ANYWHERE, CONTROLS, HOW, SPEED, STEPS } from "@/lib/site";
 
 describe("HowItWorks", () => {
   test("lists the three steps in order", () => {
@@ -15,6 +15,14 @@ describe("HowItWorks", () => {
     expect(items.map((li) => within(li).getByRole("heading", { level: 3 }).textContent)).toEqual(
       STEPS.map((s) => s.title),
     );
+  });
+
+  test("lands real text in step 03, not the sentence the app cards use", () => {
+    render(<HowItWorks />);
+    const region = screen.getByRole("region", { name: "How it works" });
+    expect(region.textContent).toContain(HOW.pasted);
+    expect(region.textContent).toContain(HOW.restored);
+    for (const app of ANYWHERE.apps) expect(app.body).not.toContain(HOW.pasted);
   });
 
   test("lists every keyboard control with its keys", () => {
@@ -32,6 +40,13 @@ describe("Speed", () => {
     const region = screen.getByRole("region", { name: SPEED.title });
     expect(region.id).toBe("speed");
     expect(within(region).getByText(SPEED.scaleNote)).toBeDefined();
+  });
+
+  test("magnifies the second after key up into its on-device stages", () => {
+    render(<Speed />);
+    const region = screen.getByRole("region", { name: SPEED.title });
+    for (const stage of SPEED.zoomStages) expect(region.textContent).toContain(stage);
+    expect(region.textContent).toContain(SPEED.zoomDone);
   });
 });
 

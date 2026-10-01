@@ -436,6 +436,26 @@ details[open] .faq-icon {
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
 
+/* The transcription bar fills in as the speed figure scrolls into view, where scroll-driven
+   animations exist. Elsewhere (and with reduced motion) it simply sits there, full. */
+@keyframes speed-fill {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .speed-fill {
+    transform-origin: left center;
+    animation: speed-fill linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wave-bar {
     animation: none;
@@ -446,6 +466,7 @@ details[open] .faq-icon {
   .demo-heard,
   .demo-paste,
   .hold-key,
+  .speed-fill,
   *,
   *::before,
   *::after {

@@ -1,10 +1,11 @@
 import { Marked, Marker } from "@/components/Brand";
 import { Kbd } from "@/components/Kbd";
+import { MacWindow } from "@/components/MacWindow";
 import { CONTROL_TRACKS, CONTROLS, HOW, KICKERS, STEPS } from "@/lib/site";
 
 // Deterministic "speech" for the live waveform, so server and client render the same thing.
-const VOICE = Array.from({ length: 34 }, (_, i) => {
-  const h = 0.25 + 0.75 * Math.abs(Math.sin(i * 0.63) * Math.cos(i * 0.21 + 0.4));
+const VOICE = Array.from({ length: 24 }, (_, i) => {
+  const h = 0.25 + 0.75 * Math.abs(Math.sin(i * 0.89) * Math.cos(i * 0.3 + 0.4));
   return Math.round(h * 100) / 100;
 });
 
@@ -44,14 +45,24 @@ function VoiceVisual() {
 // The text, landed where the cursor was.
 function TextVisual() {
   return (
-    <div className="w-full max-w-xs rounded-2xl border border-border bg-card p-5 text-left shadow-[0_24px_48px_-28px_var(--foreground)]">
-      <span className="block h-2 w-2/3 rounded-full bg-border" />
-      <span className="mt-2.5 block h-2 w-5/6 rounded-full bg-border" />
-      <p className="font-display mt-4 text-xl font-extrabold leading-snug">
-        <span className="just-pasted">{HOW.pasted}</span>
-        <span className="caret ml-0.5 inline-block h-[1.1em] w-[3px] translate-y-[0.2em] rounded-full bg-accent" />
+    <MacWindow
+      title={HOW.pastedApp}
+      className="w-full max-w-xs border border-border text-left shadow-[0_24px_48px_-28px_var(--foreground)]"
+    >
+      <p className="flex items-start gap-3 px-4 pb-3 pt-4 text-[0.95rem] font-medium leading-snug">
+        <span className="mt-0.5 h-4 w-4 shrink-0 rounded-full border-2 border-accent" />
+        <span>
+          <span className="just-pasted">{HOW.pasted}</span>
+          <span className="caret ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] bg-accent" />
+        </span>
       </p>
-    </div>
+      <p className="flex items-center gap-1.5 px-4 pb-3.5 font-mono text-[0.65rem] text-muted">
+        <svg viewBox="0 0 12 12" className="h-3 w-3 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m2.5 6.5 2.2 2L9.5 3.5" />
+        </svg>
+        {HOW.restored}
+      </p>
+    </MacWindow>
   );
 }
 

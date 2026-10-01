@@ -89,13 +89,12 @@ export const SPEED = {
   talkValue: "15 s",
   transcribeLabel: "Transcription",
   transcribeValue: "< 1 s",
+  keyUp: "key up",
+  // The last second, magnified: the on-device stages after you let go, in order (not to scale).
+  zoomLabel: "After key up, magnified",
+  zoomStages: ["Trim", "Transcribe", "Clean up", "Paste"],
+  zoomDone: "Text at your cursor",
   scaleNote: "Drawn to scale. Transcription runs >15× real-time on Apple Silicon, so a 15-second take is done in under one.",
-  // What the speed and the on-device design mean for you (README: "everything else works offline").
-  facts: [
-    { value: "Offline", label: "Works on a plane once your model is downloaded" },
-    { value: "No sign-up", label: "No account, no email, no API key to paste" },
-    { value: "Clipboard", label: "Put back exactly as it was after every paste" },
-  ],
   // The small stamp on the hero's Mail window.
   stamp: "Pasted about a second after you let go",
 } as const;
@@ -151,6 +150,7 @@ export const KICKERS = {
 
 // The privacy diagram doubles as the pipeline: five on-device stages inside the "Your Mac" line.
 export const UNDER_THE_HOOD = {
+  railLabel: "Pipeline stages",
   title: "Under the hood",
   intro: "Five on-device stages, all inside the line. If any one fails, your words still land somewhere you can see them.",
 } as const;
@@ -164,7 +164,10 @@ export const HOW = {
   keySide: "right",
   // Stamped on the rail above each move.
   moments: ["key down", "you talk", "key up · ≈1 s later"],
-  pasted: "Running ten minutes late — start without me.",
+  // Step 03's window: a different sentence from the "Wherever your cursor is" cards.
+  pastedApp: "Reminders",
+  pasted: "Pick up the charger and oat milk on the way home.",
+  restored: "Clipboard restored",
 } as const;
 
 export const STEPS = [
@@ -383,6 +386,7 @@ export const REQUIREMENTS = [
 
 // "Don't take our word for it": three things anyone can check without trusting this page (README, Install + Privacy).
 export const VERIFY = {
+  railLabel: "Ways to check",
   title: "Don't take our word for it",
   intro: "A privacy promise is only worth what you can check. Here are three ways to check this one.",
   checks: [
@@ -455,7 +459,7 @@ export const FAQ = {
   mark: "questions",
   intro: "The honest answers, including the ones where the answer is no.",
   askTitle: "Something else?",
-  askBody: "Open an issue on GitHub. It is an early project, and questions make it better.",
+  askBody: "Open an issue on GitHub. Ask in the open, where the next person can find the answer too.",
   askLink: "Ask on GitHub",
   items: [
     {

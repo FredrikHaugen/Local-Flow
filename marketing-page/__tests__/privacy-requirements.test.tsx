@@ -4,7 +4,7 @@ import { Privacy } from "@/components/Privacy";
 import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
 import { Requirements } from "@/components/Requirements";
-import { FAQ, FINAL_CTA, INSTALL, PIPELINE, PRIVACY_POINTS, REQUIREMENTS, SITE, VERIFY } from "@/lib/site";
+import { FAQ, FINAL_CTA, INSTALL, PIPELINE, PRIVACY_POINTS, REQUIREMENTS, SITE, UNDER_THE_HOOD, VERIFY } from "@/lib/site";
 
 describe("Privacy", () => {
   test("lists every guarantee", () => {
@@ -37,6 +37,12 @@ describe("Verify", () => {
     );
     expect(within(verify).getByText(/shasum -a 256 -c/)).toBeDefined();
     expect(within(verify).getByRole("link", { name: /Browse the source/ }).getAttribute("href")).toBe(SITE.repoUrl);
+  });
+
+  test("puts the stages and the checks on named swipe rails for phones", () => {
+    render(<Privacy />);
+    expect(screen.getByRole("list", { name: UNDER_THE_HOOD.railLabel }).children).toHaveLength(PIPELINE.length);
+    expect(screen.getByRole("list", { name: VERIFY.railLabel }).children).toHaveLength(VERIFY.checks.length);
   });
 });
 

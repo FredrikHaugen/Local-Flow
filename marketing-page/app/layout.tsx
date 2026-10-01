@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
-// next/font self-hosts these at build time — no runtime request to Google.
-const geistSans = Geist({
+// Geist and Geist Mono, latin subset only, self-hosted (see app/fonts/README.md). The site's copy
+// is English, so the other subsets only added @font-face rules to the inlined CSS.
+const geistSans = localFont({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  src: "./fonts/geist-latin.woff2",
+  weight: "100 900",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  src: "./fonts/geist-mono-latin.woff2",
+  weight: "100 900",
+  display: "swap",
   preload: false,
 });
 

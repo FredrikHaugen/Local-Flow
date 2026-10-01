@@ -15,3 +15,12 @@ from fontTools.varLib.instancer import instantiateVariableFont
 f = instantiateVariableFont(TTFont("Archivo-latin-variable.woff2"), {"wdth": 62, "wght": 800})
 f.flavor = "woff2"; f.save("archivo-extracondensed-800.woff2")
 ```
+
+# Body and mono fonts
+
+`geist-latin.woff2` and `geist-mono-latin.woff2` are the latin-subset variable files of **Geist** and
+**Geist Mono** (Vercel, via Google Fonts), exactly as `next/font/google` self-hosted them. Loading them
+locally keeps only the latin `@font-face` rule in the inlined CSS instead of one per subset.
+
+Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font).
+Licensed under the SIL Open Font License 1.1 (https://openfontlicense.org).
