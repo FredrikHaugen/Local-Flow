@@ -212,6 +212,73 @@ body {
   display: block;
 }
 
+/* The closing band's object: the one key, huge and tilted, desktop only. */
+.cta-key {
+  display: none;
+  position: absolute;
+  right: 6%;
+  top: 2.5rem;
+  width: 22rem;
+  height: 22rem;
+  place-items: center;
+  rotate: 8deg;
+  border-radius: 4rem;
+  border-bottom: 1.25rem solid var(--ink-border);
+  background: var(--ink);
+  color: var(--ink-foreground);
+  font-size: 15rem;
+  line-height: 1;
+  box-shadow: 0 50px 80px -30px rgb(0 0 0 / 0.6);
+}
+.cta-key::after {
+  content: "";
+  position: absolute;
+  right: 2.25rem;
+  top: 2.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--ink-accent);
+}
+@media (min-width: 64rem) {
+  .cta-key {
+    display: grid;
+  }
+}
+
+/* The footer's name, as wide as the column allows, with the record light as its full stop. */
+.footer-name {
+  white-space: nowrap;
+  font-size: clamp(5rem, 25.5vw, 16.9rem);
+  line-height: 0.78;
+  letter-spacing: -0.015em;
+}
+.footer-name span {
+  display: inline-block;
+  width: 0.16em;
+  height: 0.16em;
+  margin-left: 0.04em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* FAQ disclosures: no default marker; the + turns into a filled x when open. */
+.faq-q {
+  list-style: none;
+}
+.faq-q::-webkit-details-marker {
+  display: none;
+}
+.faq-icon {
+  transition: transform 0.2s;
+}
+details[open] .faq-icon {
+  transform: rotate(45deg);
+  background: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
+}
+
 @keyframes wave {
   0%,
   100% {

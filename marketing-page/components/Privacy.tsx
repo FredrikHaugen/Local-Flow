@@ -1,5 +1,5 @@
 import { Section } from "@/components/Section";
-import { KICKERS, PIPELINE, PRIVACY, PRIVACY_DIAGRAM, PRIVACY_POINTS, UNDER_THE_HOOD } from "@/lib/site";
+import { KICKERS, PIPELINE, PRIVACY, PRIVACY_DIAGRAM, PRIVACY_POINTS, SITE, UNDER_THE_HOOD, VERIFY } from "@/lib/site";
 
 const ICONS = [
   // No cloud
@@ -61,6 +61,122 @@ function BoundaryDiagram() {
   );
 }
 
+
+const [OFFLINE, SOURCE, DOWNLOAD] = VERIFY.checks;
+const LISTEN_BARS = [0.35, 0.7, 1, 0.55, 0.85, 0.4, 0.65, 0.3];
+
+// Each check gets a small drawn proof on an ink panel: the thing you'd actually see.
+function OfflineProof() {
+  return (
+    <div className="flex h-full flex-col justify-between gap-6">
+      <div className="flex items-center justify-between rounded-xl border border-ink-border px-3.5 py-2.5 text-sm">
+        <span className="flex items-center gap-2.5">
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 text-ink-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0" />
+            <circle cx="12" cy="19" r="1" fill="currentColor" />
+            <path d="M4 3l16 18" className="text-ink-accent" stroke="currentColor" />
+          </svg>
+          <span className="font-semibold">{OFFLINE.wifi}</span>
+        </span>
+        <span className="flex items-center gap-2 text-ink-muted">
+          {OFFLINE.wifiState}
+          <span aria-hidden="true" className="relative h-5 w-9 rounded-full bg-ink-border">
+            <span className="absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-ink-muted" />
+          </span>
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-3 rounded-full bg-ink-foreground py-2 pl-2 pr-4 text-sm font-semibold text-ink">
+          <span aria-hidden="true" className="font-display grid h-7 w-7 place-items-center rounded-full bg-ink-accent text-base">⌥</span>
+          <span aria-hidden="true" className="flex h-4 items-center gap-[3px]">
+            {LISTEN_BARS.map((h, i) => (
+              <span key={i} className="w-[3px] rounded-full bg-current" style={{ height: `${h * 100}%` }} />
+            ))}
+          </span>
+          {OFFLINE.overlay}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function SourceProof() {
+  return (
+    <div className="font-mono text-xs leading-relaxed">
+      <p className="text-ink-muted">Sources/LocalFlowApp/</p>
+      <ul className="mt-1.5">
+        {SOURCE.files.map((file) => (
+          <li key={file} className="flex items-center gap-2 border-l border-ink-border pl-3">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-ink-accent" />
+            {file}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function DownloadProof() {
+  return (
+    <div className="flex h-full flex-col justify-between gap-5 font-mono text-xs leading-relaxed">
+      <p className="break-all">
+        <span aria-hidden="true" className="text-ink-muted">$ </span>
+        {DOWNLOAD.command}
+      </p>
+      <p className="font-semibold text-ink-accent">{DOWNLOAD.result}</p>
+      <p className="flex flex-wrap gap-2 font-sans text-xs">
+        {["Developer ID", "Notarized"].map((badge) => (
+          <span key={badge} className="inline-flex items-center gap-1.5 rounded-full border border-ink-border px-2.5 py-1">
+            <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3 w-3 text-ink-accent" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8.5l3 3 7-7" />
+            </svg>
+            {badge}
+          </span>
+        ))}
+      </p>
+    </div>
+  );
+}
+
+const PROOFS = { offline: OfflineProof, source: SourceProof, download: DownloadProof } as const;
+
+function Verify() {
+  return (
+    <div id="verify" className="scroll-mt-20">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
+        <h3 className="font-display text-5xl font-extrabold">{VERIFY.title}</h3>
+        <p className="max-w-sm leading-relaxed text-muted">{VERIFY.intro}</p>
+      </div>
+      <ol className="mt-8 grid gap-4 lg:grid-cols-3">
+        {VERIFY.checks.map((check, i) => {
+          const Proof = PROOFS[check.id];
+          return (
+            <li key={check.id} className="flex flex-col rounded-3xl border border-border bg-card p-2.5">
+              <div className="surface-ink h-44 rounded-2xl bg-ink p-5 text-ink-foreground">
+                <Proof />
+              </div>
+              <div className="flex flex-1 flex-col px-3.5 pb-3 pt-5">
+                <p className="font-mono text-xs text-muted">Check {i + 1}</p>
+                <h4 className="font-display mt-1 text-3xl font-extrabold leading-tight">{check.title}</h4>
+                <p className="mt-2 leading-relaxed text-muted">{check.body}</p>
+                {"link" in check && (
+                  <a
+                    href={SITE.repoUrl}
+                    className="mt-4 inline-flex items-center gap-1.5 self-start font-semibold underline decoration-accent decoration-2 underline-offset-4"
+                  >
+                    {check.link}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
 export function Privacy() {
   return (
     <Section
@@ -94,6 +210,9 @@ export function Privacy() {
       </ul>
       <div className="mt-16">
         <BoundaryDiagram />
+      </div>
+      <div className="mt-20 sm:mt-24">
+        <Verify />
       </div>
     </Section>
   );

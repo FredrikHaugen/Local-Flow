@@ -7,6 +7,17 @@ const TALK = Array.from({ length: 160 }, (_, i) => {
   return Math.round(h * 100) / 100;
 });
 
+// The talk bars as one path of vertical strokes, each (20 + h·60)% of the pill's height, centred.
+// The round caps add a little height, so each stroke is trimmed by 2 units at both ends.
+function talkPath(step: number) {
+  return TALK.filter((_, i) => i % step === 0)
+    .map((h, i) => {
+      const half = (20 + h * 60) / 2 - 2;
+      return `M${i * step} ${(50 - half).toFixed(1)}V${(50 + half).toFixed(1)}`;
+    })
+    .join("");
+}
+
 // 15 one-second ticks under the bars: the scale both bars are drawn against.
 const TICKS = Array.from({ length: 16 }, (_, i) => i);
 
@@ -50,16 +61,14 @@ export function Speed() {
                 aria-hidden="true"
                 className="flex h-14 items-center rounded-full border border-ink-border px-5"
               >
-                {/* Bars spread to fit the pill; every other one drops out on narrow screens. */}
-                <span className="flex h-full min-w-0 flex-1 items-center justify-between overflow-hidden">
-                  {TALK.map((h, i) => (
-                    <span
-                      key={i}
-                      className={`w-[2px] shrink-0 rounded-full bg-ink-foreground/70 sm:w-[3px] ${i % 2 ? "hidden md:block" : ""}`}
-                      style={{ height: `${20 + h * 60}%` }}
-                    />
-                  ))}
-                </span>
+                {/* Bars spread to fit the pill; every other one drops out on narrow screens. One path per
+                    density keeps 160 bars to a few hundred bytes instead of 160 styled elements. */}
+                <svg viewBox={`0 0 ${TALK.length - 1} 100`} preserveAspectRatio="none" overflow="visible" className="hidden h-full min-w-0 flex-1 text-ink-foreground/70 md:block">
+                  <path d={talkPath(1)} stroke="currentColor" strokeWidth="3" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                </svg>
+                <svg viewBox={`0 0 ${TALK.length - 2} 100`} preserveAspectRatio="none" overflow="visible" className="h-full min-w-0 flex-1 text-ink-foreground/70 md:hidden">
+                  <path d={talkPath(2)} stroke="currentColor" strokeWidth="2" strokeLinecap="round" vectorEffect="non-scaling-stroke" className="sm:[stroke-width:3]" />
+                </svg>
               </div>
             </div>
             <div className="grid gap-2 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-6">

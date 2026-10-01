@@ -25,6 +25,7 @@ export const NAV = [
   { href: "#anywhere", label: "Use it anywhere" },
   { href: "#privacy", label: "Privacy" },
   { href: "#requirements", label: "Requirements" },
+  { href: "#faq", label: "FAQ" },
 ] as const;
 
 export const HERO = {
@@ -131,6 +132,7 @@ export const KICKERS = {
   speed: "Speed",
   privacy: "Privacy",
   requirements: "Install",
+  faq: "FAQ",
 } as const;
 
 // The privacy diagram doubles as the pipeline: five on-device stages inside the "Your Mac" line.
@@ -365,10 +367,135 @@ export const REQUIREMENTS = [
   },
 ] as const;
 
+// "Don't take our word for it": three things anyone can check without trusting this page (README, Install + Privacy).
+export const VERIFY = {
+  title: "Don't take our word for it",
+  intro: "A privacy promise is only worth what you can check. Here are three ways to check this one.",
+  checks: [
+    {
+      id: "offline",
+      title: "Pull the plug",
+      body: "Turn Wi-Fi off once a model is downloaded. Dictation, cleanup and pasting keep working, because none of them ever needed the network.",
+      wifi: "Wi-Fi",
+      wifiState: "Off",
+      overlay: "Listening…",
+    },
+    {
+      id: "source",
+      title: "Read every line",
+      body: "LocalFlow is MIT licensed and built in the open. The audio pipeline, the model downloader and the paste code are all on GitHub.",
+      link: "Browse the source",
+      files: ["AudioCaptureService.swift", "TranscriptionEngine.swift", "CleanupEngine.swift", "ModelManager.swift", "TextInjector.swift"],
+    },
+    {
+      id: "download",
+      title: "Check the download",
+      body: "Releases are signed with a Developer ID and notarized by Apple, so the app opens without Gatekeeper warnings. A SHA-256 checksum is published next to each one.",
+      command: `shasum -a 256 -c LocalFlow-${SITE.version}.dmg.sha256`,
+      result: `LocalFlow-${SITE.version}.dmg: OK`,
+    },
+  ],
+} as const;
+
+// The install section: the README's three install steps, drawn.
+export const INSTALL = {
+  title: "Three steps to your first sentence",
+  mark: "first sentence",
+  intro: "Download, drag, allow two permissions. A setup window walks you through the rest, then you hold ⌥ and talk.",
+  checkTitle: "Will it run on my Mac?",
+  checkHow: "Apple menu → About This Mac",
+  checkRows: [
+    { label: "Chip", need: "Apple M1 or later" },
+    { label: "macOS", need: "Sonoma 14 or later" },
+  ],
+  checkNo: "Intel Mac, or macOS 13 and earlier? LocalFlow won't run there. It is built for Apple Silicon only.",
+  steps: [
+    {
+      title: "Drag it to Applications",
+      body: "Open the DMG and drag LocalFlow onto Applications. It lives in the menu bar; there's no Dock icon.",
+      app: "LocalFlow",
+      folder: "Applications",
+    },
+    {
+      title: "Allow two permissions",
+      body: "Microphone, so it can hear you. Accessibility, so it can paste where your cursor is.",
+      permissions: ["Microphone", "Accessibility"],
+      allowed: "Allowed",
+    },
+    {
+      title: "Get the speech model",
+      body: "Base, 148 MB, downloaded from Hugging Face. It is the only download LocalFlow makes until you ask for another.",
+      model: "Base",
+      size: "148 MB",
+      source: "huggingface.co",
+    },
+  ],
+  done: "Then hold Right ⌥ anywhere and talk.",
+  requirementsTitle: "Requirements",
+} as const;
+
+// Questions a careful visitor asks before installing. Every answer is backed by README.md or docs/PROJECT.md.
+export const FAQ = {
+  title: "Fair questions",
+  mark: "questions",
+  intro: "The honest answers, including the ones where the answer is no.",
+  askTitle: "Something else?",
+  askBody: "Open an issue on GitHub. It is an early project, and questions make it better.",
+  askLink: "Ask on GitHub",
+  items: [
+    {
+      q: "Is it really free?",
+      a: "Yes. LocalFlow is MIT licensed open source: no account, no subscription, no trial and no paid tier. You can read, build and change every line.",
+    },
+    {
+      q: "Does anything I say leave my Mac?",
+      a: "No. Audio is recorded, transcribed and cleaned up on your Mac, and the text is pasted locally. The only network traffic LocalFlow ever produces is downloading model files from Hugging Face, and only when you ask.",
+    },
+    {
+      q: "Does it work offline?",
+      a: "Yes, once a model is downloaded. You need an internet connection only while downloading models; everything else works offline.",
+    },
+    {
+      q: "Will it run on my Intel Mac?",
+      a: "No. LocalFlow is built for Apple Silicon (M1 or later) only, and needs macOS 14 (Sonoma) or later.",
+    },
+    {
+      q: "Which languages does it understand?",
+      a: "The speech models are multilingual, with automatic language detection. Larger models are more accurate; you can switch any time in Settings → Models.",
+    },
+    {
+      q: "Does it keep my transcripts?",
+      a: "Only your last ten, in memory, so you can copy one back from the menu bar. Nothing is written to disk, and quitting clears them.",
+    },
+    {
+      q: "What happens in password fields?",
+      a: "Nothing. LocalFlow detects secure fields and never types into them or writes to your clipboard there.",
+    },
+  ],
+} as const;
+
 export const FINAL_CTA = {
   title: "Hold ⌥ and start talking.",
   mark: "start talking.",
   body: "One download, one setup window, and every word stays on your Mac.",
+  secondary: "Read the source",
+  // Under the buttons: what makes the download safe to open (README, Install).
+  trust: ["Signed & notarized", "SHA-256 published", "No account"],
+} as const;
+
+export const FOOTER = {
+  blurb: "Free, open-source voice dictation for macOS. Speech recognition and cleanup run on your Mac, and nowhere else.",
+  pageTitle: "On this page",
+  projectTitle: "Project",
+  project: [
+    { label: "Source on GitHub", href: repoUrl },
+    { label: "Releases", href: `${repoUrl}/releases` },
+    { label: "Report an issue", href: `${repoUrl}/issues` },
+    { label: "MIT License", href: `${repoUrl}/blob/main/LICENSE` },
+  ],
+  siteTitle: "This site",
+  siteNote: "No analytics, no cookies and no third-party requests. Even the fonts are served from here.",
+  legal: `v${SITE.version} · MIT licensed · Made for macOS on Apple Silicon`,
 } as const;
 
 // Strings that must appear verbatim in both the repo README and REQUIREMENTS.

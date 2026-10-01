@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import Home from "@/app/page";
-import { ANYWHERE, NAV, SITE, SPEED, YOURS } from "@/lib/site";
+import { ANYWHERE, FAQ, FINAL_CTA, INSTALL, NAV, SITE, SPEED, YOURS } from "@/lib/site";
 
 describe("Home page", () => {
   test("has exactly one h1", () => {
@@ -35,7 +35,7 @@ describe("Home page", () => {
 
   test("all content sections are present", () => {
     render(<Home />);
-    for (const name of [ANYWHERE.title, "How it works", YOURS.title, SPEED.title, "Private by construction", "Requirements"]) {
+    for (const name of [ANYWHERE.title, "How it works", YOURS.title, SPEED.title, "Private by construction", INSTALL.title, FAQ.title, FINAL_CTA.title]) {
       expect(screen.getByRole("region", { name })).toBeDefined();
     }
     expect(screen.getByRole("figure", { name: "Under the hood" })).toBeDefined();
