@@ -64,40 +64,6 @@ function MenuBar() {
   );
 }
 
-function SpeedStamp() {
-  const t = SPEED.timeline;
-  return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr] lg:items-end lg:gap-14">
-      <div>
-        <p className="font-display text-[clamp(2rem,5vw,3.25rem)] font-bold leading-[0.98] tracking-[-0.035em] text-balance">
-          {SPEED.headline}
-        </p>
-        <p className="mt-3 max-w-md text-[0.95rem] font-medium leading-relaxed">{SPEED.detail}</p>
-      </div>
-      {/* Not to scale: talking takes as long as you talk; the part after you let go is the short bit. */}
-      <div aria-hidden="true" className="min-w-0">
-        <div className="flex items-end justify-between text-xs font-semibold">
-          <span>{t.talk}</span>
-          <span className="flex gap-8">
-            <span>{t.release}</span>
-            <span>{t.done}</span>
-          </span>
-        </div>
-        <div className="mt-2 flex h-12 items-center gap-1.5">
-          <div className="flex h-full min-w-0 flex-1 items-center gap-[3px] overflow-hidden rounded-l-full rounded-r-md bg-ink/20 px-4">
-            {SKYLINE.slice(0, 48).map((h, i) => (
-              <span key={i} className="w-[3px] shrink-0 rounded-full bg-accent-foreground/70" style={{ height: `${25 + h * 55}%` }} />
-            ))}
-          </div>
-          <div className="grid h-full w-20 shrink-0 place-items-center rounded-l-md rounded-r-full bg-ink text-sm font-bold text-ink-foreground">
-            {t.paste}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function DesktopDemo() {
   const words = DEMO.raw.split(" ");
   return (
@@ -161,7 +127,7 @@ export function DesktopDemo() {
                 <dd className="font-medium">{DEMO.subject}</dd>
               </div>
             </dl>
-            <div className="min-h-56 px-5 pb-6 pt-5 sm:min-h-64 sm:px-7 sm:pt-6 lg:pl-16">
+            <div className="min-h-44 px-5 pb-6 pt-5 sm:min-h-52 sm:px-7 sm:pt-6 lg:pl-16">
               <p className="text-[1.05rem] leading-[1.7] sm:text-[1.15rem]">
                 <span data-demo="cleaned" className="just-pasted">
                   {DEMO.cleaned}
@@ -172,14 +138,14 @@ export function DesktopDemo() {
                 />
               </p>
             </div>
+            <p className="flex items-center gap-2 border-t border-border px-5 py-3 text-xs font-semibold text-muted sm:px-7 lg:pl-16">
+              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />
+              {SPEED.stamp}
+            </p>
           </MacWindow>
         </div>
 
-        <div className="mt-14 sm:mt-20">
-          <SpeedStamp />
-        </div>
-
-        <ul className="mt-12 flex flex-wrap gap-x-6 gap-y-2 border-t border-accent-foreground/25 pt-6 text-sm font-semibold">
+        <ul className="mt-14 sm:mt-20 flex flex-wrap gap-x-6 gap-y-2 border-t border-accent-foreground/25 pt-6 text-sm font-semibold">
           {PROMISES.map((promise) => (
             <li key={promise} className="flex items-center gap-2">
               <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">

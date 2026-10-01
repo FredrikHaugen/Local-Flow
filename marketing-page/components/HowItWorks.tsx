@@ -1,3 +1,4 @@
+import { Kbd } from "@/components/Kbd";
 import { Section } from "@/components/Section";
 import { CONTROLS, KICKERS, STEPS } from "@/lib/site";
 
@@ -72,20 +73,20 @@ export function HowItWorks() {
         ))}
       </ol>
 
-      <div className="mt-6 rounded-3xl border border-border p-6 sm:p-8">
-        <table className="w-full text-left text-sm">
-          <caption className="font-display mb-4 text-left text-xl font-bold tracking-tight">Keyboard controls</caption>
-          <tbody>
-            {CONTROLS.map((control) => (
-              <tr key={control.action} className="border-t border-border">
-                <th scope="row" className="w-40 py-4 pr-6 align-top font-medium sm:w-56">
-                  {control.action}
-                </th>
-                <td className="py-4 font-mono text-[0.8rem] text-muted">{control.keys}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="mt-4 grid gap-4 rounded-3xl border border-border bg-card p-5 sm:p-6 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-10">
+        <h3 id="controls-title" className="font-display text-xl font-bold tracking-tight">
+          Keyboard controls
+        </h3>
+        <dl className="grid gap-2 sm:grid-cols-3">
+          {CONTROLS.map((control) => (
+            <div key={control.action} data-control className="flex flex-col items-start gap-2 rounded-2xl bg-background px-4 py-3">
+              <dt className="text-xs font-semibold text-muted">{control.action}</dt>
+              <dd>
+                <Kbd className="text-[0.75rem]">{control.keys}</Kbd>
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </Section>
   );

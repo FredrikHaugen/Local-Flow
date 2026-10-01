@@ -51,13 +51,31 @@ export const DEMO = {
   clock: "Fri 4:12 PM",
 } as const;
 
-// The speed stamp. Both phrases are quoted from docs/PROJECT.md (pinned by site.test.ts).
+// The speed proof. Both quoted phrases are from docs/PROJECT.md (pinned by site.test.ts).
 export const SPEED = {
   source: "typically in about a second with the base model",
   realtime: ">15× real-time",
-  headline: "Let go. It's typed in about a second.",
-  detail: "Typical with the Base model on Apple Silicon — transcription runs >15× real-time, all on-device.",
-  timeline: { talk: "Hold ⌥ and talk", release: "Let go", paste: "≈ 1 s", done: "Pasted" },
+  kicker: "Speed",
+  title: "Let go. It's typed in about a second.",
+  intro:
+    "There's no upload and no server queue. The moment you release the key, your Mac transcribes, tidies and pastes — typically in about a second with the Base model.",
+  // Shown as a giant numeral; "≈ 1 s" is the sourced "about a second".
+  numeral: "1",
+  numeralUnit: "s",
+  numeralLabel: "from letting go to text on screen",
+  // The to-scale bars: >15× real-time means 15 s of speech transcribes in under 1 s.
+  talkLabel: "You talk",
+  talkValue: "15 s",
+  transcribeLabel: "Transcription",
+  transcribeValue: "< 1 s",
+  scaleNote: "Drawn to scale. Transcription runs >15× real-time on Apple Silicon, so a 15-second take is done in under one.",
+  facts: [
+    { value: "0", label: "network round trips" },
+    { value: "Metal", label: "GPU transcription with whisper.cpp" },
+    { value: "MLX", label: "cleanup with a small local model" },
+  ],
+  // The small stamp on the hero's Mail window.
+  stamp: "Pasted about a second after you let go",
 } as const;
 
 // "Use it anywhere": the same hotkey in different apps. LocalFlow pastes into whatever field is focused.
@@ -100,14 +118,15 @@ export const PROMISES = ["No cloud", "No telemetry", "No accounts", "MIT license
 export const KICKERS = {
   anywhere: "Any app",
   "how-it-works": "Three moves",
+  speed: "Speed",
   privacy: "Privacy",
   requirements: "Install",
 } as const;
 
-// The compact pipeline strip under the privacy diagram.
+// The privacy diagram doubles as the pipeline: five on-device stages inside the "Your Mac" line.
 export const UNDER_THE_HOOD = {
   title: "Under the hood",
-  intro: "Five on-device stages. If any one fails, your words still land somewhere you can see them.",
+  intro: "Five on-device stages, all inside the line. If any one fails, your words still land somewhere you can see them.",
 } as const;
 
 export const STEPS = [
@@ -161,7 +180,6 @@ export const PIPELINE = [
 
 // The boundary diagram in the Privacy section.
 export const PRIVACY_DIAGRAM = {
-  inside: ["Microphone", "whisper.cpp", "Local LLM", "Your app"],
   boundary: "Your Mac",
   outside: "Hugging Face",
   outsideNote: "Model downloads only, when you ask",

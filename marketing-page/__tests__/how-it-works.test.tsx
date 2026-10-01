@@ -2,8 +2,8 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Anywhere } from "@/components/Anywhere";
-import { Pipeline } from "@/components/Pipeline";
-import { ANYWHERE, CONTROLS, PIPELINE, STEPS } from "@/lib/site";
+import { Speed } from "@/components/Speed";
+import { ANYWHERE, CONTROLS, SPEED, STEPS } from "@/lib/site";
 
 describe("HowItWorks", () => {
   test("lists the three steps in order", () => {
@@ -16,24 +16,21 @@ describe("HowItWorks", () => {
     );
   });
 
-  test("has a controls table with every shortcut", () => {
-    render(<HowItWorks />);
-    const table = screen.getByRole("table", { name: "Keyboard controls" });
-    for (const control of CONTROLS) {
-      const row = within(table).getByRole("row", { name: new RegExp(control.action) });
-      expect(row.textContent).toContain(control.keys);
-    }
+  test("lists every keyboard control with its keys", () => {
+    const { container } = render(<HowItWorks />);
+    expect(screen.getByRole("heading", { level: 3, name: "Keyboard controls" })).toBeDefined();
+    const rows = [...container.querySelectorAll("[data-control]")];
+    expect(rows.map((r) => r.querySelector("dt")?.textContent)).toEqual(CONTROLS.map((c) => c.action));
+    CONTROLS.forEach((control, i) => expect(rows[i].querySelector("dd")?.textContent).toBe(control.keys));
   });
 });
 
-describe("Pipeline", () => {
-  test("shows all five stages in order", () => {
-    render(<Pipeline />);
-    const region = screen.getByRole("region", { name: "Under the hood" });
-    expect(region.id).toBe("under-the-hood");
-    expect(within(region).getAllByRole("heading", { level: 4 }).map((h) => h.textContent)).toEqual(
-      PIPELINE.map((s) => s.name),
-    );
+describe("Speed", () => {
+  test("is a region with the sourced headline and the to-scale caption", () => {
+    render(<Speed />);
+    const region = screen.getByRole("region", { name: SPEED.title });
+    expect(region.id).toBe("speed");
+    expect(within(region).getByText(SPEED.scaleNote)).toBeDefined();
   });
 });
 

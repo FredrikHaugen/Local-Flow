@@ -38,8 +38,9 @@ describe("site facts", () => {
   test("the speed stamp is sourced from docs/PROJECT.md", () => {
     expect(project).toContain(SPEED.source);
     expect(project).toContain(SPEED.realtime);
-    expect(SPEED.headline).toContain("about a second");
-    expect(SPEED.detail).toContain(SPEED.realtime);
+    expect(SPEED.title).toContain("about a second");
+    expect(SPEED.intro.toLowerCase()).toContain(SPEED.source);
+    expect(SPEED.scaleNote).toContain(SPEED.realtime);
   });
 
   test("the cleaned demo only drops fillers and adds punctuation", () => {

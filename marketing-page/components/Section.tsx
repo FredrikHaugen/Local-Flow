@@ -24,7 +24,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={`scroll-mt-16 pt-24 sm:pt-32 ${bleed ? "" : "pb-24 sm:pb-32"} ${ink ? "surface-ink bg-ink text-ink-foreground" : ""}`}
+      className={`scroll-mt-16 pt-20 sm:pt-28 ${bleed ? "" : "pb-20 sm:pb-28"} ${ink ? "surface-ink bg-ink text-ink-foreground" : ""}`}
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:items-end lg:gap-16">
