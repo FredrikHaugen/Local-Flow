@@ -51,15 +51,18 @@ export function Speed() {
               </p>
               <div
                 aria-hidden="true"
-                className="flex h-14 items-center gap-[3px] overflow-hidden rounded-full border border-ink-border px-5"
+                className="flex h-14 items-center rounded-full border border-ink-border px-5"
               >
-                {TALK.map((h, i) => (
-                  <span
-                    key={i}
-                    className={`w-[3px] shrink-0 rounded-full bg-ink-foreground/70 `}
-                    style={{ height: `${20 + h * 60}%` }}
-                  />
-                ))}
+                {/* Bars spread to fit the pill; every other one drops out on narrow screens. */}
+                <span className="flex h-full min-w-0 flex-1 items-center justify-between overflow-hidden">
+                  {TALK.map((h, i) => (
+                    <span
+                      key={i}
+                      className={`w-[2px] shrink-0 rounded-full bg-ink-foreground/70 sm:w-[3px] ${i % 2 ? "hidden md:block" : ""}`}
+                      style={{ height: `${20 + h * 60}%` }}
+                    />
+                  ))}
+                </span>
               </div>
             </div>
             <div className="grid gap-2 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-6">

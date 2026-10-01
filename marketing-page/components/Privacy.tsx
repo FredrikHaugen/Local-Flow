@@ -39,7 +39,7 @@ function BoundaryDiagram() {
                 </span>
                 <div className="min-w-0">
                   <h4 className="font-display text-lg font-bold leading-tight">{stage.name}</h4>
-                  <p className="mt-0.5 font-mono text-[0.7rem] leading-snug text-ink-muted">{stage.tag}</p>
+                  <p className="mt-1 text-[0.8rem] leading-snug text-ink-muted">{stage.tag}</p>
                 </div>
               </div>
             </li>
@@ -69,8 +69,7 @@ export function Privacy() {
       title="Private by construction"
       intro="Not a privacy setting — the architecture. There's no server for your voice to go to."
     >
-      <BoundaryDiagram />
-      <ul className="mt-12 grid gap-x-12 sm:grid-cols-2 [&>li:last-child]:pb-0 sm:[&>li:nth-last-child(-n+2)]:pb-0">
+      <ul className="grid gap-x-12 sm:grid-cols-2 [&>li:last-child]:pb-0 sm:[&>li:nth-last-child(-n+2)]:pb-0">
         {PRIVACY_POINTS.map((point, i) => (
           <li key={point.title} className="flex gap-5 border-t border-border py-7">
             <svg
@@ -92,6 +91,9 @@ export function Privacy() {
           </li>
         ))}
       </ul>
+      <div className="mt-16">
+        <BoundaryDiagram />
+      </div>
     </Section>
   );
 }

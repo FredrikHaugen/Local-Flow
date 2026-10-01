@@ -69,10 +69,11 @@ export const SPEED = {
   transcribeLabel: "Transcription",
   transcribeValue: "< 1 s",
   scaleNote: "Drawn to scale. Transcription runs >15× real-time on Apple Silicon, so a 15-second take is done in under one.",
+  // What the speed and the on-device design mean for you (README: "everything else works offline").
   facts: [
-    { value: "0", label: "network round trips" },
-    { value: "Metal", label: "GPU transcription with whisper.cpp" },
-    { value: "MLX", label: "cleanup with a small local model" },
+    { value: "Offline", label: "Works on a plane once your model is downloaded" },
+    { value: "No sign-up", label: "No account, no email, no API key to paste" },
+    { value: "Clipboard", label: "Put back exactly as it was after every paste" },
   ],
   // The small stamp on the hero's Mail window.
   stamp: "Pasted about a second after you let go",
@@ -129,6 +130,16 @@ export const UNDER_THE_HOOD = {
   intro: "Five on-device stages, all inside the line. If any one fails, your words still land somewhere you can see them.",
 } as const;
 
+// The "How it works" storyboard.
+export const HOW = {
+  intro: "One key, held. No app to switch to, no window to click — it works wherever your cursor is.",
+  keyLegend: "option",
+  keySide: "right",
+  // Stamped on the rail above each move.
+  moments: ["key down", "you talk", "key up · ≈1 s later"],
+  pasted: "Running ten minutes late — start without me.",
+} as const;
+
 export const STEPS = [
   {
     title: "Hold Right ⌥",
@@ -153,27 +164,27 @@ export const CONTROLS = [
 export const PIPELINE = [
   {
     name: "Capture",
-    tag: "16 kHz mono",
+    tag: "Your mic, on your Mac",
     body: "The mic is recorded at 16 kHz and streamed to the waveform overlay.",
   },
   {
     name: "Trim",
-    tag: "< 0.3 s ⇒ discard",
+    tag: "Silence cut, stray taps ignored",
     body: "Silence is stripped. Under 0.3 s of speech counts as an accidental tap and is discarded.",
   },
   {
     name: "Transcribe",
-    tag: "whisper.cpp · Metal",
+    tag: "Speech to text, on your GPU",
     body: "whisper.cpp on the Metal GPU, biased toward your vocabulary, with non-speech artifacts like “[Music]” filtered out.",
   },
   {
     name: "Clean up",
-    tag: "Apple MLX",
+    tag: "Fillers out, punctuation in",
     body: "A small local LLM on Apple MLX removes filler words and fixes punctuation. If it errors or takes too long, you get the raw text — never nothing.",
   },
   {
     name: "Inject",
-    tag: "⌘V · clipboard restored",
+    tag: "Pasted, clipboard put back",
     body: "Pasted into the focused app, with your clipboard snapshotted and restored.",
   },
 ] as const;
