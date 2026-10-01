@@ -1,5 +1,6 @@
 import { MacWindow } from "@/components/MacWindow";
 import { Section } from "@/components/Section";
+import { SwipeHint } from "@/components/SwipeHint";
 import { INSTALL, KICKERS, REQUIREMENTS } from "@/lib/site";
 
 const [DRAG, ALLOW, MODEL] = INSTALL.steps;
@@ -121,11 +122,17 @@ function WillItRun() {
 export function Requirements() {
   return (
     <Section id="requirements" kicker={KICKERS.requirements} title={INSTALL.title} mark={INSTALL.mark} intro={INSTALL.intro}>
-      <ol className="grid gap-4 lg:grid-cols-3">
+      <SwipeHint count={INSTALL.steps.length} />
+      {/* Phones swipe step to step; tablets stack them; desktops line all three up. */}
+      <ol
+        tabIndex={0}
+        aria-label={INSTALL.railLabel}
+        className="no-scrollbar -mx-4 -my-2 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 py-2 sm:mx-0 sm:my-0 sm:grid sm:gap-4 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
+      >
         {INSTALL.steps.map((step, i) => {
           const Visual = VISUALS[i];
           return (
-            <li key={step.title} className="flex flex-col rounded-3xl border border-border bg-card p-2.5">
+            <li key={step.title} className="flex w-[84%] shrink-0 snap-start flex-col rounded-3xl border border-border bg-card p-2.5 sm:w-auto">
               <div className="grid h-40 place-items-center rounded-2xl bg-background px-5">
                 <Visual />
               </div>
@@ -144,7 +151,7 @@ export function Requirements() {
       </ol>
       <p className="font-display mt-6 text-center text-2xl font-extrabold sm:text-3xl">{INSTALL.done}</p>
 
-      <div className="mt-16 grid gap-10 sm:mt-20 lg:grid-cols-[1fr_2fr] lg:gap-16">
+      <div className="mt-12 grid gap-10 sm:mt-20 lg:grid-cols-[1fr_2fr] lg:gap-16">
         <WillItRun />
         <div>
           <h3 className="font-display text-4xl font-extrabold">{INSTALL.requirementsTitle}</h3>

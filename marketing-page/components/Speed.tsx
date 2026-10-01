@@ -7,13 +7,20 @@ const TALK = Array.from({ length: 160 }, (_, i) => {
   return Math.round(h * 100) / 100;
 });
 
-// The talk bars as one path of vertical strokes, each (20 + h·60)% of the pill's height, centred.
-// The round caps add a little height, so each stroke is trimmed by 2 units at both ends.
-function talkPath(step: number) {
-  return TALK.filter((_, i) => i % step === 0)
-    .map((h, i) => {
-      const half = (20 + h * 60) / 2 - 2;
-      return `M${i * step} ${(50 - half).toFixed(1)}V${(50 + half).toFixed(1)}`;
+// The talk bars as vertical strokes, each (20 + h·60)% of the pill's height, centred. The round
+// caps add a little height, so each stroke is trimmed by 2 units at both ends. Even and odd bars
+// are separate paths: phones draw the even half, wider screens both. Relative moves in whole units
+// keep the paths short (they ship twice: in the HTML and in the RSC payload).
+function talkPath(parity: 0 | 1) {
+  let y = 0;
+  return TALK.map((h, i) => [h, i] as const)
+    .filter(([, i]) => i % 2 === parity)
+    .map(([h, i], n) => {
+      const half = Math.round((20 + h * 60) / 2 - 2);
+      const top = 50 - half;
+      const seg = n === 0 ? `M${i} ${top}v${half * 2}` : `m2 ${top - y}v${half * 2}`;
+      y = 50 + half;
+      return seg;
     })
     .join("");
 }
@@ -27,7 +34,7 @@ export function Speed() {
     <section
       id="speed"
       aria-labelledby="speed-title"
-      className="surface-ink relative scroll-mt-16 overflow-hidden bg-ink py-20 text-ink-foreground sm:py-28"
+      className="surface-ink relative scroll-mt-16 overflow-hidden bg-ink py-16 text-ink-foreground sm:py-28"
     >
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[auto_1fr] lg:items-end lg:gap-16">
@@ -50,7 +57,7 @@ export function Speed() {
           </div>
         </div>
 
-        <figure className="mt-16 sm:mt-20">
+        <figure className="mt-12 sm:mt-20">
           <div className="grid gap-5">
             <div className="grid gap-2 sm:grid-cols-[9rem_1fr] sm:items-center sm:gap-6">
               <p className="flex items-baseline justify-between text-sm font-semibold sm:block">
@@ -61,13 +68,12 @@ export function Speed() {
                 aria-hidden="true"
                 className="flex h-14 items-center rounded-full border border-ink-border px-5"
               >
-                {/* Bars spread to fit the pill; every other one drops out on narrow screens. One path per
-                    density keeps 160 bars to a few hundred bytes instead of 160 styled elements. */}
-                <svg viewBox={`0 0 ${TALK.length - 1} 100`} preserveAspectRatio="none" overflow="visible" className="hidden h-full min-w-0 flex-1 text-ink-foreground/70 md:block">
-                  <path d={talkPath(1)} stroke="currentColor" strokeWidth="3" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                </svg>
-                <svg viewBox={`0 0 ${TALK.length - 2} 100`} preserveAspectRatio="none" overflow="visible" className="h-full min-w-0 flex-1 text-ink-foreground/70 md:hidden">
-                  <path d={talkPath(2)} stroke="currentColor" strokeWidth="2" strokeLinecap="round" vectorEffect="non-scaling-stroke" className="sm:[stroke-width:3]" />
+                {/* Bars spread to fit the pill; the odd half drops out on narrow screens. */}
+                <svg viewBox={`0 0 ${TALK.length - 1} 100`} preserveAspectRatio="none" overflow="visible" className="h-full min-w-0 flex-1 text-ink-foreground/70">
+                  <g stroke="currentColor" strokeLinecap="round" className="[stroke-width:2] sm:[stroke-width:3]">
+                    <path d={talkPath(0)} vectorEffect="non-scaling-stroke" />
+                    <path d={talkPath(1)} vectorEffect="non-scaling-stroke" className="hidden md:inline" />
+                  </g>
                 </svg>
               </div>
             </div>
@@ -95,7 +101,7 @@ export function Speed() {
           <figcaption className="mt-6 max-w-2xl text-sm leading-relaxed text-ink-muted">{SPEED.scaleNote}</figcaption>
         </figure>
 
-        <ul className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink-border bg-ink-border sm:grid-cols-3">
+        <ul className="mt-10 grid gap-px sm:mt-14 overflow-hidden rounded-2xl border border-ink-border bg-ink-border sm:grid-cols-3">
           {SPEED.facts.map((fact) => (
             <li key={fact.label} className="bg-ink px-6 py-5">
               <p className="font-display text-4xl font-extrabold">{fact.value}</p>

@@ -413,6 +413,21 @@ details[open] .faq-icon {
   transform-origin: center;
 }
 
+/* Stagger the bars from CSS rather than a style attribute on every bar: overlapping
+   2/3/5 cycles give each run of bars an uneven, speech-like phase. */
+.wave-bar:nth-child(2n) {
+  animation-delay: -0.2s;
+}
+.wave-bar:nth-child(3n) {
+  animation-delay: -0.45s;
+}
+.wave-bar:nth-child(5n) {
+  animation-delay: -0.75s;
+}
+.wave-bar:nth-child(7n) {
+  animation-delay: -0.9s;
+}
+
 .caret {
   animation: blink 1.1s step-end infinite;
 }
@@ -440,4 +455,27 @@ details[open] .faq-icon {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Swipe rails on phones: the peek of the next card is the affordance, so the scrollbar goes. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.swipe-hint i {
+  height: 0.25rem;
+  width: 0.75rem;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.35;
+}
+.swipe-hint i:first-child {
+  width: 1.5rem;
+  background: var(--accent);
+  opacity: 1;
+}
+.surface-ink .swipe-hint i:first-child {
+  background: var(--ink-accent);
 }

@@ -28,6 +28,19 @@ export const NAV = [
   { href: "#faq", label: "FAQ" },
 ] as const;
 
+// Phone visitors: LocalFlow is a Mac app, so the phone's job is to get this page onto the Mac.
+export const PHONE = {
+  menu: "Menu",
+  close: "Close",
+  menuTitle: "On this page",
+  handoffLead: "Reading on a phone?",
+  handoffNote: "LocalFlow runs on your Mac. Send yourself the link and download it there.",
+  handoff: "Send this page to my Mac",
+  shareTitle: "LocalFlow: voice dictation for your Mac",
+  copied: "Link copied. Open it on your Mac.",
+  swipe: "Swipe",
+} as const;
+
 export const HERO = {
   eyebrow: "Free, open-source dictation for macOS",
   // The h1 is SITE.tagline; this is the phrase set as "just typed" (selected, cursor after it).
@@ -89,6 +102,7 @@ export const SPEED = {
 
 // "Use it anywhere": the same hotkey in different apps. LocalFlow pastes into whatever field is focused.
 export const ANYWHERE = {
+  railLabel: "Example apps",
   title: "Wherever your cursor is",
   mark: "your cursor is",
   intro:
@@ -399,6 +413,7 @@ export const VERIFY = {
 
 // The install section: the README's three install steps, drawn.
 export const INSTALL = {
+  railLabel: "Install steps",
   title: "Three steps to your first sentence",
   mark: "first sentence",
   intro: "Download, drag, allow two permissions. A setup window walks you through the rest, then you hold ⌥ and talk.",

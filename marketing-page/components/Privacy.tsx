@@ -29,8 +29,8 @@ function BoundaryDiagram() {
         </div>
         <ol className="mt-6 grid gap-2 lg:grid-cols-5">
           {PIPELINE.map((stage, i) => (
-            <li key={stage.name} title={stage.body} className="flex">
-              <div className="flex flex-1 items-center gap-3 rounded-2xl bg-ink px-4 py-3.5 text-ink-foreground lg:flex-col lg:items-start lg:gap-6 lg:py-5">
+            <li key={stage.name} className="flex">
+              <div className="flex flex-1 items-center gap-3 rounded-2xl bg-ink px-4 py-3 text-ink-foreground sm:py-3.5 lg:flex-col lg:items-start lg:gap-6 lg:py-5">
                 <span
                   aria-hidden="true"
                   className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ink-accent text-xs font-bold text-ink"
@@ -90,7 +90,7 @@ function OfflineProof() {
           <span aria-hidden="true" className="font-display grid h-7 w-7 place-items-center rounded-full bg-ink-accent text-base">⌥</span>
           <span aria-hidden="true" className="flex h-4 items-center gap-[3px]">
             {LISTEN_BARS.map((h, i) => (
-              <span key={i} className="w-[3px] rounded-full bg-current" style={{ height: `${h * 100}%` }} />
+              <span key={i} className="w-[3px] rounded-full bg-current" style={{ height: `${Math.round(h * 100)}%` }} />
             ))}
           </span>
           {OFFLINE.overlay}
@@ -144,7 +144,7 @@ function Verify() {
   return (
     <div id="verify" className="scroll-mt-20">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
-        <h3 className="font-display text-5xl font-extrabold">{VERIFY.title}</h3>
+        <h3 className="font-display text-[2.75rem] font-extrabold leading-[0.95] sm:text-5xl">{VERIFY.title}</h3>
         <p className="max-w-sm leading-relaxed text-muted">{VERIFY.intro}</p>
       </div>
       <ol className="mt-8 grid gap-4 lg:grid-cols-3">
@@ -188,7 +188,7 @@ export function Privacy() {
     >
       <ul className="grid gap-x-12 sm:grid-cols-2 [&>li:last-child]:pb-0 sm:[&>li:nth-last-child(-n+2)]:pb-0">
         {PRIVACY_POINTS.map((point, i) => (
-          <li key={point.title} className="flex gap-5 border-t border-border py-7">
+          <li key={point.title} className="flex gap-4 border-t border-border py-5 sm:gap-5 sm:py-7">
             <svg
               aria-hidden="true"
               viewBox="0 0 24 24"
@@ -208,10 +208,10 @@ export function Privacy() {
           </li>
         ))}
       </ul>
-      <div className="mt-16">
+      <div className="mt-12 sm:mt-16">
         <BoundaryDiagram />
       </div>
-      <div className="mt-20 sm:mt-24">
+      <div className="mt-16 sm:mt-24">
         <Verify />
       </div>
     </Section>

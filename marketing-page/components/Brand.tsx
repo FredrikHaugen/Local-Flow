@@ -32,7 +32,7 @@ export function Marker({
           <span
             key={i}
             className="wave-bar w-[2px] rounded-full bg-current"
-            style={{ height: `${h * 100}%`, animationDelay: `${i * 110}ms` }}
+            style={{ height: `${Math.round(h * 100)}%` }}
           />
         ))}
       </span>

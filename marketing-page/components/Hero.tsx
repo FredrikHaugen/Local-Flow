@@ -1,5 +1,6 @@
 import { Kbd } from "@/components/Kbd";
 import { DesktopDemo } from "@/components/DesktopDemo";
+import { SendToMac } from "@/components/SendToMac";
 import { Marked, Marker } from "@/components/Brand";
 import { HERO, HERO_REQUIREMENT, HERO_TERMS, SITE } from "@/lib/site";
 
@@ -62,6 +63,8 @@ export function Hero() {
               </span>
               <span className="whitespace-nowrap font-mono text-muted">{HERO_TERMS}</span>
             </p>
+            {/* Phones only: the download is for a Mac, so offer to send the page there. */}
+            <SendToMac className="mt-5 md:hidden" />
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ function VoiceVisual() {
           <span
             key={i}
             className="wave-bar w-[2px] shrink-0 rounded-full bg-ink-foreground sm:w-[3px]"
-            style={{ height: `${h * 100}%`, animationDelay: `${(i % 9) * 90}ms` }}
+            style={{ height: `${Math.round(h * 100)}%` }}
           />
         ))}
       </span>
@@ -132,7 +132,7 @@ const TRACKS = [HoldTrack, HandsFreeTrack, CancelTrack];
 // with the moment of each move stamped above it.
 export function HowItWorks() {
   return (
-    <section id="how-it-works" aria-labelledby="how-it-works-title" className="scroll-mt-16 overflow-hidden pt-24 sm:pt-32">
+    <section id="how-it-works" aria-labelledby="how-it-works-title" className="scroll-mt-16 overflow-hidden pt-16 sm:pt-32">
       <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
         <Marker label={KICKERS["how-it-works"]} />
         <h2
@@ -144,13 +144,13 @@ export function HowItWorks() {
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">{HOW.intro}</p>
       </div>
 
-      <div className="relative mx-auto mt-16 max-w-6xl px-4 sm:mt-20 sm:px-6">
+      <div className="relative mx-auto mt-12 max-w-6xl px-4 sm:mt-20 sm:px-6">
         {/* The rail: one continuous line through all three moves (desktop). */}
         <span
           aria-hidden="true"
           className="absolute left-0 right-0 top-[150px] hidden border-t-2 border-dashed border-accent/50 lg:block"
         />
-        <ol className="relative grid gap-14 lg:grid-cols-3 lg:gap-8">
+        <ol className="relative grid gap-12 lg:grid-cols-3 lg:gap-8">
           {STEPS.map((step, i) => {
             const Visual = VISUALS[i];
             return (
@@ -161,10 +161,10 @@ export function HowItWorks() {
                 >
                   {HOW.moments[i]}
                 </p>
-                <div aria-hidden="true" className="mt-5 flex h-48 w-full items-center justify-center sm:h-52">
+                <div aria-hidden="true" className="mt-4 flex h-40 w-full items-center justify-center sm:mt-5 sm:h-52">
                   <Visual />
                 </div>
-                <div className="mt-8 max-w-xs">
+                <div className="mt-5 max-w-xs sm:mt-8">
                   <span aria-hidden="true" className="font-display text-base font-extrabold text-accent">
                     0{i + 1}
                   </span>
@@ -177,17 +177,17 @@ export function HowItWorks() {
         </ol>
       </div>
 
-      <div className="mx-auto mt-20 max-w-5xl px-4 pb-24 sm:mt-24 sm:px-6 sm:pb-32">
+      <div className="mx-auto mt-16 max-w-5xl px-4 pb-16 sm:mt-24 sm:px-6 sm:pb-32">
         <h3 id="controls-title" className="font-display text-3xl font-extrabold sm:text-4xl">
           Keyboard controls
         </h3>
-        <ul aria-labelledby="controls-title" className="mt-6 grid gap-4 md:grid-cols-3">
+        <ul aria-labelledby="controls-title" className="mt-5 grid gap-3 sm:gap-4 md:grid-cols-3">
           {CONTROLS.map((control, i) => {
             const Track = TRACKS[i];
             return (
-              <li key={control.action} data-control className="flex flex-col rounded-2xl border border-border bg-card p-5">
+              <li key={control.action} data-control className="flex flex-col rounded-2xl border border-border bg-card p-4 sm:p-5">
                 <Track />
-                <p data-action className="font-display mt-5 text-2xl font-extrabold">
+                <p data-action className="font-display mt-4 text-2xl font-extrabold sm:mt-5">
                   {control.action}
                 </p>
                 <p className="mt-2">

@@ -6,7 +6,7 @@ function Card({ title, body, className = "", children }: { title: string; body: 
   return (
     <li className={`flex flex-col rounded-3xl border border-border bg-card p-5 sm:p-7 ${className}`}>
       <div className="flex flex-1 flex-col justify-center">{children}</div>
-      <h3 className="font-display mt-7 text-3xl font-extrabold sm:text-4xl">{title}</h3>
+      <h3 className="font-display mt-5 text-3xl font-extrabold sm:mt-7 sm:text-4xl">{title}</h3>
       <p className="mt-2 max-w-xl leading-relaxed text-muted">{body}</p>
     </li>
   );
@@ -141,7 +141,7 @@ function ModelsDemo() {
             <span aria-hidden="true" className="mt-2 block h-1 overflow-hidden rounded-full bg-border">
               <span
                 className={`block h-full rounded-full ${current ? "bg-accent" : "bg-foreground/60"}`}
-                style={{ width: `${Math.max(4, (model.mb / MODELS.maxMb) * 100)}%` }}
+                style={{ width: `${Math.round(Math.max(4, (model.mb / MODELS.maxMb) * 100))}%` }}
               />
             </span>
           </li>

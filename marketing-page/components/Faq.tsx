@@ -6,7 +6,7 @@ export function Faq() {
   return (
     <Section id="faq" kicker={KICKERS.faq} title={FAQ.title} mark={FAQ.mark} intro={FAQ.intro}>
       <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
-        <aside className="surface-ink self-start rounded-3xl bg-ink p-6 text-ink-foreground lg:sticky lg:top-24">
+        <aside className="surface-ink order-last self-start rounded-3xl lg:order-none bg-ink p-6 text-ink-foreground lg:sticky lg:top-24">
           <h3 className="font-display text-3xl font-extrabold">{FAQ.askTitle}</h3>
           <p className="mt-2 leading-relaxed text-ink-muted">{FAQ.askBody}</p>
           <a
@@ -20,7 +20,7 @@ export function Faq() {
         <div className="border-b border-border">
           {FAQ.items.map((item, i) => (
             <details key={item.q} open={i === 0} className="border-t border-border">
-              <summary className="faq-q flex cursor-pointer items-center justify-between gap-6 py-5 text-lg font-semibold">
+              <summary className="faq-q flex cursor-pointer items-center justify-between gap-6 min-h-16 py-4 text-lg font-semibold sm:py-5">
                 {item.q}
                 <span
                   aria-hidden="true"

@@ -13,7 +13,7 @@ export function FinalCta() {
       <span aria-hidden="true" className="cta-key font-display">
         ⌥
       </span>
-      <div className="relative mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
+      <div className="relative mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-28">
         <h2
           id="get-title"
           className="font-display max-w-[12ch] text-[clamp(4rem,17vw,9rem)] font-extrabold leading-[0.88] tracking-[-0.01em]"

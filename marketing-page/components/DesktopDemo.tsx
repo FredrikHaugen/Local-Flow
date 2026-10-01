@@ -21,7 +21,7 @@ function OverlayPill() {
           <span
             key={i}
             className={`wave-bar w-[3px] rounded-[1px] bg-ink-foreground ${i >= 14 ? "hidden sm:block" : ""}`}
-            style={{ height: `${20 + h * 80}%`, animationDelay: `${i * 60}ms` }}
+            style={{ height: `${Math.round(20 + h * 80)}%` }}
           />
         ))}
       </span>
@@ -37,7 +37,7 @@ function MenuBar() {
   return (
     <div
       aria-hidden="true"
-      className="relative flex h-8 items-center gap-5 bg-ink/15 px-4 text-[0.8rem] text-accent-foreground backdrop-blur-sm sm:px-6"
+      className="relative flex h-8 items-center gap-5 bg-ink/15 px-4 text-[0.8rem] text-accent-foreground backdrop-blur-md sm:px-6"
     >
       {DEMO.menuItems.map((item, i) => (
         <span key={item} className={`${i === 0 ? "font-bold" : "font-medium opacity-90"} ${i > 2 ? "hidden sm:inline" : ""}`}>

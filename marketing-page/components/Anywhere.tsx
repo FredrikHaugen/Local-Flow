@@ -1,5 +1,6 @@
 import { MacWindow } from "@/components/MacWindow";
 import { Section } from "@/components/Section";
+import { SwipeHint } from "@/components/SwipeHint";
 import { ANYWHERE, KICKERS } from "@/lib/site";
 
 const [messages, notes, code] = ANYWHERE.apps;
@@ -82,11 +83,17 @@ const MOCKS = [MessagesMock, NotesMock, CodeMock];
 export function Anywhere() {
   return (
     <Section id="anywhere" tone="ink" kicker={KICKERS.anywhere} title={ANYWHERE.title} mark={ANYWHERE.mark} intro={ANYWHERE.intro}>
-      <ul className="grid gap-10 md:grid-cols-3 md:gap-5">
+      <SwipeHint count={ANYWHERE.apps.length} tone="ink" until="md" />
+      {/* Phones swipe through the apps side by side; wider screens get a three-up grid. */}
+      <ul
+        tabIndex={0}
+        aria-label={ANYWHERE.railLabel}
+        className="no-scrollbar -mx-4 -my-6 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 py-6 md:mx-0 md:my-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:py-0"
+      >
         {ANYWHERE.apps.map((app, i) => {
           const Mock = MOCKS[i];
           return (
-            <li key={app.app}>
+            <li key={app.app} className="w-[84%] shrink-0 snap-start md:w-auto">
               <div className="window-shadow rounded-xl">
                 <Mock />
               </div>
