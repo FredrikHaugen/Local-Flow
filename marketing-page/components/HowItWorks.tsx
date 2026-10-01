@@ -1,6 +1,6 @@
 import { Marked, Marker } from "@/components/Brand";
 import { Kbd } from "@/components/Kbd";
-import { CONTROLS, HOW, KICKERS, STEPS } from "@/lib/site";
+import { CONTROL_TRACKS, CONTROLS, HOW, KICKERS, STEPS } from "@/lib/site";
 
 // Deterministic "speech" for the live waveform, so server and client render the same thing.
 const VOICE = Array.from({ length: 34 }, (_, i) => {
@@ -57,6 +57,77 @@ function TextVisual() {
 
 const VISUALS = [KeyVisual, VoiceVisual, TextVisual];
 
+// Timing diagrams for the three controls: time runs left to right along a dashed line.
+function TrackFrame({ children, end }: { children: React.ReactNode; end: string }) {
+  return (
+    <div aria-hidden="true" className="relative h-14 w-full">
+      <span className="absolute inset-x-0 top-1/2 border-t border-dashed border-muted/50" />
+      {children}
+      <span className="absolute right-0 top-full -translate-y-1 font-mono text-[0.65rem] text-muted">{end}</span>
+    </div>
+  );
+}
+
+function Tick({ at }: { at: string }) {
+  return <span className="absolute top-1/2 h-6 w-1.5 -translate-y-1/2 rounded-full bg-accent" style={{ left: at }} />;
+}
+
+function Pasted() {
+  return (
+    <span className="absolute right-0 top-1/2 grid h-5 w-5 -translate-y-1/2 place-items-center rounded-full bg-foreground text-background">
+      <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m2.5 6.5 2.2 2L9.5 3.5" />
+      </svg>
+    </span>
+  );
+}
+
+function HoldTrack() {
+  return (
+    <TrackFrame end="pasted">
+      <span className="absolute left-[4%] right-[14%] top-1/2 flex h-7 -translate-y-1/2 items-center rounded-full bg-accent px-3 font-mono text-[0.7rem] font-semibold text-accent-foreground">
+        {CONTROL_TRACKS.held}
+      </span>
+      <Pasted />
+    </TrackFrame>
+  );
+}
+
+function HandsFreeTrack() {
+  return (
+    <TrackFrame end="pasted">
+      <Tick at="2%" />
+      <Tick at="7%" />
+      <span className="absolute left-[12%] right-[22%] top-1/2 flex h-7 -translate-y-1/2 items-center gap-1.5 rounded-full border-2 border-accent bg-card px-2.5 font-mono text-[0.7rem] font-semibold text-accent">
+        <svg viewBox="0 0 12 12" className="h-3 w-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <rect x="2.5" y="5.5" width="7" height="5" rx="1" />
+          <path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" />
+        </svg>
+        {CONTROL_TRACKS.locked}
+      </span>
+      <Tick at="81%" />
+      <Pasted />
+    </TrackFrame>
+  );
+}
+
+function CancelTrack() {
+  return (
+    <TrackFrame end="nothing pasted">
+      <span className="absolute left-[4%] w-[46%] top-1/2 h-7 -translate-y-1/2 rounded-full bg-accent/35" />
+      <span className="absolute left-[52%] top-1/2 flex h-7 -translate-y-1/2 items-center gap-1 rounded-md bg-foreground px-2 font-mono text-[0.7rem] font-semibold text-background">
+        <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <path d="m3 3 6 6M9 3 3 9" />
+        </svg>
+        {CONTROL_TRACKS.cancelled}
+      </span>
+    </TrackFrame>
+  );
+}
+
+const TRACKS = [HoldTrack, HandsFreeTrack, CancelTrack];
+
+
 // Not a row of cards: one storyboard. A rail runs through the key, the voice and the text,
 // with the moment of each move stamped above it.
 export function HowItWorks() {
@@ -106,22 +177,29 @@ export function HowItWorks() {
         </ol>
       </div>
 
-      <div className="mx-auto mt-20 max-w-5xl px-4 pb-24 sm:px-6 sm:pb-32">
-        <div className="flex flex-col gap-4 border-t border-border pt-6 lg:flex-row lg:items-center lg:gap-10">
-          <h3 id="controls-title" className="shrink-0 text-sm font-semibold text-muted">
-            Keyboard controls
-          </h3>
-          <dl className="flex flex-wrap gap-x-8 gap-y-3">
-            {CONTROLS.map((control) => (
-              <div key={control.action} data-control className="flex items-center gap-3">
-                <dt className="text-sm font-semibold">{control.action}</dt>
-                <dd>
-                  <Kbd className="text-[0.75rem]">{control.keys}</Kbd>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+      <div className="mx-auto mt-20 max-w-5xl px-4 pb-24 sm:mt-24 sm:px-6 sm:pb-32">
+        <h3 id="controls-title" className="font-display text-3xl font-extrabold sm:text-4xl">
+          Keyboard controls
+        </h3>
+        <ul aria-labelledby="controls-title" className="mt-6 grid gap-4 md:grid-cols-3">
+          {CONTROLS.map((control, i) => {
+            const Track = TRACKS[i];
+            return (
+              <li key={control.action} data-control className="flex flex-col rounded-2xl border border-border bg-card p-5">
+                <Track />
+                <p data-action className="font-display mt-5 text-2xl font-extrabold">
+                  {control.action}
+                </p>
+                <p className="mt-2">
+                  <Kbd className="text-[0.75rem]">
+                    <span data-keys>{control.keys}</span>
+                  </Kbd>
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{control.note}</p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

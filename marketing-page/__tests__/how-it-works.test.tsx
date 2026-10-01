@@ -10,7 +10,8 @@ describe("HowItWorks", () => {
     render(<HowItWorks />);
     const region = screen.getByRole("region", { name: "How it works" });
     expect(region.id).toBe("how-it-works");
-    const items = within(region).getAllByRole("listitem");
+    const steps = region.querySelector("ol")!;
+    const items = within(steps).getAllByRole("listitem");
     expect(items.map((li) => within(li).getByRole("heading", { level: 3 }).textContent)).toEqual(
       STEPS.map((s) => s.title),
     );
@@ -20,8 +21,8 @@ describe("HowItWorks", () => {
     const { container } = render(<HowItWorks />);
     expect(screen.getByRole("heading", { level: 3, name: "Keyboard controls" })).toBeDefined();
     const rows = [...container.querySelectorAll("[data-control]")];
-    expect(rows.map((r) => r.querySelector("dt")?.textContent)).toEqual(CONTROLS.map((c) => c.action));
-    CONTROLS.forEach((control, i) => expect(rows[i].querySelector("dd")?.textContent).toBe(control.keys));
+    expect(rows.map((r) => r.querySelector("[data-action]")?.textContent)).toEqual(CONTROLS.map((c) => c.action));
+    CONTROLS.forEach((control, i) => expect(rows[i].querySelector("[data-keys]")?.textContent).toBe(control.keys));
   });
 });
 

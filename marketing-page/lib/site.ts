@@ -21,8 +21,8 @@ export const HERO_TERMS = `Free & open source · v${SITE.version}`;
 export const HERO_FINEPRINT = `Free & open source · ${HERO_REQUIREMENT} · v${SITE.version}`;
 
 export const NAV = [
-  { href: "#anywhere", label: "Use it anywhere" },
   { href: "#how-it-works", label: "How it works" },
+  { href: "#anywhere", label: "Use it anywhere" },
   { href: "#privacy", label: "Privacy" },
   { href: "#requirements", label: "Requirements" },
 ] as const;
@@ -127,6 +127,7 @@ export const PROMISES = ["No cloud", "No telemetry", "No accounts", "MIT license
 export const KICKERS = {
   anywhere: "Any app",
   "how-it-works": "Three moves",
+  yours: "Settings",
   speed: "Speed",
   privacy: "Privacy",
   requirements: "Install",
@@ -166,10 +167,126 @@ export const STEPS = [
 ] as const;
 
 export const CONTROLS = [
-  { action: "Push-to-talk", keys: "Hold Right ⌥" },
-  { action: "Hands-free", keys: "Double-tap Right ⌥, press once to stop" },
-  { action: "Cancel", keys: "Esc" },
+  { action: "Push-to-talk", keys: "Hold Right ⌥", note: "Talk while the key is down. Let go to paste." },
+  {
+    action: "Hands-free",
+    keys: "Double-tap Right ⌥, press once to stop",
+    note: "For long takes: lock it on, put your hands down, press once when you're done.",
+  },
+  { action: "Cancel", keys: "Esc", note: "Changed your mind? Esc stops it at any stage, and nothing is pasted." },
 ] as const;
+
+// Labels drawn on the controls' timing diagrams.
+export const CONTROL_TRACKS = {
+  held: "⌥ held",
+  locked: "hands-free",
+  cancelled: "esc",
+} as const;
+
+// "Make it yours": the real settings, each shown as a working piece of UI.
+// Level names and descriptions are the app's own (Sources/LocalFlowApp/UI/GeneralTab.swift);
+// the outputs are an illustration of what each level changes.
+export const YOURS = {
+  title: "Tuned to how you talk",
+  mark: "how you talk",
+  intro:
+    "Every card here is a real setting in LocalFlow. Choose how much it tidies, teach it your words, pick the model that fits your Mac.",
+} as const;
+
+export const CLEANUP = {
+  title: "Choose how much it tidies",
+  body: "Four cleanup levels, from your exact words to tidy lists. Light is the default.",
+  legend: "Cleanup level",
+  heardLabel: "You said",
+  typedLabel: "LocalFlow types",
+  exampleNote: "Example output",
+  raw: "um so the demo moved to thursday no wait friday and uh we still need three things the slides the script and a backup laptop",
+  // The app's own promise, shown under the picker.
+  promise: "Cleanup never rewrites your meaning; if the model misbehaves, the raw transcript is used.",
+  defaultLevel: "light",
+  levels: [
+    {
+      id: "none",
+      name: "None",
+      detail: "raw transcript",
+      paragraphs: [
+        "um so the demo moved to thursday no wait friday and uh we still need three things the slides the script and a backup laptop",
+      ],
+      list: [] as string[],
+    },
+    {
+      id: "light",
+      name: "Light",
+      detail: "fillers & punctuation",
+      paragraphs: [
+        "So the demo moved to Thursday, no wait, Friday, and we still need three things: the slides, the script and a backup laptop.",
+      ],
+      list: [] as string[],
+    },
+    {
+      id: "medium",
+      name: "Medium",
+      detail: "also grammar & false starts",
+      paragraphs: ["The demo moved to Friday, and we still need three things: the slides, the script and a backup laptop."],
+      list: [] as string[],
+    },
+    {
+      id: "high",
+      name: "High",
+      detail: "also structure & lists",
+      paragraphs: ["The demo moved to Friday. We still need three things:"],
+      list: ["The slides", "The script", "A backup laptop"],
+    },
+  ],
+} as const;
+
+// The Vocabulary tab, with "sounds like" aliases (docs/PROJECT.md, "Custom vocabulary").
+export const VOCAB = {
+  title: "Your words, spelled right",
+  body: "Add names and jargon once. They steer recognition, and “sounds like” aliases are fixed the same way every time.",
+  panelTitle: "Vocabulary",
+  terms: [
+    { term: "Priya", soundsLike: [] as string[] },
+    { term: "LocalFlow", soundsLike: ["local flow"] },
+    { term: "MLX", soundsLike: ["em el ex"] },
+  ],
+  heard: "ship the local flow build to priya",
+  typed: "Ship the LocalFlow build to Priya.",
+} as const;
+
+// Speech models from Sources/LocalFlowCore/ModelCatalog.swift (sizes rounded, decimal units as in the README).
+export const MODELS = {
+  title: "Pick your model",
+  body: "Start with Base. Bigger models trade disk space for accuracy, and each is downloaded from Hugging Face only when you ask.",
+  maxMb: 1625,
+  list: [
+    { name: "Tiny", note: "fast, rough", size: "78 MB", mb: 78 },
+    { name: "Base", note: "recommended start", size: "148 MB", mb: 148, current: true },
+    { name: "Small", note: "best balance", size: "488 MB", mb: 488 },
+    { name: "Medium", note: "high accuracy, slower", size: "1.5 GB", mb: 1534 },
+    { name: "Large v3 Turbo", note: "max accuracy", size: "1.6 GB", mb: 1625 },
+  ],
+} as const;
+
+// The menu bar menu and the paste-failure notice (Sources/LocalFlowApp/App/LocalFlowApp.swift, DictationController.swift).
+export const NEVER_LOST = {
+  title: "Nothing you say gets lost",
+  body: "If a paste can't land, the text waits on your clipboard and the overlay tells you to press ⌘V. Your last ten transcripts sit in the menu bar, one click from your clipboard — kept in memory, never written to disk.",
+  overlay: "Copied — press ⌘V",
+  menuStatus: "Ship the LocalFlow build to Priya.",
+  submenu: "Recent transcripts",
+  // Full transcripts; the menu truncates them at 48 characters, as the app does.
+  recent: [
+    "Ship the LocalFlow build to Priya.",
+    "Running ten minutes late — start without me and I'll catch up on the notes.",
+    "Hey Priya, the build is ready. I just need to fix the signing step.",
+  ],
+  truncateAt: 48,
+  menuItems: [
+    { label: "Settings…", shortcut: "⌘," },
+    { label: "Quit LocalFlow", shortcut: "⌘Q" },
+  ],
+} as const;
 
 export const PIPELINE = [
   {
