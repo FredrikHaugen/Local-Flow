@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Hero } from "@/components/Hero";
-import { DEMO, SITE } from "@/lib/site";
+import { DEMO, HERO_PROOF, SITE } from "@/lib/site";
 
 describe("Hero", () => {
   test("leads with the tagline as the h1, emphasis included", () => {
@@ -22,6 +22,13 @@ describe("Hero", () => {
     expect(ctaBlock?.textContent).toContain("macOS 14+");
     expect(ctaBlock?.textContent).toContain("Apple Silicon");
     expect(ctaBlock?.textContent).toContain(`v${SITE.version}`);
+  });
+
+  test("puts the proof line next to the Download button", () => {
+    render(<Hero />);
+    const ctaBlock = screen.getByRole("link", { name: "Download for Mac" }).closest("[data-cta]");
+    for (const { name } of HERO_PROOF.stack) expect(ctaBlock?.textContent).toContain(name);
+    expect(ctaBlock?.textContent).toContain(HERO_PROOF.stat);
   });
 
   test("labels both halves of the demo: what you said and what got typed", () => {

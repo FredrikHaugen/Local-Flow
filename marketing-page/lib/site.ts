@@ -5,7 +5,8 @@ const repoUrl = "https://github.com/FredrikHaugen/Local-Flow";
 
 export const SITE = {
   name: "LocalFlow",
-  tagline: "Voice dictation that never leaves your Mac.",
+  // Speed leads; "about a second" is docs/PROJECT.md's "typically in about a second with the base model".
+  tagline: "Just talk. It's typed in about a second.",
   description:
     "LocalFlow is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and clean text appears in any app — transcribed and cleaned up entirely on-device.",
   repoUrl,
@@ -42,12 +43,24 @@ export const PHONE = {
 } as const;
 
 export const HERO = {
-  eyebrow: "Free, open-source dictation for macOS",
+  eyebrow: "Dictation that never leaves your Mac",
   // The h1 is SITE.tagline; this is the phrase set as "just typed" (selected, cursor after it).
-  emphasis: "never leaves your Mac.",
+  emphasis: "about a second.",
   pitchBefore: "Hold",
   pitchAfter:
-    ", speak, let go — clean text appears in whatever app you're using. Transcription and cleanup run entirely on-device.",
+    ", speak, let go — clean text lands in whatever app you're using. No upload, no queue: transcription and cleanup run on your Mac, so your voice never leaves it.",
+} as const;
+
+// The hero's proof line: what LocalFlow is built on (README, "How it works") and its sourced speed
+// (docs/PROJECT.md). Open source you can audit instead of logos and testimonials we don't have.
+export const HERO_PROOF = {
+  lead: "Built on",
+  stack: [
+    { name: "whisper.cpp", note: "speech to text on the Metal GPU" },
+    { name: "Apple MLX", note: "local cleanup model" },
+  ],
+  stat: ">15× real-time",
+  statNote: "on Apple Silicon",
 } as const;
 
 export const DEMO = {
@@ -76,8 +89,8 @@ export const SPEED = {
   source: "typically in about a second with the base model",
   realtime: ">15× real-time",
   kicker: "Speed",
-  title: "Let go. It's typed in about a second.",
-  mark: "about a second.",
+  title: "No upload, no wait.",
+  mark: "no wait.",
   intro:
     "There's no upload and no server queue. The moment you release the key, your Mac transcribes, tidies and pastes — typically in about a second with the Base model.",
   // Shown as a giant numeral; "≈ 1 s" is the sourced "about a second".

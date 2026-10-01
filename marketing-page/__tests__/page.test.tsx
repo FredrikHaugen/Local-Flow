@@ -40,4 +40,10 @@ describe("Home page", () => {
     }
     expect(screen.getByRole("figure", { name: "Under the hood" })).toBeDefined();
   });
+
+  test("the speed band comes straight after the hero", () => {
+    const { container } = render(<Home />);
+    const sections = [...container.querySelectorAll("main > section")].map((s) => s.id);
+    expect(sections.slice(0, 2)).toEqual(["top", "speed"]);
+  });
 });

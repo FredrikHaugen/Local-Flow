@@ -2,7 +2,7 @@ import { Kbd } from "@/components/Kbd";
 import { DesktopDemo } from "@/components/DesktopDemo";
 import { SendToMac } from "@/components/SendToMac";
 import { Marked, Marker } from "@/components/Brand";
-import { HERO, HERO_REQUIREMENT, HERO_TERMS, SITE } from "@/lib/site";
+import { HERO, HERO_PROOF, HERO_REQUIREMENT, HERO_TERMS, SITE } from "@/lib/site";
 
 export function Hero() {
   return (
@@ -62,6 +62,23 @@ export function Hero() {
                 Requires {HERO_REQUIREMENT}
               </span>
               <span className="whitespace-nowrap font-mono text-muted">{HERO_TERMS}</span>
+            </p>
+            {/* Proof we can stand behind: the open-source engines it runs, and their sourced speed. */}
+            <p className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-border pt-4 text-sm text-muted">
+              <span>{HERO_PROOF.lead}</span>
+              {HERO_PROOF.stack.map(({ name }, i) => (
+                <span key={name} className="font-semibold text-foreground">
+                  {i > 0 && <span className="mr-2 font-normal text-muted">+</span>}
+                  {name}
+                </span>
+              ))}
+              <span aria-hidden="true" className="hidden text-border sm:inline">
+                /
+              </span>
+              <span>
+                <span className="font-display text-lg leading-none text-accent">{HERO_PROOF.stat}</span>{" "}
+                {HERO_PROOF.statNote}
+              </span>
             </p>
             {/* Phones only: the download is for a Mac, so offer to send the page there. */}
             <SendToMac className="mt-5 md:hidden" />
