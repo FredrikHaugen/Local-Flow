@@ -1,3 +1,4 @@
+import { Pipeline } from "@/components/Pipeline";
 import { Section } from "@/components/Section";
 import { KICKERS, PRIVACY_DIAGRAM, PRIVACY_POINTS } from "@/lib/site";
 
@@ -56,7 +57,7 @@ export function Privacy() {
       intro="Not a privacy setting — the architecture. There's no server for your voice to go to."
     >
       <BoundaryDiagram />
-      <ul className="mt-12 grid gap-x-12 sm:grid-cols-2">
+      <ul className="mt-12 grid gap-x-12 sm:grid-cols-2 [&>li:nth-last-child(-n+2)]:pb-0">
         {PRIVACY_POINTS.map((point, i) => (
           <li key={point.title} className="flex gap-5 border-t border-border py-7">
             <svg
@@ -78,6 +79,9 @@ export function Privacy() {
           </li>
         ))}
       </ul>
+      <div className="mt-10 border-t border-border pt-12">
+        <Pipeline />
+      </div>
     </Section>
   );
 }

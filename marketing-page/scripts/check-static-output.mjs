@@ -20,7 +20,12 @@ if (!existsSync(join(OUT, "index.html"))) {
 
 const files = walk(OUT);
 const problems = files.flatMap((file) => {
-  if (file.endsWith(".html")) return findExternalRefs(readFileSync(file, "utf8")).map((u) => `${file}: ${u}`);
+  if (file.endsWith(".html")) {
+    const html = readFileSync(file, "utf8");
+    // CSS is inlined into <style> tags (experimental.inlineCss), so scan those for remote url()s too.
+    const inlineCss = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1]).join("\n");
+    return [...findExternalRefs(html), ...findExternalCssUrls(inlineCss)].map((u) => `${file}: ${u}`);
+  }
   if (file.endsWith(".css")) return findExternalCssUrls(readFileSync(file, "utf8")).map((u) => `${file}: ${u}`);
   return [];
 });

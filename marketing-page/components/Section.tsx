@@ -1,3 +1,5 @@
+import { Glyph } from "@/components/MacWindow";
+
 export function Section({
   id,
   title,
@@ -5,6 +7,7 @@ export function Section({
   kicker,
   tone = "plain",
   children,
+  bleed,
 }: {
   id: string;
   title: string;
@@ -12,6 +15,8 @@ export function Section({
   kicker?: string;
   tone?: "plain" | "ink";
   children: React.ReactNode;
+  // Full-width content after the contained body (e.g. the closing CTA band).
+  bleed?: React.ReactNode;
 }) {
   const headingId = `${id}-title`;
   const ink = tone === "ink";
@@ -19,16 +24,16 @@ export function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={`scroll-mt-16 py-24 sm:py-32 ${ink ? "surface-ink bg-ink text-ink-foreground" : ""}`}
+      className={`scroll-mt-16 pt-24 sm:pt-32 ${bleed ? "" : "pb-24 sm:pb-32"} ${ink ? "surface-ink bg-ink text-ink-foreground" : ""}`}
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:items-end lg:gap-16">
           <div>
             {kicker && (
               <p
-                className={`flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] ${ink ? "text-ink-accent" : "text-accent"}`}
+                className={`flex items-center gap-2 text-sm font-semibold ${ink ? "text-ink-accent" : "text-accent"}`}
               >
-                <span aria-hidden="true" className="h-px w-6 bg-current" />
+                <Glyph />
                 {kicker}
               </p>
             )}
@@ -45,6 +50,7 @@ export function Section({
         </div>
         <div className="mt-14 sm:mt-16">{children}</div>
       </div>
+      {bleed}
     </section>
   );
 }

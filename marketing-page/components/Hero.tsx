@@ -1,6 +1,7 @@
 import { Kbd } from "@/components/Kbd";
-import { OverlayMock } from "@/components/OverlayMock";
-import { HERO, HERO_FINEPRINT, PROMISES, SITE } from "@/lib/site";
+import { DesktopDemo } from "@/components/DesktopDemo";
+import { Glyph } from "@/components/MacWindow";
+import { HERO, HERO_FINEPRINT, SITE } from "@/lib/site";
 
 export function Hero() {
   const [before, after] = SITE.tagline.split(HERO.emphasis);
@@ -10,9 +11,9 @@ export function Hero() {
         aria-hidden="true"
         className="dot-grid-light absolute inset-x-0 top-0 h-[34rem] [mask-image:linear-gradient(to_bottom,black,transparent)]"
       />
-      <div className="relative mx-auto max-w-5xl px-4 pt-14 sm:px-6 sm:pt-24">
-        <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 font-mono text-xs text-muted">
-          <span aria-hidden="true" className="rec-dot h-2 w-2 rounded-full bg-accent" />
+      <div className="relative mx-auto max-w-5xl px-4 pt-14 sm:px-6 sm:pt-20">
+        <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-sm font-medium text-muted">
+          <Glyph className="text-accent" />
           {HERO.eyebrow}
         </p>
         <h1
@@ -60,22 +61,8 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative mx-auto mt-14 max-w-5xl px-4 sm:mt-20 sm:px-6">
-        <OverlayMock />
-      </div>
-
-      <div className="mx-auto mt-14 max-w-5xl px-4 pb-6 sm:mt-16 sm:px-6">
-        <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">
-          {PROMISES.map((promise) => (
-            <li
-              key={promise}
-              className="flex items-center gap-2.5 bg-background px-4 py-4 font-mono text-xs uppercase tracking-[0.14em] sm:justify-center"
-            >
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
-              {promise}
-            </li>
-          ))}
-        </ul>
+      <div className="relative mt-14 sm:mt-20">
+        <DesktopDemo />
       </div>
     </section>
   );

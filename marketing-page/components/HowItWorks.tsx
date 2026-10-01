@@ -37,8 +37,8 @@ function StepVisual({ index }: { index: number }) {
     );
   }
   return (
-    <p className="font-display text-xl font-medium tracking-tight">
-      ship it Friday.
+    <p className="font-display text-xl font-bold tracking-tight">
+      if nothing breaks.
       <span className="caret ml-0.5 inline-block h-[1.1em] w-[3px] translate-y-[0.2em] rounded-full bg-accent" />
     </p>
   );
@@ -62,8 +62,8 @@ export function HowItWorks() {
               <StepVisual index={i} />
             </div>
             <div className="px-4 pb-4 pt-6">
-              <span aria-hidden="true" className="font-mono text-xs tracking-[0.16em] text-accent">
-                STEP 0{i + 1}
+              <span aria-hidden="true" className="font-display text-sm font-bold text-accent">
+                0{i + 1}
               </span>
               <h3 className="font-display mt-2 text-2xl font-bold tracking-tight">{step.title}</h3>
               <p className="mt-2 leading-relaxed text-muted">{step.body}</p>

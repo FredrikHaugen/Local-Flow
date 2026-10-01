@@ -18,6 +18,10 @@
   --ink-muted: #a19f98;
   --ink-border: #2e2d2a;
   --ink-accent: #ff6b3d;
+  /* macOS window controls in the product mocks. */
+  --mac-close: #ff5f57;
+  --mac-min: #febc2e;
+  --mac-max: #28c840;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,6 +38,9 @@
     --ink-muted: #a19f98;
     --ink-border: #34332f;
     --ink-accent: #ff7a4d;
+    --mac-close: #ff5f57;
+    --mac-min: #febc2e;
+    --mac-max: #28c840;
   }
 }
 
@@ -50,6 +57,9 @@
   --color-ink-muted: var(--ink-muted);
   --color-ink-border: var(--ink-border);
   --color-ink-accent: var(--ink-accent);
+  --color-mac-close: var(--mac-close);
+  --color-mac-min: var(--mac-min);
+  --color-mac-max: var(--mac-max);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display-face);
@@ -113,6 +123,30 @@ body {
 .giant-word::before {
   content: attr(data-word);
   color: var(--border);
+}
+
+/* The orange "desktop": a soft vignette over the accent so the band has depth. */
+.wallpaper {
+  background:
+    radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--accent-foreground) 5%, transparent), transparent 60%),
+    radial-gradient(90% 70% at 50% 110%, color-mix(in oklab, var(--ink) 28%, transparent), transparent 70%),
+    var(--accent);
+}
+
+/* A product window floating on the wallpaper. */
+.window-shadow {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--ink) 14%, transparent),
+    0 40px 80px -30px color-mix(in oklab, var(--ink) 70%, transparent),
+    0 12px 24px -12px color-mix(in oklab, var(--ink) 40%, transparent);
+}
+
+/* Freshly pasted text gets a faint signal-colored wash, like a just-landed selection. */
+.just-pasted {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  border-radius: 3px;
 }
 
 @keyframes wave {

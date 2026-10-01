@@ -18,7 +18,8 @@ const geistMono = Geist_Mono({
 const display = Bricolage_Grotesque({
   variable: "--font-display-face",
   subsets: ["latin"],
-  weight: ["500", "700"],
+  // One static weight keeps the preloaded display font small (it renders the LCP h1).
+  weight: "700",
 });
 
 export const metadata: Metadata = {

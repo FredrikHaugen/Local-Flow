@@ -1,9 +1,10 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
-import { DEMO, HERO, HERO_FINEPRINT, NAV, PIPELINE, README_FACTS, REQUIREMENTS, SITE, STEPS } from "@/lib/site";
+import { DEMO, HERO, HERO_FINEPRINT, NAV, PIPELINE, README_FACTS, REQUIREMENTS, SITE, SPEED, STEPS } from "@/lib/site";
 
 const readme = readFileSync(resolve(process.cwd(), "../README.md"), "utf8");
+const project = readFileSync(resolve(process.cwd(), "../docs/PROJECT.md"), "utf8");
 const requirementsText = REQUIREMENTS.map((r) => `${r.title} ${r.detail}`).join("\n");
 
 describe("site facts", () => {
@@ -32,6 +33,19 @@ describe("site facts", () => {
       expect(raw).toContain(filler);
       expect(cleaned).not.toContain(filler);
     }
+  });
+
+  test("the speed stamp is sourced from docs/PROJECT.md", () => {
+    expect(project).toContain(SPEED.source);
+    expect(project).toContain(SPEED.realtime);
+    expect(SPEED.headline).toContain("about a second");
+    expect(SPEED.detail).toContain(SPEED.realtime);
+  });
+
+  test("the cleaned demo only drops fillers and adds punctuation", () => {
+    const words = (t: string) => t.toLowerCase().replace(/[^a-z ]/g, "").split(/\s+/).filter(Boolean);
+    const kept = words(DEMO.raw).filter((w) => !(DEMO.fillers as readonly string[]).includes(w));
+    expect(words(DEMO.cleaned)).toEqual(kept);
   });
 
   test("the hero emphasis is part of the tagline", () => {

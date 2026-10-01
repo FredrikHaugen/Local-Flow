@@ -18,8 +18,8 @@ export const SITE = {
 export const HERO_FINEPRINT = `Free & open source · macOS 14+ · Apple Silicon · v${SITE.version}`;
 
 export const NAV = [
+  { href: "#anywhere", label: "Use it anywhere" },
   { href: "#how-it-works", label: "How it works" },
-  { href: "#under-the-hood", label: "Under the hood" },
   { href: "#privacy", label: "Privacy" },
   { href: "#requirements", label: "Requirements" },
 ] as const;
@@ -34,14 +34,63 @@ export const HERO = {
 } as const;
 
 export const DEMO = {
-  raw: "um so I think we should uh ship it friday",
-  cleaned: "I think we should ship it Friday.",
+  // A rambling spoken take and what the conservative cleanup pass makes of it:
+  // fillers dropped, capitals and punctuation added, nothing reworded.
+  raw: "um hey priya so the build is basically ready uh I just need to fix the signing step and run the tests one more time I think we can like ship it friday afternoon if nothing breaks",
+  cleaned:
+    "Hey Priya, the build is ready. I just need to fix the signing step and run the tests one more time. I think we can ship it Friday afternoon if nothing breaks.",
   // Words in `raw` that the cleanup pass drops (shown struck through in the hero).
-  fillers: ["um", "so", "uh"],
-  app: "Messages",
-  sayLabel: "You say",
-  typesLabel: "LocalFlow types",
-  overlayCaption: "The overlay while you hold Right ⌥",
+  fillers: ["um", "so", "basically", "uh", "like"],
+  app: "Mail",
+  to: "Priya",
+  subject: "Friday release",
+  heardLabel: "What you said",
+  // The real overlay's label while recording (Sources/LocalFlowApp/UI/OverlayView.swift).
+  overlayLabel: "Listening…  (esc to cancel)",
+  menuItems: ["Mail", "File", "Edit", "View", "Message"],
+  clock: "Fri 4:12 PM",
+} as const;
+
+// The speed stamp. Both phrases are quoted from docs/PROJECT.md (pinned by site.test.ts).
+export const SPEED = {
+  source: "typically in about a second with the base model",
+  realtime: ">15× real-time",
+  headline: "Let go. It's typed in about a second.",
+  detail: "Typical with the Base model on Apple Silicon — transcription runs >15× real-time, all on-device.",
+  timeline: { talk: "Hold ⌥ and talk", release: "Let go", paste: "≈ 1 s", done: "Pasted" },
+} as const;
+
+// "Use it anywhere": the same hotkey in different apps. LocalFlow pastes into whatever field is focused.
+export const ANYWHERE = {
+  title: "Wherever your cursor is",
+  intro:
+    "If you can type there, you can talk there. LocalFlow pastes into the focused app — no plugins, no integrations, nothing to switch to.",
+  apps: [
+    {
+      app: "Messages",
+      caption: "Quick replies",
+      contact: "Sam",
+      incoming: "Still on for 6?",
+      body: "Running ten minutes late — start without me and I'll catch up on the notes.",
+    },
+    {
+      app: "Notes",
+      caption: "Long thoughts",
+      title: "Onboarding ideas",
+      body: "Send the welcome email after the first model download finishes, not before. Most people want to try it right away, so keep the setup to one window.",
+    },
+    {
+      app: "Code editor",
+      caption: "Your jargon, spelled right",
+      body: "// Retry the MLX load once, then fall back to the raw transcript.",
+      // A vocabulary term, highlighted to show recognition biasing.
+      term: "MLX",
+      termNote: "From your vocabulary",
+      file: "Transcriber.swift",
+      before: ["func load() async throws {", "  do {"],
+      after: ["    try await model.load()", "  }"],
+    },
+  ],
 } as const;
 
 // The short promises under the hero; each one is backed by the README.
@@ -49,10 +98,16 @@ export const PROMISES = ["No cloud", "No telemetry", "No accounts", "MIT license
 
 // Small mono labels above each section title.
 export const KICKERS = {
-  "how-it-works": "01 · Use",
-  "under-the-hood": "02 · Pipeline",
-  privacy: "03 · Privacy",
-  requirements: "04 · Install",
+  anywhere: "Any app",
+  "how-it-works": "Three moves",
+  privacy: "Privacy",
+  requirements: "Install",
+} as const;
+
+// The compact pipeline strip under the privacy diagram.
+export const UNDER_THE_HOOD = {
+  title: "Under the hood",
+  intro: "Five on-device stages. If any one fails, your words still land somewhere you can see them.",
 } as const;
 
 export const STEPS = [

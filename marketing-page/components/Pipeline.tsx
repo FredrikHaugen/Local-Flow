@@ -1,43 +1,35 @@
-import { Section } from "@/components/Section";
-import { KICKERS, PIPELINE } from "@/lib/site";
+import { PIPELINE, UNDER_THE_HOOD } from "@/lib/site";
 
+// The five on-device stages as a compact strip, nested under the privacy diagram.
 export function Pipeline() {
   return (
-    <Section
-      id="under-the-hood"
-      tone="ink"
-      kicker={KICKERS["under-the-hood"]}
-      title="Under the hood"
-      intro="Every dictation runs through five on-device stages. If any one of them fails, your words still land somewhere you can see them."
-    >
-      <ol className="relative grid gap-10 lg:grid-cols-5 lg:gap-6">
-        {/* The signal line: vertical on phones, horizontal from lg up. */}
-        <span
-          aria-hidden="true"
-          className="absolute bottom-2 left-[19px] top-2 w-px bg-gradient-to-b from-ink-accent via-ink-border to-ink-border lg:inset-x-5 lg:bottom-auto lg:left-5 lg:top-[19px] lg:h-px lg:w-auto lg:bg-gradient-to-r"
-        />
+    <section id="under-the-hood" aria-labelledby="under-the-hood-title" className="scroll-mt-20">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
+        <h3 id="under-the-hood-title" className="font-display text-2xl font-bold tracking-tight">
+          {UNDER_THE_HOOD.title}
+        </h3>
+        <p className="max-w-md text-muted sm:text-right">{UNDER_THE_HOOD.intro}</p>
+      </div>
+      <ol className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
         {PIPELINE.map((stage, i) => (
-          <li key={stage.name} className="relative grid grid-cols-[40px_1fr] gap-5 lg:block">
+          <li
+            key={stage.name}
+            title={stage.body}
+            className="group relative flex items-start gap-3 rounded-2xl border border-border bg-card px-4 py-3.5"
+          >
             <span
               aria-hidden="true"
-              className={`relative grid h-10 w-10 place-items-center rounded-full border font-mono text-sm ${
-                i === 0
-                  ? "border-ink-accent bg-ink-accent text-ink"
-                  : "border-ink-border bg-ink text-ink-foreground"
-              }`}
+              className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent text-xs font-bold text-accent-foreground"
             >
               {i + 1}
             </span>
-            <div className="lg:mt-6">
-              <h3 className="font-display text-2xl font-bold tracking-tight">{stage.name}</h3>
-              <p className="mt-2 inline-block rounded-md border border-ink-border px-2 py-0.5 font-mono text-[0.7rem] text-ink-accent">
-                {stage.tag}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-ink-muted">{stage.body}</p>
+            <div className="min-w-0">
+              <h4 className="font-semibold leading-tight">{stage.name}</h4>
+              <p className="mt-0.5 font-mono text-[0.7rem] leading-snug text-muted">{stage.tag}</p>
             </div>
           </li>
         ))}
       </ol>
-    </Section>
+    </section>
   );
 }
