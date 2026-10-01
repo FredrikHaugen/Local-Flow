@@ -30,6 +30,12 @@ public struct HotKeyProcessor: Sendable {
 
     public init() {}
 
+    /// Back to idle without emitting an action: for when the owner stopped
+    /// listening, or refused the recording this processor thinks has started.
+    public mutating func reset() {
+        state = .idle
+    }
+
     public mutating func handle(_ event: ProcessorEvent) -> ProcessorAction {
         switch (state, event) {
         case (.idle, .targetDown(let t)):

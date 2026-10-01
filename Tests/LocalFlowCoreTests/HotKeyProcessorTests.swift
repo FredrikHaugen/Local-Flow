@@ -88,4 +88,32 @@ final class HotKeyProcessorTests: XCTestCase {
         XCTAssertEqual(p.handle(.otherKeyDown(at: 3)), ProcessorAction.none)
         XCTAssertEqual(p.state, .locked)
     }
+
+    func testResetFromTapPendingLetsNextPressRecord() {
+        // A monitor restarted mid tap-window must not swallow the next hold.
+        _ = p.handle(.targetDown(at: 0))
+        _ = p.handle(.targetUp(at: 0.1))
+        p.reset()
+        XCTAssertEqual(p.state, .idle)
+        XCTAssertEqual(p.handle(.targetDown(at: 5)), .startRecording)
+    }
+
+    func testResetAfterRefusedStartKeepsDoubleTapFromLocking() {
+        // The controller refused to record (e.g. no model); the processor must not
+        // carry on into tapPending/locked while the app stays idle.
+        XCTAssertEqual(p.handle(.targetDown(at: 0)), .startRecording)
+        p.reset()
+        XCTAssertEqual(p.handle(.targetUp(at: 0.1)), ProcessorAction.none)
+        XCTAssertEqual(p.state, .idle)
+        XCTAssertEqual(p.handle(.targetDown(at: 0.2)), .startRecording)
+    }
+
+    func testResetFromLocked() {
+        _ = p.handle(.targetDown(at: 0))
+        _ = p.handle(.targetUp(at: 0.1))
+        _ = p.handle(.targetDown(at: 0.2))
+        XCTAssertEqual(p.state, .locked)
+        p.reset()
+        XCTAssertEqual(p.state, .idle)
+    }
 }
