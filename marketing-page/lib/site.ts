@@ -24,9 +24,35 @@ export const NAV = [
   { href: "#requirements", label: "Requirements" },
 ] as const;
 
+export const HERO = {
+  eyebrow: "Free, open-source dictation for macOS",
+  // The h1 is SITE.tagline; this is the part set in the accent color.
+  emphasis: "never leaves",
+  pitchBefore: "Hold",
+  pitchAfter:
+    ", speak, let go — clean text appears in whatever app you're using. Transcription and cleanup run entirely on-device.",
+} as const;
+
 export const DEMO = {
   raw: "um so I think we should uh ship it friday",
   cleaned: "I think we should ship it Friday.",
+  // Words in `raw` that the cleanup pass drops (shown struck through in the hero).
+  fillers: ["um", "so", "uh"],
+  app: "Messages",
+  sayLabel: "You say",
+  typesLabel: "LocalFlow types",
+  overlayCaption: "The overlay while you hold Right ⌥",
+} as const;
+
+// The short promises under the hero; each one is backed by the README.
+export const PROMISES = ["No cloud", "No telemetry", "No accounts", "MIT licensed"] as const;
+
+// Small mono labels above each section title.
+export const KICKERS = {
+  "how-it-works": "01 · Use",
+  "under-the-hood": "02 · Pipeline",
+  privacy: "03 · Privacy",
+  requirements: "04 · Install",
 } as const;
 
 export const STEPS = [
@@ -51,18 +77,40 @@ export const CONTROLS = [
 ] as const;
 
 export const PIPELINE = [
-  { name: "Capture", body: "The mic is recorded at 16 kHz and streamed to the waveform overlay." },
-  { name: "Trim", body: "Silence is stripped. Under 0.3 s of speech counts as an accidental tap and is discarded." },
+  {
+    name: "Capture",
+    tag: "16 kHz mono",
+    body: "The mic is recorded at 16 kHz and streamed to the waveform overlay.",
+  },
+  {
+    name: "Trim",
+    tag: "< 0.3 s ⇒ discard",
+    body: "Silence is stripped. Under 0.3 s of speech counts as an accidental tap and is discarded.",
+  },
   {
     name: "Transcribe",
+    tag: "whisper.cpp · Metal",
     body: "whisper.cpp on the Metal GPU, biased toward your vocabulary, with non-speech artifacts like “[Music]” filtered out.",
   },
   {
     name: "Clean up",
+    tag: "Apple MLX",
     body: "A small local LLM on Apple MLX removes filler words and fixes punctuation. If it errors or takes too long, you get the raw text — never nothing.",
   },
-  { name: "Inject", body: "Pasted into the focused app, with your clipboard snapshotted and restored." },
+  {
+    name: "Inject",
+    tag: "⌘V · clipboard restored",
+    body: "Pasted into the focused app, with your clipboard snapshotted and restored.",
+  },
 ] as const;
+
+// The boundary diagram in the Privacy section.
+export const PRIVACY_DIAGRAM = {
+  inside: ["Microphone", "whisper.cpp", "Local LLM", "Your app"],
+  boundary: "Your Mac",
+  outside: "Hugging Face",
+  outsideNote: "Model downloads only, when you ask",
+} as const;
 
 export const PRIVACY_POINTS = [
   {
@@ -99,6 +147,11 @@ export const REQUIREMENTS = [
     detail: "A setup window walks you through both permissions and the first model download.",
   },
 ] as const;
+
+export const FINAL_CTA = {
+  title: "Hold ⌥ and start talking.",
+  body: "One download, one setup window, and every word stays on your Mac.",
+} as const;
 
 // Strings that must appear verbatim in both the repo README and REQUIREMENTS.
 export const README_FACTS = [

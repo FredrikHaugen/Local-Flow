@@ -4,7 +4,7 @@ import { Hero } from "@/components/Hero";
 import { DEMO, SITE } from "@/lib/site";
 
 describe("Hero", () => {
-  test("leads with the tagline as the h1", () => {
+  test("leads with the tagline as the h1, emphasis included", () => {
     render(<Hero />);
     expect(screen.getByRole("heading", { level: 1, name: SITE.tagline })).toBeDefined();
   });
@@ -25,8 +25,10 @@ describe("Hero", () => {
 
   test("shows the before/after cleanup example, waveform hidden from screen readers", () => {
     const { container } = render(<Hero />);
-    expect(screen.getByText(DEMO.raw)).toBeDefined();
+    expect(container.querySelector("[data-demo='raw']")?.textContent).toBe(DEMO.raw);
     expect(screen.getByText(DEMO.cleaned)).toBeDefined();
+    const struck = [...container.querySelectorAll("[data-demo='raw'] s")].map((s) => s.textContent);
+    expect(struck).toEqual([...DEMO.fillers]);
     const bar = container.querySelector(".wave-bar");
     expect(bar?.closest("[aria-hidden='true']")).not.toBeNull();
   });

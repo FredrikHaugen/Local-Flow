@@ -13,10 +13,34 @@ test("links get a visible keyboard focus ring", () => {
 });
 
 test("every color token is defined for dark mode too", () => {
-  const tokens = ["--background", "--foreground", "--muted", "--card", "--border", "--accent", "--accent-foreground"];
+  const tokens = [
+    "--background",
+    "--foreground",
+    "--muted",
+    "--card",
+    "--border",
+    "--accent",
+    "--accent-foreground",
+    "--ink",
+    "--ink-foreground",
+    "--ink-muted",
+    "--ink-border",
+    "--ink-accent",
+  ];
   const dark = css.slice(css.indexOf("@media (prefers-color-scheme: dark)"));
   for (const token of tokens) {
     expect(css).toContain(`${token}:`);
     expect(dark).toContain(`${token}:`);
   }
+});
+
+test("every looping animation is stopped for reduced-motion users", () => {
+  const reduced = css.slice(css.indexOf("@media (prefers-reduced-motion: reduce)"));
+  for (const cls of [".caret", ".rec-dot"]) expect(reduced).toContain(cls);
+  expect(reduced).toMatch(/animation: none !important;/);
+});
+
+test("ink and accent surfaces keep a visible focus ring", () => {
+  expect(css).toMatch(/\.surface-ink :focus-visible\s*\{\s*outline-color: var\(--ink-accent\);/);
+  expect(css).toMatch(/\.surface-accent :focus-visible\s*\{\s*outline-color: var\(--accent-foreground\);/);
 });
