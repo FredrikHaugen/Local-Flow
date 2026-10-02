@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import LocalFlowCore
+import PeluniCore
 
 @MainActor
 final class AppState: ObservableObject {

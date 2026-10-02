@@ -1,5 +1,5 @@
 import XCTest
-@testable import LocalFlowCore
+@testable import PeluniCore
 
 final class VADTrimmerTests: XCTestCase {
     let trimmer = VADTrimmer(threshold: 0.05, windowSize: 4, padding: 8)

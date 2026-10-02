@@ -1,5 +1,5 @@
 import Foundation
-import LocalFlowCore
+import PeluniCore
 
 @MainActor
 final class VocabularyStore: ObservableObject {

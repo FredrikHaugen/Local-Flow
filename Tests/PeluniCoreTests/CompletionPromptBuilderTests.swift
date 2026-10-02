@@ -1,5 +1,5 @@
 import XCTest
-@testable import LocalFlowCore
+@testable import PeluniCore
 
 final class CompletionPromptBuilderTests: XCTestCase {
     let b = CompletionPromptBuilder()

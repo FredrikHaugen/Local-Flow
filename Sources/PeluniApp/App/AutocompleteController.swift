@@ -1,6 +1,6 @@
 import AppKit
 import Combine
-import LocalFlowCore
+import PeluniCore
 
 /// Owns the autocomplete subsystem's full lifecycle. Off ⇒ no event tap, no
 /// timers, no model in memory. This stage wires keystrokes → debounce →

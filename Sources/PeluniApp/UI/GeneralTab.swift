@@ -1,5 +1,5 @@
 import SwiftUI
-import LocalFlowCore
+import PeluniCore
 import KeyboardShortcuts
 import ServiceManagement
 

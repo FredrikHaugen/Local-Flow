@@ -1,6 +1,6 @@
 import SwiftUI
 import AppKit
-import LocalFlowCore
+import PeluniCore
 
 struct OnboardingView: View {
     @ObservedObject var permissions: PermissionsService

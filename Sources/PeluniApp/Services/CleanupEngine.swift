@@ -5,7 +5,7 @@ import MLXLLM
 import MLXHuggingFace
 import HuggingFace
 import Tokenizers
-import LocalFlowCore
+import PeluniCore
 
 actor CleanupEngine {
     static let defaultModelID = "mlx-community/Qwen3-4B-Instruct-2507-4bit"

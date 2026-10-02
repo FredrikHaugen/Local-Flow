@@ -1,6 +1,6 @@
-// Tests/LocalFlowCoreTests/AutocompleteTriggerPolicyTests.swift
+// Tests/PeluniCoreTests/AutocompleteTriggerPolicyTests.swift
 import XCTest
-@testable import LocalFlowCore
+@testable import PeluniCore
 
 typealias TriggerAction = AutocompleteTriggerPolicy.Action
 

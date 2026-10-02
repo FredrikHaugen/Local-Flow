@@ -1,5 +1,5 @@
 import SwiftUI
-import LocalFlowCore
+import PeluniCore
 import KeyboardShortcuts
 
 extension KeyboardShortcuts.Name {

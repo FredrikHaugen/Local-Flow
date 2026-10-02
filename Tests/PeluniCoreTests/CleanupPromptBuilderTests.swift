@@ -1,5 +1,5 @@
 import XCTest
-@testable import LocalFlowCore
+@testable import PeluniCore
 
 final class CleanupPromptBuilderTests: XCTestCase {
     let b = CleanupPromptBuilder()

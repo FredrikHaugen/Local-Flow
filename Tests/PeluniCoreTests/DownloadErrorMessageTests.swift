@@ -1,5 +1,5 @@
 import XCTest
-@testable import LocalFlowCore
+@testable import PeluniCore
 
 final class DownloadErrorMessageTests: XCTestCase {
     private func text(_ e: Error) -> String? { DownloadErrorMessage.text(for: e, item: "Base") }

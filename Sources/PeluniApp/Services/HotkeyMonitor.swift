@@ -1,5 +1,5 @@
 import AppKit
-import LocalFlowCore
+import PeluniCore
 
 enum HotkeyIntent { case begin, end, cancel }
 

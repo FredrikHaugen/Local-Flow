@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct LocalFlowApp: App {
+struct PeluniApp: App {
     @StateObject private var appState = AppState.shared
 
     var body: some Scene {

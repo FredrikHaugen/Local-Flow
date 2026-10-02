@@ -15,14 +15,14 @@ ARCH=arm64
 APP="dist/LocalFlow.app"
 IDENTITY="${CODESIGN_IDENTITY:-}"
 
-xcodebuild build -scheme LocalFlowApp -configuration Release \
+xcodebuild build -scheme PeluniApp -configuration Release \
     -destination 'platform=macOS,arch='"$ARCH" -derivedDataPath .build/xc \
     -skipPackagePluginValidation -skipMacroValidation
 PRODUCTS=".build/xc/Build/Products/Release"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
-cp "$PRODUCTS/LocalFlowApp" "$APP/Contents/MacOS/LocalFlow"
+cp "$PRODUCTS/PeluniApp" "$APP/Contents/MacOS/LocalFlow"
 cp Packaging/Info.plist "$APP/Contents/Info.plist"
 cp LICENSE "$APP/Contents/Resources/LICENSE.txt"
 cp Packaging/THIRD_PARTY_NOTICES.txt "$APP/Contents/Resources/THIRD_PARTY_NOTICES.txt"

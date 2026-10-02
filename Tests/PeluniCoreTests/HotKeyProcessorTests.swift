@@ -1,5 +1,5 @@
 import XCTest
-@testable import LocalFlowCore
+@testable import PeluniCore
 
 final class HotKeyProcessorTests: XCTestCase {
     var p = HotKeyProcessor()

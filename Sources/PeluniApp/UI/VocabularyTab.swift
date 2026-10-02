@@ -1,5 +1,5 @@
 import SwiftUI
-import LocalFlowCore
+import PeluniCore
 
 struct VocabularyTab: View {
     @ObservedObject private var store = VocabularyStore.shared

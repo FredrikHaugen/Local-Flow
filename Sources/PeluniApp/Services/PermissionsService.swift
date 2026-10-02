@@ -1,7 +1,7 @@
 import AVFoundation
 import ApplicationServices
 import AppKit
-import LocalFlowCore
+import PeluniCore
 
 enum PermissionPane {
     case microphone, accessibility

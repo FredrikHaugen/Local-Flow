@@ -5,7 +5,7 @@ import MLXLLM
 import MLXHuggingFace
 import HuggingFace
 import Tokenizers
-import LocalFlowCore
+import PeluniCore
 
 /// Small local LLM proposing inline continuations. Mirrors CleanupEngine's
 /// structure but is stricter about lifecycle and privacy: cached weights load
