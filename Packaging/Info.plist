@@ -14,6 +14,6 @@
     <key>LSUIElement</key><true/>
     <key>NSMicrophoneUsageDescription</key>
     <string>LocalFlow records your voice while you hold the dictation hotkey, and transcribes it entirely on this Mac.</string>
-    <key>NSHumanReadableCopyright</key><string>Local-only dictation. No data leaves this Mac.</string>
+    <key>NSHumanReadableCopyright</key><string>Copyright © 2026 Fredrik Haugen. MIT License.</string>
 </dict>
 </plist>

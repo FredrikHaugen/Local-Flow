@@ -1,4 +1,4 @@
-.PHONY: build test bundle run cert clean vendor check-vendor
+.PHONY: build test bundle run cert clean vendor check-vendor check-requirements release
 
 WHISPER_VERSION := v1.9.1
 WHISPER_ZIP_URL := https://github.com/ggml-org/whisper.cpp/releases/download/$(WHISPER_VERSION)/whisper-$(WHISPER_VERSION)-xcframework.zip
@@ -45,7 +45,10 @@ check-vendor:
 build: check-vendor
 	swift build --arch arm64
 
-test: check-vendor
+check-requirements:
+	@bash scripts/check-requirements.sh
+
+test: check-vendor check-requirements
 	swift test
 
 bundle: check-vendor
@@ -53,6 +56,11 @@ bundle: check-vendor
 
 run: bundle
 	open dist/LocalFlow.app
+
+# Developer ID sign + notarize + staple + DMG. Needs a Developer ID Application
+# identity and a notarytool keychain profile — see scripts/release.sh header.
+release: check-vendor
+	bash scripts/release.sh
 
 cert:
 	bash scripts/make-cert.sh

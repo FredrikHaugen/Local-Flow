@@ -25,6 +25,8 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
 cp "$PRODUCTS/LocalFlowApp" "$APP/Contents/MacOS/LocalFlow"
 cp Packaging/Info.plist "$APP/Contents/Info.plist"
+cp LICENSE "$APP/Contents/Resources/LICENSE.txt"
+cp Packaging/THIRD_PARTY_NOTICES.txt "$APP/Contents/Resources/THIRD_PARTY_NOTICES.txt"
 
 # Embed the dynamic whisper framework (binaryTarget) and make sure the rpath exists.
 if [ -d "$PRODUCTS/PackageFrameworks/whisper.framework" ]; then
@@ -44,7 +46,8 @@ else
     fi
 fi
 [ -n "$FW" ] || { echo "ERROR: whisper.framework not found"; exit 1; }
-cp -R "$FW" "$APP/Contents/Frameworks/"
+# ditto keeps the framework's Versions/Current symlinks; a flattened framework fails --strict verification.
+ditto "$FW" "$APP/Contents/Frameworks/whisper.framework"
 
 # Copy every SPM resource bundle (MLX's Metal shader bundle, swift-transformers,
 # swift-crypto, etc.) into Resources so runtime Bundle lookup works from the .app.
@@ -55,22 +58,17 @@ done
 install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/LocalFlow" 2>/dev/null || true
 
 # Prefer a stable identity so TCC grants survive rebuilds; fall back to ad-hoc.
-if [ -z "$IDENTITY" ] && security find-identity -v -p codesigning 2>/dev/null | grep -q "LocalFlow Dev"; then
+# SIGN_MODE=release (set by release.sh) adds secure timestamps for notarization.
+# No -v: the self-signed "LocalFlow Dev" cert is untrusted (CSSMERR_TP_NOT_TRUSTED)
+# but codesign still signs with it, and that signature is stable across rebuilds.
+if [ -z "$IDENTITY" ] && security find-identity -p codesigning 2>/dev/null | grep -q '"LocalFlow Dev"'; then
     IDENTITY="LocalFlow Dev"
 fi
 if [ -n "$IDENTITY" ]; then
-    codesign --force --options runtime --sign "$IDENTITY" "$APP/Contents/Frameworks/whisper.framework"
-    for b in "$APP/Contents/Resources/"*.bundle; do
-        [ -d "$b" ] && codesign --force --options runtime --sign "$IDENTITY" "$b"
-    done
-    codesign --force --options runtime --sign "$IDENTITY" "$APP"
-    echo "Signed with: $IDENTITY"
+    bash scripts/sign-app.sh "$APP" "$IDENTITY" "${SIGN_MODE:-dev}"
+    echo "Signed with: $IDENTITY (${SIGN_MODE:-dev})"
 else
-    codesign --force --sign - "$APP/Contents/Frameworks/whisper.framework"
-    for b in "$APP/Contents/Resources/"*.bundle; do
-        [ -d "$b" ] && codesign --force --sign - "$b"
-    done
-    codesign --force --sign - "$APP"
+    bash scripts/sign-app.sh "$APP" - adhoc
     echo "WARNING: ad-hoc signed. Accessibility grants will reset on every rebuild," \
          "and macOS 26 may drop synthesized events. Run 'make cert' once to fix."
 fi

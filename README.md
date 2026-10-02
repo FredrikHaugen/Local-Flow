@@ -11,16 +11,52 @@ clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 - **Privacy:** no telemetry, no accounts, no cloud. The only network use is
   downloading models from Hugging Face when you ask.
 
-## Quick start
+## Install
+
+1. Download `LocalFlow-<version>.dmg` from the
+   [Releases page](https://github.com/FredrikHaugen/whispr-local/releases).
+   It is signed with a Developer ID and notarized by Apple, so it opens
+   without Gatekeeper warnings. To check the download, put the `.sha256` file
+   published with it in the same folder and run `shasum -a 256 -c LocalFlow-<version>.dmg.sha256`.
+2. Open the DMG and drag **LocalFlow** onto **Applications**, then launch it.
+   It lives in the menu bar (mic icon); there is no Dock icon.
+3. The setup window walks you through three steps: allow **Microphone**,
+   allow **Accessibility**, and download the **speech model**
+   (148 MB). Then hold **Right ⌥** anywhere and talk.
+
+## Requirements
+
+**To run LocalFlow**
+
+- macOS 14 (Sonoma) or later
+- A Mac with Apple Silicon (M1 or later). The app is built for arm64 only; Intel Macs aren't supported.
+- Disk space for models, downloaded on first use:
+  - Speech model: 78 MB (Tiny) to 1.6 GB (Large v3 Turbo). Base, the recommended start, is 148 MB.
+  - Optional cleanup LLM: 0.7 GB (Llama 3.2 1B) or 2.3 GB (Qwen3 4B)
+  - Optional autocomplete LLM, for inline text suggestions while you type: 0.3 GB (Qwen2.5 0.5B), or reuse the 0.7 GB Llama 3.2 1B
+- An internet connection only while downloading models; everything else works offline
+- Microphone and Accessibility permissions (the setup window walks you through both)
+
+**To build from source**
+
+- A Mac with Apple Silicon running macOS 15.2 or later (Xcode 16.3's own minimum)
+- Xcode 16.3 or later (Swift 6.1 toolchain). On Xcode 26 or later, also install
+  the Metal Toolchain once: `xcodebuild -downloadComponent MetalToolchain`
+  (MLX's shaders don't build without it).
+- `make vendor` once, to fetch the pinned whisper.cpp v1.9.1 framework
+- To publish a release: a Developer ID Application certificate and a
+  `notarytool` keychain profile (see `scripts/release.sh`)
+
+## Quick start (from source)
 
     make vendor   # one-time: fetch + checksum-verify the whisper engine
     make cert     # one-time: stable local signing identity (keeps permissions across rebuilds)
     make run      # build, bundle, launch
 
-1. Grant **Microphone** and **Accessibility** in the setup window.
-2. Settings → Models: download **Base** (fast) or **Small** (better), and the
-   cleanup LLM if you want AI cleanup.
-3. Hold **Right ⌥** anywhere and talk. Double-tap to lock hands-free; **Esc** cancels.
+1. Follow the setup window: **Microphone**, **Accessibility**, and the
+   **Base** speech model. Settings → Models has larger speech models and the
+   optional cleanup LLM.
+2. Hold **Right ⌥** anywhere and talk. Double-tap to lock hands-free; **Esc** cancels.
 
 ## Controls
 
@@ -72,6 +108,7 @@ A fresh clone needs `make vendor` once before `make test`/`make bundle` will wor
 
     make test     # unit + integration tests
     make bundle   # build dist/LocalFlow.app
+    make release  # Developer ID sign, notarize, staple, and build dist/LocalFlow-<version>.dmg
 
 See `docs/TESTING.md` for the manual test checklist (TCC/permission flows
 can't be automated).
@@ -101,3 +138,8 @@ commands, live streaming transcripts, persisted history, non-macOS platforms)
 are listed in `docs/PROJECT.md` — an issue to discuss one of these before
 building it is the right first step. For anything else: small, focused PRs
 are the easiest to review and merge.
+
+## License
+
+MIT — see [LICENSE](LICENSE). Third-party licenses ship inside the app at
+`LocalFlow.app/Contents/Resources/THIRD_PARTY_NOTICES.txt`.

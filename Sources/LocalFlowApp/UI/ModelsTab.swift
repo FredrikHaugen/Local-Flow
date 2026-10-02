@@ -60,7 +60,7 @@ struct ModelsTab: View {
                                         Task { @MainActor in llmState.progress = frac }
                                     }
                                 } catch {
-                                    llmState.error = error.localizedDescription
+                                    llmState.error = DownloadErrorMessage.text(for: error, item: "the cleanup model")
                                 }
                                 llmState.progress = nil
                             }
@@ -96,7 +96,7 @@ struct ModelsTab: View {
                                         Task { @MainActor in completionState.progress = frac }
                                     }
                                 } catch {
-                                    completionState.error = error.localizedDescription
+                                    completionState.error = DownloadErrorMessage.text(for: error, item: "the autocomplete model")
                                 }
                                 completionState.progress = nil
                             }
@@ -125,6 +125,7 @@ struct ModelsTab: View {
             Spacer()
             if let p = models.progress[model.id] {
                 ProgressView(value: p).frame(width: 100)
+                Text("\(Int(p * 100))%").monospacedDigit()
                 Button("Cancel") { models.cancelDownload(model) }
             } else if models.installed.contains(model.id) {
                 if selectedModel == model.id {

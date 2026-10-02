@@ -11,7 +11,7 @@ struct LocalFlowApp: App {
         } label: {
             Image(systemName: "mic")
                 .onAppear {
-                    OnboardingWindowController.showIfNeeded(permissions: appState.permissions)
+                    OnboardingWindowController.showIfNeeded(permissions: appState.permissions, models: .shared)
                     appState.startServices()
                 }
         }
@@ -41,6 +41,9 @@ private struct MenuContent: View {
                 }
             }
             Divider()
+        }
+        Button("Setup…") {
+            OnboardingWindowController.show(permissions: appState.permissions, models: .shared)
         }
         SettingsLink { Text("Settings…") }.keyboardShortcut(",")
         Button("Caret probe…") { CaretProbeWindowController.show() }

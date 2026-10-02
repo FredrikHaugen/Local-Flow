@@ -78,12 +78,35 @@ final class DictationController: ObservableObject {
     }
 
     private func beginRecording() {
+        // Refuse before recording, not after: otherwise the user speaks a whole
+        // sentence into a recording that can only be thrown away.
+        // With the mic denied the engine still "records" — silence — and the
+        // user's sentence vanishes with no message. Refuse up front instead.
+        let permissions = AppState.shared.permissions
+        permissions.refresh()
+        guard permissions.micGranted else {
+            hotkey.reset()
+            let message = "Microphone access is off. Allow it in LocalFlow Setup."
+            lastTranscript = message
+            setPhase(machine.phase, message: message)
+            OnboardingWindowController.showIfNeeded(permissions: permissions, models: .shared)
+            return
+        }
+        guard ModelManager.shared.activeModel != nil else {
+            hotkey.reset()
+            let message = TranscriptionEngine.TranscriptionError.modelNotFound.localizedDescription
+            lastTranscript = message
+            setPhase(machine.phase, message: message)
+            OnboardingWindowController.showIfNeeded(permissions: AppState.shared.permissions, models: .shared)
+            return
+        }
         guard machine.handle(.startRecording) else { return }
         do {
             try audio.start()
             setPhase(machine.phase)
         } catch {
             _ = audio.stop()
+            hotkey.reset()
             machine.handle(.failed)
             setPhase(machine.phase, message: error.localizedDescription)
             NSLog("LocalFlow audio start failed: \(error.localizedDescription)")
@@ -114,8 +137,7 @@ final class DictationController: ObservableObject {
             guard let self else { return }
             let vocab = VocabularyEngine(entries: VocabularyStore.shared.entries)
             do {
-                let modelID = UserDefaults.standard.string(forKey: "whisperModel") ?? WhisperModel.default.id
-                guard let model = WhisperModel.catalog.first(where: { $0.id == modelID }),
+                guard let model = ModelManager.shared.activeModel,
                       let path = ModelManager.shared.installedPath(for: model) else {
                     throw TranscriptionEngine.TranscriptionError.modelNotFound
                 }

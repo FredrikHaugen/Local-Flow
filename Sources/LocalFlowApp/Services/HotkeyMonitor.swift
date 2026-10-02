@@ -29,7 +29,14 @@ final class HotkeyMonitor {
     func stop() {
         monitors.forEach { NSEvent.removeMonitor($0) }
         monitors.removeAll()
+        reset()
+    }
+
+    /// Forget any half-finished press/tap, e.g. when the controller refused to record.
+    func reset() {
         expiryWork?.cancel()
+        expiryWork = nil
+        processor.reset()
     }
 
     private func handle(_ event: NSEvent) {
