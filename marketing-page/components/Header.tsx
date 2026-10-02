@@ -1,32 +1,23 @@
-import { MobileMenu } from "@/components/MobileMenu";
 import { Wordmark } from "@/components/Wordmark";
-import { NAV, SITE } from "@/lib/site";
+import { SITE } from "@/lib/site";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur-md">
+    <header className="border-b border-border">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
-        <a href="#top" className="rounded-lg">
+        <a href="#top" className="rounded-sm">
           <Wordmark />
         </a>
-        <nav aria-label="Main" className="flex items-center gap-2 text-sm md:gap-7">
-          {/* Anchor links fold into the phone menu; Download always stays visible. */}
-          <ul className="hidden items-center gap-7 md:flex">
-            {NAV.map((item) => (
-              <li key={item.href}>
-                <a href={item.href} className="text-muted transition-colors hover:text-foreground">
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <nav aria-label="Main" className="flex items-center gap-5 font-sans text-[0.95rem]">
+          <a href={SITE.repoUrl} className="underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground">
+            Source
+          </a>
           <a
             href={SITE.releasesUrl}
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-cta-edge bg-accent px-4 py-1.5 font-semibold text-accent-foreground transition-transform hover:-translate-y-px md:min-h-0"
+            className="inline-flex min-h-10 items-center rounded-md bg-foreground px-3.5 font-semibold text-background transition-opacity hover:opacity-90"
           >
             Download
           </a>
-          <MobileMenu />
         </nav>
       </div>
     </header>

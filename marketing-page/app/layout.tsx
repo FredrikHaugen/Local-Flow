@@ -30,7 +30,7 @@ const code = localFont({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE.name} — ${SITE.tagline}`,
+  title: `${SITE.name}: voice dictation that runs on your Mac`,
   description: SITE.description,
   openGraph: {
     title: SITE.name,

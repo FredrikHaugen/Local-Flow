@@ -28,10 +28,10 @@ export function SendToMac({ className = "" }: { className?: string }) {
       <button
         type="button"
         onClick={send}
-        className="inline-flex min-h-11 flex-wrap items-center gap-x-1.5 text-left text-sm"
+        className="font-sans inline-flex min-h-11 flex-wrap items-center gap-x-1.5 text-left text-sm"
       >
         <span className="text-muted">{PHONE.handoffLead}</span>
-        <span className="font-semibold underline decoration-accent-ink decoration-2 underline-offset-4">{PHONE.handoff}</span>
+        <span className="font-semibold underline decoration-foreground/40 decoration-2 underline-offset-4">{PHONE.handoff}</span>
         <span aria-hidden="true">→</span>
       </button>
       <p role="status" className="mt-2 text-xs empty:hidden">

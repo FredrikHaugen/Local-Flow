@@ -8,7 +8,7 @@ export const SITE = {
   // Speed leads; "about a second" is docs/PROJECT.md's "typically in about a second with the base model".
   tagline: "Just talk. It's typed in about a second.",
   description:
-    "peluni is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and clean text appears in any app — transcribed and cleaned up entirely on-device.",
+    "peluni is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and the text appears in whatever app you're using, transcribed and cleaned up on your Mac.",
   repoUrl,
   // /releases rather than /releases/latest: the latter 404s until the first release is published.
   releasesUrl: `${repoUrl}/releases`,
