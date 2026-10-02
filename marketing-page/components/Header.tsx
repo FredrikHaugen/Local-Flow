@@ -5,7 +5,7 @@ export function Header() {
   return (
     <header className="border-b border-border px-4 sm:px-6">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4">
-        <a href="#top" className="rounded-sm">
+        <a href="#top" className="flex items-center rounded-sm">
           <Wordmark />
         </a>
         <nav aria-label="Main" className="flex items-center gap-5 font-sans text-[0.95rem]">

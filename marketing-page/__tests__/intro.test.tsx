@@ -21,7 +21,9 @@ describe("Intro", () => {
     expect(container.querySelector(".wave-bar")).not.toBeNull();
     const rows = [...container.querySelectorAll("figure ul > li")];
     expect(rows.at(-2)!.textContent).toContain(USING.window.text);
-    expect(rows.at(-1)!.textContent).toBe("");
+    const next = rows.at(-1)!.cloneNode(true) as HTMLElement;
+    next.querySelectorAll("[aria-hidden='true']").forEach((n) => n.remove());
+    expect(next.textContent).toBe("");
   });
 
   test("offers phones a way to send the page to a Mac", () => {

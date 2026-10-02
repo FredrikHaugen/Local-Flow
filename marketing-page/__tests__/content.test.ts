@@ -9,9 +9,10 @@ const project = readFileSync(resolve(process.cwd(), "../docs/PROJECT.md"), "utf8
 
 describe("content facts", () => {
   test("the speed claim is the sourced one", () => {
-    const phrase = "typically in about a second with the base model";
-    expect(project).toContain(phrase);
-    expect(USING.paragraphs.join(" ")).toContain(phrase);
+    // The site rewords PROJECT.md's "typically in about a second with the base model" but keeps every part of it.
+    expect(project).toContain("typically in about a second with the base model");
+    const said = USING.paragraphs.join(" ");
+    for (const part of ["Typically", "about a second", "with the base model"]) expect(said).toContain(part);
   });
 
   test("the intro is one short promise", () => {

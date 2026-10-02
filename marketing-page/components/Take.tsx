@@ -7,7 +7,7 @@ function Check() {
 
 // The hero scene: Reminders, mid-session. The last thing you said has landed as a reminder, cleaned up
 // and still marked as just arrived, with what whisper heard set right under it, fillers struck through.
-// You're already saying the next one: a new row waits with the cursor and the overlay listens.
+// You're already saying the next one: a new row waits with the cursor, the overlay listening beside it.
 export function Take() {
   const { window: w } = USING;
   const raw = w.raw.split(" ");
@@ -47,14 +47,14 @@ export function Take() {
             </span>
           </li>
           {/* The next one, while you say it. */}
-          <li className="flex gap-3 py-3">
+          <li className="flex items-start gap-3 pt-3">
             <Check />
             <span aria-hidden="true" className="caret mt-[0.25em] inline-block h-[1.1em] w-[2px] bg-foreground" />
+            <span className="ml-3">
+              <OverlayPill />
+            </span>
           </li>
         </ul>
-        <div className="mt-2 flex justify-center">
-          <OverlayPill />
-        </div>
       </div>
     </figure>
   );

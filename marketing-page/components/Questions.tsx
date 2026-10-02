@@ -11,7 +11,7 @@ function Answer({ q, children }: { q: string; children: React.ReactNode }) {
 }
 
 // After the dark band and before the download: the few questions a buyer asks, answered in the open, in
-// one column. The reference detail (model sizes, checking a download) lives in the README.
+// a two-by-two grid. The reference detail (model sizes, checking a download) lives in the README.
 export function Questions() {
   return (
     <section id="faq" aria-labelledby="faq-title" className="scroll-mt-6 px-4 pt-20 sm:px-6 sm:pt-28">
@@ -32,7 +32,7 @@ export function Questions() {
             {QUESTIONS.moreAfter}
           </p>
         </div>
-        <div className="mt-10 max-w-2xl">
+        <div className="mt-10 grid gap-x-16 sm:grid-cols-2">
           <Answer q={USING.speedTitle}>
             <p>
               {USING.paragraphs[0]}

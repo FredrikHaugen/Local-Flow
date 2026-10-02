@@ -20,7 +20,7 @@ export const INTRO = {
 
 export const USING = {
   paragraphs: [
-    "The text lands typically in about a second with the base model, counted from letting go of the key.",
+    "Typically about a second after you let go of the key, with the base model.",
   ],
   sceneLabel: "Dictating into Reminders",
   // The hero scene: a Reminders list where the last dictation has landed and the next one is being spoken.
@@ -132,7 +132,7 @@ export const AUDIO = {
 } as const;
 
 export const INSTALL_GUIDE = {
-  title: "Installing",
+  title: "Download",
   steps: [
     { before: "Download the DMG from the", link: "releases page", after: "." },
     { before: "Drag peluni to Applications.", link: "", after: "" },
