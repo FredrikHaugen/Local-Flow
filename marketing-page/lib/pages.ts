@@ -32,6 +32,15 @@ export const PAGES: readonly PageInfo[] = [
     h1: "What peluni does",
     header: true,
   },
+  {
+    path: "/how-it-works",
+    nav: "How it works",
+    title: "How peluni works: dictation that stays on your Mac",
+    description:
+      "The five stages between holding Right ⌥ and seeing text: capture, silence trimming, whisper transcription, local cleanup and pasting.",
+    h1: "How peluni turns speech into text",
+    header: true,
+  },
 ];
 
 export function page(path: string): PageInfo {

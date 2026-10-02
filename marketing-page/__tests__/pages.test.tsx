@@ -10,11 +10,13 @@ import { SITE } from "@/lib/site";
 import type { Section } from "@/lib/blocks";
 import Home, { metadata as homeMetadata } from "@/app/page";
 import * as FeaturesPage from "@/app/features/page";
+import * as HowItWorksPage from "@/app/how-it-works/page";
 
 // Every page's module, by path. Each page task adds its line here.
 const ROUTES: Record<string, { default: ComponentType; metadata: unknown }> = {
   "/": { default: Home, metadata: homeMetadata },
   "/features": FeaturesPage,
+  "/how-it-works": HowItWorksPage,
 };
 
 function strings(value: unknown): string[] {
