@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { AnalyticsConsent } from "@/components/AnalyticsConsent";
-import { SITE } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { SEO, SITE } from "@/lib/site";
 import "./globals.css";
 
 // Geist and Geist Mono, latin subset only, self-hosted (see app/fonts/README.md). The site's copy
@@ -28,15 +29,31 @@ const display = localFont({
   src: "./fonts/archivo-extracondensed-800.woff2",
   weight: "800",
   display: "swap",
+  // Next's generated fallback is Arial with no weight, so 800 headings got a synthetic bold that
+  // is wider than this condensed face: the hero rewrapped on swap (mobile CLS 0.10 in Lighthouse).
+  // "display-fallback" in globals.css declares weight 800, so the browser doesn't embolden it.
+  adjustFontFallback: false,
+  fallback: ["display-fallback"],
 });
 
+// og:image comes from app/opengraph-image.png (+ .alt.txt); X falls back to it for the large card.
 export const metadata: Metadata = {
-  title: `${SITE.name} — ${SITE.tagline}`,
+  metadataBase: new URL(SITE.url),
+  title: SEO.title,
   description: SITE.description,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: SITE.name,
+    title: SEO.title,
     description: SITE.description,
+    url: "/",
+    siteName: SITE.name,
+    locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SEO.title,
+    description: SITE.description,
   },
 };
 
@@ -48,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col">
         {children}
+        <JsonLd />
         <AnalyticsConsent />
       </body>
     </html>
