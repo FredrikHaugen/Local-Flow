@@ -142,8 +142,9 @@ export const AUDIO = {
     incoming: "Still on for 6?",
     text: "Running ten minutes late, start without me and I'll catch up on the notes.",
   },
+  display: "Turn Wi-Fi off and keep dictating.",
   paragraphs: [
-    "Turn Wi-Fi off and keep dictating. Transcription and cleanup run in memory on your Mac, and the app only goes online to fetch a model when you ask for one.",
+    "Transcription and cleanup run in memory on your Mac, and the app only goes online to fetch a model when you ask for one.",
   ],
   sourceBefore: "The code for all of this is",
   sourceLink: "on GitHub",

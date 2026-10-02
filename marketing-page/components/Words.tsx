@@ -31,9 +31,9 @@ export function Words() {
         <p className="mt-2 text-[clamp(2rem,1.25rem+3vw,3.9rem)] leading-[1.15] tracking-[-0.02em]">
           {withTerms(WORDS.typed, WORDS.terms.map((t) => t.term), "selected")}
         </p>
-        <ul aria-label={WORDS.vocabTitle} className="mt-8 flex flex-wrap gap-2 font-sans text-[0.95rem]">
+        <ul aria-label={WORDS.vocabTitle} className="mt-8 flex flex-wrap gap-3 font-sans text-lg">
           {WORDS.terms.map((entry) => (
-            <li key={entry.term} className="rounded-md border border-border bg-card px-3 py-1.5">
+            <li key={entry.term} className="rounded-lg border border-border bg-card px-4 py-2">
               <span className="font-semibold">{entry.term}</span>
               {entry.soundsLike.length > 0 && <span className="text-muted"> sounds like “{entry.soundsLike.join(", ")}”</span>}
             </li>

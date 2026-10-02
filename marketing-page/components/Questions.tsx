@@ -23,7 +23,7 @@ export function Questions() {
     <Chapter id="faq" title={QUESTIONS.title} wide className="pb-20 pt-20 sm:pb-28 sm:pt-28">
       <div className="mt-6 grid gap-x-12 lg:grid-cols-2">
         <div className="border-b border-border">
-          {QUESTIONS.items.slice(0, 5).map((item) => (
+          {QUESTIONS.items.slice(0, 4).map((item) => (
             <Disclosure key={item.q} q={item.q}>
               <p>{item.a}</p>
             </Disclosure>
@@ -41,7 +41,7 @@ export function Questions() {
           </Disclosure>
         </div>
         <div className="border-b border-border">
-          {QUESTIONS.items.slice(5).map((item) => (
+          {QUESTIONS.items.slice(4).map((item) => (
             <Disclosure key={item.q} q={item.q}>
               <p>{item.a}</p>
             </Disclosure>
