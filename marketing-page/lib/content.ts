@@ -181,10 +181,6 @@ export const QUESTIONS = {
       a: "Yes, once a model is downloaded. You only need a connection to download models.",
     },
     {
-      q: "Will it run on an Intel Mac?",
-      a: "No. It needs Apple Silicon (M1 or later) and macOS 14 or later.",
-    },
-    {
       q: "Does it keep my transcripts?",
       a: "The last ten stay in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them.",
     },

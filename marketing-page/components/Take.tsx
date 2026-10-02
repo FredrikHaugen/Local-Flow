@@ -6,7 +6,7 @@ import { USING } from "@/lib/content";
 export function Take() {
   const raw = USING.window.raw.split(" ");
   return (
-    <figure aria-label={USING.sceneLabel} className="window-shadow mt-14 overflow-hidden rounded-xl bg-card sm:mt-20">
+    <figure aria-label={USING.sceneLabel} className="window-shadow mt-14 overflow-hidden rounded-xl bg-card sm:mt-20 xl:-mx-16">
       <p className="relative border-b border-border px-4 py-2 text-center font-sans text-[0.8rem] font-semibold text-foreground/80">
         <span aria-hidden="true" className="absolute left-3 top-1/2 flex -translate-y-1/2 gap-1.5">
           <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
