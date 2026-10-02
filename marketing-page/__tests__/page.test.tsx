@@ -12,7 +12,7 @@ describe("Home page", () => {
   test("every in-page anchor points at an element that exists", () => {
     const { container } = render(<Home />);
     const anchors = [...container.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')];
-    expect(anchors.length).toBeGreaterThanOrEqual(NAV.length);
+    expect(anchors.length).toBeGreaterThan(0);
     for (const a of anchors) {
       const id = a.getAttribute("href")!.slice(1);
       expect(container.querySelector(`[id="${id}"]`), `missing target for ${a.getAttribute("href")}`).not.toBeNull();

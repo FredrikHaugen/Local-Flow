@@ -84,21 +84,21 @@ export function AnalyticsConsent() {
     <div
       role="dialog"
       aria-label={ANALYTICS.settings}
-      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-2xl border border-border bg-card p-5 shadow-[0_24px_48px_-24px_var(--foreground)] sm:inset-x-auto sm:right-6 sm:bottom-6"
+      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-lg font-sans border border-border bg-card p-5 shadow-[0_24px_48px_-24px_var(--foreground)] sm:inset-x-auto sm:right-6 sm:bottom-6"
     >
       <p className="text-sm leading-relaxed">{ANALYTICS.banner}</p>
       <div className="mt-4 flex gap-3">
         <button
           type="button"
           onClick={allow}
-          className="min-h-11 flex-1 rounded-full bg-foreground px-4 text-sm font-semibold text-background"
+          className="min-h-11 flex-1 rounded-md bg-foreground px-4 text-sm font-semibold text-background"
         >
           {ANALYTICS.allow}
         </button>
         <button
           type="button"
           onClick={decline}
-          className="min-h-11 flex-1 rounded-full border border-border px-4 text-sm font-semibold"
+          className="min-h-11 flex-1 rounded-md border border-border px-4 text-sm font-semibold"
         >
           {ANALYTICS.decline}
         </button>
