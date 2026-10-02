@@ -108,14 +108,25 @@ export const HELP: PageCopy = {
               ],
               [
                 "A note that the text was copied and you should press ⌘V",
-                "The app refused the paste. Press ⌘V yourself, or set Settings → Advanced → Method to Type character-by-character.",
+                "peluni couldn't send the keystrokes into the app, so the text is on your clipboard. Press ⌘V yourself.",
               ],
               [
                 "Couldn't download, followed by the reason",
-                "The reason says what failed: no connection, a timeout, Hugging Face out of reach, an incomplete download or too little disk space. Fix that and press Retry. A download needs its own size plus 200 MB free.",
+                "The reason says what failed: no connection, a timeout, Hugging Face out of reach, an incomplete download or too little disk space. Fix that and press Retry. A speech model download also needs its own size plus 200 MB free.",
               ],
             ],
           },
+        },
+      ],
+    },
+    {
+      id: "no-text",
+      heading: "No text and no message",
+      blocks: [
+        {
+          p: [
+            "peluni sends the paste but can't see whether the app took it. If nothing appears and peluni shows no message, the app probably ignores pastes from other programs. Copy the text again from Recent transcripts in the menu bar menu, and set Settings → Advanced → Method to Type character-by-character for next time.",
+          ],
         },
       ],
     },

@@ -1,0 +1,8 @@
+[      66ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:4791/_next/static/chunks/19pouok499n9x.js:0
+[      66ms] [ERROR] Failed to load resource: net::ERR_SOCKET_NOT_CONNECTED @ http://localhost:4791/icon.svg?icon.3tweqjdl-t_r1.svg:0
+[      66ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:4791/android-chrome-192x192.png:0
+[      67ms] [WARNING] Error while trying to use the following icon from the Manifest: http://localhost:4791/android-chrome-192x192.png (Download error or resource isn't a valid image) @ http://localhost:4791/index.html:0
+[      67ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:4791/_next/static/chunks/31o_hxlkrksti.js:0
+[      67ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:4791/favicon.ico?favicon.143r210_47hau.ico:0
+[      67ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:4791/_next/static/chunks/0rz15xcept0us.js:0
+[      67ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:4791/_next/static/chunks/3pil8xnbw05oa.js:0

@@ -57,7 +57,7 @@ export const SECURITY: PageCopy = {
       blocks: [
         {
           p: [
-            "Before pasting, peluni asks macOS whether the focused element is a secure text field, and asks again just before the paste lands, in case focus moved. If it is, peluni pastes nothing and doesn't touch the clipboard. The experimental Autocomplete switch never reads a secure field either.",
+            "Before pasting, peluni asks macOS whether the focused element is a secure text field, and asks again just before the paste lands, in case focus moved. If it is, peluni pastes nothing. If focus moved into it at the last moment, after the transcript was already on the clipboard, peluni puts your clipboard text back. The experimental Autocomplete switch never reads a secure field either.",
           ],
         },
       ],
@@ -127,9 +127,9 @@ export const SECURITY: PageCopy = {
         },
         {
           p: [
-            "To check this yourself, run ",
+            "To check this yourself, open Terminal while peluni is running, run ",
             { code: "nettop -m tcp -p $(pgrep -x peluni)" },
-            " in Terminal and dictate a few sentences. With the models downloaded, no connection appears.",
+            " and dictate a few sentences. With the models downloaded, no connection appears.",
           ],
         },
       ],

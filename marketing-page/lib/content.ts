@@ -164,7 +164,7 @@ export const QUESTIONS = {
     },
     {
       q: "Does it keep my transcripts?",
-      a: "peluni keeps your last ten transcripts in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them. If a paste can't land, the text waits on your clipboard.",
+      a: "peluni keeps your last ten transcripts in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them. If peluni can't send the keystrokes, the text waits on your clipboard.",
     },
     {
       q: "What happens in a password field?",

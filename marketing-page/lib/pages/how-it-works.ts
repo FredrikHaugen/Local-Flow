@@ -63,7 +63,7 @@ export const HOW_IT_WORKS: PageCopy = {
       blocks: [
         {
           p: [
-            "The text is pasted into the focused app with a synthesized ⌘V, and your clipboard is saved before and restored after. peluni asks macOS whether the focused field is a password field before pasting, and asks again just before the paste lands, in case focus moved. In a password field it pastes nothing and leaves the clipboard alone.",
+            "The text is pasted into the focused app with a synthesized ⌘V, and the text on your clipboard is saved before and restored after (an image or file you had copied isn't kept). peluni asks macOS whether the focused field is a password field before pasting, and asks again just before the paste lands, in case focus moved. In a password field it pastes nothing; if focus moved into one at the last moment, it puts your clipboard text back.",
           ],
         },
       ],
@@ -78,7 +78,7 @@ export const HOW_IT_WORKS: PageCopy = {
               "No speech model downloaded: the overlay says “No transcription model installed. Open Settings → Models.” before anything is recorded.",
             ],
             ["Microphone access turned off: peluni says so and opens the setup window, also before recording."],
-            ["The app won't accept the paste: your text stays on the clipboard and the overlay tells you to press ⌘V."],
+            ["peluni can't send the keystrokes: your text stays on the clipboard and the overlay tells you to press ⌘V."],
             ["Cleanup fails or runs out of time: the raw transcript is pasted, with no error."],
           ],
         },

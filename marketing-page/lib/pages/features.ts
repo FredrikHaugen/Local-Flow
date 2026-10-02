@@ -30,7 +30,7 @@ export const FEATURES: PageCopy = {
         },
         {
           p: [
-            "Cleanup never holds up your text. If the model fails, or takes longer than ten seconds, peluni pastes the raw transcript. Its output is checked before it's used, and if it added words you didn't say or cut most of what you did, you get the raw transcript instead.",
+            "Cleanup never holds up your text. If the model fails, or takes longer than ten seconds, peluni pastes the raw transcript. Its output is checked before it's used: if it comes back more than two and a half times as long as what you said, or under a quarter of it, you get the raw transcript instead.",
           ],
         },
         {
@@ -129,7 +129,7 @@ export const FEATURES: PageCopy = {
       blocks: [
         {
           p: [
-            "peluni pastes into whatever app has your cursor, with the same ⌘V you would use. It saves your clipboard first and puts it back afterwards, unless something else changed the clipboard in the meantime.",
+            "peluni pastes into whatever app has your cursor, with the same ⌘V you would use. It saves the text on your clipboard first and puts it back afterwards, unless something else changed the clipboard in the meantime. An image or file you had copied isn't kept.",
           ],
         },
         {
@@ -139,7 +139,7 @@ export const FEATURES: PageCopy = {
         },
         {
           p: [
-            "If a paste can't land, your text stays on the clipboard and peluni tells you to press ⌘V. In a password field it types nothing and leaves the clipboard alone.",
+            "If peluni can't send the keystrokes at all, your text stays on the clipboard and peluni tells you to press ⌘V. It can't see whether an app took the paste, so if one quietly ignores it, copy the text again from Recent transcripts. In a password field it types nothing; if focus moved into one at the last moment, it puts your clipboard text back.",
           ],
         },
         {
