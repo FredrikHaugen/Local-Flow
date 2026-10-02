@@ -31,14 +31,6 @@ describe("Intro", () => {
   });
 });
 
-describe("Installing", () => {
-  test("shows the keys as a legend next to the steps", () => {
-    const { container } = render(<Install />);
-    const legend = container.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!;
-    expect(legend.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
-  });
-});
-
 describe("The closing download", () => {
   test("carries the requirement and the page's one version mention", () => {
     render(<Install />);

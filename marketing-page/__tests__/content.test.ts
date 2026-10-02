@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
-import { CLEANUP_LEVELS, INSTALL_GUIDE, INTRO, USING, WORDS } from "@/lib/content";
+import { CLEANUP_LEVELS, INSTALL_GUIDE, INTRO, USING } from "@/lib/content";
 import { README_FACTS } from "@/lib/site";
 
 const readme = readFileSync(resolve(process.cwd(), "../README.md"), "utf8");
@@ -21,11 +21,6 @@ describe("content facts", () => {
   test.each(README_FACTS)("README and the site's requirements both state %s", (fact) => {
     expect(readme).toContain(fact);
     expect(INSTALL_GUIDE.requirements.map((r) => `${r.title} ${r.detail}`).join("\n")).toContain(fact);
-  });
-
-  test("model sizes agree with the README facts", () => {
-    const sizes = WORDS.models.map((m) => m.size);
-    for (const fact of ["78 MB", "148 MB", "1.6 GB"]) expect(sizes).toContain(fact);
   });
 
   test("each cleanup level strikes exactly the words its output drops", () => {
@@ -49,9 +44,7 @@ describe("content facts", () => {
     expect(CLEANUP_LEVELS.defaultLevel).toBe("light");
   });
 
-  test("install has its real steps, and the checksum line matches the release file name", () => {
+  test("install has its real steps", () => {
     expect(INSTALL_GUIDE.steps.length).toBe(4);
-    expect(INSTALL_GUIDE.checksumCommand).toBe("shasum -a 256 -c peluni-<version>.dmg.sha256");
-    expect(readme).toContain("shasum -a 256 -c peluni-<version>.dmg.sha256");
   });
 });

@@ -35,14 +35,7 @@ export const USING = {
     dropped: [0, 4, 7] as number[],
     text: "Pick up the charger and oat milk on the way home.",
   },
-  keysLabel: "Keys",
   speedTitle: "How fast is it?",
-  // The key legend, next to the install steps.
-  keys: [
-    { how: "Hold", key: "Right ⌥", result: "to record" },
-    { how: "Double-tap", key: "Right ⌥", result: "to keep recording with your hands free" },
-    { how: "Press", key: "Esc", result: "to cancel" },
-  ],
   keysEnd: "A tap shorter than 0.3 seconds is ignored, and if a paste can't land, the text waits on your clipboard.",
   // The real overlay's label while recording (Sources/PeluniApp/UI/OverlayView.swift).
   overlayLabel: "Listening…  (esc to cancel)",
@@ -99,7 +92,6 @@ export const CLEANUP_LEVELS = {
   ],
 } as const;
 
-// Speech models from Sources/PeluniCore/ModelCatalog.swift (sizes rounded, decimal units as in the README).
 export const WORDS = {
   title: "Vocabulary",
   vocabTitle: "Vocabulary",
@@ -115,15 +107,6 @@ export const WORDS = {
   heard: "ship the pell oony build to priya",
   typedLabel: "Pasted",
   typed: "Ship the peluni build to Priya.",
-  modelsTitle: "Which speech model should I use?",
-  modelsBody: "Start with Base. Larger models are more accurate, and each is downloaded only when you pick it in Settings.",
-  models: [
-    { name: "Tiny", size: "78 MB", note: "older Macs, quick notes" },
-    { name: "Base", size: "148 MB", note: "where to start" },
-    { name: "Small", size: "488 MB", note: "fewer mistakes, still quick" },
-    { name: "Medium", size: "1.5 GB", note: "accents and noisy rooms" },
-    { name: "Large v3 Turbo", size: "1.6 GB", note: "the most accurate" },
-  ],
 } as const;
 
 export const AUDIO = {
@@ -157,10 +140,6 @@ export const INSTALL_GUIDE = {
     { before: "Allow Microphone and Accessibility when the setup window asks.", link: "", after: "" },
     { before: "Get the Base speech model (148 MB), then hold Right ⌥ and talk.", link: "", after: "" },
   ],
-  checkTitle: "How do I check the download?",
-  checksumBody:
-    "Releases are signed with a Developer ID and notarized by Apple. To check a download, put the .sha256 file published with it in the same folder and run:",
-  checksumCommand: "shasum -a 256 -c peluni-<version>.dmg.sha256",
   download: "Download for Mac",
   requirementsTitle: "What does my Mac need?",
   requirements: [
@@ -178,12 +157,8 @@ export const QUESTIONS = {
   title: "Questions",
   items: [
     {
-      q: "Which languages does it understand?",
-      a: "The speech models are multilingual and detect the language on their own. Larger models are more accurate, and you can switch in Settings → Models.",
-    },
-    {
-      q: "Does it work offline?",
-      a: "Yes, once a model is downloaded. You only need a connection to download models.",
+      q: "Can I dictate hands-free?",
+      a: "Yes. Double-tap Right ⌥ and it keeps recording until you press it once more. Esc cancels at any point.",
     },
     {
       q: "Does it keep my transcripts?",
@@ -198,6 +173,9 @@ export const QUESTIONS = {
       a: "Nothing. It's MIT licensed, and you can build it from the source yourself.",
     },
   ],
+  detailsBefore: "Speech model sizes and how to check a download are in the ",
+  detailsLink: "README",
+  detailsAfter: ".",
   moreBefore: "Anything else: ",
   moreLink: "open an issue on GitHub",
   moreAfter: ".",

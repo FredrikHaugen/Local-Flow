@@ -5,7 +5,8 @@ function Check() {
   return <span aria-hidden="true" className="mt-[0.3em] h-[1.1em] w-[1.1em] shrink-0 rounded-full border-[1.5px] border-foreground/35" />;
 }
 
-// The hero scene: Reminders, mid-session. The last thing you said has landed as a reminder, cleaned up;
+// The hero scene: Reminders, mid-session. The last thing you said has landed as a reminder, cleaned up
+// and still marked as just arrived;
 // you're already saying the next one, so a new row waits with the cursor and the overlay listens at the
 // bottom of the window. Under the window, what whisper heard for the reminder that landed.
 export function Take() {
@@ -45,9 +46,11 @@ export function Take() {
                 </li>
               ))}
               {/* The one that just landed. */}
-              <li className="flex gap-3 border-b border-border py-3 font-serif text-[1.25em] leading-snug">
+              <li className="flex gap-3 border-b border-border py-3">
                 <Check />
-                {w.text}
+                <span>
+                  <span className="selected">{w.text}</span>
+                </span>
               </li>
               {/* The next one, while you say it. */}
               <li className="flex gap-3 py-3">
@@ -61,9 +64,9 @@ export function Take() {
           </div>
         </div>
       </div>
-      <figcaption data-scene="raw" className="mt-4 font-sans text-[0.95rem] text-muted">
+      <figcaption data-scene="raw" className="mt-5 font-sans text-[1.05rem] text-muted">
         {w.heardLabel}:{" "}
-        <span className="font-mono text-foreground">
+        <span className="font-mono text-[1.05rem] text-foreground">
           {raw.map((word, i) => (
             <span key={i}>
               {i > 0 && " "}

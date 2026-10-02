@@ -132,13 +132,16 @@ h3 {
   background: var(--desk);
 }
 
-/* Vocabulary terms in the typed line, marked with the brand teal as a fill (dark ink on it in both themes). */
+/* Words peluni put there: vocabulary terms, and the reminder that just landed. A soft teal fill with
+   rounded ends, dark ink on it in both themes. */
 .selected {
   background: var(--rec);
   color: #171a18;
+  padding: 0 0.15em;
+  margin: 0 -0.15em;
+  border-radius: 0.25em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  border-radius: 2px;
 }
 
 /* A product window on the desk. Plain black shadows read correctly in both themes. */
