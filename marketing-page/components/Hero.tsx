@@ -7,20 +7,20 @@ import { HERO, HERO_PROOF, HERO_REQUIREMENT, HERO_TERMS, SITE } from "@/lib/site
 export function Hero() {
   return (
     <section id="top" aria-labelledby="hero-title" className="relative scroll-mt-16 overflow-hidden">
-      <div className="relative mx-auto max-w-5xl px-4 pt-10 sm:px-6 sm:pt-14">
+      <div className="relative mx-auto max-w-5xl px-4 pt-8 sm:px-6 sm:pt-12 lg:pt-8">
         <Marker label={HERO.eyebrow} />
         <h1
           id="hero-title"
-          className="font-display mt-6 text-[clamp(3.5rem,15.5vw,7.6rem)] font-extrabold leading-[0.9] tracking-[-0.01em] sm:mt-7"
+          className="font-display mt-6 text-[clamp(3.5rem,15.5vw,7.6rem)] lg:text-[6.6rem] font-extrabold leading-[0.9] tracking-[-0.01em] sm:mt-7 lg:mt-6 lg:[&_.typed]:whitespace-nowrap"
         >
           <Marked text={SITE.tagline} mark={HERO.emphasis} />
         </h1>
-        <div className="mt-7 max-w-2xl sm:mt-9">
+        <div className="mt-7 max-w-2xl sm:mt-9 lg:grid lg:max-w-none lg:mt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,27rem)] lg:items-start lg:gap-14">
           <p className="text-lg leading-relaxed text-muted sm:text-xl">
             {HERO.pitchBefore} <Kbd>Right ⌥</Kbd>
             {HERO.pitchAfter}
           </p>
-          <div data-cta className="mt-7 sm:mt-8">
+          <div data-cta className="mt-7 sm:mt-8 lg:mt-1">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
               <a
                 href={SITE.releasesUrl}
@@ -56,17 +56,20 @@ export function Hero() {
               <span className="font-semibold text-foreground">Requires {HERO_REQUIREMENT}</span>
               <span aria-hidden="true"> · </span>
               {HERO_TERMS}
-              <span aria-hidden="true"> · </span>
-              {HERO_PROOF.lead} {HERO_PROOF.stack.map(({ name }) => name).join(" + ")},{" "}
-              <span className="font-semibold text-accent-ink">{HERO_PROOF.stat}</span> {HERO_PROOF.statNote}
+              {/* Phones keep the line short; the engines and speed come again further down. */}
+              <span className="hidden sm:inline">
+                <span aria-hidden="true"> · </span>
+                {HERO_PROOF.lead} {HERO_PROOF.stack.map(({ name }) => name).join(" + ")},{" "}
+                <span className="font-semibold text-accent-ink">{HERO_PROOF.stat}</span> {HERO_PROOF.statNote}
+              </span>
             </p>
             {/* Phones only: the download is for a Mac, so offer to send the page there. */}
-            <SendToMac className="mt-5 md:hidden" />
+            <SendToMac className="mt-3 md:hidden" />
           </div>
         </div>
       </div>
 
-      <div className="relative mt-12 sm:mt-14">
+      <div className="relative mt-10 sm:mt-12 lg:mt-9">
         <DesktopDemo />
       </div>
     </section>

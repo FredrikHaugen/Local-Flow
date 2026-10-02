@@ -41,6 +41,7 @@ describe.each([
 
   test.each([
     ["--accent-foreground", "--accent"],
+    ["--accent-foreground", "--wallpaper"],
     ["--accent-ink", "--background"],
     ["--accent-ink", "--card"],
     ["--ink-accent", "--ink"],

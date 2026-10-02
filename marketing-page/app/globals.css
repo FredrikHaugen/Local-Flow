@@ -24,6 +24,8 @@
   --logo-tile: #d9d9d9;
   --logo-stroke: #141413;
   --logo-rim: transparent;
+  /* The teal "desktop" band behind the product demo and the closing CTA. */
+  --wallpaper: #9ddeb9;
   /* macOS window controls in the product mocks. */
   --mac-close: #ff5f57;
   --mac-min: #febc2e;
@@ -49,6 +51,8 @@
     --logo-tile: #141413;
     --logo-stroke: #d9d9d9;
     --logo-rim: #3a3935;
+    /* Dimmed so the band doesn't glare on a dark page; ink text on it stays above 7:1. */
+    --wallpaper: #78b893;
     --mac-close: #ff5f57;
     --mac-min: #febc2e;
     --mac-max: #28c840;
@@ -126,9 +130,9 @@ body {
   /* A painted band rather than a full background, so stacked lines don't merge into one slab. */
   background: linear-gradient(var(--typed-bg), var(--typed-bg)) no-repeat 0 62% / 100% 80%;
   color: var(--accent-foreground);
-  padding: 0 0.07em;
-  /* The band reaches into the gutter, so the highlighted words still line up with the text above. */
-  margin: 0 -0.02em 0 -0.07em;
+  /* Barely any left padding, so a highlight that starts a line stays in line with the text above. */
+  padding: 0 0.07em 0 0.03em;
+  margin: 0 -0.02em 0 -0.03em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -147,7 +151,7 @@ body {
   display: inline-block;
   width: 0.06em;
   height: 0.86em;
-  margin-left: 0.07em;
+  margin-left: 0;
   vertical-align: -0.06em;
   border-radius: 0.03em;
   background: var(--accent-ink);
@@ -173,7 +177,7 @@ body {
   background:
     radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--ink-foreground) 22%, transparent), transparent 60%),
     radial-gradient(90% 70% at 50% 110%, color-mix(in oklab, var(--ink) 28%, transparent), transparent 70%),
-    var(--accent);
+    var(--wallpaper);
 }
 
 /* A product window floating on the wallpaper. */

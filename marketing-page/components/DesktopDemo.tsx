@@ -64,7 +64,7 @@ export function DesktopDemo() {
     <figure className="surface-accent wallpaper relative overflow-hidden text-accent-foreground">
       <MenuBar />
 
-      <div className="relative mx-auto max-w-5xl px-4 pb-12 pt-8 sm:px-6 sm:pb-16 sm:pt-12">
+      <div className="relative mx-auto max-w-5xl px-4 pb-12 pt-8 sm:px-6 sm:pb-16 sm:pt-10 lg:pt-8">
         <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.3fr)] lg:gap-0">
           {/* What you said, with the key you're holding and the overlay that was on screen while you said it. */}
           <div className="relative z-10 rounded-2xl bg-ink p-4 text-ink-foreground shadow-[0_30px_60px_-24px_rgb(0_0_0/0.7)] sm:p-6 lg:-mr-10 lg:mt-32">
