@@ -127,14 +127,6 @@ h3 {
   }
 }
 
-/* The Mac desktop in "Using it": the desk tone with a little light from the top, so the scene has depth. */
-.desk-scene {
-  background:
-    radial-gradient(80% 70% at 20% 10%, color-mix(in oklab, var(--rec) 35%, transparent), transparent 70%),
-    radial-gradient(80% 90% at 85% 100%, color-mix(in oklab, var(--select) 45%, transparent), transparent 70%),
-    var(--desk);
-}
-
 /* The desk behind the audio path. */
 .desk {
   background: var(--desk);

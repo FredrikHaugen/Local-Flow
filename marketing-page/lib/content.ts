@@ -21,25 +21,25 @@ export const USING = {
   paragraphs: [
     "peluni lives in the menu bar, and the text lands in whichever app has focus, typically in about a second with the base model.",
   ],
-  sceneLabel: "Dictating into Reminders",
-  // The app the desktop shot is dictating into.
+  sceneLabel: "One dictation, from what whisper heard to what gets pasted",
+  // The take the hero walks through.
   window: {
-    app: "Reminders",
     // What you said, and the indexes of the words the cleanup dropped from it.
     raw: "um pick up the uh charger and like oat milk on the way home",
     dropped: [0, 4, 7] as number[],
     text: "Pick up the charger and oat milk on the way home.",
   },
   keysLabel: "Keys",
-  // The key legend under the hero scene.
+  // The key legend, next to the install steps.
   keys: [
     { how: "Hold", key: "Right ⌥", result: "to record" },
     { how: "Double-tap", key: "Right ⌥", result: "to keep recording with your hands free" },
     { how: "Press", key: "Esc", result: "to cancel" },
   ],
   keysEnd: "A tap shorter than 0.3 seconds is ignored, and if a paste can't land, the text waits on your clipboard.",
-  // The real overlay's label while recording (Sources/PeluniApp/UI/OverlayView.swift).
+  // The real overlay's labels while recording and while cleaning up (Sources/PeluniApp/UI/OverlayView.swift).
   overlayLabel: "Listening…  (esc to cancel)",
+  cleaningLabel: "Cleaning…",
 } as const;
 
 // Level names and descriptions are the app's own (Sources/PeluniApp/UI/GeneralTab.swift);

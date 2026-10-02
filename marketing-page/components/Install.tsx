@@ -1,9 +1,10 @@
 import { Chapter } from "@/components/Chapter";
+import { Kbd } from "@/components/Kbd";
 import { Logomark } from "@/components/Logomark";
-import { INSTALL_GUIDE, INTRO } from "@/lib/content";
+import { INSTALL_GUIDE, INTRO, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-// The end of the page, on the dark band: the four steps, numbered, then the download.
+// The end of the page, on the dark band: the four steps, numbered, the keys you will use, then the download.
 export function Install() {
   return (
     <Chapter id="install" title={INSTALL_GUIDE.title} wide className="band-dark pb-24 pt-4 sm:pb-32">
@@ -28,6 +29,21 @@ export function Install() {
           </li>
         ))}
       </ol>
+      <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
+        <dl aria-label={USING.keysLabel} className="grid grid-cols-[auto_1fr] items-baseline gap-x-4 gap-y-2 font-sans">
+          {USING.keys.map((k) => (
+            <div key={`${k.how}-${k.key}`} className="contents">
+              <dt className="flex items-baseline gap-2 font-semibold">
+                {k.how} <Kbd>{k.key}</Kbd>
+              </dt>
+              <dd className="text-muted">{k.result}</dd>
+            </div>
+          ))}
+        </dl>
+        <p>
+          {USING.paragraphs[0]} {USING.keysEnd}
+        </p>
+      </div>
       <div data-cta className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3">
         <a
           href={SITE.releasesUrl}

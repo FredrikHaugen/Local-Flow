@@ -1,13 +1,13 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Cleanup } from "@/components/Cleanup";
-import { DesktopScene } from "@/components/DesktopScene";
+import { Take } from "@/components/Take";
 import { CLEANUP_LEVELS } from "@/lib/content";
 
-describe("DesktopScene", () => {
+describe("Take", () => {
   test("its overlay is decorative", () => {
-    const { container } = render(<DesktopScene />);
-    expect(container.querySelector(".wave-bar")?.closest("[aria-hidden='true']")).not.toBeNull();
+    const { container } = render(<Take />);
+    expect(container.querySelector("svg")?.closest("[aria-hidden='true']")).not.toBeNull();
   });
 
 });
