@@ -56,7 +56,7 @@ function AudioPath() {
 export function Audio() {
   return (
     <Chapter id="privacy" title={AUDIO.title} wide className="desk mt-24 py-16 sm:mt-32 sm:py-24">
-      <p className="mt-6 max-w-3xl text-[clamp(1.9rem,1.3rem+2.4vw,3.2rem)] leading-[1.15] tracking-[-0.015em]">{AUDIO.display}</p>
+      <p className="mt-6 max-w-3xl text-[clamp(2.2rem,1.4rem+3.4vw,4.25rem)] leading-[1.08] tracking-[-0.015em]">{AUDIO.display}</p>
       <AudioPath />
       <div className="mt-10 max-w-2xl">
         {AUDIO.paragraphs.map((p) => (
