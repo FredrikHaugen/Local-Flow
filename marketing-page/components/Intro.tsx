@@ -11,7 +11,7 @@ export function Intro() {
     <section id="top" aria-labelledby="top-title" className="px-4 pt-8 sm:px-6 sm:pt-10">
       <div className="mx-auto max-w-5xl">
         <h1 id="top-title" className="text-balance text-[clamp(2.5rem,1.4rem+4.4vw,5.2rem)] leading-[1.02] tracking-[-0.02em]">
-          {INTRO.bodyBefore} <Kbd className="px-2 py-0 align-[0.08em] text-[0.62em] leading-normal">{INTRO.key}</Kbd> {INTRO.bodyAfter}
+          {INTRO.bodyBefore} <Kbd className="px-[0.3em] py-[0.12em] align-[0.3em] font-sans! text-[0.42em] font-medium leading-none">{INTRO.key}</Kbd> {INTRO.bodyAfter}
         </h1>
         <p className="mt-6 max-w-2xl text-[clamp(1.2rem,1.05rem+0.6vw,1.5rem)] leading-[1.4]">{INTRO.bodyMore}</p>
         <div data-cta className="mt-8">

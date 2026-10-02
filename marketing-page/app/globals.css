@@ -135,6 +135,9 @@ h3 {
 /* Words peluni put there: vocabulary terms, and the reminder that just landed. A teal marker stroke
    under the words, so it wraps cleanly and leaves the text's own ink alone in both themes. */
 .selected {
+  /* Vocabulary terms are <mark>s: drop the browser's yellow and keep the text's own ink. */
+  background: none;
+  color: inherit;
   text-decoration-line: underline;
   text-decoration-color: var(--rec);
   text-decoration-thickness: 0.3em;
