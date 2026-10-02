@@ -1,3 +1,4 @@
+import { AnalyticsSettingsButton } from "@/components/AnalyticsConsent";
 import { Wordmark } from "@/components/Wordmark";
 import { FOOTER, NAV, SITE } from "@/lib/site";
 
@@ -42,6 +43,7 @@ export function Footer() {
               {FOOTER.siteTitle}
             </h2>
             <p className="mt-3 text-sm leading-relaxed">{FOOTER.siteNote}</p>
+            <AnalyticsSettingsButton className={`${LINK} mt-2 text-sm text-muted underline`} />
           </div>
         </div>
 

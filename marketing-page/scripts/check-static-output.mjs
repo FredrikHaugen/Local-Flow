@@ -1,5 +1,7 @@
 // Post-build guard: the site must not make third-party requests.
 // Run via `pnpm check` (next build + this script).
+// Opt-in analytics (components/AnalyticsConsent.tsx) inject their script at runtime, only after
+// consent, so they never appear in out/ and are intentionally outside this check.
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { findExternalCssUrls, findExternalRefs } from "./external-refs.mjs";

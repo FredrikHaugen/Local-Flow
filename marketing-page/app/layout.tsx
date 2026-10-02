@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -45,7 +46,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${display.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+        <AnalyticsConsent />
+      </body>
     </html>
   );
 }

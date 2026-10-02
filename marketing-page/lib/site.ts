@@ -526,8 +526,19 @@ export const FOOTER = {
     { label: "MIT License", href: `${repoUrl}/blob/main/LICENSE` },
   ],
   siteTitle: "This site",
-  siteNote: "No analytics, no cookies and no third-party requests. Even the fonts are served from here.",
+  siteNote: "No cookies or third-party requests unless you allow analytics (Microsoft Clarity). Even the fonts are served from here.",
   legal: `v${SITE.version} · MIT licensed · Made for macOS on Apple Silicon`,
+} as const;
+
+// Opt-in page analytics. Nothing from Clarity loads, and no cookie is set, until the visitor allows it.
+export const ANALYTICS = {
+  clarityId: "yreithgab3",
+  storageKey: "lf-analytics",
+  banner:
+    "Can we use Microsoft Clarity to see how people use this page? It sets cookies and records anonymous sessions. It stays off unless you allow it.",
+  allow: "Allow",
+  decline: "No thanks",
+  settings: "Analytics settings",
 } as const;
 
 // Strings that must appear verbatim in both the repo README and REQUIREMENTS.

@@ -18,11 +18,11 @@ describe("Header", () => {
 });
 
 describe("Footer", () => {
-  test("states the license, links the source, and promises no analytics", () => {
+  test("states the license, links the source, and says analytics are opt-in", () => {
     render(<Footer />);
     expect(screen.getByText(/MIT licensed/)).toBeDefined();
     expect(screen.getByRole("link", { name: "Source on GitHub" }).getAttribute("href")).toBe(SITE.repoUrl);
-    expect(screen.getByText(/no analytics/i)).toBeDefined();
+    expect(screen.getByText(/unless you allow analytics/i)).toBeDefined();
   });
 });
 

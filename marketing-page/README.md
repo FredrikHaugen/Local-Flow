@@ -12,9 +12,11 @@ requirements against the repo's root `README.md` (and the speed claims against
 
 `out/` is plain HTML/CSS/JS and can be hosted anywhere.
 
-**Privacy:** the site makes the same promise as the app — no analytics, no
-cookies, no third-party scripts, fonts or images. Fonts are self-hosted from
-`app/fonts/`. `pnpm check` enforces it.
+**Privacy:** no cookies and no third-party requests unless a visitor opts in to
+Microsoft Clarity analytics through the consent banner
+(`components/AnalyticsConsent.tsx`); declining or ignoring it loads nothing.
+Fonts are self-hosted from `app/fonts/`. `pnpm check` keeps third-party
+scripts, fonts and images out of the shipped HTML.
 
 **Placeholders:** the logo (`components/Wordmark.tsx`, a ⌥ keycap for now),
 favicon (`app/favicon.ico`, still the Next.js default) and social images are
