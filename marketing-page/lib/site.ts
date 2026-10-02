@@ -5,6 +5,8 @@ const repoUrl = "https://github.com/FredrikHaugen/peluni";
 
 export const SITE = {
   name: "peluni",
+  // The canonical origin: metadataBase, the canonical link, sitemap, robots and JSON-LD all derive from it.
+  url: "https://peluni.app",
   // Speed leads; "about a second" is docs/PROJECT.md's "typically in about a second with the base model".
   tagline: "Just talk. It's typed in about a second.",
   description:
@@ -14,6 +16,17 @@ export const SITE = {
   releasesUrl: `${repoUrl}/releases`,
   version: "0.1.0",
   license: "MIT",
+} as const;
+
+// Search and share metadata. The <title> carries the words people search for ("dictation", "Mac",
+// "offline"); the tagline stays the h1. "Offline" is the FAQ's "everything else works offline".
+export const SEO = {
+  title: `${SITE.name} — Free offline voice dictation for Mac`,
+  ogImageAlt: `${SITE.name}: free, open-source voice dictation for macOS that runs on your Mac.`,
+  // JSON-LD: the requirement strings below are README_FACTS, so they stay in sync with the README.
+  operatingSystem: "macOS 14 (Sonoma) or later",
+  processor: "Apple Silicon (M1 or later)",
+  category: "UtilitiesApplication",
 } as const;
 
 // Shown right under the hero Download button, so an Intel or macOS 13 visitor knows before clicking.
@@ -534,8 +547,8 @@ export const FOOTER = {
 export const ANALYTICS = {
   clarityId: "yreithgab3",
   storageKey: "lf-analytics",
-  banner:
-    "Can we use Microsoft Clarity to see how people use this page? It sets cookies and records anonymous sessions. It stays off unless you allow it.",
+  // Kept short: on a phone this bar sits over the hero until it's answered.
+  banner: "Allow Microsoft Clarity analytics? It sets cookies and records anonymous sessions. Off unless you allow it.",
   allow: "Allow",
   decline: "No thanks",
   settings: "Analytics settings",

@@ -3,6 +3,8 @@
 Fully-local voice dictation for macOS. Hold **Right ⌥**, speak, release —
 clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 
+**Website:** [peluni.app](https://peluni.app) · **Download:** [Releases](https://github.com/FredrikHaugen/peluni/releases)
+
 - **Transcription:** whisper.cpp (Metal) with downloadable ggml models
 - **Cleanup:** a small local LLM via Apple MLX removes filler words and fixes
   punctuation — conservatively, and it never blocks your transcript

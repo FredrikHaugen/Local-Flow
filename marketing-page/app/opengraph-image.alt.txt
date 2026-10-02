@@ -1,0 +1,1 @@
+peluni: free, open-source voice dictation for macOS that runs on your Mac.
