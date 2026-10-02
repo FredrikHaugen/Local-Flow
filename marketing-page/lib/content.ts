@@ -132,9 +132,7 @@ export const WORDS = {
 export const AUDIO = {
   title: "Where your audio goes",
   display: "Turn Wi-Fi off and keep dictating.",
-  paragraphs: [
-    "Your recording stays in memory on your Mac, and nothing in that path uses the network. peluni won't type into a password field or touch the clipboard while one has focus.",
-  ],
+  paragraphs: ["Your recording stays in memory, and peluni won't type into a password field or touch the clipboard while one has focus."],
   network: "Network",
   networkState: "not used while you dictate",
   pathLabel: "The path a recording takes",

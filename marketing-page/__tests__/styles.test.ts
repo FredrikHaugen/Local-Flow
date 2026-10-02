@@ -52,3 +52,13 @@ test("the template devices are gone", () => {
     expect(css).not.toContain(`${selector} {`);
   }
 });
+
+test("the token blocks hold only custom properties", () => {
+  const light = css.slice(css.indexOf(":root {"), css.indexOf("}", css.indexOf(":root {")));
+  const darkStart = css.indexOf(":root {", css.indexOf("@media (prefers-color-scheme: dark)"));
+  const dark = css.slice(darkStart, css.indexOf("}", darkStart));
+  for (const block of [light, dark]) {
+    const lines = block.split("\n").slice(1).map((l) => l.trim()).filter(Boolean);
+    for (const line of lines) expect(line, line).toMatch(/^(--[\w-]+:|\/\*)/);
+  }
+});

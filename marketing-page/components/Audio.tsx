@@ -11,41 +11,46 @@ const STAGE_ICONS = [
   <path key="paste" d="M9 4h6v3H9zM7 6H5v15h14V6h-2m-8 7h6m-6 4h4" />,
 ];
 
-// The privacy argument, drawn at size: every stage inside the line around "Your Mac", the network
-// struck through beside it, and the one thing that ever crosses the line hanging below.
+// The privacy argument, drawn at display size: every stage inside the line around "Your Mac", the
+// connection to the network cut, and the one thing that ever crosses the line hanging below.
 function AudioPath() {
   return (
     <figure aria-label={AUDIO.pathLabel} className="mt-12 font-sans">
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_11rem] lg:items-stretch">
-        <div className="rounded-2xl border-2 border-foreground bg-background/60 px-5 pb-8 pt-5 sm:px-8">
-          <p className="text-sm font-semibold">{AUDIO.boundary}</p>
-          <ol className="audio-path mt-6 grid gap-y-6 sm:grid-cols-5 sm:gap-x-10">
+      <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_4.5rem_10.5rem] lg:gap-0">
+        <div className="rounded-3xl border-[3px] border-foreground bg-background/70 px-6 pb-10 pt-6 sm:px-8">
+          <p className="text-base font-semibold">{AUDIO.boundary}</p>
+          <ol className="audio-path mt-8 grid gap-y-8 sm:grid-cols-5 sm:gap-x-14">
             {AUDIO.stages.map((stage, i) => (
               <li key={stage.name} className="relative">
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-12 w-12 sm:h-14 sm:w-14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   {STAGE_ICONS[i]}
                 </svg>
-                <strong className="mt-3 block text-[1.15rem] leading-snug">{stage.name}</strong>
-                <span className="mt-0.5 block text-[0.95rem] text-muted">{stage.detail}</span>
+                <strong className="mt-4 block text-[1.3rem] leading-tight">{stage.name}</strong>
+                <span className="mt-1 block text-base text-muted">{stage.detail}</span>
               </li>
             ))}
           </ol>
         </div>
-        <div className="flex items-center gap-4 rounded-2xl border-2 border-foreground/25 px-5 py-5 lg:flex-col lg:justify-center lg:text-center">
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-10 w-10 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-            <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" />
-            <circle cx="12" cy="19.5" r="0.9" fill="currentColor" />
-            <path d="M3 3l18 18" className="text-foreground" stroke="currentColor" strokeWidth="2" />
+        {/* The cut connection: a line out of the Mac with a cross through it. */}
+        <svg aria-hidden="true" viewBox="0 0 80 40" className="mx-auto hidden h-10 w-20 lg:block" fill="none" stroke="currentColor" strokeLinecap="round">
+          <path d="M0 20h80" strokeWidth="3" className="text-foreground/40" />
+          <path d="M30 8l20 24M50 8 30 32" strokeWidth="4" />
+        </svg>
+        <div className="flex items-center gap-4 rounded-3xl border-[3px] border-foreground/30 px-6 py-6 lg:flex-col lg:text-center">
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-14 w-14 shrink-0 sm:h-20 sm:w-20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+            <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" className="text-muted" />
+            <circle cx="12" cy="19.5" r="0.9" fill="currentColor" className="text-muted" />
+            <path d="M3 3l18 18" strokeWidth="2.2" />
           </svg>
           <p>
-            <strong className="block">{AUDIO.network}</strong>
-            <span className="text-[0.95rem] text-muted">{AUDIO.networkState}</span>
+            <strong className="block text-[1.35rem]">{AUDIO.network}</strong>
+            <span className="text-base text-muted">{AUDIO.networkState}</span>
           </p>
         </div>
       </div>
-      <div className="ml-10">
-        <span aria-hidden="true" className="block h-8 w-0.5 bg-foreground/50" />
-        <p className="inline-block rounded-lg border-2 border-foreground/25 px-4 py-2.5 text-[0.95rem]">
+      <div className="ml-12">
+        <span aria-hidden="true" className="block h-10 w-[3px] bg-foreground/40" />
+        <p className="inline-block rounded-xl border-[3px] border-foreground/30 px-5 py-3 text-base">
           <strong>{AUDIO.outside}</strong> <span className="text-muted">{AUDIO.outsideDetail}</span>
         </p>
       </div>

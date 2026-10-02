@@ -11,15 +11,7 @@
   --muted: #4d524e;
   --card: #ffffff;
   --border: #cfd3cc;
-  /* The spoken take above the pasted sentence: readable, but fading toward the result. */
-.ghost-fade {
-  color: color-mix(in oklab, var(--foreground) 45%, transparent);
-}
-.ghost-fade [data-filler] {
-  color: color-mix(in oklab, var(--foreground) 22%, transparent);
-}
-
-/* The desktop behind the product demo. */
+  /* The desktop behind the product demo. */
   --desk: #dde1da;
   /* macOS text selection. */
   --select: #b4d5fe;
@@ -125,10 +117,12 @@ h3 {
 
 /* The spoken take above the pasted sentence: readable, but fading toward the result. */
 .ghost-fade {
-  color: color-mix(in oklab, var(--foreground) 45%, transparent);
+  color: color-mix(in oklab, var(--foreground) 62%, transparent);
 }
 .ghost-fade [data-filler] {
-  color: color-mix(in oklab, var(--foreground) 22%, transparent);
+  color: color-mix(in oklab, var(--foreground) 38%, transparent);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
 }
 
 /* The Mac desktop in "Using it": the desk tone with a little light from the top, so the scene has depth. */
@@ -154,10 +148,10 @@ h3 {
   .audio-path li + li::before {
     content: "→";
     position: absolute;
-    left: -1.85rem;
-    top: 0.35rem;
+    left: -2.55rem;
+    top: 0.8rem;
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
 }
 
