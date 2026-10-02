@@ -17,7 +17,7 @@ final class ModelManager: ObservableObject {
     init() {
         let appSupport = FileManager.default.urls(
             for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("LocalFlow", isDirectory: true)
+            .appendingPathComponent(LegacyRename.supportFolder, isDirectory: true)
         whisperDir = appSupport.appendingPathComponent("Models/whisper", isDirectory: true)
         llmDir = appSupport.appendingPathComponent("Models/llm", isDirectory: true)
         try? FileManager.default.createDirectory(at: whisperDir, withIntermediateDirectories: true)

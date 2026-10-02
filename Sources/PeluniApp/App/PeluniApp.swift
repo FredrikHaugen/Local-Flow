@@ -4,6 +4,12 @@ import SwiftUI
 struct PeluniApp: App {
     @StateObject private var appState = AppState.shared
 
+    init() {
+        // Before anything touches Application Support or settings: the @StateObject autoclosure
+        // (and with it AppState.shared and ModelManager.shared) isn't evaluated until `body`.
+        LegacyMigration.run()
+    }
+
     var body: some Scene {
         MenuBarExtra {
             MenuContent()

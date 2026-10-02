@@ -4,7 +4,7 @@ import whisper
 final class TranscriptionSmokeTests: XCTestCase {
     func testWhisperLoadsAndRunsOnSilence() throws {
         let modelURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("LocalFlow/Models/whisper/ggml-base.bin")
+            .appendingPathComponent("peluni/Models/whisper/ggml-base.bin")
         guard FileManager.default.fileExists(atPath: modelURL.path) else {
             throw XCTSkip("ggml-base.bin not downloaded; run the app and download it first")
         }

@@ -13,7 +13,7 @@ final class VocabularyStore: ObservableObject {
 
     init() {
         fileURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("LocalFlow/vocabulary.json")
+            .appendingPathComponent("\(LegacyRename.supportFolder)/vocabulary.json")
         if let data = try? Data(contentsOf: fileURL),
            let decoded = try? JSONDecoder().decode([VocabularyEntry].self, from: data) {
             entries = decoded
