@@ -13,7 +13,7 @@ export function Intro() {
           <h1 id="top-title" className="text-[clamp(2.3rem,1.5rem+3vw,3.6rem)] leading-[1.04] tracking-[-0.02em]">
             {INTRO.title}
           </h1>
-          <p className="mt-4 lg:text-balance">
+          <p className="mt-6 lg:text-balance">
             {INTRO.bodyBefore} <Kbd className="py-0 text-[0.8em] leading-normal">{INTRO.key}</Kbd> {INTRO.bodyAfter}
           </p>
           <div data-cta className="mt-6 flex flex-col gap-2.5 lg:items-center">

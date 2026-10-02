@@ -21,22 +21,7 @@ export const USING = {
   paragraphs: [
     "peluni lives in the menu bar, and the text lands in whichever app has focus, typically in about a second with the base model.",
   ],
-  // The menu bar menu (Sources/PeluniApp/App/PeluniApp.swift); the app truncates entries at 48 characters.
-  menu: {
-    label: "peluni's menu bar menu",
-    recentTitle: "Recent transcripts",
-    recent: [
-      "Pick up the charger and oat milk on the way home.",
-      "Ship the peluni build to Priya.",
-      "Running ten minutes late, start without me and I'll catch up on the notes.",
-      "Hey Priya, the build is ready. I just need to fix the signing step.",
-    ],
-    truncateAt: 48,
-    commands: [
-      { label: "Settings…", shortcut: "⌘," },
-      { label: "Quit peluni", shortcut: "⌘Q" },
-    ],
-  },
+  sceneLabel: "Dictating into Reminders",
   // The app the desktop shot is dictating into.
   window: {
     app: "Reminders",

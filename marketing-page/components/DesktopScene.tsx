@@ -2,13 +2,12 @@ import { Kbd } from "@/components/Kbd";
 import { OverlayPill } from "@/components/OverlayPill";
 import { USING } from "@/lib/content";
 
-// The Mac while you dictate, edge to edge: Reminders with what you said fading above what landed,
-// peluni's menu open on its recent transcripts, and the overlay with the keys that drive it.
+// The Mac while you dictate: Reminders with what you said struck through above what landed, the
+// menu-bar icon lit while it listens, and the overlay with the keys that drive it.
 export function DesktopScene() {
-  const clip = (t: string) => (t.length > USING.menu.truncateAt ? `${t.slice(0, USING.menu.truncateAt)}…` : t);
   const raw = USING.window.raw.split(" ");
   return (
-    <figure aria-label={USING.menu.label} className="desk-scene window-shadow relative left-1/2 mt-10 w-[min(calc(100vw-2rem),72rem)] -translate-x-1/2 overflow-hidden rounded-2xl font-sans text-[0.95rem]">
+    <figure aria-label={USING.sceneLabel} className="desk-scene window-shadow mt-10 overflow-hidden rounded-2xl font-sans text-[0.95rem]">
       <div aria-hidden="true" className="flex h-8 items-center justify-end gap-5 border-b border-border/70 px-4 text-[0.8rem]">
         <span className="grid h-6 w-8 place-items-center rounded bg-foreground/10">
           <svg viewBox="10 26 90 68" className="h-3.5 w-auto" fill="none">
@@ -19,8 +18,8 @@ export function DesktopScene() {
         <span className="tabular-nums">Fri 4:12 PM</span>
       </div>
 
-      {/* The scene runs edge to edge; the windows sit on the page's content column, tops aligned. */}
-      <div className="mx-auto grid max-w-5xl items-start gap-6 px-4 pb-10 pt-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
+      {/* One window, centred: the moment the product exists for. */}
+      <div className="mx-auto max-w-3xl px-4 pb-10 pt-8 sm:px-6">
         <div className="window-shadow overflow-hidden rounded-xl bg-card">
           <p className="relative border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">
             <span aria-hidden="true" className="absolute left-3 top-1/2 flex -translate-y-1/2 gap-1.5">
@@ -46,23 +45,6 @@ export function DesktopScene() {
           </div>
         </div>
 
-        <div className="window-shadow hidden rounded-lg bg-card p-1.5 lg:block">
-          <p className="px-3 pb-1 pt-1.5 text-xs font-semibold text-muted">{USING.menu.recentTitle}</p>
-          <ul aria-label={USING.menu.recentTitle}>
-            {USING.menu.recent.map((t) => (
-              <li key={t} className="truncate rounded px-3 py-1.5">
-                {clip(t)}
-              </li>
-            ))}
-          </ul>
-          <div className="my-1.5 border-t border-border" />
-          {USING.menu.commands.map((c) => (
-            <p key={c.label} className="flex justify-between rounded px-3 py-1.5">
-              {c.label}
-              <span className="text-muted">{c.shortcut}</span>
-            </p>
-          ))}
-        </div>
       </div>
 
       {/* The overlay, where the real one sits, with the keys that drive it as its caption. */}

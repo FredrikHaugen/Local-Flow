@@ -6,6 +6,7 @@ export function Chapter({
   title,
   wide = false,
   hiddenTitle = false,
+  center = false,
   className = "",
   children,
 }: {
@@ -14,6 +15,8 @@ export function Chapter({
   wide?: boolean;
   /** Keep the plain label for screen readers when the section shows its own display line instead. */
   hiddenTitle?: boolean;
+  /** Centre the heading and everything under it. */
+  center?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -21,7 +24,7 @@ export function Chapter({
   return (
     <section id={id} aria-labelledby={headingId} className={`scroll-mt-6 px-4 sm:px-6 ${className}`}>
       <div className="mx-auto max-w-5xl">
-        <div className={wide ? "" : "max-w-2xl"}>
+        <div className={`${wide ? "" : "max-w-2xl"} ${center ? "mx-auto text-center" : ""}`}>
           <h2
             id={headingId}
             className={hiddenTitle ? "sr-only" : "text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.1] tracking-[-0.015em]"}

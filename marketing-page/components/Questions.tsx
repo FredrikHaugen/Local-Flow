@@ -1,11 +1,10 @@
-import { Chapter } from "@/components/Chapter";
 import { INSTALL_GUIDE, QUESTIONS, WORDS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 function Disclosure({ q, children }: { q: string; children: React.ReactNode }) {
   return (
     <details className="border-t border-border">
-      <summary className="faq-q flex min-h-14 cursor-pointer items-center justify-between gap-6 py-3 font-sans text-[1.05rem] font-semibold">
+      <summary className="faq-q flex min-h-14 cursor-pointer items-center justify-between gap-6 py-3 text-[1.2rem] font-semibold">
         {q}
         <span aria-hidden="true" className="faq-icon text-xl leading-none text-muted">
           +
@@ -20,10 +19,22 @@ function Disclosure({ q, children }: { q: string; children: React.ReactNode }) {
 // models, the requirements and the checksum live here too: they matter once, when you decide.
 export function Questions() {
   return (
-    <Chapter id="faq" title={QUESTIONS.title} className="pb-20 pt-20 sm:pb-28 sm:pt-28">
-      <div className="mt-6 border-b border-border">
+    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-6 px-4 pb-24 pt-24 sm:px-6 sm:pb-32 sm:pt-32">
+      <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16">
         <div>
-          {QUESTIONS.items.slice(0, 4).map((item) => (
+          <h2 id="faq-title" className="text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.1] tracking-[-0.015em]">
+            {QUESTIONS.title}
+          </h2>
+          <p className="mt-4">
+            {QUESTIONS.moreBefore}
+            <a href={`${SITE.repoUrl}/issues`} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
+              {QUESTIONS.moreLink}
+            </a>
+            {QUESTIONS.moreAfter}
+          </p>
+        </div>
+        <div className="border-b border-border">
+          {QUESTIONS.items.map((item) => (
             <Disclosure key={item.q} q={item.q}>
               <p>{item.a}</p>
             </Disclosure>
@@ -39,13 +50,6 @@ export function Questions() {
               ))}
             </ul>
           </Disclosure>
-        </div>
-        <div>
-          {QUESTIONS.items.slice(4).map((item) => (
-            <Disclosure key={item.q} q={item.q}>
-              <p>{item.a}</p>
-            </Disclosure>
-          ))}
           <Disclosure q={INSTALL_GUIDE.requirementsTitle}>
             <div className="space-y-2">
               {INSTALL_GUIDE.requirements.map((r) => (
@@ -63,13 +67,6 @@ export function Questions() {
           </Disclosure>
         </div>
       </div>
-      <p className="mt-6">
-        {QUESTIONS.moreBefore}
-        <a href={`${SITE.repoUrl}/issues`} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
-          {QUESTIONS.moreLink}
-        </a>
-        {QUESTIONS.moreAfter}
-      </p>
-    </Chapter>
+    </section>
   );
 }

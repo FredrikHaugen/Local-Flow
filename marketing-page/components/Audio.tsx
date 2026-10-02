@@ -11,8 +11,8 @@ function OfflineScene() {
     <figure aria-label={scene.label} className="mt-14 text-left font-sans">
       <div className="grid gap-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-8">
         {/* A Control Center module: the Wi-Fi button greyed out, the label beside it. */}
-        <div className="flex items-center gap-5 self-start rounded-[1.75rem] bg-card p-5 lg:flex-col lg:items-start lg:p-7">
-          <span aria-hidden="true" className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-foreground/15 sm:h-20 sm:w-20">
+        <div className="flex items-center gap-5 rounded-[1.75rem] bg-card p-5 lg:flex-col lg:items-start lg:justify-between lg:p-8">
+          <span aria-hidden="true" className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-foreground/15 sm:h-24 sm:w-24">
             <svg viewBox="0 0 24 24" className="h-8 w-8 sm:h-10 sm:w-10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
               <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" className="opacity-40" />
               <circle cx="12" cy="19.5" r="1" fill="currentColor" className="opacity-40" />
@@ -20,7 +20,7 @@ function OfflineScene() {
             </svg>
           </span>
           <p>
-            <span className="block text-[1.6rem] font-semibold leading-tight">{scene.wifi}</span>
+            <span className="block text-[2rem] font-semibold leading-tight">{scene.wifi}</span>
             <span className="text-lg text-muted">{scene.wifiState}</span>
           </p>
         </div>

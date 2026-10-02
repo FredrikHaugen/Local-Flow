@@ -18,13 +18,6 @@ describe("DesktopScene", () => {
     expect(container.querySelector(".wave-bar")?.closest("[aria-hidden='true']")).not.toBeNull();
   });
 
-  test("the menu bar menu truncates recent transcripts the way the app does", () => {
-    render(<DesktopScene />);
-    const menu = screen.getByRole("list", { name: USING.menu.recentTitle });
-    const items = within(menu).getAllByRole("listitem");
-    expect(items).toHaveLength(USING.menu.recent.length);
-    for (const item of items) expect(item.textContent!.length).toBeLessThanOrEqual(USING.menu.truncateAt + 1);
-  });
 });
 
 describe("Cleanup levels", () => {
