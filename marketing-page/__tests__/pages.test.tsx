@@ -12,6 +12,10 @@ import Home, { metadata as homeMetadata } from "@/app/page";
 import * as FeaturesPage from "@/app/features/page";
 import * as HowItWorksPage from "@/app/how-it-works/page";
 import * as HelpPage from "@/app/help/page";
+import * as FaqPage from "@/app/faq/page";
+import * as PrivacyPage from "@/app/privacy/page";
+import * as SecurityPage from "@/app/security/page";
+import { FAQ } from "@/lib/pages/faq";
 
 // Every page's module, by path. Each page task adds its line here.
 const ROUTES: Record<string, { default: ComponentType; metadata: unknown }> = {
@@ -19,6 +23,9 @@ const ROUTES: Record<string, { default: ComponentType; metadata: unknown }> = {
   "/features": FeaturesPage,
   "/how-it-works": HowItWorksPage,
   "/help": HelpPage,
+  "/faq": FaqPage,
+  "/privacy": PrivacyPage,
+  "/security": SecurityPage,
 };
 
 function strings(value: unknown): string[] {
@@ -122,5 +129,14 @@ describe("page copy", () => {
     const sections: Section[] = [{ id: "one", heading: "One", blocks: [{ p: ["Text."] }] }];
     const { container } = render(<PageBody sections={sections} />);
     expect(container.querySelector("section#one h2")?.textContent).toBe("One");
+  });
+});
+
+describe("/faq", () => {
+  test("shows every question as a heading", () => {
+    const Page = ROUTES["/faq"].default;
+    render(<Page />);
+    const headings = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
+    for (const item of FAQ.items) expect(headings).toContain(item.q);
   });
 });

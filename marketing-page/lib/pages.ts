@@ -50,6 +50,33 @@ export const PAGES: readonly PageInfo[] = [
     h1: "Help with peluni",
     header: true,
   },
+  {
+    path: "/faq",
+    nav: "FAQ",
+    title: "peluni FAQ: offline use, privacy, languages, Intel Macs",
+    description:
+      "Whether peluni works offline, what leaves your Mac, which languages and Macs it supports, what it will cost, and why it isn't in the App Store.",
+    h1: "Questions about peluni",
+    header: true,
+  },
+  {
+    path: "/privacy",
+    nav: "Privacy",
+    title: "peluni privacy policy: the app and peluni.app",
+    description:
+      "The peluni app keeps your audio and text on your Mac and sends nothing. This page also covers the website, its hosting and its opt-in analytics.",
+    h1: "Privacy",
+    header: false,
+  },
+  {
+    path: "/security",
+    nav: "Security",
+    title: "peluni security: permissions, signing, reporting",
+    description:
+      "What peluni does with Microphone and Accessibility access, why it isn't sandboxed, how it treats password fields, and how to report a vulnerability.",
+    h1: "Security",
+    header: false,
+  },
 ];
 
 export function page(path: string): PageInfo {

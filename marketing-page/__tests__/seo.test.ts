@@ -6,9 +6,10 @@ import { metadata } from "@/app/page";
 import { GET, llmsTxt } from "@/app/llms.txt/route";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
-import { homeJsonLd as jsonLd } from "@/components/JsonLd";
+import { homeJsonLd as jsonLd, pageJsonLd } from "@/components/JsonLd";
 import { AUDIO, QUESTIONS } from "@/lib/content";
 import { PAGES } from "@/lib/pages";
+import { FAQ, faqForJsonLd } from "@/lib/pages/faq";
 import { README_FACTS, SEO, SITE } from "@/lib/site";
 
 // next/font only works inside a Next build; the layout's metadata base is all this file needs from it.
@@ -72,6 +73,18 @@ describe("JSON-LD", () => {
   test("carries no ratings, reviews or FAQPage", () => {
     const json = JSON.stringify(jsonLd());
     for (const banned of ["aggregateRating", "review", "FAQPage", "HowTo"]) expect(json).not.toContain(banned);
+  });
+});
+
+describe("FAQ JSON-LD", () => {
+  test("is a FAQPage carrying every visible question and answer", () => {
+    const data = pageJsonLd("/faq", faqForJsonLd());
+    expect(data["@type"]).toBe("FAQPage");
+    expect(data.mainEntity?.map((q) => q.name)).toEqual(FAQ.items.map((i) => i.q));
+  });
+
+  test("other pages are plain WebPages", () => {
+    expect(pageJsonLd("/features")["@type"]).toBe("WebPage");
   });
 });
 
