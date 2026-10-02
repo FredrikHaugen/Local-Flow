@@ -2,6 +2,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { llmsTxt } from "@/app/llms.txt/route";
+import { CHANGELOG } from "@/lib/changelog";
 import * as content from "@/lib/content";
 import { PAGES } from "@/lib/pages";
 import { ALL_PAGE_COPY } from "@/lib/pages/all";
@@ -20,7 +21,7 @@ const root = process.cwd();
 
 const copy = [
   ...strings(content),
-  ...strings({ ALL_PAGE_COPY, PAGES }),
+  ...strings({ ALL_PAGE_COPY, PAGES, CHANGELOG }),
   ...strings({
     PHONE: site.PHONE,
     ANALYTICS: site.ANALYTICS,

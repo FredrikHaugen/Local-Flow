@@ -15,6 +15,7 @@ import * as HelpPage from "@/app/help/page";
 import * as FaqPage from "@/app/faq/page";
 import * as PrivacyPage from "@/app/privacy/page";
 import * as SecurityPage from "@/app/security/page";
+import * as ChangelogPage from "@/app/changelog/page";
 import { FAQ } from "@/lib/pages/faq";
 
 // Every page's module, by path. Each page task adds its line here.
@@ -26,6 +27,7 @@ const ROUTES: Record<string, { default: ComponentType; metadata: unknown }> = {
   "/faq": FaqPage,
   "/privacy": PrivacyPage,
   "/security": SecurityPage,
+  "/changelog": ChangelogPage,
 };
 
 function strings(value: unknown): string[] {

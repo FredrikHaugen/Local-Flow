@@ -1,4 +1,5 @@
 // Every page's copy module, so the copy-style and page tests check all of it. Each page adds a line.
+import { CHANGELOG_PAGE } from "@/lib/pages/changelog";
 import { FAQ } from "@/lib/pages/faq";
 import { FEATURES } from "@/lib/pages/features";
 import { HELP } from "@/lib/pages/help";
@@ -13,4 +14,5 @@ export const ALL_PAGE_COPY: Record<string, unknown> = {
   faq: FAQ,
   privacy: PRIVACY,
   security: SECURITY,
+  changelog: CHANGELOG_PAGE,
 };

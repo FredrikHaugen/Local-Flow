@@ -77,6 +77,15 @@ export const PAGES: readonly PageInfo[] = [
     h1: "Security",
     header: false,
   },
+  {
+    path: "/changelog",
+    nav: "Changelog",
+    title: "peluni changelog",
+    description:
+      "Every change to peluni that you can see or feel, newest first, with the day it was made and the version it belongs to.",
+    h1: "Changelog",
+    header: false,
+  },
 ];
 
 export function page(path: string): PageInfo {
