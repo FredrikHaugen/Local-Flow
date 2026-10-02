@@ -48,7 +48,7 @@ export const HERO = {
   emphasis: "about a second.",
   pitchBefore: "Hold",
   pitchAfter:
-    ", speak, let go — clean text lands in whatever app you're using. No upload, no queue: transcription and cleanup run on your Mac, so your voice never leaves it.",
+    ", speak, let go. Clean text lands in whatever app you're using, and your voice never leaves your Mac.",
 } as const;
 
 // The hero's proof line: what peluni is built on (README, "How it works") and its sourced speed

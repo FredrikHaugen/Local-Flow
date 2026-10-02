@@ -13,7 +13,7 @@ test("icons sit where Next.js picks them up", () => {
   expect(existsSync(at("app/favicon")), "upload folder removed").toBe(false);
 });
 
-test("the SVG icon is the logomark and flips to the dark variant", () => {
+test("the SVG icon is the logomark and switches variant with the browser theme", () => {
   const svg = readFileSync(at("app/icon.svg"), "utf8");
   expect(svg).toContain("M20 41H43.6522L68.7826 83H88");
   expect(svg).toContain("#9DDEB9");
