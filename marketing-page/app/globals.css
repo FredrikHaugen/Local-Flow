@@ -261,7 +261,7 @@ h3 {
   color: var(--background);
 }
 .level-opt:has(input:focus-visible) {
-  outline: 2px solid var(--accent-ink);
+  outline: 2px solid var(--foreground);
   outline-offset: 2px;
 }
 .level-out {
