@@ -23,6 +23,15 @@ export const PAGES: readonly PageInfo[] = [
     h1: INTRO.title,
     header: false,
   },
+  {
+    path: "/features",
+    nav: "Features",
+    title: "peluni features: cleanup levels, vocabulary, speech models",
+    description:
+      "Cleanup levels, custom vocabulary, five whisper speech models from 78 MB to 1.6 GB, hands-free dictation, and how peluni pastes into any Mac app.",
+    h1: "What peluni does",
+    header: true,
+  },
 ];
 
 export function page(path: string): PageInfo {
