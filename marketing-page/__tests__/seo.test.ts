@@ -97,3 +97,13 @@ describe("llms.txt", () => {
     expect(await GET().text()).toBe(text);
   });
 });
+
+describe("llms.txt pages", () => {
+  test("lists every page with its address and description", () => {
+    const text = llmsTxt();
+    for (const p of PAGES.filter((p) => p.path !== "/")) {
+      expect(text).toContain(`[${p.nav}](${SITE.url}${p.path})`);
+      expect(text).toContain(p.description);
+    }
+  });
+});

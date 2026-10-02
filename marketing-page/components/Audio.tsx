@@ -1,4 +1,5 @@
 import { Chapter } from "@/components/Chapter";
+import { MoreLink } from "@/components/MoreLink";
 import { OverlayPill } from "@/components/OverlayPill";
 import { AUDIO } from "@/lib/content";
 import { SITE } from "@/lib/site";
@@ -61,6 +62,7 @@ export function Audio() {
         </a>
         {AUDIO.sourceAfter}
       </p>
+      <MoreLink {...AUDIO.more} />
     </Chapter>
   );
 }

@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "pnpm build && node scripts/check-static-output.mjs"
+    "check": "pnpm build && node scripts/check-static-output.mjs && node scripts/check-seo-output.mjs"
   },
   "dependencies": {
     "next": "16.3.8",

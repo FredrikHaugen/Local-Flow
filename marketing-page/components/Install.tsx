@@ -1,4 +1,5 @@
 import { Chapter } from "@/components/Chapter";
+import { MoreLink } from "@/components/MoreLink";
 import { DownloadButton } from "@/components/DownloadButton";
 import { INSTALL_GUIDE, INTRO, QUESTIONS, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
@@ -49,6 +50,7 @@ export function Install() {
         </a>
         {QUESTIONS.moreAfter}
       </p>
+      <MoreLink {...INSTALL_GUIDE.more} />
     </Chapter>
   );
 }

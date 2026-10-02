@@ -89,6 +89,7 @@ export const CLEANUP_LEVELS = {
       list: ["The slides", "The script", "A backup laptop", "The HDMI adapter"],
     },
   ],
+  more: { text: "How cleanup decides, and when it's skipped", href: "/features#cleanup" },
 } as const;
 
 export const WORDS = {
@@ -106,6 +107,7 @@ export const WORDS = {
   heard: "ship the pell oony build to priya",
   typedLabel: "Pasted",
   typed: "Ship the peluni build to Priya.",
+  more: { text: "More on vocabulary and speech models", href: "/features#vocabulary" },
 } as const;
 
 export const AUDIO = {
@@ -127,6 +129,7 @@ export const AUDIO = {
   sourceBefore: "The code for all of this is",
   sourceLink: "on GitHub",
   sourceAfter: ".",
+  more: { text: "What the app and this site do with your data", href: "/privacy" },
 } as const;
 
 export const INSTALL_GUIDE = {
@@ -148,6 +151,7 @@ export const INSTALL_GUIDE = {
     },
     { title: "Microphone and Accessibility access", detail: "Granted once, in the setup window." },
   ],
+  more: { text: "Setup help and what each message means", href: "/help" },
 } as const;
 
 // The questions people ask, each answered where it belongs on the page (and as Q&A in /llms.txt), so
