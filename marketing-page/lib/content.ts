@@ -14,7 +14,6 @@ export const INTRO = {
   body: `${introBefore} ${introKey} ${introAfter}`,
   download: "Download for Mac",
   requirement: "Needs macOS 14 or later on an Apple Silicon Mac.",
-  free: "Free and open source.",
   release: `Free and open source, version ${SITE.version}.`,
 } as const;
 
@@ -26,7 +25,6 @@ export const USING = {
   // The hero scene: a Reminders list where the last dictation has landed and the next one is being spoken.
   window: {
     app: "Reminders",
-    sidebar: ["Today", "Scheduled", "All", "Errands"],
     list: "Errands",
     // Reminders already on the list, above the one that just landed.
     earlier: ["Return the library books"],
@@ -111,7 +109,7 @@ export const WORDS = {
 
 export const AUDIO = {
   title: "Where your audio goes",
-  // The scene: the menu bar while dictating with Wi-Fi switched off.
+  // The scene: the menu bar with Wi-Fi switched off, and a reply landing in Messages anyway.
   scene: {
     label: "Dictating with Wi-Fi off",
     wifi: "Wi-Fi",
@@ -119,6 +117,9 @@ export const AUDIO = {
     app: "Messages",
     menus: ["File", "Edit", "View"],
     clock: "Fri 6:04 PM",
+    contact: "Sam",
+    incoming: "Still on for 6?",
+    text: "Running ten minutes late, start without me and I'll catch up on the notes.",
   },
   display: "Turn Wi-Fi off and keep dictating.",
   paragraphs: [
@@ -126,14 +127,14 @@ export const AUDIO = {
   ],
   sourceBefore: "The code for all of this is",
   sourceLink: "on GitHub",
-  sourceAfter: ", MIT licensed.",
+  sourceAfter: ".",
 } as const;
 
 export const INSTALL_GUIDE = {
   title: "Installing",
   steps: [
     { before: "Download the DMG from the", link: "releases page", after: "." },
-    { before: "Drag peluni to Applications. It runs from the menu bar.", link: "", after: "" },
+    { before: "Drag peluni to Applications.", link: "", after: "" },
     { before: "Allow Microphone and Accessibility when the setup window asks.", link: "", after: "" },
     { before: "Get the Base speech model (148 MB), then hold Right ⌥ and talk.", link: "", after: "" },
   ],

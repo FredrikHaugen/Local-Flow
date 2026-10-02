@@ -13,9 +13,8 @@ export function Intro() {
         <h1 id="top-title" className="text-balance text-[clamp(2.5rem,1.4rem+4.4vw,5.2rem)] leading-[1.02] tracking-[-0.02em]">
           {INTRO.title}
         </h1>
-        <div data-cta className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div data-cta className="mt-8">
           <DownloadButton />
-          <p className="font-sans text-[0.95rem] text-muted">{INTRO.free}</p>
         </div>
 
         <Take />

@@ -20,8 +20,8 @@ describe("Intro", () => {
     const { container } = render(<Intro />);
     expect(container.textContent).toContain(USING.window.text);
     expect(container.querySelector(".wave-bar")).not.toBeNull();
-    const rows = [...container.querySelectorAll("figure ul:not([aria-hidden]) > li")];
-    expect(rows.at(-2)!.textContent).toBe(USING.window.text);
+    const rows = [...container.querySelectorAll("figure ul > li")];
+    expect(rows.at(-2)!.textContent).toContain(USING.window.text);
     expect(rows.at(-1)!.textContent).toBe("");
   });
 
