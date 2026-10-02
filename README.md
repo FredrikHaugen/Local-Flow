@@ -1,4 +1,4 @@
-# LocalFlow
+# peluni
 
 Fully-local voice dictation for macOS. Hold **Right ⌥**, speak, release —
 clean text appears in whatever app you're using. Nothing ever leaves your Mac.
@@ -13,20 +13,27 @@ clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 
 ## Install
 
-1. Download `LocalFlow-<version>.dmg` from the
-   [Releases page](https://github.com/FredrikHaugen/whispr-local/releases).
+1. Download `peluni-<version>.dmg` from the
+   [Releases page](https://github.com/FredrikHaugen/peluni/releases).
    It is signed with a Developer ID and notarized by Apple, so it opens
    without Gatekeeper warnings. To check the download, put the `.sha256` file
-   published with it in the same folder and run `shasum -a 256 -c LocalFlow-<version>.dmg.sha256`.
-2. Open the DMG and drag **LocalFlow** onto **Applications**, then launch it.
-   It lives in the menu bar (mic icon); there is no Dock icon.
+   published with it in the same folder and run `shasum -a 256 -c peluni-<version>.dmg.sha256`.
+2. Open the DMG and drag **peluni** onto **Applications**, then launch it.
+   It lives in the menu bar (the peluni mark); there is no Dock icon.
 3. The setup window walks you through three steps: allow **Microphone**,
    allow **Accessibility**, and download the **speech model**
    (148 MB). Then hold **Right ⌥** anywhere and talk.
 
+### Upgrading from an earlier version
+
+peluni (formerly LocalFlow) moves your downloaded models, vocabulary and settings over on first
+launch, so nothing is downloaded again. It's a new app identity, so macOS asks for Microphone and
+Accessibility once more, and "Launch at login" has to be switched on again. Once peluni works,
+delete the old app from Applications.
+
 ## Requirements
 
-**To run LocalFlow**
+**To run peluni**
 
 - macOS 14 (Sonoma) or later
 - A Mac with Apple Silicon (M1 or later). The app is built for arm64 only; Intel Macs aren't supported.
@@ -52,12 +59,12 @@ clean text appears in whatever app you're using. Nothing ever leaves your Mac.
     make run
 
 That's the whole loop. Every `make run` builds the current code, bundles it
-into `dist/LocalFlow.app`, quits any LocalFlow that's already running, and
+into `dist/peluni.app`, quits any peluni that's already running, and
 launches the new build. Run it again after each change.
 
 The first run also does the one-time setup for you: it downloads and
 checksum-verifies the whisper engine (`make vendor`) and creates a local
-"LocalFlow Dev" signing identity (`make cert`) so macOS keeps your
+"peluni Dev" signing identity (`make cert`) so macOS keeps your
 permissions across rebuilds. Expect the first build to take several minutes
 (MLX is large); later builds are incremental. xcodebuild's full output is
 shown, so a long quiet compile step is progress, not a hang.
@@ -103,23 +110,23 @@ A few hard rules run through the design: a transcript is never silently lost
 no injection *and* no clipboard write, and everything — audio, text, models —
 stays on your Mac.
 
-The code splits into two targets: **`LocalFlowCore`** (pure, dependency-free
+The code splits into two targets: **`PeluniCore`** (pure, dependency-free
 logic — state machines, VAD, filters, vocabulary — fully unit-tested without
-permissions or models) and **`LocalFlowApp`** (SwiftUI plus thin services
+permissions or models) and **`PeluniApp`** (SwiftUI plus thin services
 wrapping the OS: audio, hotkeys, whisper, MLX, text injection).
 
 The full story — vocabulary system, reliability principles, technology
 choices — is in [`docs/PROJECT.md`](docs/PROJECT.md), and the design spec
 lives in
-[`docs/superpowers/specs/2026-07-04-localflow-design.md`](docs/superpowers/specs/2026-07-04-localflow-design.md).
+[`docs/superpowers/specs/2026-07-04-peluni-design.md`](docs/superpowers/specs/2026-07-04-peluni-design.md).
 
 ## Development
 
 A fresh clone needs `make vendor` once before `make test`/`make bundle` will work.
 
     make test     # unit + integration tests
-    make bundle   # build dist/LocalFlow.app
-    make release  # Developer ID sign, notarize, staple, and build dist/LocalFlow-<version>.dmg
+    make bundle   # build dist/peluni.app
+    make release  # Developer ID sign, notarize, staple, and build dist/peluni-<version>.dmg
 
 See `docs/TESTING.md` for the manual test checklist (TCC/permission flows
 can't be automated).
@@ -140,8 +147,8 @@ is appreciated, whether that's a bug fix, a feature, docs, or just filing a
 good issue. To get started:
 
 1. Fork and clone, then `make run`.
-2. Make your change. New testable logic belongs in `LocalFlowCore` with unit
-   tests; keep `LocalFlowApp` services as thin OS wrappers.
+2. Make your change. New testable logic belongs in `PeluniCore` with unit
+   tests; keep `PeluniApp` services as thin OS wrappers.
 3. Run `make test`, and for changes touching permissions, hotkeys, or
    injection, walk the relevant parts of the manual checklist in
    `docs/TESTING.md`.
@@ -156,4 +163,4 @@ are the easiest to review and merge.
 ## License
 
 MIT — see [LICENSE](LICENSE). Third-party licenses ship inside the app at
-`LocalFlow.app/Contents/Resources/THIRD_PARTY_NOTICES.txt`.
+`peluni.app/Contents/Resources/THIRD_PARTY_NOTICES.txt`.

@@ -1,4 +1,4 @@
-.PHONY: build test bundle run cert clean vendor check-vendor check-requirements release
+.PHONY: build test bundle run cert clean vendor check-vendor check-requirements check-branding release
 
 WHISPER_VERSION := v1.9.1
 WHISPER_ZIP_URL := https://github.com/ggml-org/whisper.cpp/releases/download/$(WHISPER_VERSION)/whisper-$(WHISPER_VERSION)-xcframework.zip
@@ -48,7 +48,10 @@ build: check-vendor
 check-requirements:
 	@bash scripts/check-requirements.sh
 
-test: check-vendor check-requirements
+check-branding:
+	@bash scripts/check-branding.sh
+
+test: check-vendor check-requirements check-branding
 	swift test
 
 bundle: check-vendor
