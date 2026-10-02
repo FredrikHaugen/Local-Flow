@@ -1,11 +1,11 @@
+import { DownloadButton } from "@/components/DownloadButton";
 import { Kbd } from "@/components/Kbd";
 import { SendToMac } from "@/components/SendToMac";
 import { Take } from "@/components/Take";
 import { INTRO } from "@/lib/content";
-import { SITE } from "@/lib/site";
 
 // The first screen: one line and the download, then one take from speech to pasted text. The keys
-// and the speed wait at the end of the page, next to the install steps.
+// wait next to the install steps, the speed among the questions.
 export function Intro() {
   return (
     <section id="top" aria-labelledby="top-title" className="px-4 pt-8 sm:px-6 sm:pt-10">
@@ -14,12 +14,7 @@ export function Intro() {
           {INTRO.title}
         </h1>
         <div data-cta className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
-          <a
-            href={SITE.releasesUrl}
-            className="inline-flex min-h-12 w-fit shrink-0 items-center rounded-md bg-foreground px-5 font-sans text-[1.05rem] font-semibold text-background transition-opacity hover:opacity-90"
-          >
-            {INTRO.download}
-          </a>
+          <DownloadButton />
           <p className="font-sans text-muted">{INTRO.requirement}</p>
         </div>
 

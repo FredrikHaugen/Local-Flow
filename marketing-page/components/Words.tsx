@@ -33,8 +33,8 @@ export function Words() {
           </ul>
         </div>
         <div>
-          <p className="font-sans text-base text-muted">
-            {WORDS.heardLabel}: <span className="font-mono">{WORDS.heard}</span>
+          <p className="pt-1 font-sans text-[1.05rem] text-muted">
+            {WORDS.heardLabel}: <span className="font-mono text-[1.1rem] text-foreground">{WORDS.heard}</span>
           </p>
           <p className="mt-3 text-[clamp(1.8rem,1.2rem+2.2vw,2.75rem)] leading-[1.15] tracking-[-0.02em]">
             {withTerms(WORDS.typed, WORDS.terms.map((t) => t.term), "selected")}

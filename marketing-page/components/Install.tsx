@@ -1,9 +1,10 @@
 import { Chapter } from "@/components/Chapter";
-import { Logomark } from "@/components/Logomark";
-import { INSTALL_GUIDE, INTRO } from "@/lib/content";
+import { DownloadButton } from "@/components/DownloadButton";
+import { Kbd } from "@/components/Kbd";
+import { INSTALL_GUIDE, INTRO, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-// The end of the page, on the dark band: the four steps, numbered, then the download.
+// The end of the page, on the dark band: the four steps, numbered, the keys, then the download.
 export function Install() {
   return (
     <Chapter id="install" title={INSTALL_GUIDE.title} wide className="band-dark pb-24 pt-4 sm:pb-32">
@@ -28,14 +29,20 @@ export function Install() {
           </li>
         ))}
       </ol>
-      <div data-cta className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <a
-          href={SITE.releasesUrl}
-          className="inline-flex min-h-16 items-center gap-3 rounded-xl bg-foreground py-3 pl-3 pr-7 font-sans text-[1.2rem] font-semibold text-background transition-opacity hover:opacity-90"
-        >
-          <Logomark className="h-10 w-10" />
-          {INSTALL_GUIDE.download}
-        </a>
+      {/* The keys you'll use from then on, as big as keys. */}
+      <dl aria-label={USING.keysLabel} className="mt-14 grid gap-x-10 gap-y-6 font-sans sm:grid-cols-3 lg:grid-cols-4">
+        {USING.keys.map((k) => (
+          <div key={`${k.how}-${k.key}`}>
+            <dt className="flex items-center gap-3 text-[1.1rem] font-semibold">
+              {k.how}
+              <Kbd className="px-2.5 py-1 text-[1rem]">{k.key}</Kbd>
+            </dt>
+            <dd className="mt-2 text-muted">{k.result}</dd>
+          </div>
+        ))}
+      </dl>
+      <div data-cta className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <DownloadButton />
         <p className="font-sans text-muted">
           {INTRO.release} {INTRO.requirement}
         </p>

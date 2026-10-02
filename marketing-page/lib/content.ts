@@ -31,17 +31,16 @@ export const USING = {
     text: "Pick up the charger and oat milk on the way home.",
   },
   keysLabel: "Keys",
-  keysTitle: "Which keys does it use?",
-  // The key legend, the first of the questions.
+  speedTitle: "How fast is it?",
+  // The key legend, next to the install steps.
   keys: [
     { how: "Hold", key: "Right ⌥", result: "to record" },
     { how: "Double-tap", key: "Right ⌥", result: "to keep recording with your hands free" },
     { how: "Press", key: "Esc", result: "to cancel" },
   ],
   keysEnd: "A tap shorter than 0.3 seconds is ignored, and if a paste can't land, the text waits on your clipboard.",
-  // The real overlay's labels while recording and while cleaning up (Sources/PeluniApp/UI/OverlayView.swift).
+  // The real overlay's label while recording (Sources/PeluniApp/UI/OverlayView.swift).
   overlayLabel: "Listening…  (esc to cancel)",
-  cleaningLabel: "Cleaning…",
 } as const;
 
 // Level names and descriptions are the app's own (Sources/PeluniApp/UI/GeneralTab.swift);

@@ -1,9 +1,8 @@
-import { OverlayPill } from "@/components/OverlayPill";
 import { USING } from "@/lib/content";
 
-// The hero's picture: one roomy Reminders window, no desktop around it. What whisper heard sits on top
-// with the words cleanup drops struck through, the sentence that lands sits below it, and the overlay
-// waits at the bottom of the window, where the real one sits, while peluni cleans up.
+// The hero's picture: one Reminders window, no desktop around it, after the take is done. What whisper
+// heard sits on top with the words cleanup dropped struck through, and the sentence that landed sits
+// below with the cursor after it. The overlay is gone by then, as in the app.
 export function Take() {
   const raw = USING.window.raw.split(" ");
   return (
@@ -28,14 +27,11 @@ export function Take() {
           </span>
         ))}
       </p>
-      <div className="flex flex-col border-t border-border px-6 pb-8 pt-10 sm:min-h-[15.5rem] sm:px-14 sm:pt-11">
+      <div className="border-t border-border px-6 py-10 sm:px-14 sm:py-14">
         <p className="text-[clamp(1.6rem,1.2rem+1.6vw,2.6rem)] leading-[1.22] tracking-[-0.01em]">
           {USING.window.text}
           <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-foreground" />
         </p>
-        <div className="mt-10 flex justify-center sm:mt-auto">
-          <OverlayPill phase="cleaning" />
-        </div>
       </div>
     </figure>
   );

@@ -1,16 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Cleanup } from "@/components/Cleanup";
-import { Take } from "@/components/Take";
 import { CLEANUP_LEVELS } from "@/lib/content";
-
-describe("Take", () => {
-  test("its overlay is decorative", () => {
-    const { container } = render(<Take />);
-    expect(container.querySelector("svg")?.closest("[aria-hidden='true']")).not.toBeNull();
-  });
-
-});
 
 describe("Cleanup levels", () => {
   test("all four levels are shown at once, in order, with Light marked as the default", () => {

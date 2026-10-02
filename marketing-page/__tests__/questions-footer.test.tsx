@@ -6,18 +6,17 @@ import { FOOTER_NOTE, INSTALL_GUIDE, QUESTIONS, USING, WORDS } from "@/lib/conte
 import { SITE } from "@/lib/site";
 
 describe("Questions", () => {
-  test("answers everything in the open, the keys first", () => {
+  test("answers everything in the open, speed first", () => {
     render(<Questions />);
     const region = screen.getByRole("region", { name: QUESTIONS.title });
     expect(region.id).toBe("faq");
     expect(region.querySelectorAll("details")).toHaveLength(0);
-    expect(within(region).getAllByRole("heading", { level: 3 })[0].textContent).toBe(USING.keysTitle);
-    expect(region.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
+    expect(within(region).getAllByRole("heading", { level: 3 })[0].textContent).toBe(USING.speedTitle);
     expect(region.textContent).toContain(USING.paragraphs[0]);
     expect(region.textContent).toContain(USING.keysEnd);
     for (const item of QUESTIONS.items) expect(within(region).getByRole("heading", { name: item.q, level: 3 })).toBeDefined();
-    const models = within(region).getByRole("list", { name: WORDS.modelsTitle });
-    expect(models.children).toHaveLength(WORDS.models.length);
+    const models = within(region).getByRole("table", { name: WORDS.modelsTitle });
+    expect(models.querySelectorAll("tr")).toHaveLength(WORDS.models.length);
     for (const m of WORDS.models) expect(models.textContent).toContain(m.size);
     for (const r of INSTALL_GUIDE.requirements) {
       expect(within(region).getByText(r.title)).toBeDefined();

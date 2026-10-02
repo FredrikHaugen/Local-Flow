@@ -16,16 +16,23 @@ describe("Intro", () => {
     expect(region.textContent).toContain(INTRO.bodyAfter);
   });
 
-  test("the take shows the overlay cleaning up, not listening, over finished text", () => {
+  test("the take shows the finished result, with no overlay left over it", () => {
     const { container } = render(<Intro />);
-    expect(container.textContent).toContain(USING.cleaningLabel);
-    expect(container.textContent).not.toContain(USING.overlayLabel.split("  ")[0]);
     expect(container.textContent).toContain(USING.window.text);
+    expect(container.querySelector(".wave-bar")).toBeNull();
   });
 
   test("offers phones a way to send the page to a Mac", () => {
     render(<Intro />);
     expect(screen.getByRole("button", { name: new RegExp(PHONE.handoff) })).toBeDefined();
+  });
+});
+
+describe("Installing", () => {
+  test("shows the keys as a legend next to the steps", () => {
+    const { container } = render(<Install />);
+    const legend = container.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!;
+    expect(legend.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
   });
 });
 

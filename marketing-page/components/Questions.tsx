@@ -1,4 +1,3 @@
-import { Kbd } from "@/components/Kbd";
 import { INSTALL_GUIDE, QUESTIONS, USING, WORDS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
@@ -11,17 +10,17 @@ function Answer({ q, children }: { q: string; children: React.ReactNode }) {
   );
 }
 
-// After the download, everything answered in the open, in two flowing columns: the keys first, then the practical
-// questions, then the reference detail (speech models, requirements, the checksum).
+// After the download, everything answered in the open: two columns at a reading measure, speed first,
+// then the practical questions, then the reference detail (speech models, requirements, the checksum).
 export function Questions() {
   return (
     <section id="faq" aria-labelledby="faq-title" className="scroll-mt-6 px-4 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-28">
-      <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16">
-        <div>
+      <div className="mx-auto max-w-5xl">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-10 gap-y-3">
           <h2 id="faq-title" className="text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.1] tracking-[-0.015em]">
             {QUESTIONS.title}
           </h2>
-          <p className="mt-4">
+          <p>
             {QUESTIONS.moreBefore}
             <a href={`${SITE.repoUrl}/issues`} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
               {QUESTIONS.moreLink}
@@ -29,19 +28,9 @@ export function Questions() {
             {QUESTIONS.moreAfter}
           </p>
         </div>
-        <div className="gap-x-12 sm:columns-2">
-          <Answer q={USING.keysTitle}>
-            <dl aria-label={USING.keysLabel} className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1.5 font-sans">
-              {USING.keys.map((k) => (
-                <div key={`${k.how}-${k.key}`} className="contents">
-                  <dt className="flex items-baseline gap-2 font-semibold">
-                    {k.how} <Kbd>{k.key}</Kbd>
-                  </dt>
-                  <dd className="text-muted">{k.result}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-3">
+        <div className="mt-12 gap-x-16 sm:columns-2">
+          <Answer q={USING.speedTitle}>
+            <p>
               {USING.paragraphs[0]} {USING.keysEnd}
             </p>
           </Answer>
@@ -52,14 +41,21 @@ export function Questions() {
           ))}
           <Answer q={WORDS.modelsTitle}>
             <p>{WORDS.modelsBody}</p>
-            <ul aria-label={WORDS.modelsTitle} className="mt-3 space-y-1">
-              {WORDS.models.map((m) => (
-                <li key={m.name}>
-                  <span className="font-semibold">{m.name}</span>, <span className="tabular-nums">{m.size}</span>:{" "}
-                  <span className="text-muted">{m.note}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="mt-3 overflow-x-auto">
+            <table aria-label={WORDS.modelsTitle} className="w-full font-sans text-[0.95rem]">
+              <tbody>
+                {WORDS.models.map((m) => (
+                  <tr key={m.name} className="border-t border-border">
+                    <th scope="row" className="py-2 pr-3 text-left font-semibold">
+                      {m.name}
+                    </th>
+                    <td className="py-2 pr-3 text-right tabular-nums">{m.size}</td>
+                    <td className="py-2 text-muted">{m.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            </div>
           </Answer>
           <Answer q={INSTALL_GUIDE.requirementsTitle}>
             <div className="space-y-2">
