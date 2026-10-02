@@ -4,19 +4,20 @@ import { DesktopDemo } from "@/components/DesktopDemo";
 import { DEMO } from "@/lib/site";
 
 describe("DesktopDemo", () => {
-  test("shows what you said, with the fillers struck, and what was pasted", () => {
+  test("shows what you said, with the fillers marked, and what was pasted", () => {
     const { container } = render(<DesktopDemo />);
     expect(screen.getByText(DEMO.heardLabel)).toBeDefined();
     expect(screen.getByText(DEMO.typedLabel)).toBeDefined();
     expect(container.querySelector("[data-demo='raw']")?.textContent).toBe(DEMO.raw);
-    const struck = [...container.querySelectorAll("[data-demo='raw'] s")].map((s) => s.textContent);
-    expect(struck).toEqual([...DEMO.fillers]);
+    const dropped = [...container.querySelectorAll("[data-demo='raw'] [data-filler]")].map((s) => s.textContent);
+    expect(dropped).toEqual([...DEMO.fillers]);
     expect(container.querySelector("[data-demo='cleaned']")?.textContent).toBe(DEMO.cleaned);
   });
 
-  test("pasted text wears the selection color", () => {
+  test("the spoken take is ghosted behind the paragraph that landed", () => {
     const { container } = render(<DesktopDemo />);
-    expect(container.querySelector("[data-demo='cleaned']")?.classList.contains("selected")).toBe(true);
+    expect(container.querySelector("[data-demo='raw']")?.className).toContain("text-foreground/30");
+    expect(container.querySelector("[data-demo='cleaned']")?.classList.contains("selected")).toBe(false);
   });
 
   test("no promise checklist under the demo", () => {

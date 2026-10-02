@@ -39,6 +39,11 @@ export const USING = {
       { label: "Quit peluni", shortcut: "⌘Q" },
     ],
   },
+  // The app the desktop shot is dictating into.
+  window: {
+    app: "Notes",
+    text: "Onboarding: send the welcome email after the first model download finishes, not before. Most people want to try it right away.",
+  },
   keysLabel: "Keys",
   keys: [
     { how: "Hold", key: "Right ⌥", result: "Records while the key is down. Let go and the text is pasted." },
@@ -127,8 +132,8 @@ export const WORDS = {
 export const AUDIO = {
   title: "Where your audio goes",
   paragraphs: [
-    "Your recording stays in memory on your Mac, and none of the steps above uses the network. The app only goes online to download a model from Hugging Face when you ask for one, so once you have a model you can turn Wi-Fi off and keep dictating. There is no analytics or crash reporting in the app, and you don't sign in to anything.",
-    "Password fields are detected through the Accessibility API. While one has focus, peluni won't type into it or touch the clipboard.",
+    "Your recording stays in memory on your Mac, and nothing in that path uses the network. Once you have a model you can turn Wi-Fi off and keep dictating.",
+    "peluni won't type into a password field or touch the clipboard while one has focus.",
   ],
   pathLabel: "The path a recording takes",
   boundary: "Your Mac",

@@ -3,28 +3,30 @@ import { DEMO } from "@/lib/site";
 
 const fillers = new Set<string>(DEMO.fillers);
 
-// The product doing its one job, in one window: the take as you said it, then the paragraph that landed.
+// The product doing its one job, as a moment in Mail: the take you spoke, ghosted, and the paragraph
+// that landed under it, with the cursor still blinking after the last word.
 export function DesktopDemo() {
   const words = DEMO.raw.split(" ");
   return (
-    <figure className="mt-10 sm:mt-12">
+    <figure className="mx-auto mt-10 max-w-4xl sm:mt-12">
       <MacWindow title={DEMO.subject} className="window-shadow">
-        <div className="px-6 pb-10 pt-6 sm:px-12 sm:pb-14 sm:pt-9">
-          <p className="font-sans text-sm font-semibold text-muted">{DEMO.heardLabel}</p>
-          <p data-demo="raw" className="demo-heard mt-2 font-mono text-[0.9rem] leading-relaxed text-muted sm:text-[0.95rem]">
+        <p className="border-b border-border px-6 py-3 text-[0.9rem] sm:px-12">
+          <span className="text-muted">To:</span> <span className="font-medium">Priya</span>
+        </p>
+        <div className="px-6 pb-12 pt-7 sm:px-12 sm:pb-16 sm:pt-9">
+          <p className="sr-only">{DEMO.heardLabel}</p>
+          <p data-demo="raw" className="demo-heard font-mono text-[0.9rem] leading-relaxed text-foreground/30 sm:text-[0.95rem]">
             {words.map((word, i) => (
               <span key={i}>
                 {i > 0 && " "}
-                {fillers.has(word) ? <s className="decoration-foreground/60">{word}</s> : word}
+                {fillers.has(word) ? <span data-filler="">{word}</span> : word}
               </span>
             ))}
           </p>
-          <p className="mt-6 border-t border-border pt-6 font-sans text-sm font-semibold text-muted">{DEMO.typedLabel}</p>
-          <p className="demo-paste mt-2 font-serif text-[1.15rem] leading-[1.7] sm:text-[1.45rem]">
-            <span data-demo="cleaned" className="selected">
-              {DEMO.cleaned}
-            </span>
-            <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] bg-foreground" />
+          <p className="sr-only">{DEMO.typedLabel}</p>
+          <p className="demo-paste mt-6 font-serif text-[1.2rem] leading-[1.65] sm:text-[1.6rem]">
+            <span data-demo="cleaned">{DEMO.cleaned}</span>
+            <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-foreground" />
           </p>
         </div>
       </MacWindow>

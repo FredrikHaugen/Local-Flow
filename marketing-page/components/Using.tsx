@@ -35,6 +35,14 @@ function DesktopShot() {
           </p>
         ))}
       </div>
+      {/* The app the text lands in, behind the menu. */}
+      <div className="window-shadow absolute left-4 top-16 hidden w-[26rem] overflow-hidden rounded-lg bg-card sm:block lg:left-12">
+        <p className="border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">{USING.window.app}</p>
+        <p className="px-5 py-4 font-serif text-[1.05rem] leading-relaxed">
+          {USING.window.text}
+          <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-foreground" />
+        </p>
+      </div>
       <div className="absolute inset-x-0 bottom-6 flex justify-center">
         <OverlayPill />
       </div>

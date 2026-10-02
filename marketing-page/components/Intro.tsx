@@ -9,14 +9,14 @@ export function Intro() {
   return (
     <section id="top" aria-labelledby="top-title" className="px-4 pt-10 sm:px-6 sm:pt-14 lg:pt-14">
       <div className="mx-auto max-w-5xl">
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <h1 id="top-title" className="text-[clamp(2.25rem,1.6rem+2.6vw,3.25rem)] leading-[1.08] tracking-[-0.015em]">
             {INTRO.title}
           </h1>
           <p className="mt-5">
             {INTRO.bodyBefore} <Kbd>{INTRO.key}</Kbd> {INTRO.bodyAfter}
           </p>
-          <div data-cta className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div data-cta className="mt-7 flex flex-col items-center gap-3">
             <a
               href={SITE.releasesUrl}
               className="inline-flex min-h-12 items-center rounded-md bg-foreground px-5 font-sans text-[1.05rem] font-semibold text-background transition-opacity hover:opacity-90"
