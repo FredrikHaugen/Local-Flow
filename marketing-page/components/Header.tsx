@@ -14,7 +14,7 @@ export function Header() {
           </a>
           <a
             href={SITE.releasesUrl}
-            className="hidden min-h-10 items-center rounded-md sm:inline-flex bg-foreground px-3.5 font-semibold text-background transition-opacity hover:opacity-90"
+            className="hidden font-semibold underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground sm:inline"
           >
             Download
           </a>

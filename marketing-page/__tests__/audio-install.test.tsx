@@ -16,6 +16,7 @@ describe("Where your audio goes", () => {
     );
     expect(within(path).getByText(AUDIO.boundary)).toBeDefined();
     expect(within(path).getByText(AUDIO.outside)).toBeDefined();
+    expect(within(path).getByText(AUDIO.network)).toBeDefined();
   });
 
   test("then says it in prose, with the storage path and a link to the source", () => {

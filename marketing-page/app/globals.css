@@ -132,7 +132,7 @@ h3 {
     content: "→";
     position: absolute;
     left: -1.85rem;
-    top: 0;
+    top: 0.35rem;
     margin: 0;
     font-size: 1.2rem;
   }

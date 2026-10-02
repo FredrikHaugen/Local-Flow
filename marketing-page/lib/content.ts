@@ -131,10 +131,12 @@ export const WORDS = {
 
 export const AUDIO = {
   title: "Where your audio goes",
+  display: "Turn Wi-Fi off and keep dictating.",
   paragraphs: [
-    "Your recording stays in memory on your Mac, and nothing in that path uses the network. Once you have a model you can turn Wi-Fi off and keep dictating.",
-    "peluni won't type into a password field or touch the clipboard while one has focus.",
+    "Your recording stays in memory on your Mac, and nothing in that path uses the network. peluni won't type into a password field or touch the clipboard while one has focus.",
   ],
+  network: "Network",
+  networkState: "not used while you dictate",
   pathLabel: "The path a recording takes",
   boundary: "Your Mac",
   stages: [
@@ -145,7 +147,7 @@ export const AUDIO = {
     { name: "Paste", detail: "where your cursor is" },
   ],
   outside: "Hugging Face",
-  outsideDetail: "model downloads, only when you ask",
+  outsideDetail: "only when you download a model",
   storageBefore: "Models are kept in",
   storagePath: "~/Library/Application Support/peluni/",
   storageAfter: "and your vocabulary is a plain JSON file in the same folder.",
