@@ -24,8 +24,7 @@ export function Intro() {
               {INTRO.download}
             </a>
             <p className="text-[0.95rem] leading-snug text-muted">
-              <span className="block">{INTRO.requirement}</span>
-              <span className="block">{INTRO.release}</span>
+              {INTRO.requirement} {INTRO.release}
             </p>
             {/* Phones only: the download is for a Mac, so offer to send the page there. */}
             <SendToMac className="w-full md:hidden" />

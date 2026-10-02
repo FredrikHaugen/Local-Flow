@@ -18,6 +18,11 @@ describe("Using it", () => {
   });
 });
 
+test("the desktop shot's overlay is decorative", () => {
+  const { container } = render(<Using />);
+  expect(container.querySelector(".wave-bar")?.closest("[aria-hidden='true']")).not.toBeNull();
+});
+
 test("the menu bar menu truncates recent transcripts the way the app does", () => {
   render(<Using />);
   const menu = screen.getByRole("list", { name: USING.menu.recentTitle });

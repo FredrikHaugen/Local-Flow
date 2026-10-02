@@ -14,10 +14,9 @@ describe("DesktopDemo", () => {
     expect(container.querySelector("[data-demo='cleaned']")?.textContent).toBe(DEMO.cleaned);
   });
 
-  test("pasted text wears the selection color; the overlay is decorative", () => {
+  test("pasted text wears the selection color", () => {
     const { container } = render(<DesktopDemo />);
     expect(container.querySelector("[data-demo='cleaned']")?.classList.contains("selected")).toBe(true);
-    expect(container.querySelector(".wave-bar")?.closest("[aria-hidden='true']")).not.toBeNull();
   });
 
   test("no promise checklist under the demo", () => {

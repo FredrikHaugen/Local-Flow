@@ -14,14 +14,14 @@ export const INTRO = {
   body: `${introBefore} ${introKey} ${introAfter}`,
   download: "Download for Mac",
   requirement: "Needs macOS 14 or later on an Apple Silicon Mac.",
-  release: `Version ${SITE.version}, free and MIT licensed.`,
+  release: `Free, version ${SITE.version}.`,
 } as const;
 
 export const USING = {
   title: "Using it",
   paragraphs: [
-    "peluni lives in the menu bar and waits for the right Option key. While it listens, a small overlay with a level meter sits at the bottom of the screen, so you can see that it hears you. When you let go, whisper.cpp transcribes the recording, a small language model removes the ums and fixes the punctuation, and the text is pasted, typically in about a second with the base model.",
-    "It pastes into whichever app has focus: Mail, Slack, Xcode, a terminal, a form in Safari. If a paste can't land, the text stays on your clipboard and the overlay asks you to press ⌘V. Your last ten transcripts are also in the menu bar, kept in memory until you quit.",
+    "peluni lives in the menu bar. While you hold the key, the overlay at the bottom of the screen shows that it hears you, and when you let go the text lands in whichever app has focus, typically in about a second with the base model.",
+    "If a paste can't land, the text stays on your clipboard and the overlay asks you to press ⌘V. Your last ten transcripts wait in the menu, in memory, until you quit.",
   ],
   // The menu bar menu (Sources/PeluniApp/App/PeluniApp.swift); the app truncates entries at 48 characters.
   menu: {
