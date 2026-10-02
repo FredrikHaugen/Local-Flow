@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /*
- * peluni: grey-green paper, green-black ink, white windows. No brand accent: the only colors
- * are the macOS text-selection blue (on text shown as just pasted) and the logo's teal as the
- * small record light.
+ * peluni: grey-green paper, green-black ink, white windows. The logo's teal is the one accent:
+ * the record light, the underline under words peluni put there (.selected) and the default chip.
+ * The macOS selection blue is only the browser's text selection.
  */
 
 :root {
@@ -17,7 +17,7 @@
   /* macOS text selection. */
   --select: #b4d5fe;
   --select-foreground: #171a18;
-  /* The logo's teal, only as the record light. */
+  /* The logo's teal: record light, the .selected underline, the default chip. */
   --rec: #9ddeb9;
   /* peluni's real overlay is dark in both themes. */
   --overlay: #1d1d1f;
