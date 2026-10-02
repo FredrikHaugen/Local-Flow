@@ -49,7 +49,7 @@ export function Audio() {
   return (
     <Chapter id="privacy" title={AUDIO.title} wide className="band-dark mt-24 py-20 sm:mt-32 sm:py-28">
       <OfflineScene />
-      <p className="mt-14 max-w-2xl">
+      <p className="mt-12 max-w-3xl text-[clamp(1.25rem,1.05rem+0.8vw,1.6rem)] leading-snug">
         {AUDIO.paragraphs[0]} {AUDIO.sourceBefore}{" "}
         <a href={SITE.repoUrl} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
           {AUDIO.sourceLink}

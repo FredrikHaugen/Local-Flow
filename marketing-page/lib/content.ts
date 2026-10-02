@@ -136,7 +136,7 @@ export const AUDIO = {
     text: "Running ten minutes late, start without me and I'll catch up on the notes.",
   },
   paragraphs: [
-    "Turn Wi-Fi off and keep dictating. The microphone is read at 16 kHz, whisper.cpp transcribes on the GPU and the cleanup model runs through MLX, all in memory on your Mac. The app only goes online to download a model from Hugging Face when you ask for one, and it won't type into a password field or touch the clipboard while one has focus.",
+    "Turn Wi-Fi off and keep dictating. Transcription and cleanup run in memory on your Mac, and the app only goes online to fetch a model when you ask for one.",
   ],
   sourceBefore: "The code for all of this is",
   sourceLink: "on GitHub",
@@ -146,21 +146,17 @@ export const AUDIO = {
 export const INSTALL_GUIDE = {
   title: "Installing",
   steps: [
-    { before: "Download the DMG from the", link: "releases page", after: "on GitHub." },
-    { before: "Open it and drag peluni to Applications. It runs from the menu bar and has no Dock icon.", link: "", after: "" },
-    {
-      before: "Allow Microphone and Accessibility when the setup window asks. Accessibility is what lets it paste into other apps.",
-      link: "",
-      after: "",
-    },
-    { before: "Download the Base speech model (148 MB) from the same window. Then hold Right ⌥ and talk.", link: "", after: "" },
+    { before: "Download the DMG from the", link: "releases page", after: "." },
+    { before: "Drag peluni to Applications. It runs from the menu bar.", link: "", after: "" },
+    { before: "Allow Microphone and Accessibility when the setup window asks.", link: "", after: "" },
+    { before: "Get the Base speech model (148 MB), then hold Right ⌥ and talk.", link: "", after: "" },
   ],
-  checkTitle: "Check the download",
+  checkTitle: "How do I check the download?",
   checksumBody:
     "Releases are signed with a Developer ID and notarized by Apple. To check a download, put the .sha256 file published with it in the same folder and run:",
   checksumCommand: "shasum -a 256 -c peluni-<version>.dmg.sha256",
   download: "Download for Mac",
-  requirementsTitle: "Requirements",
+  requirementsTitle: "What does my Mac need?",
   requirements: [
     { title: "macOS 14 (Sonoma) or later", detail: "peluni runs from the menu bar." },
     { title: "Apple Silicon (M1 or later)", detail: "It is built for arm64 only, so Intel Macs can't run it." },

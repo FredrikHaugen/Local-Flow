@@ -29,7 +29,7 @@ export function Cleanup() {
         <div className="mt-10">
           {CLEANUP_LEVELS.levels.map((level) => (
             <div key={level.id} data-out={level.id} className="level-out">
-              <p className="font-sans text-sm text-muted">
+              <p className="font-sans text-base text-muted">
                 {level.name}: {level.detail}
               </p>
               <div className="mt-4 min-h-[3.8em] text-[clamp(2rem,1.25rem+3vw,3.9rem)] leading-[1.15] tracking-[-0.02em]">

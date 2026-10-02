@@ -50,7 +50,7 @@ export function Words() {
             <li key={m.name}>
               <span className="block font-semibold">{m.name}</span>
               <span className="block tabular-nums">{m.size}</span>
-              <span className="block text-[0.95rem] text-muted">{m.note}</span>
+              <span className="block text-muted">{m.note}</span>
             </li>
           ))}
         </ul>

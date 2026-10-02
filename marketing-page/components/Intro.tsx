@@ -23,7 +23,7 @@ export function Intro() {
             >
               {INTRO.download}
             </a>
-            <p className="text-[0.9rem] leading-snug text-muted">
+            <p className="text-[1rem] leading-snug text-muted">
               {INTRO.release} {INTRO.requirement}
             </p>
             {/* Phones only: the download is for a Mac, so offer to send the page there. */}
