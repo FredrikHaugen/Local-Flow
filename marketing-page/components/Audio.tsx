@@ -41,7 +41,6 @@ function OfflineScene() {
           </div>
         </div>
       </div>
-      <figcaption className="mt-14 max-w-3xl font-serif text-[clamp(1.5rem,1.2rem+1.4vw,2.25rem)] leading-tight">{AUDIO.caption}</figcaption>
     </figure>
   );
 }
@@ -50,15 +49,7 @@ export function Audio() {
   return (
     <Chapter id="privacy" title={AUDIO.title} wide display className="band-dark mt-24 py-20 sm:mt-32 sm:py-28">
       <OfflineScene />
-      <ol aria-label={AUDIO.pathLabel} className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 font-sans text-[1.05rem] sm:text-lg">
-        {AUDIO.stages.map((stage, i) => (
-          <li key={stage} className="flex items-center gap-3">
-            {i > 0 && <span aria-hidden="true" className="text-muted">→</span>}
-            {stage}
-          </li>
-        ))}
-      </ol>
-      <div className="mt-8 max-w-2xl">
+      <div className="mt-14 max-w-2xl">
         {AUDIO.paragraphs.map((p) => (
           <p key={p}>{p}</p>
         ))}

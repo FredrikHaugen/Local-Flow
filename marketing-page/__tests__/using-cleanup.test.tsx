@@ -5,16 +5,15 @@ import { Using } from "@/components/Using";
 import { CLEANUP_LEVELS, USING } from "@/lib/content";
 
 describe("Using it", () => {
-  test("is prose and the keys, drawn as keycaps", () => {
+  test("is one line, the scene, and the keys in one sentence with keycaps", () => {
     const { container } = render(<Using />);
     const region = screen.getByRole("region", { name: USING.title });
     expect(region.id).toBe("using");
     for (const p of USING.paragraphs) expect(within(region).getByText(p)).toBeDefined();
-    const keys = region.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!;
-    expect(keys.querySelectorAll("dt")).toHaveLength(USING.keys.length);
-    expect(keys.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
-    for (const k of USING.keys) expect(within(region).getByText(k.result)).toBeDefined();
-    expect(container.querySelector("table")).toBeNull();
+    const keys = region.querySelector(`p[aria-label="${USING.keysLabel}"]`)!;
+    expect(keys.querySelectorAll("kbd")).toHaveLength(USING.keys.length);
+    expect(keys.textContent).toContain(USING.keysEnd);
+    expect(container.querySelector("table, dl")).toBeNull();
   });
 });
 

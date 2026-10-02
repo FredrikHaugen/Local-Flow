@@ -63,16 +63,15 @@ export function Using() {
         ))}
       </div>
       <DesktopShot />
-      <dl aria-label={USING.keysLabel} className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+      <p aria-label={USING.keysLabel} className="mt-8 max-w-4xl text-[clamp(1.25rem,1.05rem+0.8vw,1.6rem)] leading-[1.6]">
         {USING.keys.map((k) => (
-          <div key={`${k.how}-${k.key}`}>
-            <dt className="flex items-center gap-2.5 font-sans font-semibold">
-              {k.how} <Kbd className="px-2.5 py-1 text-base">{k.key}</Kbd>
-            </dt>
-            <dd className="mt-2 text-[1.05rem] leading-relaxed text-muted">{k.result}</dd>
-          </div>
+          <span key={`${k.how}-${k.key}`}>
+            {k.how} <Kbd className="px-2 py-0 text-[0.8em] leading-normal">{k.key}</Kbd> {k.result},{" "}
+          </span>
         ))}
-      </dl>
+        {USING.keysEnd}
+      </p>
+      <p className="mt-5 max-w-2xl text-muted">{USING.sceneNote}</p>
     </Chapter>
   );
 }

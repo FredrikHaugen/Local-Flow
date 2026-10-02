@@ -6,15 +6,13 @@ import { AUDIO, INSTALL_GUIDE } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 describe("Where your audio goes", () => {
-  test("shows dictation working with Wi-Fi off, then the path in one line", () => {
+  test("shows dictation working with Wi-Fi off", () => {
     render(<Audio />);
     const region = screen.getByRole("region", { name: AUDIO.title });
     expect(region.id).toBe("privacy");
     const scene = within(region).getByRole("figure", { name: AUDIO.scene.label });
     expect(within(scene).getByText(AUDIO.scene.wifiState)).toBeDefined();
-    expect(within(scene).getByText(AUDIO.caption)).toBeDefined();
-    const path = within(region).getByRole("list", { name: AUDIO.pathLabel });
-    expect([...path.querySelectorAll("li")].map((li) => li.textContent?.replace("→", ""))).toEqual([...AUDIO.stages]);
+    expect(region.querySelectorAll("h2")).toHaveLength(1);
   });
 
   test("then says it in prose, with the storage path and a link to the source", () => {

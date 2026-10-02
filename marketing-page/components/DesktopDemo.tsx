@@ -7,7 +7,7 @@ const fillers = new Set<string>(DEMO.fillers);
 export function DesktopDemo() {
   const words = DEMO.raw.split(" ");
   return (
-    <figure className="window-shadow mt-9 rounded-2xl bg-card px-6 pb-10 pt-8 sm:mt-10 sm:px-14 sm:pb-12 sm:pt-10">
+    <figure className="card-shadow mt-9 rounded-2xl bg-card px-6 pb-10 pt-8 sm:mt-10 sm:px-14 sm:pb-12 sm:pt-10">
       <p className="sr-only">{DEMO.heardLabel}</p>
       <p data-demo="raw" className="demo-heard ghost-fade max-w-4xl font-mono text-[0.95rem] leading-relaxed sm:text-[1.05rem]">
         {words.map((word, i) => (

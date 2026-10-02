@@ -20,9 +20,11 @@ export const INTRO = {
 export const USING = {
   title: "Using it",
   paragraphs: [
-    "peluni lives in the menu bar. While you hold the key, the overlay at the bottom of the screen shows that it hears you, and when you let go the text lands in whichever app has focus, typically in about a second with the base model.",
-    "If a paste can't land, the text stays on your clipboard and the overlay asks you to press ⌘V. Your last ten transcripts wait in the menu, in memory, until you quit.",
+    "peluni lives in the menu bar, and the text lands in whichever app has focus, typically in about a second with the base model.",
   ],
+  // Under the scene: what the keys do, and what happens when a paste can't land.
+  sceneNote:
+    "If a paste can't land, the text stays on your clipboard and the overlay asks you to press ⌘V. Your last ten transcripts wait in the menu, in memory, until you quit.",
   // The menu bar menu (Sources/PeluniApp/App/PeluniApp.swift); the app truncates entries at 48 characters.
   menu: {
     label: "peluni's menu bar menu",
@@ -45,12 +47,13 @@ export const USING = {
     text: "Onboarding: send the welcome email after the first model download finishes, not before. Most people want to try it right away.",
   },
   keysLabel: "Keys",
+  // One sentence, four clauses, keys drawn inline.
   keys: [
-    { how: "Hold", key: "Right ⌥", result: "Records while the key is down. Let go and the text is pasted." },
-    { how: "Double-tap", key: "Right ⌥", result: "Keeps recording with your hands free. Press Right ⌥ once more to finish." },
-    { how: "Press", key: "Esc", result: "Cancels at any point, and nothing is pasted." },
-    { how: "Tap", key: "Right ⌥", result: "A tap is ignored: less than 0.3 seconds of speech counts as an accidental press." },
+    { how: "Hold", key: "Right ⌥", result: "to record" },
+    { how: "double-tap", key: "Right ⌥", result: "to keep recording with your hands free" },
+    { how: "press", key: "Esc", result: "to cancel" },
   ],
+  keysEnd: "and a tap shorter than 0.3 seconds is ignored.",
 } as const;
 
 // Level names and descriptions are the app's own (Sources/PeluniApp/UI/GeneralTab.swift);
@@ -138,11 +141,8 @@ export const AUDIO = {
     incoming: "Still on for 6?",
     text: "Running ten minutes late, start without me and I'll catch up on the notes.",
   },
-  caption: "Turn Wi-Fi off and keep dictating.",
-  pathLabel: "The path a recording takes, all on your Mac",
-  stages: ["Microphone at 16 kHz", "silence trimmed", "whisper.cpp on the GPU", "cleanup through MLX", "pasted"],
   paragraphs: [
-    "Your recording stays in memory, and the app only goes online to download a model from Hugging Face when you ask for one. peluni won't type into a password field or touch the clipboard while one has focus.",
+    "Turn Wi-Fi off and keep dictating. The microphone is read at 16 kHz, whisper.cpp transcribes on the GPU and the cleanup model runs through MLX, all in memory on your Mac. The app only goes online to download a model from Hugging Face when you ask for one, and it won't type into a password field or touch the clipboard while one has focus.",
   ],
   storageBefore: "Models are kept in",
   storagePath: "~/Library/Application Support/peluni/",
