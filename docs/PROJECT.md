@@ -67,9 +67,8 @@ Integration tests (whisper smoke test against a real model) skip gracefully when
 ## Building
 
 ```sh
-make vendor   # one-time: fetch + SHA256-verify the whisper.cpp xcframework
-make cert     # one-time: create a stable local signing identity
-make run      # build, bundle dist/LocalFlow.app, launch
+make run      # build, bundle dist/LocalFlow.app, quit any running copy, launch the new build
+              # (first run also does make vendor + make cert: fetch the whisper.cpp xcframework, create a stable signing identity)
 make test     # unit + integration tests
 ```
 

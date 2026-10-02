@@ -17,8 +17,7 @@ IDENTITY="${CODESIGN_IDENTITY:-}"
 
 xcodebuild build -scheme LocalFlowApp -configuration Release \
     -destination 'platform=macOS,arch='"$ARCH" -derivedDataPath .build/xc \
-    -skipPackagePluginValidation -skipMacroValidation \
-    -quiet
+    -skipPackagePluginValidation -skipMacroValidation
 PRODUCTS=".build/xc/Build/Products/Release"
 
 rm -rf "$APP"

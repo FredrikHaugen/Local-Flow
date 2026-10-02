@@ -49,9 +49,20 @@ clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 
 ## Quick start (from source)
 
-    make vendor   # one-time: fetch + checksum-verify the whisper engine
-    make cert     # one-time: stable local signing identity (keeps permissions across rebuilds)
-    make run      # build, bundle, launch
+    make run
+
+That's the whole loop. Every `make run` builds the current code, bundles it
+into `dist/LocalFlow.app`, quits any LocalFlow that's already running, and
+launches the new build. Run it again after each change.
+
+The first run also does the one-time setup for you: it downloads and
+checksum-verifies the whisper engine (`make vendor`) and creates a local
+"LocalFlow Dev" signing identity (`make cert`) so macOS keeps your
+permissions across rebuilds. Expect the first build to take several minutes
+(MLX is large); later builds are incremental. xcodebuild's full output is
+shown, so a long quiet compile step is progress, not a hang.
+
+Once it launches:
 
 1. Follow the setup window: **Microphone**, **Accessibility**, and the
    **Base** speech model. Settings → Models has larger speech models and the
@@ -128,7 +139,7 @@ Contributions are very welcome — this is an early project (v0.1.0) and help
 is appreciated, whether that's a bug fix, a feature, docs, or just filing a
 good issue. To get started:
 
-1. Fork and clone, then `make vendor && make cert && make run`.
+1. Fork and clone, then `make run`.
 2. Make your change. New testable logic belongs in `LocalFlowCore` with unit
    tests; keep `LocalFlowApp` services as thin OS wrappers.
 3. Run `make test`, and for changes touching permissions, hotkeys, or

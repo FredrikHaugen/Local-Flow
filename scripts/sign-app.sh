@@ -12,7 +12,9 @@ ENTITLEMENTS="$ROOT/Packaging/LocalFlow.entitlements"
 
 case "$MODE" in
     release) FLAGS=(--options runtime --timestamp) ;;
-    dev)     FLAGS=(--options runtime --timestamp=none) ;;
+    dev)     FLAGS=(--options runtime --timestamp=none)
+             # Self-signed cert has no Team ID; without this, library validation blocks whisper.framework.
+             ENTITLEMENTS="$ROOT/Packaging/LocalFlow.dev.entitlements" ;;
     adhoc)   FLAGS=(--timestamp=none) ;;  # unchanged from the previous ad-hoc fallback
     *) echo "sign-app.sh: unknown mode '$MODE'" >&2; exit 2 ;;
 esac

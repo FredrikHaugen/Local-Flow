@@ -41,6 +41,9 @@ grep -q 'com.apple.security.device.audio-input' <<<"$ents" \
 if grep -q 'com.apple.security.get-task-allow' <<<"$ents"; then
     err "$APP: has com.apple.security.get-task-allow (notarization rejects debug entitlements)"
 fi
+if [ "$MODE" = "--release" ] && grep -q 'com.apple.security.cs.disable-library-validation' <<<"$ents"; then
+    err "$APP: has com.apple.security.cs.disable-library-validation (dev-only entitlement)"
+fi
 
 [ "$fail" -eq 0 ] && echo "Signing OK: $APP${MODE:+ ($MODE)}"
 exit "$fail"

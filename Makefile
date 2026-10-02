@@ -54,7 +54,14 @@ test: check-vendor check-requirements
 bundle: check-vendor
 	bash scripts/bundle.sh
 
-run: bundle
+# One command from a fresh clone: vendor and cert are no-ops once done. Quits a
+# running LocalFlow first, otherwise `open` just re-activates the old build.
+run: vendor cert bundle
+	@if pgrep -x LocalFlow >/dev/null; then \
+		echo "Quitting running LocalFlow..."; \
+		pkill -x LocalFlow; \
+		while pgrep -x LocalFlow >/dev/null; do sleep 0.2; done; \
+	fi
 	open dist/LocalFlow.app
 
 # Developer ID sign + notarize + staple + DMG. Needs a Developer ID Application
