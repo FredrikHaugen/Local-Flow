@@ -1,7 +1,7 @@
 import { Marked } from "@/components/Brand";
 import { FINAL_CTA, HERO_FINEPRINT, SITE } from "@/lib/site";
 
-// The closing orange band: one big line, the download, and the reasons it's safe to open.
+// The closing teal band: one big line, the download, and the reasons it's safe to open.
 export function FinalCta() {
   return (
     <section

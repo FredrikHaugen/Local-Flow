@@ -50,14 +50,14 @@ function TextVisual() {
       className="w-full max-w-xs border border-border text-left shadow-[0_24px_48px_-28px_var(--foreground)]"
     >
       <p className="flex items-start gap-3 px-4 pb-3 pt-4 text-[0.95rem] font-medium leading-snug">
-        <span className="mt-0.5 h-4 w-4 shrink-0 rounded-full border-2 border-accent" />
+        <span className="mt-0.5 h-4 w-4 shrink-0 rounded-full border-2 border-accent-ink" />
         <span>
           <span className="just-pasted">{HOW.pasted}</span>
-          <span className="caret ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] bg-accent" />
+          <span className="caret ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] bg-accent-ink" />
         </span>
       </p>
       <p className="flex items-center gap-1.5 px-4 pb-3.5 font-mono text-[0.65rem] text-muted">
-        <svg viewBox="0 0 12 12" className="h-3 w-3 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg viewBox="0 0 12 12" className="h-3 w-3 text-accent-ink" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="m2.5 6.5 2.2 2L9.5 3.5" />
         </svg>
         {HOW.restored}
@@ -80,7 +80,7 @@ function TrackFrame({ children, end }: { children: React.ReactNode; end: string 
 }
 
 function Tick({ at }: { at: string }) {
-  return <span className="absolute top-1/2 h-6 w-1.5 -translate-y-1/2 rounded-full bg-accent" style={{ left: at }} />;
+  return <span className="absolute top-1/2 h-6 w-1.5 -translate-y-1/2 rounded-full bg-accent-ink" style={{ left: at }} />;
 }
 
 function Pasted() {
@@ -109,7 +109,7 @@ function HandsFreeTrack() {
     <TrackFrame end="pasted">
       <Tick at="2%" />
       <Tick at="7%" />
-      <span className="absolute left-[12%] right-[22%] top-1/2 flex h-7 -translate-y-1/2 items-center gap-1.5 rounded-full border-2 border-accent bg-card px-2.5 font-mono text-[0.7rem] font-semibold text-accent">
+      <span className="absolute left-[12%] right-[22%] top-1/2 flex h-7 -translate-y-1/2 items-center gap-1.5 rounded-full border-2 border-accent-ink bg-card px-2.5 font-mono text-[0.7rem] font-semibold text-accent-ink">
         <svg viewBox="0 0 12 12" className="h-3 w-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
           <rect x="2.5" y="5.5" width="7" height="5" rx="1" />
           <path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" />
@@ -125,7 +125,7 @@ function HandsFreeTrack() {
 function CancelTrack() {
   return (
     <TrackFrame end="nothing pasted">
-      <span className="absolute left-[4%] w-[46%] top-1/2 h-7 -translate-y-1/2 rounded-full bg-accent/35" />
+      <span className="absolute left-[4%] w-[46%] top-1/2 h-7 -translate-y-1/2 rounded-full bg-accent/70" />
       <span className="absolute left-[52%] top-1/2 flex h-7 -translate-y-1/2 items-center gap-1 rounded-md bg-foreground px-2 font-mono text-[0.7rem] font-semibold text-background">
         <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="m3 3 6 6M9 3 3 9" />
@@ -159,7 +159,7 @@ export function HowItWorks() {
         {/* The rail: one continuous line through all three moves (desktop). */}
         <span
           aria-hidden="true"
-          className="absolute left-0 right-0 top-[150px] hidden border-t-2 border-dashed border-accent/50 lg:block"
+          className="absolute left-0 right-0 top-[150px] hidden border-t-2 border-dashed border-accent-ink/50 lg:block"
         />
         <ol className="relative grid gap-12 lg:grid-cols-3 lg:gap-8">
           {STEPS.map((step, i) => {
@@ -176,7 +176,7 @@ export function HowItWorks() {
                   <Visual />
                 </div>
                 <div className="mt-5 max-w-xs sm:mt-8">
-                  <span aria-hidden="true" className="font-display text-base font-extrabold text-accent">
+                  <span aria-hidden="true" className="font-display text-base font-extrabold text-accent-ink">
                     0{i + 1}
                   </span>
                   <h3 className="font-display mt-1 text-4xl font-extrabold sm:text-5xl">{step.title}</h3>

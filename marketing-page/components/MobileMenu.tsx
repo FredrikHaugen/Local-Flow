@@ -52,7 +52,7 @@ export function MobileMenu() {
                   onClick={() => setOpen(false)}
                   className="font-display flex min-h-16 items-center gap-4 text-4xl font-extrabold"
                 >
-                  <span aria-hidden="true" className="w-6 font-sans text-xs font-semibold text-accent">
+                  <span aria-hidden="true" className="w-6 font-sans text-xs font-semibold text-accent-ink">
                     0{i + 1}
                   </span>
                   <span className="flex-1">{item.label}</span>

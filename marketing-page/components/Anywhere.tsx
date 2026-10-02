@@ -7,7 +7,7 @@ const [messages, notes, code] = ANYWHERE.apps;
 
 function Caret() {
   return (
-    <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.2em] rounded-full bg-accent" />
+    <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.2em] rounded-full bg-accent-ink" />
   );
 }
 

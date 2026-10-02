@@ -18,7 +18,7 @@ const ICONS = [
 function BoundaryDiagram() {
   return (
     <figure id="under-the-hood" aria-labelledby="under-the-hood-title" className="scroll-mt-20">
-      <div className="relative rounded-[2rem] border-2 border-dashed border-accent bg-card p-4 pt-9 sm:p-8 sm:pt-11">
+      <div className="relative rounded-[2rem] border-2 border-dashed border-accent-ink bg-card p-4 pt-9 sm:p-8 sm:pt-11">
         <span className="absolute -top-3.5 left-6 rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-accent-foreground">
           {PRIVACY_DIAGRAM.boundary}
         </span>
@@ -176,7 +176,7 @@ function Verify() {
                 {"link" in check && (
                   <a
                     href={SITE.repoUrl}
-                    className="mt-4 inline-flex items-center gap-1.5 self-start font-semibold underline decoration-accent decoration-2 underline-offset-4"
+                    className="mt-4 inline-flex items-center gap-1.5 self-start font-semibold underline decoration-accent-ink decoration-2 underline-offset-4"
                   >
                     {check.link}
                     <span aria-hidden="true">→</span>
@@ -206,7 +206,7 @@ export function Privacy() {
             <svg
               aria-hidden="true"
               viewBox="0 0 24 24"
-              className="mt-0.5 h-6 w-6 shrink-0 text-accent"
+              className="mt-0.5 h-6 w-6 shrink-0 text-accent-ink"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.8"

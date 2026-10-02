@@ -43,7 +43,7 @@ function CleanupDemo() {
         <div className="rounded-2xl border border-border bg-background p-4">
           <p className="flex items-center justify-between gap-2 text-xs font-semibold text-muted">
             <span className="flex items-center gap-2">
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-ink" />
               {CLEANUP.typedLabel}
             </span>
             <span className="font-normal">{CLEANUP.exampleNote}</span>
@@ -59,7 +59,7 @@ function CleanupDemo() {
                 </p>
               ))}
               {level.list.length > 0 && (
-                <ul className="mt-1 list-disc pl-5 leading-relaxed marker:text-accent">
+                <ul className="mt-1 list-disc pl-5 leading-relaxed marker:text-accent-ink">
                   {level.list.map((item) => (
                     <li key={item}>
                       <span className="just-pasted">{item}</span>
@@ -107,9 +107,9 @@ function VocabDemo() {
       <div className="mt-4 grid gap-2 text-sm">
         <p className="font-mono text-[0.8rem] text-muted">
           <span className="sr-only">Heard: </span>
-          {withTerms(VOCAB.heard, heardTerms, "rounded bg-transparent text-muted underline decoration-accent decoration-dashed underline-offset-4")}
+          {withTerms(VOCAB.heard, heardTerms, "rounded bg-transparent text-muted underline decoration-accent-ink decoration-dashed underline-offset-4")}
         </p>
-        <p aria-hidden="true" className="text-accent">
+        <p aria-hidden="true" className="text-accent-ink">
           ↓
         </p>
         <p className="font-semibold">
@@ -129,7 +129,7 @@ function ModelsDemo() {
         return (
           <li
             key={model.name}
-            className={`rounded-xl border px-3.5 py-2.5 ${current ? "border-accent bg-background" : "border-border"}`}
+            className={`rounded-xl border px-3.5 py-2.5 ${current ? "border-accent-ink bg-background" : "border-border"}`}
           >
             <p className="flex items-baseline justify-between gap-3 text-sm">
               <span className="min-w-0">
@@ -140,7 +140,7 @@ function ModelsDemo() {
             </p>
             <span aria-hidden="true" className="mt-2 block h-1 overflow-hidden rounded-full bg-border">
               <span
-                className={`block h-full rounded-full ${current ? "bg-accent" : "bg-foreground/60"}`}
+                className={`block h-full rounded-full ${current ? "bg-accent-ink" : "bg-foreground/60"}`}
                 style={{ width: `${Math.round(Math.max(4, (model.mb / MODELS.maxMb) * 100))}%` }}
               />
             </span>

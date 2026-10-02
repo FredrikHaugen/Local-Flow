@@ -99,7 +99,7 @@ export function DesktopDemo() {
             title={DEMO.subject}
             className="window-shadow"
             toolbar={
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 text-accent" fill="currentColor">
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 text-accent-ink" fill="currentColor">
                 <path d="M3 11.5 21 3l-6.5 18-3-7.5L3 11.5Z" />
               </svg>
             }
@@ -118,7 +118,7 @@ export function DesktopDemo() {
             </dl>
             <div className="px-4 pb-5 pt-4 sm:min-h-56 sm:px-7 sm:pt-6 lg:pl-16">
               <p className="flex items-center gap-2 text-xs font-semibold text-muted">
-                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />
+                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-ink" />
                 {DEMO.typedLabel}
               </p>
               <p className="demo-paste mt-2 text-[1rem] leading-[1.65] sm:text-[1.15rem] sm:leading-[1.7]">
@@ -127,12 +127,12 @@ export function DesktopDemo() {
                 </span>
                 <span
                   aria-hidden="true"
-                  className="caret ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] rounded-full bg-accent"
+                  className="caret ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] rounded-full bg-accent-ink"
                 />
               </p>
             </div>
             <p className="flex items-center gap-2 border-t border-border px-4 py-3 text-xs font-semibold text-muted sm:px-7 lg:pl-16">
-              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5 text-accent-ink" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <circle cx="8" cy="8" r="6.25" />
                 <path d="M8 4.5V8l2.25 1.5" />
               </svg>

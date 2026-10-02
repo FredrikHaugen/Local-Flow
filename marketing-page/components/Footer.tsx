@@ -39,7 +39,7 @@ export function Footer() {
           </div>
           <div className="col-span-2 rounded-2xl border border-border p-5 lg:col-span-1">
             <h2 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-ink" />
               {FOOTER.siteTitle}
             </h2>
             <p className="mt-3 text-sm leading-relaxed">{FOOTER.siteNote}</p>

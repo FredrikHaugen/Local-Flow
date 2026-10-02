@@ -55,7 +55,7 @@ export function Hero() {
             {/* The requirement sits right under Download, so nobody on an Intel Mac or macOS 13 is surprised. */}
             <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs">
               <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-border bg-card px-2.5 py-1 font-semibold text-foreground">
-                <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5 text-accent" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <svg aria-hidden="true" viewBox="0 0 16 16" className="h-3.5 w-3.5 text-accent-ink" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <rect x="2" y="3" width="12" height="8.5" rx="1.5" />
                   <path d="M5.5 14h5" strokeLinecap="round" />
                 </svg>
@@ -76,7 +76,7 @@ export function Hero() {
                 /
               </span>
               <span>
-                <span className="font-display text-lg leading-none text-accent">{HERO_PROOF.stat}</span>{" "}
+                <span className="font-display text-lg leading-none text-accent-ink">{HERO_PROOF.stat}</span>{" "}
                 {HERO_PROOF.statNote}
               </span>
             </p>

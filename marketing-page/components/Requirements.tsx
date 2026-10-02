@@ -40,7 +40,7 @@ function DragVisual() {
         <AppIcon />
         <figcaption>{DRAG.app}</figcaption>
       </figure>
-      <svg aria-hidden="true" viewBox="0 0 64 24" className="mb-9 h-6 w-14 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg aria-hidden="true" viewBox="0 0 64 24" className="mb-9 h-6 w-14 text-accent-ink" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 12h56" strokeDasharray="4 5" />
         <path d="M52 5l7 7-7 7" />
       </svg>
@@ -76,10 +76,10 @@ function ModelVisual() {
         <span className="font-mono text-xs text-muted">{MODEL.size}</span>
       </p>
       <span aria-hidden="true" className="mt-3 block h-2 overflow-hidden rounded-full bg-border">
-        <span className="block h-full w-full rounded-full bg-accent" />
+        <span className="block h-full w-full rounded-full bg-accent-ink" />
       </span>
       <p className="mt-2.5 flex items-center gap-1.5 font-mono text-[0.65rem] text-muted">
-        <Check className="text-accent" />
+        <Check className="text-accent-ink" />
         {MODEL.source}
       </p>
     </div>
@@ -109,7 +109,7 @@ function WillItRun() {
         <p className="mt-3 font-mono text-xs text-muted">Find it: {INSTALL.checkHow}</p>
       </MacWindow>
       <p className="mt-5 flex gap-3 text-sm leading-relaxed text-muted">
-        <svg aria-hidden="true" viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+        <svg aria-hidden="true" viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0 text-accent-ink" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
           <path d="M4 4l8 8M12 4l-8 8" />
         </svg>
         {INSTALL.checkNo}
