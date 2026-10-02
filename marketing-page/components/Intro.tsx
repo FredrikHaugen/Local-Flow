@@ -15,7 +15,7 @@ export function Intro() {
         </h1>
         <div data-cta className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2">
           <DownloadButton />
-          <p className="font-sans text-[0.95rem] text-muted">{INTRO.requirement}</p>
+          <p className="font-sans text-[0.95rem] text-muted">{INTRO.free}</p>
         </div>
 
         <Take />

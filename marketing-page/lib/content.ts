@@ -14,6 +14,7 @@ export const INTRO = {
   body: `${introBefore} ${introKey} ${introAfter}`,
   download: "Download for Mac",
   requirement: "Needs macOS 14 or later on an Apple Silicon Mac.",
+  free: "Free and open source.",
   release: `Free and open source, version ${SITE.version}.`,
 } as const;
 
@@ -28,7 +29,7 @@ export const USING = {
     sidebar: ["Today", "Scheduled", "All", "Errands"],
     list: "Errands",
     // Reminders already on the list, above the one that just landed.
-    earlier: ["Return the library books", "Book a haircut for Saturday"],
+    earlier: ["Return the library books"],
     heardLabel: "Heard",
     // What you said, and the indexes of the words the cleanup dropped from it.
     raw: "um pick up the uh charger and like oat milk on the way home",
@@ -45,7 +46,7 @@ export const USING = {
 export const CLEANUP_LEVELS = {
   title: "Cleanup levels",
   intro:
-    "Whisper writes down everything you say, false starts included. You choose how much of it gets pasted, and if the model errors or takes over ten seconds you get the raw transcript.",
+    "Whisper writes down everything you say, false starts included. You choose how much of it gets pasted. If cleanup fails or takes more than ten seconds, you get the raw transcript.",
   raw: "um so the demo moved to thursday no wait friday and uh we still need the slides the script a backup laptop and the hdmi adapter",
   legend: "The same take at each cleanup level",
   defaultLevel: "light",
@@ -110,7 +111,7 @@ export const WORDS = {
 
 export const AUDIO = {
   title: "Where your audio goes",
-  // The scene: dictating into Messages with Wi-Fi switched off.
+  // The scene: the menu bar while dictating with Wi-Fi switched off.
   scene: {
     label: "Dictating with Wi-Fi off",
     wifi: "Wi-Fi",
@@ -118,9 +119,6 @@ export const AUDIO = {
     app: "Messages",
     menus: ["File", "Edit", "View"],
     clock: "Fri 6:04 PM",
-    contact: "Sam",
-    incoming: "Still on for 6?",
-    text: "Running ten minutes late, start without me and I'll catch up on the notes.",
   },
   display: "Turn Wi-Fi off and keep dictating.",
   paragraphs: [
