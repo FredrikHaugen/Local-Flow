@@ -1,3 +1,4 @@
+import { Logomark } from "@/components/Logomark";
 import { MacWindow } from "@/components/MacWindow";
 import { Section } from "@/components/Section";
 import { SwipeHint } from "@/components/SwipeHint";
@@ -13,14 +14,9 @@ function Check({ className = "" }: { className?: string }) {
   );
 }
 
-// The app icon: the placeholder keycap, big, with its record light.
+// The app icon, as it shows in Finder: the logomark tile.
 function AppIcon() {
-  return (
-    <span aria-hidden="true" className="font-display relative grid h-16 w-16 place-items-center rounded-2xl bg-foreground text-4xl text-background shadow-[inset_0_-2px_0_var(--muted)]">
-      ⌥
-      <span className="absolute -right-1 -top-1 h-3.5 w-3.5 rounded-full bg-accent ring-2 ring-background" />
-    </span>
-  );
+  return <Logomark className="h-16 w-16" />;
 }
 
 function FolderIcon() {
