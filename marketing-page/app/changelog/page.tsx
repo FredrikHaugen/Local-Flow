@@ -20,7 +20,10 @@ export default function ChangelogPage() {
           title={`${release.version} (${release.status === "unreleased" ? CHANGELOG_PAGE.unreleased : CHANGELOG_PAGE.formatDate(release.status)})`}
           className="pt-14 sm:pt-16"
         >
-          <p className="mt-3 font-sans text-[0.95rem] text-muted">{CHANGELOG_PAGE.requires}</p>
+          <p className="mt-3 font-sans text-[0.95rem] text-muted">
+            {CHANGELOG_PAGE.requires}
+            {release.status === "unreleased" && ` ${CHANGELOG_PAGE.unreleasedNote}`}
+          </p>
           {release.days.map((day) => (
             <div key={day.date} className="mt-8">
               <h3 className="font-sans text-[1.05rem] font-semibold">

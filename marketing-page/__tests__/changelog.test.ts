@@ -52,3 +52,11 @@ describe("changelog entries", () => {
     for (const fact of README_FACTS.slice(0, 2)) expect(CHANGELOG_PAGE.requires).toContain(fact);
   });
 });
+
+describe("an unreleased version", () => {
+  test("says it isn't on the releases page yet and how to build it", () => {
+    expect(CHANGELOG[0].status).toBe("unreleased");
+    expect(CHANGELOG_PAGE.unreleasedNote).toContain("releases page");
+    expect(CHANGELOG_PAGE.unreleasedNote).toContain("make run");
+  });
+});

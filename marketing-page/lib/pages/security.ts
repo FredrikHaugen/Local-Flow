@@ -63,6 +63,52 @@ export const SECURITY: PageCopy = {
       ],
     },
     {
+      id: "stored",
+      heading: "What stays on your Mac",
+      blocks: [
+        {
+          table: {
+            caption: "What peluni keeps, where, and until when",
+            head: ["What", "Where", "Gone when"],
+            rows: [
+              ["Recorded audio", "Memory only, for one dictation", "It has been transcribed"],
+              ["Last ten transcripts", "Memory only", "You quit peluni"],
+              [
+                "Speech models",
+                "~/Library/Application Support/peluni/Models/whisper/",
+                "You click the trash button beside one in Settings → Models",
+              ],
+              [
+                "Cleanup models, and the experimental autocomplete model",
+                "~/Library/Application Support/peluni/Models/llm/",
+                "You delete the folder; Settings has no button for these yet",
+              ],
+              [
+                "Vocabulary: each term and what it sounds like",
+                "~/Library/Application Support/peluni/vocabulary.json",
+                "You remove the term in Settings → Vocabulary",
+              ],
+              [
+                "Settings: cleanup level, models, language, shortcut, paste method",
+                "The com.figge.peluni preferences",
+                "You run defaults delete com.figge.peluni",
+              ],
+              [
+                "Log lines: states and lengths, never your words",
+                "macOS's own system log",
+                "macOS clears old entries on its own schedule",
+              ],
+            ],
+          },
+        },
+        {
+          p: [
+            "To remove all of it, quit peluni, delete it from Applications, delete ~/Library/Application Support/peluni/, and run defaults delete com.figge.peluni in Terminal.",
+          ],
+        },
+      ],
+    },
+    {
       id: "network",
       heading: "Network",
       blocks: [

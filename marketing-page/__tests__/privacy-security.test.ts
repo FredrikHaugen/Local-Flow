@@ -58,6 +58,20 @@ describe("security facts", () => {
     expect(json(SECURITY)).toContain("nettop -m tcp -p $(pgrep -x peluni)");
   });
 
+  test("lists what stays on the Mac, with the app's real paths and preferences domain", () => {
+    const stored = SECURITY.sections.find((sec) => sec.id === "stored");
+    expect(stored, "a stored section").toBeDefined();
+    const text = json(stored);
+    const bundleId = source("Packaging/Info.plist").match(/CFBundleIdentifier<\/key><string>([^<]+)</)![1];
+    expect(text).toContain(bundleId);
+    const models = source("Sources/PeluniApp/Services/ModelManager.swift");
+    for (const dir of ["Models/whisper", "Models/llm"]) {
+      expect(models).toContain(`"${dir}"`);
+      expect(text).toContain(`~/Library/Application Support/peluni/${dir}/`);
+    }
+    expect(text).toContain("vocabulary.json");
+  });
+
   test("points vulnerability reports at GitHub's private reporting", () => {
     expect(json(SECURITY)).toContain("/security/advisories/new");
   });

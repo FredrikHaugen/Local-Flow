@@ -6,7 +6,7 @@ What changed in peluni, newest first. Each line starts with what kind of change 
 
 ### 2026-10-02
 
-- Changed how cleanup loads its model: once the model is downloaded, it loads from disk, and dictating never contacts Hugging Face.
+- Changed how cleanup loads a downloaded model: it now loads from disk without contacting Hugging Face. Before, loading it also asked huggingface.co about the model's files, on the first cleanup after launch and again after ten idle minutes. Those requests named the model, never anything you said.
 - Fixed a half-finished model download counting as downloaded. It now shows as not downloaded, so you can download it again.
 - Changed the name to peluni (formerly LocalFlow). On first launch, peluni moves your models, vocabulary and settings over from the old app, so nothing is downloaded again.
 - Changed the app icon and the menu bar icon.
