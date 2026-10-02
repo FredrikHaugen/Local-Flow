@@ -13,7 +13,7 @@ export function Logomark({ className = "" }: { className?: string }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="80" cy="41" r="12" className="fill-accent" />
+      <circle cx="80" cy="41" r="12" className="fill-rec" />
     </svg>
   );
 }

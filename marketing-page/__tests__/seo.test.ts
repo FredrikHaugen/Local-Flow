@@ -6,7 +6,8 @@ import { GET, llmsTxt } from "@/app/llms.txt/route";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
 import { jsonLd } from "@/components/JsonLd";
-import { FAQ, README_FACTS, SEO, SITE } from "@/lib/site";
+import { AUDIO, QUESTIONS } from "@/lib/content";
+import { README_FACTS, SEO, SITE } from "@/lib/site";
 
 // next/font only works inside a Next build; the layout's metadata is all this file needs.
 vi.mock("next/font/local", () => ({ default: () => ({ variable: "" }) }));
@@ -29,8 +30,9 @@ describe("search metadata", () => {
   test("the title names what people search for", () => {
     expect(metadata.title).toBe(SEO.title);
     for (const word of ["dictation", "Mac", "offline"]) expect(SEO.title).toContain(word);
-    // "Offline" is only true because the FAQ says everything but model downloads works offline.
-    expect(FAQ.items.some((i) => i.a.includes("works offline"))).toBe(true);
+    // "Offline" is only true because the app goes online just to fetch a model, as the Wi-Fi band says.
+    expect(AUDIO.display).toContain("Wi-Fi off");
+    expect(AUDIO.paragraphs.join(" ")).toContain("only goes online to fetch a model");
   });
 
   test("shares get a large preview card", () => {
@@ -74,7 +76,7 @@ describe("llms.txt", () => {
     const text = llmsTxt();
     expect(text.startsWith(`# ${SITE.name}\n\n> ${SITE.description}`)).toBe(true);
     expect(text).toContain(SITE.releasesUrl);
-    for (const item of FAQ.items) expect(text).toContain(item.a);
+    for (const item of QUESTIONS.items) expect(text).toContain(item.a);
     expect(await GET().text()).toBe(text);
   });
 });

@@ -1,10 +1,11 @@
-import { FOOTER, SEO, SITE } from "@/lib/site";
+import { FOOTER_NOTE } from "@/lib/content";
+import { SEO, SITE } from "@/lib/site";
 
 // Schema.org for search engines and AI answers: what peluni is, what it runs on, and that it's free.
 // No ratings or reviews (there are none to cite) and no FAQPage (Google retired those rich results).
 export function jsonLd() {
   const home = `${SITE.url}/`;
-  const license = FOOTER.project.find((link) => link.label === "MIT License")!.href;
+  const license = FOOTER_NOTE.links.find((link) => link.label === "MIT License")!.href;
   return {
     "@context": "https://schema.org",
     "@graph": [

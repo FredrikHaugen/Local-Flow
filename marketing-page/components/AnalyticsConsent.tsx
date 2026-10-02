@@ -85,21 +85,21 @@ export function AnalyticsConsent() {
       role="dialog"
       aria-label={ANALYTICS.settings}
       // Phones: a slim bar flush with the bottom edge, so the hero stays visible. Wider: a corner card.
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-12px_32px_-24px_var(--foreground)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-md sm:rounded-2xl sm:border sm:p-5 sm:shadow-[0_24px_48px_-24px_var(--foreground)]"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-12px_32px_-24px_var(--foreground)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-md sm:rounded-lg sm:border sm:p-5 sm:shadow-[0_24px_48px_-24px_var(--foreground)]"
     >
       <p className="text-sm leading-snug sm:leading-relaxed">{ANALYTICS.banner}</p>
       <div className="mt-2.5 flex gap-3 sm:mt-4">
         <button
           type="button"
           onClick={allow}
-          className="min-h-11 flex-1 rounded-full bg-foreground px-4 text-sm font-semibold text-background"
+          className="min-h-11 flex-1 rounded-md bg-foreground px-4 text-sm font-semibold text-background"
         >
           {ANALYTICS.allow}
         </button>
         <button
           type="button"
           onClick={decline}
-          className="min-h-11 flex-1 rounded-full border border-border px-4 text-sm font-semibold"
+          className="min-h-11 flex-1 rounded-md border border-border px-4 text-sm font-semibold"
         >
           {ANALYTICS.decline}
         </button>

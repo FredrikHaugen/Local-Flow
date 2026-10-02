@@ -1,9 +1,10 @@
 # peluni marketing site
 
-Single-page, statically exported Next.js site for peluni. Every product
-fact and every line of copy lives in `lib/site.ts`; a test cross-checks the
-requirements against the repo's root `README.md` (and the speed claims against
-`docs/PROJECT.md`), so update them together.
+Single-page, statically exported Next.js site for peluni. Page copy lives in `lib/content.ts`; product
+identity, the demo's sample take and the analytics settings in `lib/site.ts`. Tests cross-check the
+requirements and speed claim against the repo's root `README.md` and `docs/PROJECT.md`, and
+`__tests__/copy-style.test.ts` fails on dashes, negation-then-reveal phrasing and copy that vouches
+for its own honesty.
 
     pnpm install
     pnpm dev      # http://localhost:3000
@@ -18,10 +19,15 @@ Microsoft Clarity analytics through the consent banner
 Fonts are self-hosted from `app/fonts/`. `pnpm check` keeps third-party
 scripts, fonts and images out of the shipped HTML.
 
-**Brand:** the logomark is `components/Logomark.tsx` (inlined from `../brand/logomark.svg` so it
-follows the theme). Favicons are `app/favicon.ico`, `app/icon.svg` and `app/apple-icon.png`; the
-web manifest is `app/manifest.ts`. The share image is `app/opengraph-image.png` (1200×630, with
-its alt text in `opengraph-image.alt.txt`); regenerate it if the hero or brand changes.
+**Look:** grey-green paper, charcoal in dark mode, Source Serif 4 for reading, Atkinson Hyperlegible
+Next for the interface and Atkinson Hyperlegible Mono for transcripts (all self-hosted, see
+`app/fonts/README.md`). The logo teal is the one accent: the record light, and the marker under
+words peluni put there. The logomark is `components/Logomark.tsx`; favicons are `app/favicon.ico`,
+`app/icon.svg` and `app/apple-icon.png`.
+
+The share image is `app/opengraph-image.png` (1200×630, with its alt text in
+`opengraph-image.alt.txt`); regenerate it if the hero or brand changes. The web manifest is
+`app/manifest.ts`.
 
 **Search:** `SITE.url` in `lib/site.ts` is the one canonical origin. From it come `metadataBase` and
 the canonical link (`app/layout.tsx`), `app/robots.ts`, `app/sitemap.ts`, the `SoftwareApplication`

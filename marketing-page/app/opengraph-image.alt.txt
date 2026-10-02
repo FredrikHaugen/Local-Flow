@@ -1,1 +1,1 @@
-peluni: free, open-source voice dictation for macOS that runs on your Mac.
+peluni: hold Right Option and talk, free open-source voice dictation that runs on your Mac.

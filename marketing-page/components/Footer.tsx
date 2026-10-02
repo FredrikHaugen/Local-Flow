@@ -1,61 +1,29 @@
 import { AnalyticsSettingsButton } from "@/components/AnalyticsConsent";
 import { Wordmark } from "@/components/Wordmark";
-import { FOOTER, NAV, SITE } from "@/lib/site";
+import { FOOTER_NOTE } from "@/lib/content";
 
-const LINK = "inline-flex min-h-11 items-center rounded underline-offset-4 sm:min-h-0 transition-colors hover:text-foreground hover:underline";
+const LINK = "underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground";
 
 export function Footer() {
   return (
-    <footer className="overflow-hidden border-t border-border">
-      <div className="mx-auto max-w-5xl px-4 pt-16 sm:px-6 sm:pt-20">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
-          <div className="col-span-2 lg:col-span-1">
-            <Wordmark className="text-foreground" />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{FOOTER.blurb}</p>
-          </div>
-          <nav aria-label="Footer">
-            <h2 className="font-mono text-xs uppercase tracking-[0.14em] text-muted">{FOOTER.pageTitle}</h2>
-            <ul className="mt-2 text-sm sm:mt-4 sm:space-y-2.5 text-muted">
-              {NAV.map((item) => (
-                <li key={item.href}>
-                  <a href={item.href} className={LINK}>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div>
-            <h2 className="font-mono text-xs uppercase tracking-[0.14em] text-muted">{FOOTER.projectTitle}</h2>
-            <ul className="mt-2 text-sm sm:mt-4 sm:space-y-2.5 text-muted">
-              {FOOTER.project.map((item) => (
-                <li key={item.label}>
-                  <a href={item.href} className={LINK}>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="col-span-2 rounded-2xl border border-border p-5 lg:col-span-1">
-            <h2 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-ink" />
-              {FOOTER.siteTitle}
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed">{FOOTER.siteNote}</p>
-            <AnalyticsSettingsButton className={`${LINK} mt-2 text-sm text-muted underline`} />
-          </div>
+    <footer className="border-t border-border px-4 font-sans text-[0.95rem] sm:px-6">
+      <div className="mx-auto grid max-w-5xl gap-6 py-10 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-12">
+        <Wordmark />
+        <div className="grid gap-3">
+          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+            {FOOTER_NOTE.links.map((link) => (
+              <li key={link.label}>
+                <a href={link.href} className={LINK}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="text-muted">
+            {FOOTER_NOTE.site} <AnalyticsSettingsButton className={`${LINK} text-muted`} />
+          </p>
+          <p className="text-muted">{FOOTER_NOTE.made}</p>
         </div>
-
-        {/* The name, set as large as the page allows. */}
-        <p
-          aria-hidden="true"
-          className="footer-name font-display mt-16 select-none font-extrabold sm:mt-20"
-        >
-          {SITE.name}
-          <span />
-        </p>
-        <p className="border-t border-border py-6 font-mono text-xs text-muted">{FOOTER.legal}</p>
       </div>
     </footer>
   );

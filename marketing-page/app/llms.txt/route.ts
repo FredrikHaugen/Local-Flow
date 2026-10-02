@@ -1,4 +1,5 @@
-import { FAQ, PRIVACY_POINTS, REQUIREMENTS, SITE } from "@/lib/site";
+import { AUDIO, INSTALL_GUIDE, QUESTIONS, USING } from "@/lib/content";
+import { SITE } from "@/lib/site";
 
 // /llms.txt (llmstxt.org): a plain-Markdown summary for AI tools, built from the same facts as the page.
 // Static: rendered once at build time into out/llms.txt (required by output: "export").
@@ -14,15 +15,19 @@ export function llmsTxt() {
     "",
     "## Requirements",
     "",
-    ...REQUIREMENTS.map((r) => `- ${r.title}: ${r.detail}`),
+    ...INSTALL_GUIDE.requirements.map((r) => `- ${r.title}: ${r.detail}`),
     "",
     "## Privacy",
     "",
-    ...PRIVACY_POINTS.map((p) => `- ${p.title}: ${p.body}`),
+    `${AUDIO.display} ${AUDIO.paragraphs.join(" ")}`,
     "",
     "## FAQ",
     "",
-    ...FAQ.items.flatMap((item) => [`### ${item.q}`, "", item.a, ""]),
+    `### ${USING.speedTitle}`,
+    "",
+    USING.paragraphs[0],
+    "",
+    ...QUESTIONS.items.flatMap((item) => [`### ${item.q}`, "", item.a, ""]),
     "## Links",
     "",
     `- [Website](${SITE.url}/)`,

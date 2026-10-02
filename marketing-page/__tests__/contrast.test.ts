@@ -34,23 +34,29 @@ describe.each([
   ["light", light],
   ["dark", dark],
 ])("%s theme", (_, t) => {
-  test("the logo teal is the accent", () => {
-    expect(t["--accent"]).toBe("#9ddeb9");
-    expect(t["--ink-accent"]).toBe("#9ddeb9");
-  });
-
   test.each([
-    ["--accent-foreground", "--accent"],
-    ["--accent-foreground", "--wallpaper"],
-    ["--accent-ink", "--background"],
-    ["--accent-ink", "--card"],
-    ["--ink-accent", "--ink"],
     ["--foreground", "--background"],
+    ["--foreground", "--card"],
+    ["--muted", "--background"],
+    ["--muted", "--card"],
+    ["--foreground", "--desk"],
+    ["--select-foreground", "--select"],
+    ["--overlay-foreground", "--overlay"],
+    ["--logo-stroke", "--logo-tile"],
   ])("%s on %s is readable (4.5:1)", (fg, bg) => {
     expect(contrast(t[fg], t[bg])).toBeGreaterThanOrEqual(4.5);
   });
 
-  test("the logo stroke stands out from its tile", () => {
-    expect(contrast(t["--logo-stroke"], t["--logo-tile"])).toBeGreaterThanOrEqual(4.5);
+  test("the logo teal is the record light", () => {
+    expect(t["--rec"]).toBe("#9ddeb9");
   });
+
+  test("the logo teal is only the record light", () => {
+    const teal = Object.entries(t).filter(([, v]) => v === "#9ddeb9").map(([k]) => k);
+    expect(teal).toEqual(["--rec"]);
+  });
+});
+
+test("dark mode is charcoal, not near-black", () => {
+  expect(luminance(dark["--background"])).toBeGreaterThanOrEqual(0.01);
 });

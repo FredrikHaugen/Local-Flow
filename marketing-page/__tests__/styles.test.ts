@@ -9,7 +9,7 @@ test("the waveform stops for reduced-motion users", () => {
 });
 
 test("links get a visible keyboard focus ring", () => {
-  expect(css).toMatch(/:focus-visible\s*\{[^}]*outline: 2px solid var\(--accent-ink\)/);
+  expect(css).toMatch(/:focus-visible\s*\{[^}]*outline: 2px solid var\(--foreground\)/);
 });
 
 test("every color token is defined for dark mode too", () => {
@@ -19,14 +19,10 @@ test("every color token is defined for dark mode too", () => {
     "--muted",
     "--card",
     "--border",
-    "--accent",
-    "--accent-foreground",
-    "--ink",
-    "--ink-foreground",
-    "--ink-muted",
-    "--ink-border",
-    "--ink-accent",
-    "--accent-ink",
+    "--desk",
+    "--select",
+    "--select-foreground",
+    "--rec",
     "--logo-tile",
     "--logo-stroke",
   ];
@@ -43,7 +39,26 @@ test("every looping animation is stopped for reduced-motion users", () => {
   expect(reduced).toMatch(/animation: none !important;/);
 });
 
-test("ink and accent surfaces keep a visible focus ring", () => {
-  expect(css).toMatch(/\.surface-ink :focus-visible\s*\{\s*outline-color: var\(--ink-accent\);/);
-  expect(css).toMatch(/\.surface-accent :focus-visible\s*\{\s*outline-color: var\(--accent-foreground\);/);
+test("headings and reading text use the serif, interface text the sans", () => {
+  expect(css).toMatch(/body\s*\{[^}]*font-family: var\(--font-text\)/);
+  expect(css).toMatch(/--font-sans: var\(--font-ui\)/);
+  expect(css).toMatch(/--font-serif: var\(--font-text\)/);
+  expect(css).toMatch(/--font-mono: var\(--font-code\)/);
+  expect(css).not.toMatch(/archivo|geist/i);
+});
+
+test("the template devices are gone", () => {
+  for (const selector of [".typed", ".wallpaper", ".footer-name", ".cta-key", ".swipe-hint", ".just-pasted"]) {
+    expect(css).not.toContain(`${selector} {`);
+  }
+});
+
+test("the token blocks hold only custom properties", () => {
+  const light = css.slice(css.indexOf(":root {"), css.indexOf("}", css.indexOf(":root {")));
+  const darkStart = css.indexOf(":root {", css.indexOf("@media (prefers-color-scheme: dark)"));
+  const dark = css.slice(darkStart, css.indexOf("}", darkStart));
+  for (const block of [light, dark]) {
+    const lines = block.split("\n").slice(1).map((l) => l.trim()).filter(Boolean);
+    for (const line of lines) expect(line, line).toMatch(/^(--[\w-]+:|\/\*)/);
+  }
 });

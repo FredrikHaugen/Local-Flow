@@ -1,81 +1,50 @@
 @import "tailwindcss";
 
 /*
- * peluni identity: warm paper, ink bands, and the logo's teal "record light".
- * The teal is pale: it's a fill behind ink text. Text, icons and thin strokes on paper use
- * --accent-ink. Every color on the site comes from these tokens.
+ * peluni: grey-green paper, green-black ink, white windows. No brand accent: the only colors
+ * are the macOS text-selection blue (on text shown as just pasted) and the logo's teal as the
+ * small record light.
  */
 
-/* The display face's fallback: Arial scaled to Archivo ExtraCondensed's width (Next's own numbers),
- * with weight 800 declared so headings aren't synthetically bolded wider. Liberation Sans is
- * Arial's metric twin on Linux. See the display font in app/layout.tsx. */
-@font-face {
-  font-family: "display-fallback";
-  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans");
-  font-weight: 800;
-  size-adjust: 75.29%;
-  ascent-override: 116.62%;
-  descent-override: 27.89%;
-  line-gap-override: 0%;
-}
-
 :root {
-  --background: #f6f5f1;
-  --foreground: #141413;
-  --muted: #5c5b57;
+  --background: #f1f2ee;
+  --foreground: #171a18;
+  --muted: #4d524e;
   --card: #ffffff;
-  --border: #e2e0d8;
-  --accent: #9ddeb9;
-  --accent-foreground: #141413;
-  --accent-ink: #1a6e4a;
-  /* Ink: the dark bands (hero stage, pipeline) — dark in both themes. */
-  --ink: #141413;
-  --ink-foreground: #f6f5f1;
-  --ink-muted: #a19f98;
-  --ink-border: #2e2d2a;
-  --ink-accent: #9ddeb9;
+  --border: #cfd3cc;
+  /* The desktop behind the product demo. */
+  --desk: #dde1da;
+  /* macOS text selection. */
+  --select: #b4d5fe;
+  --select-foreground: #171a18;
+  /* The logo's teal, only as the record light. */
+  --rec: #9ddeb9;
+  /* peluni's real overlay is dark in both themes. */
+  --overlay: #1d1d1f;
+  --overlay-foreground: #f5f5f7;
   /* The logomark tile (brand/logomark.svg). */
   --logo-tile: #d9d9d9;
   --logo-stroke: #141413;
   --logo-rim: transparent;
-  /* The teal "desktop" band behind the product demo and the closing CTA. */
-  --wallpaper: #9ddeb9;
-  /* The teal buttons are keycaps: an edge and a bottom lip in this color. */
-  --cta-edge: #141413;
-  /* The text cursor after a highlighted phrase. */
-  --caret: #1a6e4a;
-  /* macOS window controls in the product mocks. */
-  --mac-close: #ff5f57;
-  --mac-min: #febc2e;
-  --mac-max: #28c840;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0c0c0b;
-    --foreground: #eceae4;
-    --muted: #9e9c96;
-    --card: #161614;
-    --border: #2a2926;
-    --accent: #9ddeb9;
-    --accent-foreground: #141413;
-    --accent-ink: #9ddeb9;
-    --ink: #1a1a18;
-    --ink-foreground: #eceae4;
-    --ink-muted: #a19f98;
-    --ink-border: #34332f;
-    --ink-accent: #9ddeb9;
+    --background: #1c1e1b;
+    --foreground: #eceee9;
+    --muted: #a8ada6;
+    --card: #262924;
+    --border: #3a3e38;
+    --desk: #2c302a;
+    --select: #3a6ea8;
+    --select-foreground: #f4f6f2;
+    --rec: #9ddeb9;
+    --overlay: #1d1d1f;
+    --overlay-foreground: #f5f5f7;
     /* brand/logomarkDark.svg */
     --logo-tile: #141413;
     --logo-stroke: #d9d9d9;
-    --logo-rim: #3a3935;
-    /* Dimmed so the band doesn't glare on a dark page; ink text on it stays above 5:1. */
-    --wallpaper: #5e9a78;
-    --cta-edge: #4d8f6a;
-    --caret: #eceae4;
-    --mac-close: #ff5f57;
-    --mac-min: #febc2e;
-    --mac-max: #28c840;
+    --logo-rim: #3a3e38;
   }
 }
 
@@ -85,24 +54,18 @@
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-border: var(--border);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent-ink: var(--accent-ink);
   --color-logo-tile: var(--logo-tile);
   --color-logo-stroke: var(--logo-stroke);
   --color-logo-rim: var(--logo-rim);
-  --color-cta-edge: var(--cta-edge);
-  --color-ink: var(--ink);
-  --color-ink-foreground: var(--ink-foreground);
-  --color-ink-muted: var(--ink-muted);
-  --color-ink-border: var(--ink-border);
-  --color-ink-accent: var(--ink-accent);
-  --color-mac-close: var(--mac-close);
-  --color-mac-min: var(--mac-min);
-  --color-mac-max: var(--mac-max);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-display-face);
+  --color-desk: var(--desk);
+  --color-select: var(--select);
+  --color-select-foreground: var(--select-foreground);
+  --color-rec: var(--rec);
+  --color-overlay: var(--overlay);
+  --color-overlay-foreground: var(--overlay-foreground);
+  --font-sans: var(--font-ui), system-ui, sans-serif;
+  --font-serif: var(--font-text), Georgia, serif;
+  --font-mono: var(--font-code), ui-monospace, Menlo, monospace;
 }
 
 html {
@@ -112,78 +75,30 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-text), Georgia, serif;
+  font-optical-sizing: auto;
+  font-size: clamp(1.1875rem, 1rem + 0.35vw, 1.3125rem);
+  /* The full-bleed desktop scene is 100vw wide; never let a scrollbar turn that into a sideways scroll. */
+  overflow-x: clip;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  text-wrap: balance;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--select);
+  color: var(--select-foreground);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent-ink);
+  outline: 2px solid var(--foreground);
   outline-offset: 3px;
   border-radius: 4px;
-}
-
-/* On ink surfaces the ring uses the brighter signal color. */
-.surface-ink :focus-visible {
-  outline-color: var(--ink-accent);
-}
-
-/* On the accent CTA block the ring flips to the accent's own foreground. */
-.surface-accent :focus-visible {
-  outline-color: var(--accent-foreground);
-}
-
-/* The signature face: Archivo at its narrowest width, heavy. Every headline uses it. */
-.font-display {
-  font-family: var(--font-display-face), var(--font-geist-sans), system-ui, sans-serif;
-  word-spacing: 0.03em;
-}
-
-/*
- * The signature move: in every headline, the key phrase is "just typed" — a solid selection
- * block in the signal color with the text cursor parked after it.
- */
-.typed {
-  --typed-bg: var(--accent);
-  /* A painted band rather than a full background, so stacked lines don't merge into one slab. */
-  background: linear-gradient(var(--typed-bg), var(--typed-bg)) no-repeat 0 62% / 100% 80%;
-  color: var(--accent-foreground);
-  /* Barely any left padding, so a highlight that starts a line stays in line with the text above. */
-  padding: 0 0.07em 0 0.03em;
-  margin: 0 -0.02em 0 -0.03em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-.surface-ink .typed {
-  --typed-bg: var(--ink-accent);
-  color: var(--ink);
-}
-
-.surface-accent .typed {
-  --typed-bg: var(--ink);
-  color: var(--ink-foreground);
-}
-
-.typed-caret {
-  display: inline-block;
-  width: 0.06em;
-  height: 0.86em;
-  margin-left: 0;
-  vertical-align: -0.06em;
-  border-radius: 0.03em;
-  background: var(--caret);
-}
-
-.surface-ink .typed-caret {
-  background: var(--ink-accent);
-}
-
-.surface-accent .typed-caret {
-  background: var(--ink);
 }
 
 /* Keycap: flat top, deeper bottom edge. */
@@ -193,131 +108,50 @@ body {
     0 1px 0 var(--border);
 }
 
-/* The teal "desktop": a soft vignette over the accent so the band has depth. */
-.wallpaper {
-  background:
-    radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--ink-foreground) 22%, transparent), transparent 60%),
-    radial-gradient(90% 70% at 50% 110%, color-mix(in oklab, var(--ink) 28%, transparent), transparent 70%),
-    var(--wallpaper);
-}
-
-/* A product window floating on the wallpaper. */
-.window-shadow {
-  box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--ink) 14%, transparent),
-    0 40px 80px -30px color-mix(in oklab, var(--ink) 70%, transparent),
-    0 12px 24px -12px color-mix(in oklab, var(--ink) 40%, transparent);
-}
-
-/* Freshly pasted text gets a faint signal-colored wash, like a just-landed selection. */
-.just-pasted {
-  background: color-mix(in oklab, var(--accent) 45%, transparent);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  border-radius: 3px;
-}
-
-/*
- * The cleanup-level picker: real radios, no JS. The checked level is filled in ink, and :has()
- * shows only that level's output. Without :has() support, the default (Light) stays visible.
- */
-.level-opt {
-  color: var(--muted);
-}
-.level-opt:hover {
+/* The page's one dark band (Where your audio goes): the dark palette, scoped to the section, so
+   everything inside it uses its own tokens. In dark mode it steps one shade darker than the page. */
+.band-dark {
+  --background: #1c1e1b;
+  --foreground: #eceee9;
+  --muted: #a8ada6;
+  --card: #262924;
+  --border: #3a3e38;
+  --select: #3a6ea8;
+  --select-foreground: #f4f6f2;
+  background: var(--background);
   color: var(--foreground);
 }
-.level-opt:has(input:checked) {
-  background: var(--foreground);
-  color: var(--background);
-}
-.level-opt:has(input:focus-visible) {
-  outline: 2px solid var(--accent-ink);
-  outline-offset: 2px;
-}
-.level-out {
-  display: none;
-}
-.level-out[data-out="light"] {
-  display: block;
-}
-.levels:has(input[value="none"]:checked) .level-out:not([data-out="none"]),
-.levels:has(input[value="medium"]:checked) .level-out:not([data-out="medium"]),
-.levels:has(input[value="high"]:checked) .level-out:not([data-out="high"]),
-.levels:has(input[value="light"]:checked) .level-out:not([data-out="light"]) {
-  display: none;
-}
-.levels:has(input[value="none"]:checked) .level-out[data-out="none"],
-.levels:has(input[value="medium"]:checked) .level-out[data-out="medium"],
-.levels:has(input[value="high"]:checked) .level-out[data-out="high"] {
-  display: block;
-}
-
-/* The closing band's object: the one key, huge and tilted, desktop only. */
-.cta-key {
-  display: none;
-  position: absolute;
-  right: 6%;
-  top: 2.5rem;
-  width: 22rem;
-  height: 22rem;
-  place-items: center;
-  rotate: 8deg;
-  border-radius: 4rem;
-  border-bottom: 1.25rem solid var(--ink-border);
-  background: var(--ink);
-  color: var(--ink-foreground);
-  font-size: 15rem;
-  line-height: 1;
-  box-shadow: 0 50px 80px -30px rgb(0 0 0 / 0.6);
-}
-.cta-key::after {
-  content: "";
-  position: absolute;
-  right: 2.25rem;
-  top: 2.25rem;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  background: var(--ink-accent);
-}
-@media (min-width: 64rem) {
-  .cta-key {
-    display: grid;
+@media (prefers-color-scheme: dark) {
+  .band-dark {
+    --background: #121311;
+    --card: #1f211e;
   }
 }
 
-/* The footer's name, as wide as the column allows, with the record light as its full stop. */
-.footer-name {
-  white-space: nowrap;
-  font-size: clamp(5rem, 40vw, 26.6rem);
-  line-height: 0.78;
-  letter-spacing: -0.015em;
-}
-.footer-name span {
-  display: inline-block;
-  width: 0.16em;
-  height: 0.16em;
-  margin-left: 0.04em;
-  border-radius: 50%;
-  background: var(--accent);
+/* The desk behind the audio path. */
+.desk {
+  background: var(--desk);
 }
 
-/* FAQ disclosures: no default marker; the + turns into a filled x when open. */
-.faq-q {
-  list-style: none;
+/* Words peluni put there: vocabulary terms, and the reminder that just landed. A teal marker stroke
+   under the words, so it wraps cleanly and leaves the text's own ink alone in both themes. */
+.selected {
+  /* Vocabulary terms are <mark>s: drop the browser's yellow and keep the text's own ink. */
+  background: none;
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--rec);
+  text-decoration-thickness: 0.18em;
+  text-underline-offset: -0.08em;
+  text-decoration-skip-ink: none;
 }
-.faq-q::-webkit-details-marker {
-  display: none;
-}
-.faq-icon {
-  transition: transform 0.2s;
-}
-details[open] .faq-icon {
-  transform: rotate(45deg);
-  background: var(--foreground);
-  border-color: var(--foreground);
-  color: var(--background);
+
+/* A product window on the desk. Plain black shadows read correctly in both themes. */
+.window-shadow {
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.08),
+    0 30px 60px -28px rgb(0 0 0 / 0.45),
+    0 10px 20px -12px rgb(0 0 0 / 0.25);
 }
 
 @keyframes wave {
@@ -349,33 +183,6 @@ details[open] .faq-icon {
   50% {
     opacity: 0.35;
   }
-}
-
-/* The storyboard keycap: a deep bottom edge that presses down and springs back. */
-@keyframes key-press {
-  0%,
-  12%,
-  100% {
-    transform: translateY(0);
-    box-shadow:
-      0 10px 0 color-mix(in oklab, var(--accent) 62%, var(--ink)),
-      0 30px 50px -20px color-mix(in oklab, var(--accent) 70%, transparent);
-  }
-  20%,
-  80% {
-    transform: translateY(7px);
-    box-shadow:
-      0 3px 0 color-mix(in oklab, var(--accent) 62%, var(--ink)),
-      0 16px 30px -18px color-mix(in oklab, var(--accent) 70%, transparent);
-  }
-}
-
-.key-press {
-  transform: translateY(7px);
-  box-shadow:
-    0 3px 0 color-mix(in oklab, var(--accent) 62%, var(--ink)),
-    0 16px 30px -18px color-mix(in oklab, var(--accent) 70%, transparent);
-  animation: key-press 3.2s ease-in-out infinite;
 }
 
 /*
@@ -415,38 +222,12 @@ details[open] .faq-icon {
   }
 }
 
-/* The held key: pressed in its resting state; it pops up as the take resets and again as you let go. */
-@keyframes hold-key {
-  0%,
-  50%,
-  56%,
-  81%,
-  90%,
-  100% {
-    transform: none;
-    background: var(--ink-accent);
-    color: var(--ink);
-  }
-  52%,
-  54%,
-  83%,
-  88% {
-    transform: translateY(-2px);
-    background: color-mix(in oklab, var(--ink-foreground) 10%, transparent);
-    color: var(--ink-foreground);
-  }
-}
-
 .demo-heard {
   animation: demo-heard 12s linear infinite;
 }
 
 .demo-paste {
   animation: demo-paste 12s ease-in-out infinite;
-}
-
-.hold-key {
-  animation: hold-key 12s ease-in-out infinite;
 }
 
 .wave-bar {
@@ -477,37 +258,14 @@ details[open] .faq-icon {
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
 
-/* The transcription bar fills in as the speed figure scrolls into view, where scroll-driven
-   animations exist. Elsewhere (and with reduced motion) it simply sits there, full. */
-@keyframes speed-fill {
-  from {
-    scale: 0 1;
-  }
-  to {
-    scale: 1 1;
-  }
-}
-
-@supports (animation-timeline: view()) {
-  .speed-fill {
-    transform-origin: left center;
-    animation: speed-fill linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 100%;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .wave-bar {
     animation: none;
   }
   .caret,
   .rec-dot,
-  .key-press,
   .demo-heard,
   .demo-paste,
-  .hold-key,
-  .speed-fill,
   *,
   *::before,
   *::after {
@@ -519,25 +277,3 @@ details[open] .faq-icon {
   }
 }
 
-/* Swipe rails on phones: the peek of the next card is the affordance, so the scrollbar goes. */
-.no-scrollbar {
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.swipe-hint i {
-  height: 0.25rem;
-  width: 0.75rem;
-  border-radius: 9999px;
-  background: currentColor;
-  opacity: 0.35;
-}
-.swipe-hint i:first-child {
-  width: 1.5rem;
-  background: var(--accent-ink);
-  opacity: 1;
-}
-.surface-ink .swipe-hint i:first-child {
-  background: var(--ink-accent);
-}
