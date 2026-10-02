@@ -49,8 +49,9 @@ export const CLEANUP_LEVELS = {
   intro:
     "Whisper writes down everything you say, false starts included. You choose how much of it gets pasted, and if the model errors or takes over ten seconds you get the raw transcript.",
   raw: "um so the demo moved to thursday no wait friday and uh we still need the slides the script a backup laptop and the hdmi adapter",
-  legend: "Cleanup level",
+  legend: "The same take at each cleanup level",
   defaultLevel: "light",
+  defaultNote: "default",
   levels: [
     {
       id: "none",

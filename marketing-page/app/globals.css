@@ -157,42 +157,6 @@ h3 {
     0 10px 20px -12px rgb(0 0 0 / 0.25);
 }
 
-/*
- * The cleanup-level picker: real radios, no JS. The checked level is filled in ink, and :has()
- * shows only that level's output. Without :has() support, the default (Light) stays visible.
- */
-.level-opt {
-  color: var(--muted);
-}
-.level-opt:hover {
-  color: var(--foreground);
-}
-.level-opt:has(input:checked) {
-  background: var(--foreground);
-  color: var(--background);
-}
-.level-opt:has(input:focus-visible) {
-  outline: 2px solid var(--foreground);
-  outline-offset: 2px;
-}
-.level-out {
-  display: none;
-}
-.level-out[data-out="light"] {
-  display: block;
-}
-.levels:has(input[value="none"]:checked) .level-out:not([data-out="none"]),
-.levels:has(input[value="medium"]:checked) .level-out:not([data-out="medium"]),
-.levels:has(input[value="high"]:checked) .level-out:not([data-out="high"]),
-.levels:has(input[value="light"]:checked) .level-out:not([data-out="light"]) {
-  display: none;
-}
-.levels:has(input[value="none"]:checked) .level-out[data-out="none"],
-.levels:has(input[value="medium"]:checked) .level-out[data-out="medium"],
-.levels:has(input[value="high"]:checked) .level-out[data-out="high"] {
-  display: block;
-}
-
 /* FAQ disclosures: no default marker; the + turns into a filled x when open. */
 .faq-q {
   list-style: none;

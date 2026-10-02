@@ -44,7 +44,7 @@ describe("content facts", () => {
     expect(words(USING.window.text)).toEqual(kept);
   });
 
-  test("the cleanup picker has the app's four levels, Light by default", () => {
+  test("the cleanup section has the app's four levels, Light by default", () => {
     expect(CLEANUP_LEVELS.levels.map((l) => l.id)).toEqual(["none", "light", "medium", "high"]);
     expect(CLEANUP_LEVELS.defaultLevel).toBe("light");
   });

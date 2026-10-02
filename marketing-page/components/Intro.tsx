@@ -10,16 +10,17 @@ export function Intro() {
   return (
     <section id="top" aria-labelledby="top-title" className="px-4 pt-8 sm:px-6 sm:pt-10">
       <div className="mx-auto max-w-5xl">
-        <div data-cta className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <h1 id="top-title" className="max-w-3xl text-[clamp(2.3rem,1.5rem+3vw,3.6rem)] leading-[1.04] tracking-[-0.02em]">
-            {INTRO.title}
-          </h1>
+        <h1 id="top-title" className="max-w-4xl text-[clamp(2.3rem,1.5rem+3vw,3.6rem)] leading-[1.04] tracking-[-0.02em]">
+          {INTRO.title}
+        </h1>
+        <div data-cta className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
           <a
             href={SITE.releasesUrl}
             className="inline-flex min-h-12 w-fit shrink-0 items-center rounded-md bg-foreground px-5 font-sans text-[1.05rem] font-semibold text-background transition-opacity hover:opacity-90"
           >
             {INTRO.download}
           </a>
+          <p className="font-sans text-muted">{INTRO.requirement}</p>
         </div>
 
         <DesktopScene />

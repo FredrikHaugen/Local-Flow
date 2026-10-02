@@ -13,14 +13,20 @@ describe("DesktopScene", () => {
 });
 
 describe("Cleanup levels", () => {
-  test("the picker is a real radio group, Light checked", () => {
+  test("all four levels are shown at once, in order, with Light marked as the default", () => {
     render(<Cleanup />);
     const region = screen.getByRole("region", { name: CLEANUP_LEVELS.title });
     expect(region.id).toBe("cleanup");
-    const group = within(region).getByRole("group", { name: CLEANUP_LEVELS.legend });
-    const radios = within(group).getAllByRole("radio");
-    expect(radios.map((r) => (r as HTMLInputElement).value)).toEqual(["none", "light", "medium", "high"]);
-    expect(within(group).getByRole("radio", { name: "Light" })).toHaveProperty("checked", true);
+    const list = within(region).getByRole("list", { name: CLEANUP_LEVELS.legend });
+    const rows = within(list).getAllByRole("listitem").filter((li) => li.parentElement === list);
+    expect(rows.map((r) => r.getAttribute("data-out"))).toEqual(["none", "light", "medium", "high"]);
+    expect(within(rows[1]).getByText(CLEANUP_LEVELS.defaultNote)).toBeTruthy();
+    expect(within(region).queryByRole("radio")).toBeNull();
+  });
+
+  test("the section does not repeat the hero's struck-through take", () => {
+    const { container } = render(<Cleanup />);
+    expect(container.querySelector("s")).toBeNull();
   });
 
   test("every level has an output", () => {
