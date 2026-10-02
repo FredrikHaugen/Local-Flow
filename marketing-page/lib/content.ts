@@ -23,6 +23,22 @@ export const USING = {
     "peluni lives in the menu bar and waits for the right Option key. While it listens, a small overlay with a level meter sits at the bottom of the screen, so you can see that it hears you. When you let go, whisper.cpp transcribes the recording, a small language model removes the ums and fixes the punctuation, and the text is pasted, typically in about a second with the base model.",
     "It pastes into whichever app has focus: Mail, Slack, Xcode, a terminal, a form in Safari. If a paste can't land, the text stays on your clipboard and the overlay asks you to press ⌘V. Your last ten transcripts are also in the menu bar, kept in memory until you quit.",
   ],
+  // The menu bar menu (Sources/PeluniApp/App/PeluniApp.swift); the app truncates entries at 48 characters.
+  menu: {
+    label: "peluni's menu bar menu",
+    recentTitle: "Recent transcripts",
+    recent: [
+      "Ship the peluni build to Priya.",
+      "Running ten minutes late, start without me and I'll catch up on the notes.",
+      "Hey Priya, the build is ready. I just need to fix the signing step.",
+      "Pick up the charger and oat milk on the way home.",
+    ],
+    truncateAt: 48,
+    commands: [
+      { label: "Settings…", shortcut: "⌘," },
+      { label: "Quit peluni", shortcut: "⌘Q" },
+    ],
+  },
   keysLabel: "Keys",
   keys: [
     { how: "Hold", key: "Right ⌥", result: "Records while the key is down. Let go and the text is pasted." },
@@ -111,7 +127,7 @@ export const WORDS = {
 export const AUDIO = {
   title: "Where your audio goes",
   paragraphs: [
-    "It stays in memory on your Mac, and none of the steps above uses the network. The app only goes online to download a model from Hugging Face when you ask for one, so once you have a model you can turn Wi-Fi off and keep dictating. There is no analytics or crash reporting in the app, and you don't sign in to anything.",
+    "Your recording stays in memory on your Mac, and none of the steps above uses the network. The app only goes online to download a model from Hugging Face when you ask for one, so once you have a model you can turn Wi-Fi off and keep dictating. There is no analytics or crash reporting in the app, and you don't sign in to anything.",
     "Password fields are detected through the Accessibility API. While one has focus, peluni won't type into it or touch the clipboard.",
   ],
   pathLabel: "The path a recording takes",
@@ -145,6 +161,15 @@ export const INSTALL_GUIDE = {
     },
     { before: "Download the Base speech model (148 MB) from the same window. Then hold Right ⌥ and talk.", link: "", after: "" },
   ],
+  // The setup window (Sources/PeluniApp/UI/OnboardingWindow.swift), finished.
+  setup: {
+    title: "Welcome to peluni",
+    rows: [
+      { name: "Microphone", state: "Allowed" },
+      { name: "Accessibility", state: "Allowed" },
+      { name: "Speech model", state: "Base, 148 MB" },
+    ],
+  },
   checksumBody:
     "Releases are signed with a Developer ID and notarized by Apple. To check a download, put the .sha256 file published with it in the same folder and run:",
   checksumCommand: "shasum -a 256 -c peluni-<version>.dmg.sha256",

@@ -38,9 +38,9 @@ function OverlayPill() {
 export function DesktopDemo() {
   const words = DEMO.raw.split(" ");
   return (
-    <figure className="relative mt-12 grid gap-6 pb-8 sm:mt-14 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-10">
-      <div className="lg:pt-16">
-        <p className="font-sans text-sm font-semibold text-muted">{DEMO.heardLabel}</p>
+    <figure className="relative mt-10 grid gap-6 pb-8 sm:mt-12 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
+      <div className="relative lg:pt-8">
+        <p className="font-sans text-sm font-semibold">{DEMO.heardLabel}</p>
         <p data-demo="raw" className="demo-heard mt-1.5 font-mono text-[0.85rem] leading-relaxed text-muted">
           {words.map((word, i) => (
             <span key={i}>
@@ -49,20 +49,14 @@ export function DesktopDemo() {
             </span>
           ))}
         </p>
+        {/* The take on the left becomes the paragraph on the right. */}
+        <span aria-hidden="true" className="absolute -right-8 top-8 hidden font-sans text-2xl text-muted lg:block">
+          →
+        </span>
       </div>
 
       <MacWindow title={DEMO.subject} className="window-shadow">
-        <dl className="text-[0.9rem]">
-          <div className="flex gap-2 border-b border-border px-6 py-3 sm:px-10">
-            <dt className="text-muted">To:</dt>
-            <dd className="font-medium">{DEMO.to}</dd>
-          </div>
-          <div className="hidden gap-2 border-b border-border px-10 py-3 sm:flex">
-            <dt className="text-muted">Subject:</dt>
-            <dd className="font-medium">{DEMO.subject}</dd>
-          </div>
-        </dl>
-        <div className="px-6 pb-16 pt-6 sm:px-10 sm:pb-20 sm:pt-8">
+        <div className="px-6 pb-14 pt-6 sm:px-10 sm:pb-16 sm:pt-7">
           <p className="sr-only">{DEMO.typedLabel}</p>
           <p className="demo-paste font-serif text-[1.1rem] leading-[1.75] sm:text-[1.3rem]">
             <span data-demo="cleaned" className="selected">

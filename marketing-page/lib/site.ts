@@ -32,7 +32,6 @@ export const DEMO = {
   // Words in `raw` that the cleanup pass drops (shown struck through in the demo).
   fillers: ["um", "so", "basically", "uh", "like"],
   app: "Mail",
-  to: "Priya",
   subject: "Friday release",
   heardLabel: "What you said",
   typedLabel: "What peluni typed",

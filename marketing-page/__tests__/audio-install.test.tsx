@@ -35,6 +35,7 @@ describe("Installing", () => {
     expect(region.querySelectorAll("ol > li")).toHaveLength(INSTALL_GUIDE.steps.length);
     expect(within(region).getByRole("link", { name: INSTALL_GUIDE.steps[0].link }).getAttribute("href")).toBe(SITE.releasesUrl);
     expect(within(region).getByText(INSTALL_GUIDE.checksumCommand).closest("pre")).not.toBeNull();
+    for (const row of INSTALL_GUIDE.setup.rows) expect(within(region).getByText(row.name)).toBeDefined();
     for (const r of INSTALL_GUIDE.requirements) {
       expect(within(region).getByText(r.title)).toBeDefined();
       expect(within(region).getByText(r.detail)).toBeDefined();

@@ -7,7 +7,7 @@ import { SITE } from "@/lib/site";
 // The first screen: the promise and the download, then the product doing it, at full width.
 export function Intro() {
   return (
-    <section id="top" aria-labelledby="top-title" className="px-4 pt-10 sm:px-6 sm:pt-16 lg:pt-20">
+    <section id="top" aria-labelledby="top-title" className="px-4 pt-10 sm:px-6 sm:pt-14 lg:pt-14">
       <div className="mx-auto max-w-5xl">
         <div className="max-w-2xl">
           <h1 id="top-title" className="text-[clamp(2.25rem,1.6rem+2.6vw,3.25rem)] leading-[1.08] tracking-[-0.015em]">

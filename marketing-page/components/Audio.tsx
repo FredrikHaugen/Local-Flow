@@ -18,12 +18,12 @@ function AudioPath() {
           ))}
         </ol>
       </div>
-      <p className="ml-8 flex items-center gap-3 text-[0.95rem]">
-        <span aria-hidden="true" className="h-10 w-0.5 bg-foreground/40" />
-        <span>
+      <div className="ml-8">
+        <span aria-hidden="true" className="block h-8 w-0.5 bg-foreground" />
+        <p className="inline-block rounded-lg border-2 border-foreground/40 px-4 py-2.5 text-[0.95rem]">
           <strong>{AUDIO.outside}</strong> <span className="text-muted">{AUDIO.outsideDetail}</span>
-        </span>
-      </p>
+        </p>
+      </div>
     </figure>
   );
 }
