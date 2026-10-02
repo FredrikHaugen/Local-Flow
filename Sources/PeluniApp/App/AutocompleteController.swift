@@ -104,7 +104,7 @@ final class AutocompleteController: ObservableObject {
             guard let suggestion = await engine.complete(context: context, modelID: modelID),
                   !Task.isCancelled else { return }
             let ms = Int((ProcessInfo.processInfo.systemUptime - started) * 1000)
-            NSLog("peluni completion (\(ms) ms): \(suggestion)")
+            NSLog("peluni: completion ready (\(ms) ms, \(suggestion.count) chars)")
             // Task 7 shows the overlay here.
         }
     }

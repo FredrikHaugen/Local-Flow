@@ -67,4 +67,24 @@ final class LegacyRenameTests: XCTestCase {
             legacy: ["language": "sv"], current: [LegacyRename.migratedKey: true])
         XCTAssertTrue(copy.isEmpty)
     }
+
+    func testMovesIntoANewFolderThatHoldsNoFiles() throws {
+        // An earlier launch whose move failed left only empty model folders behind.
+        try fm.createDirectory(at: dir("peluni").appendingPathComponent("Models/whisper"), withIntermediateDirectories: true)
+        try fm.createDirectory(at: dir("LocalFlow"), withIntermediateDirectories: true)
+        try Data("old".utf8).write(to: dir("LocalFlow").appendingPathComponent("vocabulary.json"))
+
+        XCTAssertEqual(try LegacyRename.migrateSupportFolder(in: base), .moved)
+
+        XCTAssertEqual(try Data(contentsOf: dir("peluni").appendingPathComponent("vocabulary.json")), Data("old".utf8))
+        XCTAssertFalse(fm.fileExists(atPath: dir("LocalFlow").path))
+    }
+
+    func testSkipsPerAppStateThatBelongsToTheOldIdentity() {
+        // The new bundle ID has no Accessibility grant yet, so it must prompt again.
+        let copy = LegacyRename.defaultsToCopy(
+            legacy: ["accessibilityPromptShown": true, "NSWindow Frame Settings": "0 0 10 10", "language": "sv"],
+            current: [:])
+        XCTAssertEqual(copy as NSDictionary, ["language": "sv"] as NSDictionary)
+    }
 }

@@ -162,7 +162,7 @@ final class DictationController: ObservableObject {
                 guard machine.handle(.cleanupDone) else { return } // cancelled mid-cleanup
                 setPhase(machine.phase)
                 lastTranscript = cleaned
-                NSLog("peluni transcript: \(cleaned)")
+                NSLog("peluni: transcript ready (\(cleaned.count) chars)")
                 let method = InjectionMethod(
                     rawValue: UserDefaults.standard.string(forKey: "injectionMethod") ?? "paste") ?? .paste
                 let result = await injector.inject(cleaned, method: method)
