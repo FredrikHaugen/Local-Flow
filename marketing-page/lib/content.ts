@@ -60,10 +60,7 @@ export const CLEANUP_LEVELS = {
   intro: "Whisper writes down everything you say, false starts included. You choose how much of it gets pasted.",
   fallback: "If the cleanup model errors or takes longer than ten seconds, peluni pastes the raw transcript instead.",
   legend: "Cleanup level",
-  heardLabel: "You said",
-  typedLabel: "Pasted",
   defaultLevel: "light",
-  raw: "um so the demo moved to thursday no wait friday and uh we still need the slides the script a backup laptop and the hdmi adapter",
   levels: [
     {
       id: "none",
