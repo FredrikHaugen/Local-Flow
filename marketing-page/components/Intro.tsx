@@ -13,14 +13,14 @@ export function Intro() {
         <h1 id="top-title" className="text-balance text-[clamp(2.5rem,1.4rem+4.4vw,5.2rem)] leading-[1.02] tracking-[-0.02em]">
           {INTRO.title}
         </h1>
-        <div data-cta className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div data-cta className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2">
           <DownloadButton />
-          <p className="font-sans text-muted">{INTRO.requirement}</p>
+          <p className="font-sans text-[0.95rem] text-muted">{INTRO.requirement}</p>
         </div>
 
         <Take />
-        <p className="mt-10 max-w-2xl text-[clamp(1.15rem,1rem+0.5vw,1.4rem)]">
-          {INTRO.bodyBefore} <Kbd className="py-0 text-[0.8em] leading-normal">{INTRO.key}</Kbd> {INTRO.bodyAfter}
+        <p className="mt-10 max-w-3xl text-[clamp(1.3rem,1.1rem+0.9vw,1.85rem)] leading-[1.35]">
+          {INTRO.bodyBefore} <Kbd className="py-0 text-[0.75em] leading-normal">{INTRO.key}</Kbd> {INTRO.bodyAfter}
         </p>
 
         {/* Phones only: the download is for a Mac, so offer to send the page there. */}

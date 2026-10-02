@@ -6,7 +6,7 @@ import { USING } from "@/lib/content";
 export function Take() {
   const raw = USING.window.raw.split(" ");
   return (
-    <figure aria-label={USING.sceneLabel} className="window-shadow mt-10 overflow-hidden rounded-xl bg-card sm:mt-12">
+    <figure aria-label={USING.sceneLabel} className="window-shadow mt-14 overflow-hidden rounded-xl bg-card sm:mt-20">
       <p className="relative border-b border-border px-4 py-2 text-center font-sans text-[0.8rem] font-semibold text-foreground/80">
         <span aria-hidden="true" className="absolute left-3 top-1/2 flex -translate-y-1/2 gap-1.5">
           <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
@@ -15,7 +15,7 @@ export function Take() {
         </span>
         {USING.window.app}
       </p>
-      <p data-scene="raw" className="bg-background/60 px-6 py-7 font-mono text-[clamp(0.95rem,0.88rem+0.35vw,1.2rem)] leading-relaxed text-foreground sm:px-14 sm:py-8">
+      <p data-scene="raw" className="bg-background/60 px-6 py-7 font-mono text-[clamp(0.95rem,0.88rem+0.4vw,1.3rem)] leading-relaxed text-foreground sm:px-14 sm:py-9">
         {raw.map((word, i) => (
           <span key={i}>
             {i > 0 && " "}
@@ -27,8 +27,8 @@ export function Take() {
           </span>
         ))}
       </p>
-      <div className="border-t border-border px-6 py-10 sm:px-14 sm:py-14">
-        <p className="text-[clamp(1.6rem,1.2rem+1.6vw,2.6rem)] leading-[1.22] tracking-[-0.01em]">
+      <div className="border-t border-border px-6 py-10 sm:px-14 sm:pb-16 sm:pt-12">
+        <p className="text-[clamp(1.75rem,1.2rem+2vw,3rem)] leading-[1.18] tracking-[-0.015em]">
           {USING.window.text}
           <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-foreground" />
         </p>

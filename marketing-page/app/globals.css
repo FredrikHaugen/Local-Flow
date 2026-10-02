@@ -132,10 +132,10 @@ h3 {
   background: var(--desk);
 }
 
-/* Text shown as just pasted: macOS's own selection highlight. */
+/* Vocabulary terms in the typed line, marked with the brand teal as a fill (dark ink on it in both themes). */
 .selected {
-  background: var(--select);
-  color: var(--select-foreground);
+  background: var(--rec);
+  color: #171a18;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   border-radius: 2px;

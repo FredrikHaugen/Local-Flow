@@ -4,10 +4,10 @@ import { Kbd } from "@/components/Kbd";
 import { INSTALL_GUIDE, INTRO, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-// The end of the page, on the dark band: the four steps, numbered, the keys, then the download.
+// After the dark band, back on paper: the four steps, numbered, the keys, then the download.
 export function Install() {
   return (
-    <Chapter id="install" title={INSTALL_GUIDE.title} wide className="band-dark pb-24 pt-4 sm:pb-32">
+    <Chapter id="install" title={INSTALL_GUIDE.title} wide className="pt-20 sm:pt-28">
       <ol className="mt-8 grid max-w-5xl gap-x-10 gap-y-6 text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] leading-[1.4] sm:grid-cols-2 lg:grid-cols-4">
         {INSTALL_GUIDE.steps.map((step, i) => (
           <li key={step.before} className="border-t border-border pt-4">

@@ -62,7 +62,7 @@ function OfflineScene() {
 // The dark band: the claim at display size, then the scene that shows it.
 export function Audio() {
   return (
-    <Chapter id="privacy" title={AUDIO.title} wide hiddenTitle className="band-dark mt-24 pb-16 pt-20 sm:mt-32 sm:pt-28">
+    <Chapter id="privacy" title={AUDIO.title} wide hiddenTitle className="band-dark mt-24 pb-24 pt-20 sm:mt-32 sm:pb-32 sm:pt-28">
       <p className="max-w-4xl text-balance text-[clamp(2.4rem,1.5rem+3.8vw,4.75rem)] leading-[1.04] tracking-[-0.02em]">{AUDIO.display}</p>
       <OfflineScene />
       <p className="mt-12 max-w-2xl">
