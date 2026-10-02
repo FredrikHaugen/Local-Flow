@@ -22,17 +22,16 @@ export function Intro() {
           </a>
         </div>
 
-        <DesktopScene caption={
-          <>
-            {INTRO.bodyBefore} <Kbd className="py-0 text-[0.8em] leading-normal">{INTRO.key}</Kbd> {INTRO.bodyAfter}
-          </>
-        } />
+        <DesktopScene />
+        <p className="mx-auto mt-6 max-w-3xl text-balance text-center text-[clamp(1.15rem,1rem+0.5vw,1.4rem)]">
+          {INTRO.bodyBefore} <Kbd className="py-0 text-[0.8em] leading-normal">{INTRO.key}</Kbd> {INTRO.bodyAfter}
+        </p>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
-          <dl aria-label={USING.keysLabel} className="space-y-2 font-sans">
+        <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
+          <dl aria-label={USING.keysLabel} className="grid grid-cols-[auto_1fr] items-baseline gap-x-4 gap-y-2 font-sans">
             {USING.keys.map((k) => (
-              <div key={`${k.how}-${k.key}`} className="flex flex-wrap items-baseline gap-x-3">
-                <dt className="flex min-w-[10.5rem] items-baseline gap-2 font-semibold">
+              <div key={`${k.how}-${k.key}`} className="contents">
+                <dt className="flex items-baseline gap-2 font-semibold">
                   {k.how} <Kbd>{k.key}</Kbd>
                 </dt>
                 <dd className="text-muted">{k.result}</dd>

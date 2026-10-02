@@ -19,7 +19,7 @@ function Disclosure({ q, children }: { q: string; children: React.ReactNode }) {
 // models, the requirements and the checksum live here too: they matter once, when you decide.
 export function Questions() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-6 px-4 pb-24 pt-24 sm:px-6 sm:pb-32 sm:pt-32">
+    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-6 px-4 pb-4 pt-24 sm:px-6 sm:pb-8 sm:pt-32">
       <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16">
         <div>
           <h2 id="faq-title" className="text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.1] tracking-[-0.015em]">

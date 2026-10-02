@@ -3,7 +3,7 @@ import { USING } from "@/lib/content";
 
 // The Mac while you dictate: Reminders with what you said struck through above what landed, the
 // menu-bar icon lit while it listens, and the overlay with the keys that drive it.
-export function DesktopScene({ caption }: { caption: React.ReactNode }) {
+export function DesktopScene() {
   const raw = USING.window.raw.split(" ");
   return (
     <figure aria-label={USING.sceneLabel} className="desk-scene window-shadow mt-10 overflow-hidden rounded-2xl font-sans text-[0.95rem]">
@@ -25,8 +25,7 @@ export function DesktopScene({ caption }: { caption: React.ReactNode }) {
       </div>
 
       {/* One window, centred: the moment the product exists for. */}
-      <div className="relative mx-auto max-w-3xl px-4 pb-8 pt-8 sm:px-6">
-        <div aria-hidden="true" className="absolute -left-6 -top-3 hidden h-40 w-72 rounded-xl bg-card/60 shadow-sm backdrop-blur sm:block lg:-left-24" />
+      <div className="relative mx-auto max-w-4xl px-4 pb-8 pt-10 sm:px-8">
         <div className="window-shadow relative overflow-hidden rounded-xl bg-card">
           <p className="relative border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">
             <span aria-hidden="true" className="absolute left-3 top-1/2 flex -translate-y-1/2 gap-1.5">
@@ -36,8 +35,8 @@ export function DesktopScene({ caption }: { caption: React.ReactNode }) {
             </span>
             {USING.window.app}
           </p>
-          <div className="px-6 pb-9 pt-6 sm:px-9">
-            <p data-scene="raw" className="font-mono text-[0.95rem] leading-relaxed text-muted">
+          <div className="px-6 pb-10 pt-7 sm:px-12 sm:pb-12 sm:pt-9">
+            <p data-scene="raw" className="font-mono text-[clamp(0.95rem,0.85rem+0.4vw,1.2rem)] leading-relaxed text-muted">
               {raw.map((word, i) => (
                 <span key={i}>
                   {i > 0 && " "}
@@ -45,7 +44,7 @@ export function DesktopScene({ caption }: { caption: React.ReactNode }) {
                 </span>
               ))}
             </p>
-            <p className="mt-4 font-serif text-[clamp(1.5rem,1.15rem+1.4vw,2.2rem)] leading-snug">
+            <p className="mt-5 font-serif text-[clamp(1.75rem,1.2rem+2.4vw,3.1rem)] leading-[1.18] tracking-[-0.01em]">
               {USING.window.text}
               <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-foreground" />
             </p>
@@ -55,13 +54,12 @@ export function DesktopScene({ caption }: { caption: React.ReactNode }) {
       </div>
 
       {/* The overlay, where the real one sits. */}
-      <div className="flex flex-col items-center gap-5 px-4 pb-10">
+      <div className="flex flex-col items-center gap-5 px-4 pb-12">
         <div className="origin-center sm:scale-125">
           <OverlayPill />
         </div>
       </div>
 
-      <figcaption className="px-4 pb-8 text-center font-serif text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] sm:px-6">{caption}</figcaption>
     </figure>
   );
 }

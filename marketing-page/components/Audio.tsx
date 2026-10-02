@@ -10,19 +10,35 @@ function OfflineScene() {
   return (
     <figure aria-label={scene.label} className="mt-14 text-left font-sans">
       <div className="grid gap-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-8">
-        {/* A Control Center module: the Wi-Fi button greyed out, the label beside it. */}
-        <div className="flex items-center gap-5 rounded-[1.75rem] bg-card p-5 lg:flex-col lg:items-start lg:justify-between lg:p-8">
-          <span aria-hidden="true" className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-foreground/15 sm:h-24 sm:w-24">
-            <svg viewBox="0 0 24 24" className="h-8 w-8 sm:h-10 sm:w-10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-              <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" className="opacity-40" />
-              <circle cx="12" cy="19.5" r="1" fill="currentColor" className="opacity-40" />
-              <path d="M4 4l16 16" strokeWidth="2.2" />
-            </svg>
-          </span>
-          <p>
-            <span className="block text-[2rem] font-semibold leading-tight">{scene.wifi}</span>
-            <span className="text-lg text-muted">{scene.wifiState}</span>
+        {/* The Wi-Fi menu as macOS draws it: the switch off, the known networks greyed out under it. */}
+        <div className="rounded-[1.25rem] bg-card p-5 sm:p-6">
+          <p className="flex items-center justify-between gap-4">
+            <span className="flex items-center gap-3">
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" className="opacity-40" />
+                <circle cx="12" cy="19.5" r="1" fill="currentColor" className="opacity-40" />
+                <path d="M4 4l16 16" strokeWidth="2.2" />
+              </svg>
+              <span>
+                <span className="block text-[1.5rem] font-semibold leading-tight">{scene.wifi}</span>
+                <span className="text-muted">{scene.wifiState}</span>
+              </span>
+            </span>
+            <span aria-hidden="true" className="relative h-7 w-12 shrink-0 rounded-full bg-foreground/20">
+              <span className="absolute left-0.5 top-0.5 h-6 w-6 rounded-full bg-foreground/80" />
+            </span>
           </p>
+          <p className="mt-5 border-t border-border pt-4 text-sm font-semibold text-muted">{scene.knownTitle}</p>
+          <ul aria-label={scene.knownTitle} className="mt-2 space-y-2 opacity-45">
+            {scene.known.map((n) => (
+              <li key={n} className="flex items-center justify-between">
+                {n}
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" />
+                </svg>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="relative rounded-2xl bg-card px-6 pb-24 pt-6 sm:px-10">

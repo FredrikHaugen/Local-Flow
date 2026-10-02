@@ -126,6 +126,8 @@ export const AUDIO = {
     label: "Dictating with Wi-Fi off",
     wifi: "Wi-Fi",
     wifiState: "Off",
+    knownTitle: "Known networks",
+    known: ["Home", "Studio 4F"],
     app: "Messages",
     contact: "Sam",
     incoming: "Still on for 6?",

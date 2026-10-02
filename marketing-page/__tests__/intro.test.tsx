@@ -12,7 +12,8 @@ describe("Intro", () => {
     expect(region.id).toBe("top");
     expect(within(region).getByRole("heading", { level: 1, name: INTRO.title })).toBeDefined();
     expect(within(region).getByRole("link", { name: INTRO.download }).getAttribute("href")).toBe(SITE.releasesUrl);
-    expect(within(region).getByRole("figure", { name: USING.sceneLabel }).textContent).toContain(INTRO.bodyAfter);
+    expect(within(region).getByRole("figure", { name: USING.sceneLabel })).toBeDefined();
+    expect(region.textContent).toContain(INTRO.bodyAfter);
   });
 
   test("under the scene: the key legend, the speed line and the paste fallback", () => {

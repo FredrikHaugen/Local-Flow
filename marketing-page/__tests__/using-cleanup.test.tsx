@@ -6,7 +6,7 @@ import { CLEANUP_LEVELS } from "@/lib/content";
 
 describe("DesktopScene", () => {
   test("its overlay is decorative", () => {
-    const { container } = render(<DesktopScene caption="Hold the key." />);
+    const { container } = render(<DesktopScene />);
     expect(container.querySelector(".wave-bar")?.closest("[aria-hidden='true']")).not.toBeNull();
   });
 

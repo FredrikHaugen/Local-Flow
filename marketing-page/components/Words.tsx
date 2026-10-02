@@ -39,9 +39,9 @@ export function Words() {
           <p className="mt-3 text-[clamp(1.8rem,1.2rem+2.2vw,2.75rem)] leading-[1.15] tracking-[-0.02em]">
             {withTerms(WORDS.typed, WORDS.terms.map((t) => t.term), "selected")}
           </p>
+          <p className="mt-6 max-w-xl">{WORDS.vocabBody}</p>
         </div>
       </figure>
-      <p className="mt-6 max-w-2xl">{WORDS.vocabBody}</p>
 
     </Chapter>
   );
