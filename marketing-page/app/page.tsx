@@ -16,8 +16,8 @@ export default function Home() {
         <Cleanup />
         <Words />
         <Audio />
-        <Install />
         <Questions />
+        <Install />
       </main>
       <Footer />
     </>

@@ -13,7 +13,6 @@ describe("Intro", () => {
     expect(within(region).getByRole("heading", { level: 1, name: INTRO.title })).toBeDefined();
     expect(within(region).getByRole("link", { name: INTRO.download }).getAttribute("href")).toBe(SITE.releasesUrl);
     expect(within(region).getByRole("figure", { name: USING.sceneLabel })).toBeDefined();
-    expect(region.textContent).toContain(INTRO.bodyAfter);
   });
 
   test("the scene is honest: the last take has landed, the overlay listens over an empty new row", () => {
@@ -32,10 +31,11 @@ describe("Intro", () => {
 });
 
 describe("The closing download", () => {
-  test("carries the requirement and the page's one version mention", () => {
-    render(<Install />);
+  test("closes on how to use it, the requirements and the page's one version mention", () => {
+    const { container } = render(<Install />);
+    expect(container.textContent).toContain(INTRO.bodyMore);
     const cta = screen.getByRole("link", { name: INSTALL_GUIDE.download }).closest("[data-cta]")!;
-    expect(cta.textContent).toContain(INTRO.requirement);
+    for (const r of INSTALL_GUIDE.requirements.slice(0, 2)) expect(cta.textContent).toContain(r.title);
     expect(cta.textContent).toContain(SITE.version);
   });
 });

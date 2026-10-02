@@ -4,22 +4,23 @@ import { SITE } from "@/lib/site";
 
 const introBefore = "Hold";
 const introKey = "Right ⌥";
-const introAfter = "and talk. When you let go, your words are pasted where your cursor is, already cleaned up.";
+const introAfter = "and talk.";
+const introMore = "When you let go, your words are pasted where your cursor is, already cleaned up.";
 
 export const INTRO = {
   title: "peluni types what you say into any app on your Mac.",
   bodyBefore: introBefore,
   key: introKey,
   bodyAfter: introAfter,
-  body: `${introBefore} ${introKey} ${introAfter}`,
+  bodyMore: introMore,
+  body: `${introBefore} ${introKey} ${introAfter} ${introMore}`,
   download: "Download for Mac",
-  requirement: "Needs macOS 14 or later on an Apple Silicon Mac.",
   release: `Free and open source, version ${SITE.version}.`,
 } as const;
 
 export const USING = {
   paragraphs: [
-    "Pasted where your cursor is, typically in about a second with the base model, measured from letting go of the key.",
+    "The text lands typically in about a second with the base model, counted from letting go of the key.",
   ],
   sceneLabel: "Dictating into Reminders",
   // The hero scene: a Reminders list where the last dictation has landed and the next one is being spoken.
@@ -136,7 +137,7 @@ export const INSTALL_GUIDE = {
     { before: "Download the DMG from the", link: "releases page", after: "." },
     { before: "Drag peluni to Applications.", link: "", after: "" },
     { before: "Allow Microphone and Accessibility when the setup window asks.", link: "", after: "" },
-    { before: "Get the Base speech model (148 MB), then hold Right ⌥ and talk.", link: "", after: "" },
+    { before: "Download the Base speech model when the setup window offers it.", link: "", after: "" },
   ],
   download: "Download for Mac",
   requirementsTitle: "What does my Mac need?",
@@ -165,10 +166,6 @@ export const QUESTIONS = {
     {
       q: "What happens in a password field?",
       a: "peluni detects secure fields and won't type into them or write to the clipboard while one has focus.",
-    },
-    {
-      q: "What does it cost?",
-      a: "Nothing. It's MIT licensed, and you can build it from the source yourself.",
     },
   ],
   detailsBefore: "Speech model sizes and how to check a download are in the ",

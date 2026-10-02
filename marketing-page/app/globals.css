@@ -132,16 +132,14 @@ h3 {
   background: var(--desk);
 }
 
-/* Words peluni put there: vocabulary terms, and the reminder that just landed. A thin teal tint with
-   rounded ends, over the text's own ink. */
+/* Words peluni put there: vocabulary terms, and the reminder that just landed. A teal marker stroke
+   under the words, so it wraps cleanly and leaves the text's own ink alone in both themes. */
 .selected {
-  background: color-mix(in oklab, var(--rec) 45%, transparent);
-  color: inherit;
-  padding: 0 0.15em;
-  margin: 0 -0.15em;
-  border-radius: 0.25em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  text-decoration-line: underline;
+  text-decoration-color: var(--rec);
+  text-decoration-thickness: 0.3em;
+  text-underline-offset: -0.08em;
+  text-decoration-skip-ink: none;
 }
 
 /* A product window on the desk. Plain black shadows read correctly in both themes. */
