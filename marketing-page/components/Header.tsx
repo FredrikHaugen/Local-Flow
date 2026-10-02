@@ -22,9 +22,8 @@ export function Header() {
           </ul>
           <a
             href={SITE.releasesUrl}
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-foreground px-4 py-2 font-medium md:min-h-0 text-background transition-opacity hover:opacity-85"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-cta-edge bg-accent px-4 py-1.5 font-semibold text-accent-foreground transition-transform hover:-translate-y-px md:min-h-0"
           >
-            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
             Download
           </a>
           <MobileMenu />

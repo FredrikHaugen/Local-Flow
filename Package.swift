@@ -2,10 +2,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "LocalFlow",
+    name: "Peluni",
     platforms: [.macOS(.v14)],
     products: [
-        .library(name: "LocalFlowCore", targets: ["LocalFlowCore"])
+        .library(name: "PeluniCore", targets: ["PeluniCore"])
     ],
     dependencies: [
         .package(url: "https://github.com/ml-explore/mlx-swift-lm", .upToNextMinor(from: "3.31.4")),
@@ -14,13 +14,13 @@ let package = Package(
         .package(url: "https://github.com/sindresorhus/KeyboardShortcuts", from: "3.0.1"),
     ],
     targets: [
-        .target(name: "LocalFlowCore"),
+        .target(name: "PeluniCore"),
         // Vendored locally; fetch/verify with `make vendor` (see Makefile) before building.
         .binaryTarget(name: "whisper", path: "Vendor/whisper.xcframework"),
         .executableTarget(
-            name: "LocalFlowApp",
+            name: "PeluniApp",
             dependencies: [
-                "LocalFlowCore",
+                "PeluniCore",
                 "whisper",
                 .product(name: "MLXLLM", package: "mlx-swift-lm"),
                 .product(name: "MLXLMCommon", package: "mlx-swift-lm"),
@@ -31,10 +31,10 @@ let package = Package(
             ],
             swiftSettings: [.swiftLanguageMode(.v5)]
         ),
-        .testTarget(name: "LocalFlowCoreTests", dependencies: ["LocalFlowCore"]),
+        .testTarget(name: "PeluniCoreTests", dependencies: ["PeluniCore"]),
         .testTarget(
-            name: "LocalFlowIntegrationTests",
-            dependencies: ["LocalFlowCore", "whisper"]
+            name: "PeluniIntegrationTests",
+            dependencies: ["PeluniCore", "whisper"]
         ),
     ]
 )

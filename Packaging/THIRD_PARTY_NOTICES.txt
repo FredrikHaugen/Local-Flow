@@ -1,4 +1,4 @@
-LocalFlow includes the following third-party software. Each is
+peluni includes the following third-party software. Each is
 distributed under the license reproduced below.
 
 ================================================================

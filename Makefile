@@ -1,4 +1,4 @@
-.PHONY: build test bundle run cert clean vendor check-vendor check-requirements release
+.PHONY: build test bundle run cert clean vendor check-vendor check-requirements check-branding release
 
 WHISPER_VERSION := v1.9.1
 WHISPER_ZIP_URL := https://github.com/ggml-org/whisper.cpp/releases/download/$(WHISPER_VERSION)/whisper-$(WHISPER_VERSION)-xcframework.zip
@@ -48,21 +48,24 @@ build: check-vendor
 check-requirements:
 	@bash scripts/check-requirements.sh
 
-test: check-vendor check-requirements
+check-branding:
+	@bash scripts/check-branding.sh
+
+test: check-vendor check-requirements check-branding
 	swift test
 
 bundle: check-vendor
 	bash scripts/bundle.sh
 
 # One command from a fresh clone: vendor and cert are no-ops once done. Quits a
-# running LocalFlow first, otherwise `open` just re-activates the old build.
+# running peluni first, otherwise `open` just re-activates the old build.
 run: vendor cert bundle
-	@if pgrep -x LocalFlow >/dev/null; then \
-		echo "Quitting running LocalFlow..."; \
-		pkill -x LocalFlow; \
-		while pgrep -x LocalFlow >/dev/null; do sleep 0.2; done; \
+	@if pgrep -x peluni >/dev/null; then \
+		echo "Quitting running peluni..."; \
+		pkill -x peluni; \
+		while pgrep -x peluni >/dev/null; do sleep 0.2; done; \
 	fi
-	open dist/LocalFlow.app
+	open dist/peluni.app
 
 # Developer ID sign + notarize + staple + DMG. Needs a Developer ID Application
 # identity and a notarytool keychain profile — see scripts/release.sh header.

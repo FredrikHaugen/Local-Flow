@@ -1,6 +1,6 @@
-# LocalFlow marketing site
+# peluni marketing site
 
-Single-page, statically exported Next.js site for LocalFlow. Every product
+Single-page, statically exported Next.js site for peluni. Every product
 fact and every line of copy lives in `lib/site.ts`; a test cross-checks the
 requirements against the repo's root `README.md` (and the speed claims against
 `docs/PROJECT.md`), so update them together.
@@ -18,6 +18,6 @@ Microsoft Clarity analytics through the consent banner
 Fonts are self-hosted from `app/fonts/`. `pnpm check` keeps third-party
 scripts, fonts and images out of the shipped HTML.
 
-**Placeholders:** the logo (`components/Wordmark.tsx`, a ⌥ keycap for now),
-favicon (`app/favicon.ico`, still the Next.js default) and social images are
-temporary and will be replaced.
+**Brand:** the logomark is `components/Logomark.tsx` (inlined from `../brand/logomark.svg` so it
+follows the theme). Favicons are `app/favicon.ico`, `app/icon.svg` and `app/apple-icon.png`; the
+web manifest is `app/manifest.ts`. Social images are still to come.

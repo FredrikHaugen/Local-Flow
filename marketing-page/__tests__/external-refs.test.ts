@@ -21,7 +21,7 @@ describe("findExternalRefs", () => {
       <script src="/_next/static/chunks/main.js"></script>
       <link rel="stylesheet" href="/_next/static/css/app.css">
       <img alt="" src="data:image/png;base64,AAAA">
-      <a href="https://github.com/FredrikHaugen/Local-Flow">GitHub</a>`;
+      <a href="https://github.com/FredrikHaugen/peluni">GitHub</a>`;
     expect(findExternalRefs(html)).toEqual([]);
   });
 });

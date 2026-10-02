@@ -1,5 +1,5 @@
 #!/bin/bash
-# Assemble dist/LocalFlow.app from an xcodebuild Release build.
+# Assemble dist/peluni.app from an xcodebuild Release build.
 #
 # NOTE: this must use `xcodebuild`, not `swift build`. mlx-swift's own README
 # states that SwiftPM command-line builds cannot compile MLX's Metal shaders;
@@ -12,20 +12,22 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ARCH=arm64
-APP="dist/LocalFlow.app"
+APP="dist/peluni.app"
 IDENTITY="${CODESIGN_IDENTITY:-}"
 
-xcodebuild build -scheme LocalFlowApp -configuration Release \
+xcodebuild build -scheme PeluniApp -configuration Release \
     -destination 'platform=macOS,arch='"$ARCH" -derivedDataPath .build/xc \
     -skipPackagePluginValidation -skipMacroValidation
 PRODUCTS=".build/xc/Build/Products/Release"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
-cp "$PRODUCTS/LocalFlowApp" "$APP/Contents/MacOS/LocalFlow"
+cp "$PRODUCTS/PeluniApp" "$APP/Contents/MacOS/peluni"
 cp Packaging/Info.plist "$APP/Contents/Info.plist"
 cp LICENSE "$APP/Contents/Resources/LICENSE.txt"
 cp Packaging/THIRD_PARTY_NOTICES.txt "$APP/Contents/Resources/THIRD_PARTY_NOTICES.txt"
+# App icon (Finder, DMG, About) and the menu bar template icon; regenerate with scripts/make-icons.sh.
+cp Packaging/AppIcon.icns Packaging/MenuBarIcon.png Packaging/MenuBarIcon@2x.png "$APP/Contents/Resources/"
 
 # Embed the dynamic whisper framework (binaryTarget) and make sure the rpath exists.
 if [ -d "$PRODUCTS/PackageFrameworks/whisper.framework" ]; then
@@ -54,14 +56,14 @@ for b in "$PRODUCTS"/*.bundle; do
     [ -d "$b" ] && cp -R "$b" "$APP/Contents/Resources/"
 done
 
-install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/LocalFlow" 2>/dev/null || true
+install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/peluni" 2>/dev/null || true
 
 # Prefer a stable identity so TCC grants survive rebuilds; fall back to ad-hoc.
 # SIGN_MODE=release (set by release.sh) adds secure timestamps for notarization.
-# No -v: the self-signed "LocalFlow Dev" cert is untrusted (CSSMERR_TP_NOT_TRUSTED)
+# No -v: the self-signed "peluni Dev" cert is untrusted (CSSMERR_TP_NOT_TRUSTED)
 # but codesign still signs with it, and that signature is stable across rebuilds.
-if [ -z "$IDENTITY" ] && security find-identity -p codesigning 2>/dev/null | grep -q '"LocalFlow Dev"'; then
-    IDENTITY="LocalFlow Dev"
+if [ -z "$IDENTITY" ] && security find-identity -p codesigning 2>/dev/null | grep -q '"peluni Dev"'; then
+    IDENTITY="peluni Dev"
 fi
 if [ -n "$IDENTITY" ]; then
     bash scripts/sign-app.sh "$APP" "$IDENTITY" "${SIGN_MODE:-dev}"

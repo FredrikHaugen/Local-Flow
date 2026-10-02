@@ -78,7 +78,7 @@ describe("Final call to action", () => {
   test("ends with a download link with the requirement right next to it", () => {
     render(<FinalCta />);
     const region = screen.getByRole("region", { name: FINAL_CTA.title });
-    const download = within(region).getByRole("link", { name: "Download LocalFlow" });
+    const download = within(region).getByRole("link", { name: "Download peluni" });
     expect(download.getAttribute("href")).toBe(SITE.releasesUrl);
     expect(download.closest("[data-cta]")?.textContent).toContain("macOS 14+");
     expect(within(region).getByRole("link", { name: FINAL_CTA.secondary }).getAttribute("href")).toBe(SITE.repoUrl);

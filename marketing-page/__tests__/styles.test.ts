@@ -9,7 +9,7 @@ test("the waveform stops for reduced-motion users", () => {
 });
 
 test("links get a visible keyboard focus ring", () => {
-  expect(css).toMatch(/:focus-visible\s*\{[^}]*outline: 2px solid var\(--accent\)/);
+  expect(css).toMatch(/:focus-visible\s*\{[^}]*outline: 2px solid var\(--accent-ink\)/);
 });
 
 test("every color token is defined for dark mode too", () => {
@@ -26,6 +26,9 @@ test("every color token is defined for dark mode too", () => {
     "--ink-muted",
     "--ink-border",
     "--ink-accent",
+    "--accent-ink",
+    "--logo-tile",
+    "--logo-stroke",
   ];
   const dark = css.slice(css.indexOf("@media (prefers-color-scheme: dark)"));
   for (const token of tokens) {

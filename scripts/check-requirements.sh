@@ -29,7 +29,7 @@ grep -q "Swift $tools" <<<"$section" || fail "README Requirements must mention S
 grep -q "whisper.cpp $whisper" <<<"$section" || fail "README Requirements must mention whisper.cpp $whisper"
 
 # Speech-model disk sizes, formatted the way README states them (decimal units).
-sizes=$(sed -n 's/.*id: "\([^"]*\)".*sizeBytes: \([0-9_]*\).*/\1 \2/p' Sources/LocalFlowCore/ModelCatalog.swift | tr -d _)
+sizes=$(sed -n 's/.*id: "\([^"]*\)".*sizeBytes: \([0-9_]*\).*/\1 \2/p' Sources/PeluniCore/ModelCatalog.swift | tr -d _)
 [ -n "$sizes" ] || fail "couldn't read model sizes from ModelCatalog.swift"
 fmt() { awk -v b="$1" 'BEGIN { if (b < 1e9) printf "%d MB", b/1e6 + 0.5; else printf "%.1f GB", b/1e9 }'; }
 smallest=$(fmt "$(sort -k2 -n <<<"$sizes" | head -1 | cut -d' ' -f2)")

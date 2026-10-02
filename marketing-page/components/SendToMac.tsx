@@ -28,22 +28,11 @@ export function SendToMac({ className = "" }: { className?: string }) {
       <button
         type="button"
         onClick={send}
-        className="flex min-h-14 w-full items-center gap-3 rounded-2xl border border-border bg-card px-3 py-2.5 text-left"
+        className="inline-flex min-h-11 flex-wrap items-center gap-x-1.5 text-left text-sm"
       >
-        <span aria-hidden="true" className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-foreground text-background">
-          <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="5" width="13" height="9" rx="1.5" />
-            <path d="M6 18h5" />
-            <rect x="17" y="8" width="5" height="11" rx="1.2" />
-          </svg>
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block text-xs opacity-75">{PHONE.handoffLead}</span>
-          <span className="block text-sm font-semibold">{PHONE.handoff}</span>
-        </span>
-        <span aria-hidden="true" className="text-lg">
-          →
-        </span>
+        <span className="text-muted">{PHONE.handoffLead}</span>
+        <span className="font-semibold underline decoration-accent-ink decoration-2 underline-offset-4">{PHONE.handoff}</span>
+        <span aria-hidden="true">→</span>
       </button>
       <p role="status" className="mt-2 text-xs empty:hidden">
         {copied ? PHONE.copied : ""}

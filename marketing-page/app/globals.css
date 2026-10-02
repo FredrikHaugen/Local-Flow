@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 /*
- * LocalFlow identity: warm paper, ink bands, and one "record light" signal color.
- * Every color on the site comes from these tokens.
+ * peluni identity: warm paper, ink bands, and the logo's teal "record light".
+ * The teal is pale: it's a fill behind ink text. Text, icons and thin strokes on paper use
+ * --accent-ink. Every color on the site comes from these tokens.
  */
 :root {
   --background: #f6f5f1;
@@ -10,14 +11,25 @@
   --muted: #5c5b57;
   --card: #ffffff;
   --border: #e2e0d8;
-  --accent: #cc3a12;
-  --accent-foreground: #ffffff;
+  --accent: #9ddeb9;
+  --accent-foreground: #141413;
+  --accent-ink: #1a6e4a;
   /* Ink: the dark bands (hero stage, pipeline) — dark in both themes. */
   --ink: #141413;
   --ink-foreground: #f6f5f1;
   --ink-muted: #a19f98;
   --ink-border: #2e2d2a;
-  --ink-accent: #ff6b3d;
+  --ink-accent: #9ddeb9;
+  /* The logomark tile (brand/logomark.svg). */
+  --logo-tile: #d9d9d9;
+  --logo-stroke: #141413;
+  --logo-rim: transparent;
+  /* The teal "desktop" band behind the product demo and the closing CTA. */
+  --wallpaper: #9ddeb9;
+  /* The teal buttons are keycaps: an edge and a bottom lip in this color. */
+  --cta-edge: #141413;
+  /* The text cursor after a highlighted phrase. */
+  --caret: #1a6e4a;
   /* macOS window controls in the product mocks. */
   --mac-close: #ff5f57;
   --mac-min: #febc2e;
@@ -31,13 +43,22 @@
     --muted: #9e9c96;
     --card: #161614;
     --border: #2a2926;
-    --accent: #ff6b3d;
-    --accent-foreground: #1c0800;
+    --accent: #9ddeb9;
+    --accent-foreground: #141413;
+    --accent-ink: #9ddeb9;
     --ink: #1a1a18;
     --ink-foreground: #eceae4;
     --ink-muted: #a19f98;
     --ink-border: #34332f;
-    --ink-accent: #ff7a4d;
+    --ink-accent: #9ddeb9;
+    /* brand/logomarkDark.svg */
+    --logo-tile: #141413;
+    --logo-stroke: #d9d9d9;
+    --logo-rim: #3a3935;
+    /* Dimmed so the band doesn't glare on a dark page; ink text on it stays above 5:1. */
+    --wallpaper: #5e9a78;
+    --cta-edge: #4d8f6a;
+    --caret: #eceae4;
     --mac-close: #ff5f57;
     --mac-min: #febc2e;
     --mac-max: #28c840;
@@ -52,6 +73,11 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-ink: var(--accent-ink);
+  --color-logo-tile: var(--logo-tile);
+  --color-logo-stroke: var(--logo-stroke);
+  --color-logo-rim: var(--logo-rim);
+  --color-cta-edge: var(--cta-edge);
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
   --color-ink-muted: var(--ink-muted);
@@ -81,7 +107,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-ink);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -111,8 +137,9 @@ body {
   /* A painted band rather than a full background, so stacked lines don't merge into one slab. */
   background: linear-gradient(var(--typed-bg), var(--typed-bg)) no-repeat 0 62% / 100% 80%;
   color: var(--accent-foreground);
-  padding: 0 0.07em;
-  margin: 0 -0.02em;
+  /* Barely any left padding, so a highlight that starts a line stays in line with the text above. */
+  padding: 0 0.07em 0 0.03em;
+  margin: 0 -0.02em 0 -0.03em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -131,10 +158,10 @@ body {
   display: inline-block;
   width: 0.06em;
   height: 0.86em;
-  margin-left: 0.07em;
+  margin-left: 0;
   vertical-align: -0.06em;
   border-radius: 0.03em;
-  background: var(--accent);
+  background: var(--caret);
 }
 
 .surface-ink .typed-caret {
@@ -152,12 +179,12 @@ body {
     0 1px 0 var(--border);
 }
 
-/* The orange "desktop": a soft vignette over the accent so the band has depth. */
+/* The teal "desktop": a soft vignette over the accent so the band has depth. */
 .wallpaper {
   background:
-    radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--accent-foreground) 5%, transparent), transparent 60%),
+    radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--ink-foreground) 22%, transparent), transparent 60%),
     radial-gradient(90% 70% at 50% 110%, color-mix(in oklab, var(--ink) 28%, transparent), transparent 70%),
-    var(--accent);
+    var(--wallpaper);
 }
 
 /* A product window floating on the wallpaper. */
@@ -170,7 +197,7 @@ body {
 
 /* Freshly pasted text gets a faint signal-colored wash, like a just-landed selection. */
 .just-pasted {
-  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  background: color-mix(in oklab, var(--accent) 45%, transparent);
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   border-radius: 3px;
@@ -191,7 +218,7 @@ body {
   color: var(--background);
 }
 .level-opt:has(input:focus-visible) {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-ink);
   outline-offset: 2px;
 }
 .level-out {
@@ -249,7 +276,7 @@ body {
 /* The footer's name, as wide as the column allows, with the record light as its full stop. */
 .footer-name {
   white-space: nowrap;
-  font-size: clamp(5rem, 25.5vw, 16.9rem);
+  font-size: clamp(5rem, 40vw, 26.6rem);
   line-height: 0.78;
   letter-spacing: -0.015em;
 }
@@ -494,7 +521,7 @@ details[open] .faq-icon {
 }
 .swipe-hint i:first-child {
   width: 1.5rem;
-  background: var(--accent);
+  background: var(--accent-ink);
   opacity: 1;
 }
 .surface-ink .swipe-hint i:first-child {

@@ -1,10 +1,10 @@
-# LocalFlow
+# peluni
 
 **Fully-local voice dictation for macOS.** Hold a hotkey anywhere, speak, release — clean, formatted text appears in whatever app you're using. It delivers the Wispr Flow experience with one fundamental difference: every byte of audio and text is processed on your Mac. No cloud, no accounts, no telemetry. The only network traffic the app ever produces is downloading model files from Hugging Face, and only when you explicitly ask it to.
 
 ## What it does
 
-LocalFlow lives in the menu bar (no Dock icon). From any application:
+peluni lives in the menu bar (no Dock icon). From any application:
 
 - **Hold Right ⌥ (Option) and talk.** A floating pill overlay at the bottom of the screen shows a live waveform while it listens.
 - **Release** — the recording is transcribed, cleaned up, and pasted into the focused text field, typically in about a second with the base model.
@@ -31,7 +31,7 @@ Names, jargon, and technical terms that speech models routinely butcher get two 
 - **Recognition biasing** — vocabulary terms are fed to whisper as an `initial_prompt` glossary, nudging the acoustic model toward the right spellings, and to the cleanup LLM as terms to preserve verbatim.
 - **Deterministic correction** — each term can carry "sounds like" aliases (e.g. *"whisper flow" → "Wispr Flow"*), applied after transcription as case-insensitive, word-boundary-anchored replacements. Replacement is single-pass against the original text, so one rule's output can never be re-matched and mangled by another.
 
-Vocabulary is stored as plain JSON in `~/Library/Application Support/LocalFlow/vocabulary.json`.
+Vocabulary is stored as plain JSON in `~/Library/Application Support/peluni/vocabulary.json`.
 
 ## Reliability principles
 
@@ -39,7 +39,7 @@ The design encodes a few hard rules learned from the failure modes of dictation 
 
 - **A transcript is never silently lost.** Every failure path ends with the text delivered somewhere visible or an explicit error: if paste fails, the transcript stays on the clipboard with a "press ⌘V" notice; if the mic or model is missing, the overlay says exactly what to fix.
 - **AI cleanup can never block or corrupt a dictation.** The cleanup engine is a total function: any model-load error, generation error, or 10-second timeout falls back to the raw transcript. Output sanity guards reject hallucinated expansions, severe truncations, and chat-model artifacts (code fences, `<think>` blocks, wrapping quotes) — over-editing being the top complaint about cloud dictation tools. Very short utterances (configurable, default < 50 chars) skip cleanup entirely.
-- **Secure fields are sacred.** If the focused element is a password field (checked via the Accessibility API both before and after the paste-settle delay, guarding the TOCTOU race), LocalFlow refuses to inject *and* refuses to write the transcript to the clipboard.
+- **Secure fields are sacred.** If the focused element is a password field (checked via the Accessibility API both before and after the paste-settle delay, guarding the TOCTOU race), peluni refuses to inject *and* refuses to write the transcript to the clipboard.
 - **Memory is respected.** The LLM warm-loads with a one-token generation to absorb Metal shader compilation, caps the MLX GPU cache after each run, and unloads itself after 10 minutes of inactivity. The whisper context loads lazily and reloads only on model change.
 
 ## Technology
@@ -59,20 +59,20 @@ Requirements: Apple Silicon (arm64), macOS 14+, Microphone + Accessibility permi
 
 The package deliberately splits into two targets:
 
-- **`LocalFlowCore`** — pure, dependency-free logic: the dictation and hotkey state machines (including the double-tap/hold/cancel timing rules), VAD trimmer, hallucination filter, vocabulary engine, cleanup prompt builder and output guards, and the model catalog. Everything here is deterministic and covered by unit tests that run without permissions, models, or hardware.
-- **`LocalFlowApp`** — the executable: thin SwiftUI views and system-facing services (audio capture, event monitors, whisper and MLX actors, AX-based text injection, model downloads with atomic `.partial` → rename semantics and disk-space checks, permissions). `DictationController` orchestrates the pipeline and owns the state machine.
+- **`PeluniCore`** — pure, dependency-free logic: the dictation and hotkey state machines (including the double-tap/hold/cancel timing rules), VAD trimmer, hallucination filter, vocabulary engine, cleanup prompt builder and output guards, and the model catalog. Everything here is deterministic and covered by unit tests that run without permissions, models, or hardware.
+- **`PeluniApp`** — the executable: thin SwiftUI views and system-facing services (audio capture, event monitors, whisper and MLX actors, AX-based text injection, model downloads with atomic `.partial` → rename semantics and disk-space checks, permissions). `DictationController` orchestrates the pipeline and owns the state machine.
 
 Integration tests (whisper smoke test against a real model) skip gracefully when models aren't downloaded; TCC-gated flows (permissions, injection) are covered by a manual test checklist since macOS makes them impossible to automate.
 
 ## Building
 
 ```sh
-make run      # build, bundle dist/LocalFlow.app, quit any running copy, launch the new build
+make run      # build, bundle dist/peluni.app, quit any running copy, launch the new build
               # (first run also does make vendor + make cert: fetch the whisper.cpp xcframework, create a stable signing identity)
 make test     # unit + integration tests
 ```
 
-Two build-system subtleties are load-bearing: the app bundle must be built with `xcodebuild` rather than `swift build` (SwiftPM cannot compile MLX's Metal shaders), and rebuilds must be signed with a stable identity or macOS revokes the Accessibility grant on every build — `make cert` creates a self-signed "LocalFlow Dev" certificate so permissions survive the development loop.
+Two build-system subtleties are load-bearing: the app bundle must be built with `xcodebuild` rather than `swift build` (SwiftPM cannot compile MLX's Metal shaders), and rebuilds must be signed with a stable identity or macOS revokes the Accessibility grant on every build — `make cert` creates a self-signed "peluni Dev" certificate so permissions survive the development loop.
 
 ## Status & roadmap
 
