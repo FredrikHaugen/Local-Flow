@@ -16,10 +16,13 @@ describe("Intro", () => {
     expect(region.textContent).toContain(INTRO.bodyAfter);
   });
 
-  test("the take shows the finished result, with no overlay left over it", () => {
+  test("the scene is honest: the last take has landed, the overlay listens over an empty new row", () => {
     const { container } = render(<Intro />);
     expect(container.textContent).toContain(USING.window.text);
-    expect(container.querySelector(".wave-bar")).toBeNull();
+    expect(container.querySelector(".wave-bar")).not.toBeNull();
+    const rows = [...container.querySelectorAll("figure ul:not([aria-hidden]) > li")];
+    expect(rows.at(-2)!.textContent).toBe(USING.window.text);
+    expect(rows.at(-1)!.textContent).toBe("");
   });
 
   test("offers phones a way to send the page to a Mac", () => {

@@ -21,10 +21,15 @@ export const USING = {
   paragraphs: [
     "peluni lives in the menu bar, and the text lands in whichever app has focus, typically in about a second with the base model.",
   ],
-  sceneLabel: "One dictation, from what whisper heard to what gets pasted",
-  // The take the hero walks through, and the app it lands in.
+  sceneLabel: "Dictating into Reminders",
+  // The hero scene: a Reminders list where the last dictation has landed and the next one is being spoken.
   window: {
     app: "Reminders",
+    sidebar: ["Today", "Scheduled", "All", "Errands"],
+    list: "Errands",
+    // Reminders already on the list, above the one that just landed.
+    earlier: ["Return the library books", "Book a haircut for Saturday"],
+    heardLabel: "Heard",
     // What you said, and the indexes of the words the cleanup dropped from it.
     raw: "um pick up the uh charger and like oat milk on the way home",
     dropped: [0, 4, 7] as number[],
