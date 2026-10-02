@@ -48,8 +48,8 @@ function OfflineScene() {
 // The one section that breaks the page's pattern: centred, the scene first, the claim at display size.
 export function Audio() {
   return (
-    <Chapter id="privacy" title={AUDIO.title} wide className="band-dark mt-24 py-20 text-center sm:mt-32 sm:py-28">
-      <p className="mx-auto mt-6 max-w-4xl text-[clamp(2.4rem,1.5rem+3.8vw,4.75rem)] leading-[1.04] tracking-[-0.02em]">{AUDIO.display}</p>
+    <Chapter id="privacy" title={AUDIO.title} wide hiddenTitle className="band-dark mt-24 py-20 text-center sm:mt-32 sm:py-28">
+      <p className="mx-auto max-w-4xl text-[clamp(2.4rem,1.5rem+3.8vw,4.75rem)] leading-[1.04] tracking-[-0.02em]">{AUDIO.display}</p>
       <OfflineScene />
       <p className="mx-auto mt-12 max-w-2xl">
         {AUDIO.paragraphs[0]} {AUDIO.sourceBefore}{" "}

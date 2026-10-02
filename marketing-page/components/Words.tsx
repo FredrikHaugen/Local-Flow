@@ -20,9 +20,7 @@ export function Words() {
   const heardTerms = WORDS.terms.flatMap((t) => [t.term, ...t.soundsLike]);
   return (
     <Chapter id="vocabulary" title={WORDS.title} wide className="pt-20 sm:pt-28">
-      <p className="mt-5 max-w-2xl">{WORDS.vocabBody}</p>
-
-      <figure aria-label={WORDS.vocabTitle} className="mt-10">
+      <figure aria-label={WORDS.vocabTitle} className="mt-8">
         <p className="font-sans text-sm font-semibold text-muted">{WORDS.heardLabel}</p>
         <p className="mt-2 font-mono text-[clamp(1.05rem,0.95rem+0.5vw,1.35rem)] text-muted">
           {withTerms(WORDS.heard, heardTerms, "bg-transparent text-foreground underline decoration-dotted underline-offset-4")}
@@ -40,6 +38,7 @@ export function Words() {
           ))}
         </ul>
       </figure>
+      <p className="mt-6 max-w-2xl">{WORDS.vocabBody}</p>
 
     </Chapter>
   );

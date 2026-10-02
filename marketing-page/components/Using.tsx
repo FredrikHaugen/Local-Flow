@@ -39,7 +39,14 @@ function DesktopShot() {
       </div>
       {/* The app the text lands in, behind the menu. */}
       <div className="window-shadow absolute left-4 top-12 hidden w-[30rem] max-w-[50%] overflow-hidden rounded-xl bg-card sm:left-6 sm:block">
-        <p className="border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">{USING.window.app}</p>
+        <p className="relative border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">
+          <span aria-hidden="true" className="absolute left-3 top-1/2 flex -translate-y-1/2 gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+          </span>
+          {USING.window.app}
+        </p>
         <p className="px-7 py-6 font-serif text-[1.3rem] leading-relaxed">
           {USING.window.text}
           <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-foreground" />

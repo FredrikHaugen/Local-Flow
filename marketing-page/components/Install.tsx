@@ -1,4 +1,5 @@
 import { Chapter } from "@/components/Chapter";
+import { Logomark } from "@/components/Logomark";
 import { INSTALL_GUIDE } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
@@ -26,8 +27,9 @@ export function Install() {
       </ol>
       <a
         href={SITE.releasesUrl}
-        className="mt-12 inline-flex min-h-14 items-center rounded-md bg-foreground px-7 font-sans text-[1.15rem] font-semibold text-background transition-opacity hover:opacity-90"
+        className="mt-12 inline-flex min-h-16 items-center gap-3 rounded-xl bg-foreground py-3 pl-3 pr-7 font-sans text-[1.2rem] font-semibold text-background transition-opacity hover:opacity-90"
       >
+        <Logomark className="h-10 w-10" />
         {INSTALL_GUIDE.download}
       </a>
     </Chapter>

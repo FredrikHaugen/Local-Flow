@@ -12,22 +12,7 @@ export function Cleanup() {
 
       <fieldset className="levels mt-10 min-w-0">
         <legend className="sr-only">{CLEANUP_LEVELS.legend}</legend>
-        <div className="inline-flex flex-wrap gap-1 rounded-lg bg-card p-1.5 font-sans text-foreground shadow-[0_1px_0_rgb(0_0_0/0.08)]">
-          {CLEANUP_LEVELS.levels.map((level) => (
-            <label key={level.id} className="level-opt cursor-pointer rounded-md px-5 py-2.5 text-[1.05rem] font-semibold">
-              <input
-                type="radio"
-                name="cleanup-level"
-                value={level.id}
-                defaultChecked={level.id === CLEANUP_LEVELS.defaultLevel}
-                className="sr-only"
-              />
-              {level.name}
-            </label>
-          ))}
-        </div>
-
-        <div className="mt-10">
+        <div className="mt-6">
           {CLEANUP_LEVELS.levels.map((level) => (
             <div key={level.id} data-out={level.id} className="level-out">
               <p className="font-sans text-base text-muted">
@@ -59,6 +44,21 @@ export function Cleanup() {
             </div>
           ))}
         </div>
+        <div className="mt-10 inline-flex flex-wrap gap-1 rounded-xl bg-card p-2 font-sans text-foreground shadow-[0_1px_0_rgb(0_0_0/0.08)]">
+          {CLEANUP_LEVELS.levels.map((level) => (
+            <label key={level.id} className="level-opt cursor-pointer rounded-lg px-6 py-3 text-lg font-semibold">
+              <input
+                type="radio"
+                name="cleanup-level"
+                value={level.id}
+                defaultChecked={level.id === CLEANUP_LEVELS.defaultLevel}
+                className="sr-only"
+              />
+              {level.name}
+            </label>
+          ))}
+        </div>
+
       </fieldset>
 
     </Chapter>
