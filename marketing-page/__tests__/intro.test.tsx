@@ -11,6 +11,7 @@ describe("Intro", () => {
     const region = screen.getByRole("region", { name: INTRO.title });
     expect(region.id).toBe("top");
     expect(within(region).getByRole("heading", { level: 1, name: INTRO.title })).toBeDefined();
+    expect(region.textContent).toContain(INTRO.bodyMore);
     expect(within(region).getByRole("link", { name: INTRO.download }).getAttribute("href")).toBe(SITE.releasesUrl);
     expect(within(region).getByRole("figure", { name: USING.sceneLabel })).toBeDefined();
   });
@@ -35,7 +36,7 @@ describe("Intro", () => {
 describe("The closing download", () => {
   test("closes on how to use it, the requirements and the page's one version mention", () => {
     const { container } = render(<Install />);
-    expect(container.textContent).toContain(INTRO.bodyMore);
+    expect(container.textContent).toContain(INTRO.summary);
     const cta = screen.getByRole("link", { name: INSTALL_GUIDE.download }).closest("[data-cta]")!;
     for (const r of INSTALL_GUIDE.requirements.slice(0, 2)) expect(cta.textContent).toContain(r.title);
     expect(cta.textContent).toContain(SITE.version);

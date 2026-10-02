@@ -8,7 +8,8 @@ const introAfter = "and talk.";
 const introMore = "When you let go, your words are pasted where your cursor is, already cleaned up.";
 
 export const INTRO = {
-  title: "peluni types what you say into any app on your Mac.",
+  title: `${introBefore} ${introKey} ${introAfter}`,
+  summary: "peluni types what you say into any app on your Mac.",
   bodyBefore: introBefore,
   key: introKey,
   bodyAfter: introAfter,
@@ -110,14 +111,12 @@ export const WORDS = {
 
 export const AUDIO = {
   title: "Where your audio goes",
-  // The scene: the menu bar with Wi-Fi switched off, and a reply landing in Messages anyway.
+  // The scene: Wi-Fi switched off, and a reply landing in Messages anyway.
   scene: {
     label: "Dictating with Wi-Fi off",
     wifi: "Wi-Fi",
     wifiState: "Off",
     app: "Messages",
-    menus: ["File", "Edit", "View"],
-    clock: "Fri 6:04 PM",
     contact: "Sam",
     incoming: "Still on for 6?",
     text: "Running ten minutes late, start without me and I'll catch up on the notes.",

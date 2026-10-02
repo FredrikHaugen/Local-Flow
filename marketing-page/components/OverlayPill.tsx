@@ -11,7 +11,7 @@ export function OverlayPill() {
   return (
     <div
       aria-hidden="true"
-      className="inline-flex h-10 items-center gap-2.5 rounded-full bg-overlay px-4 font-sans ring-1 ring-inset ring-white/15 text-overlay-foreground shadow-[0_14px_30px_-12px_rgb(0_0_0/0.5)]"
+      className="inline-flex h-10 items-center gap-2.5 rounded-full bg-overlay px-4 font-sans ring-1 ring-inset ring-white/25 text-overlay-foreground shadow-[0_14px_30px_-12px_rgb(0_0_0/0.5)]"
     >
       <span className="flex h-5 items-center gap-[2px]">
         {OVERLAY_BARS.map((h, i) => (
