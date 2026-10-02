@@ -2,7 +2,7 @@ import { DownloadButton } from "@/components/DownloadButton";
 import { Kbd } from "@/components/Kbd";
 import { SendToMac } from "@/components/SendToMac";
 import { Take } from "@/components/Take";
-import { INTRO } from "@/lib/content";
+import { INTRO, QUESTIONS, USING } from "@/lib/content";
 
 // The first screen: how you use it as the headline, what happens when you let go, the download, then
 // Reminders mid-dictation. What peluni is, in one line, closes the page next to the second download.
@@ -19,6 +19,11 @@ export function Intro() {
         </div>
 
         <Take />
+        {/* Under the scene: how fast it is, and the other way to hold the key. */}
+        <div className="mt-6 grid max-w-4xl gap-x-12 gap-y-3 text-[1.05rem] text-muted sm:grid-cols-2">
+          <p>{USING.paragraphs[0]}</p>
+          <p>{QUESTIONS.items[0].a}</p>
+        </div>
 
         {/* Phones only: the download is for a Mac, so offer to send the page there. */}
         <SendToMac className="mt-6 md:hidden" />

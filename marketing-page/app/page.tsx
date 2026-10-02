@@ -4,7 +4,6 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Install } from "@/components/Install";
 import { Intro } from "@/components/Intro";
-import { Questions } from "@/components/Questions";
 import { Words } from "@/components/Words";
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
         <Cleanup />
         <Words />
         <Audio />
-        <Questions />
         <Install />
       </main>
       <Footer />

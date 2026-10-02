@@ -151,16 +151,17 @@ export const INSTALL_GUIDE = {
   ],
 } as const;
 
+// The questions people ask, each answered where it belongs on the page (and as Q&A in /llms.txt), so
+// every answer reads on its own: hands-free under the hero, transcripts and passwords in the privacy band.
 export const QUESTIONS = {
-  title: "Questions",
   items: [
     {
       q: "Can I dictate hands-free?",
-      a: "Yes. Double-tap Right ⌥ and it keeps recording until you press it once more. Esc cancels at any point, and a tap shorter than 0.3 seconds is ignored.",
+      a: "Double-tap Right ⌥ to keep recording with your hands free, and press it once more to stop. Esc cancels at any point, and a tap shorter than 0.3 seconds is ignored.",
     },
     {
       q: "Does it keep my transcripts?",
-      a: "The last ten stay in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them. If a paste can't land, the text waits on your clipboard.",
+      a: "peluni keeps your last ten transcripts in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them. If a paste can't land, the text waits on your clipboard.",
     },
     {
       q: "What happens in a password field?",

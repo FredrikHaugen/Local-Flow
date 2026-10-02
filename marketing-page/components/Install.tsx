@@ -1,6 +1,6 @@
 import { Chapter } from "@/components/Chapter";
 import { DownloadButton } from "@/components/DownloadButton";
-import { INSTALL_GUIDE, INTRO } from "@/lib/content";
+import { INSTALL_GUIDE, INTRO, QUESTIONS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 // The page ends on a decision: what peluni is, at display size, the download, what your Mac needs, and
@@ -36,6 +36,17 @@ export function Install() {
           </li>
         ))}
       </ol>
+      <p className="mt-6 font-sans text-[0.95rem] text-muted">
+        {QUESTIONS.detailsBefore}
+        <a href={`${SITE.repoUrl}#readme`} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
+          {QUESTIONS.detailsLink}
+        </a>
+        {QUESTIONS.detailsAfter} {QUESTIONS.moreBefore}
+        <a href={`${SITE.repoUrl}/issues`} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
+          {QUESTIONS.moreLink}
+        </a>
+        {QUESTIONS.moreAfter}
+      </p>
     </Chapter>
   );
 }

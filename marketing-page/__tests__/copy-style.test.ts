@@ -33,7 +33,7 @@ describe("copy style", () => {
   });
 
   test("section headings are plain labels, not slogans", () => {
-    const headings = [content.CLEANUP_LEVELS.title, content.WORDS.title, content.AUDIO.title, content.INSTALL_GUIDE.title, content.QUESTIONS.title];
+    const headings = [content.CLEANUP_LEVELS.title, content.WORDS.title, content.AUDIO.title, content.INSTALL_GUIDE.title];
     for (const h of headings) {
       expect(h, h).not.toMatch(/[.!?]$/);
       expect(h.split(" ").length, h).toBeLessThanOrEqual(5);

@@ -1,24 +1,29 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Footer } from "@/components/Footer";
-import { Questions } from "@/components/Questions";
-import { FOOTER_NOTE, QUESTIONS, USING } from "@/lib/content";
+import { Audio } from "@/components/Audio";
+import { Install } from "@/components/Install";
+import { Intro } from "@/components/Intro";
+import { AUDIO, FOOTER_NOTE, QUESTIONS, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-describe("Questions", () => {
-  test("answers a buyer's questions in the open, speed first, and points to the README for reference detail", () => {
-    render(<Questions />);
-    const region = screen.getByRole("region", { name: QUESTIONS.title });
-    expect(region.id).toBe("faq");
-    expect(region.querySelectorAll("details, table, pre")).toHaveLength(0);
-    const asked = within(region).getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
-    expect(asked[0]).toBe(USING.speedTitle);
-    expect(asked.length).toBeLessThanOrEqual(5);
-    expect(region.textContent).toContain(USING.paragraphs[0]);
-    for (const item of QUESTIONS.items) expect(within(region).getByText(item.a)).toBeDefined();
-    expect(QUESTIONS.items[0].q).not.toMatch(/is it free|really free|cost|price/i);
-    expect(within(region).getByRole("link", { name: QUESTIONS.detailsLink }).getAttribute("href")).toBe(`${SITE.repoUrl}#readme`);
-    expect(within(region).getByRole("link", { name: QUESTIONS.moreLink }).getAttribute("href")).toBe(`${SITE.repoUrl}/issues`);
+describe("Answers in place", () => {
+  test("speed and hands-free sit under the hero scene", () => {
+    const { container } = render(<Intro />);
+    expect(container.textContent).toContain(USING.paragraphs[0]);
+    expect(container.textContent).toContain(QUESTIONS.items[0].a);
+  });
+
+  test("transcripts and password fields sit in the privacy band", () => {
+    render(<Audio />);
+    const region = screen.getByRole("region", { name: AUDIO.title });
+    for (const item of QUESTIONS.items.slice(1)) expect(within(region).getByText(item.a)).toBeDefined();
+  });
+
+  test("the download points to the README and to issues", () => {
+    render(<Install />);
+    expect(screen.getByRole("link", { name: QUESTIONS.detailsLink }).getAttribute("href")).toBe(`${SITE.repoUrl}#readme`);
+    expect(screen.getByRole("link", { name: QUESTIONS.moreLink }).getAttribute("href")).toBe(`${SITE.repoUrl}/issues`);
   });
 });
 
