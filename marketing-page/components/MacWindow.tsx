@@ -15,7 +15,7 @@ export function MacWindow({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`overflow-hidden rounded-xl bg-card text-foreground ${className}`}>
+    <div className={`overflow-hidden rounded-xl bg-card font-sans text-foreground ${className}`}>
       <div className="relative flex h-10 items-center gap-2 border-b border-border bg-background/60 px-3.5">
         <span aria-hidden="true" className="flex gap-2">
           <span className="h-3 w-3 rounded-full bg-mac-close" />

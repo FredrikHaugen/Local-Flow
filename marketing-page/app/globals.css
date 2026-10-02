@@ -216,12 +216,26 @@ h3 {
     var(--wallpaper);
 }
 
-/* A product window floating on the wallpaper. */
+/* The desktop behind the product demo. */
+.desk {
+  background: var(--desk);
+}
+
+/* Text shown as just pasted: macOS's own selection highlight. */
+.selected {
+  background: var(--select);
+  color: var(--select-foreground);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  border-radius: 2px;
+}
+
+/* A product window on the desk. Plain black shadows read correctly in both themes. */
 .window-shadow {
   box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--ink) 14%, transparent),
-    0 40px 80px -30px color-mix(in oklab, var(--ink) 70%, transparent),
-    0 12px 24px -12px color-mix(in oklab, var(--ink) 40%, transparent);
+    0 0 0 1px rgb(0 0 0 / 0.08),
+    0 30px 60px -28px rgb(0 0 0 / 0.45),
+    0 10px 20px -12px rgb(0 0 0 / 0.25);
 }
 
 /* Freshly pasted text gets a faint signal-colored wash, like a just-landed selection. */
