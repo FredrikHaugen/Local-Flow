@@ -69,7 +69,7 @@ describe("no template tells", () => {
   test("tables scroll inside their own container", () => {
     const { container } = render(<Home />);
     const tables = container.querySelectorAll("table");
-    expect(tables.length).toBeGreaterThanOrEqual(2);
+    expect(tables.length).toBeGreaterThanOrEqual(1);
     for (const t of tables) expect(t.parentElement?.className).toContain("overflow-x-auto");
   });
 

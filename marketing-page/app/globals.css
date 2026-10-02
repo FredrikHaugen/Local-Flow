@@ -120,6 +120,24 @@ h3 {
   background: var(--desk);
 }
 
+/* The audio path: an arrow between stages, across on wide screens and down on phones. */
+.audio-path li + li::before {
+  content: "↓";
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--muted);
+}
+@media (min-width: 40rem) {
+  .audio-path li + li::before {
+    content: "→";
+    position: absolute;
+    left: -1.85rem;
+    top: 0;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+}
+
 /* Text shown as just pasted: macOS's own selection highlight. */
 .selected {
   background: var(--select);

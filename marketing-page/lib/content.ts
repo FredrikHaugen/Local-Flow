@@ -4,15 +4,13 @@ import { SITE } from "@/lib/site";
 
 const introBefore = "Hold";
 const introKey = "Right ⌥";
-const introAfter =
-  "and talk. When you let go, peluni transcribes the recording with whisper.cpp, lets a small language model remove the ums and fix the punctuation, and pastes the text where your cursor is, typically in about a second with the base model. The audio stays on your Mac the whole time.";
+const introAfter = "and talk. When you let go, your words are pasted where your cursor is, already cleaned up.";
 
 export const INTRO = {
   title: "peluni types what you say into any app on your Mac.",
   bodyBefore: introBefore,
   key: introKey,
   bodyAfter: introAfter,
-  // The same sentence as one string, for the sourced-claim test.
   body: `${introBefore} ${introKey} ${introAfter}`,
   download: "Download for Mac",
   requirement: "Needs macOS 14 or later on an Apple Silicon Mac.",
@@ -22,16 +20,15 @@ export const INTRO = {
 export const USING = {
   title: "Using it",
   paragraphs: [
-    "peluni lives in the menu bar and waits for the right Option key. While it listens, a small overlay with a level meter sits at the bottom of the screen, so you can see that it hears you.",
+    "peluni lives in the menu bar and waits for the right Option key. While it listens, a small overlay with a level meter sits at the bottom of the screen, so you can see that it hears you. When you let go, whisper.cpp transcribes the recording, a small language model removes the ums and fixes the punctuation, and the text is pasted, typically in about a second with the base model.",
     "It pastes into whichever app has focus: Mail, Slack, Xcode, a terminal, a form in Safari. If a paste can't land, the text stays on your clipboard and the overlay asks you to press ⌘V. Your last ten transcripts are also in the menu bar, kept in memory until you quit.",
   ],
-  caption: "Keys",
-  columns: ["Do this", "What happens"],
+  keysLabel: "Keys",
   keys: [
-    { press: "Hold Right ⌥", result: "Records while the key is down. Let go and the text is pasted." },
-    { press: "Double-tap Right ⌥", result: "Keeps recording with your hands free. Press Right ⌥ once more to finish." },
-    { press: "Esc", result: "Cancels at any point, and nothing is pasted." },
-    { press: "Tap Right ⌥ briefly", result: "Ignored. Less than 0.3 seconds of speech counts as an accidental press." },
+    { how: "Hold", key: "Right ⌥", result: "Records while the key is down. Let go and the text is pasted." },
+    { how: "Double-tap", key: "Right ⌥", result: "Keeps recording with your hands free. Press Right ⌥ once more to finish." },
+    { how: "Press", key: "Esc", result: "Cancels at any point, and nothing is pasted." },
+    { how: "Tap", key: "Right ⌥", result: "A tap is ignored: less than 0.3 seconds of speech counts as an accidental press." },
   ],
 } as const;
 
@@ -41,7 +38,7 @@ export const CLEANUP_LEVELS = {
   title: "Cleanup levels",
   paragraphs: [
     "Whisper writes down everything you say, false starts included. The cleanup pass decides how much of that you keep. Light, the default, drops filler words and adds punctuation. High also turns a spoken list into a written one.",
-    "If the cleanup model errors or takes longer than ten seconds, peluni pastes the raw transcript instead, so a slow model never costs you the sentence.",
+    "If the cleanup model errors or takes longer than ten seconds, peluni pastes the raw transcript instead.",
   ],
   legend: "Cleanup level",
   heardLabel: "You said",
@@ -107,7 +104,7 @@ export const WORDS = {
   models: [
     { name: "Tiny", size: "78 MB", note: "older Macs, quick notes" },
     { name: "Base", size: "148 MB", note: "where to start" },
-    { name: "Small", size: "488 MB", note: "the best balance" },
+    { name: "Small", size: "488 MB", note: "fewer mistakes, still quick" },
     { name: "Medium", size: "1.5 GB", note: "accents and noisy rooms" },
     { name: "Large v3 Turbo", size: "1.6 GB", note: "the most accurate" },
   ],
@@ -116,16 +113,26 @@ export const WORDS = {
 export const AUDIO = {
   title: "Where your audio goes",
   paragraphs: [
-    "It stays in memory on your Mac. The microphone is read at 16 kHz, silence is trimmed off, whisper.cpp transcribes on the GPU and the cleanup model runs through Apple's MLX before the text is pasted. None of those steps uses the network.",
-    "The app goes online for one reason: to download a model from Hugging Face when you ask for one. Once you have a model you can turn Wi-Fi off and keep dictating. There is no analytics or crash reporting in the app, and you don't sign in to anything.",
+    "It stays in memory on your Mac, and none of the steps above uses the network. The app only goes online to download a model from Hugging Face when you ask for one, so once you have a model you can turn Wi-Fi off and keep dictating. There is no analytics or crash reporting in the app, and you don't sign in to anything.",
     "Password fields are detected through the Accessibility API. While one has focus, peluni won't type into it or touch the clipboard.",
   ],
+  pathLabel: "The path a recording takes",
+  boundary: "Your Mac",
+  stages: [
+    { name: "Microphone", detail: "read at 16 kHz" },
+    { name: "Trim", detail: "silence cut off" },
+    { name: "whisper.cpp", detail: "transcribes on the GPU" },
+    { name: "Cleanup model", detail: "runs through MLX" },
+    { name: "Paste", detail: "where your cursor is" },
+  ],
+  outside: "Hugging Face",
+  outsideDetail: "model downloads, only when you ask",
   storageBefore: "Models are kept in",
   storagePath: "~/Library/Application Support/peluni/",
   storageAfter: "and your vocabulary is a plain JSON file in the same folder.",
-  sourceBefore: "All of it is in",
-  sourceLink: "the source on GitHub",
-  sourceAfter: ", under the MIT license.",
+  sourceBefore: "The code for all of this is",
+  sourceLink: "on GitHub",
+  sourceAfter: ", MIT licensed.",
 } as const;
 
 export const INSTALL_GUIDE = {
@@ -176,7 +183,7 @@ export const QUESTIONS = {
     },
     {
       q: "What happens in a password field?",
-      a: "Nothing at all. peluni detects secure fields and neither types into them nor writes to the clipboard while one has focus.",
+      a: "peluni detects secure fields and won't type into them or write to the clipboard while one has focus.",
     },
     {
       q: "What does it cost?",

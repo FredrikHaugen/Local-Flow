@@ -3,8 +3,8 @@ import { SITE } from "@/lib/site";
 
 export function Header() {
   return (
-    <header className="border-b border-border">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
+    <header className="border-b border-border px-4 sm:px-6">
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4">
         <a href="#top" className="rounded-sm">
           <Wordmark />
         </a>
@@ -14,7 +14,7 @@ export function Header() {
           </a>
           <a
             href={SITE.releasesUrl}
-            className="inline-flex min-h-10 items-center rounded-md bg-foreground px-3.5 font-semibold text-background transition-opacity hover:opacity-90"
+            className="hidden min-h-10 items-center rounded-md sm:inline-flex bg-foreground px-3.5 font-semibold text-background transition-opacity hover:opacity-90"
           >
             Download
           </a>

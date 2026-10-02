@@ -38,8 +38,6 @@ export const DEMO = {
   typedLabel: "What peluni typed",
   // The real overlay's label while recording (Sources/PeluniApp/UI/OverlayView.swift).
   overlayLabel: "Listening…  (esc to cancel)",
-  menuItems: ["Mail", "File", "Edit", "View", "Message"],
-  clock: "Fri 4:12 PM",
 } as const;
 
 // Opt-in page analytics. Nothing from Clarity loads, and no cookie is set, until the visitor allows it.

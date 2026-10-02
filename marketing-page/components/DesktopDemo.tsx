@@ -33,68 +33,42 @@ function OverlayPill() {
   );
 }
 
-// The Mac's menu bar, with peluni's own template icon lit by the record light.
-function MenuBar() {
-  return (
-    <div aria-hidden="true" className="flex h-8 items-center gap-5 border-b border-border/70 px-4 font-sans text-[0.8rem] sm:px-6">
-      {DEMO.menuItems.map((item, i) => (
-        <span key={item} className={`${i === 0 ? "font-bold" : "text-foreground/80"} ${i > 2 ? "hidden sm:inline" : ""}`}>
-          {item}
-        </span>
-      ))}
-      <span className="ml-auto flex items-center gap-4">
-        <svg viewBox="10 26 90 68" className="h-3.5 w-auto" fill="none">
-          <path d="M20 41H43.6522L68.7826 83H88" stroke="currentColor" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="80" cy="41" r="12" className="rec-dot fill-rec" />
-        </svg>
-        <span className="tabular-nums">{DEMO.clock}</span>
-      </span>
-    </div>
-  );
-}
-
+// The product doing its one job: what you said, the overlay while you said it, and the paste.
 export function DesktopDemo() {
   const words = DEMO.raw.split(" ");
   return (
-    <figure className="desk mt-14 sm:mt-20">
-      <MenuBar />
-      <div className="mx-auto grid max-w-5xl items-center gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-12">
-        <div>
-          <p className="font-sans text-sm font-semibold text-muted">{DEMO.heardLabel}</p>
-          <p data-demo="raw" className="demo-heard mt-2 font-mono text-[0.95rem] leading-relaxed">
-            {words.map((word, i) => (
-              <span key={i}>
-                {i > 0 && " "}
-                {fillers.has(word) ? <s className="text-muted decoration-foreground/50">{word}</s> : word}
-              </span>
-            ))}
-          </p>
-          <div className="mt-6">
-            <OverlayPill />
-          </div>
-        </div>
+    <figure className="desk relative rounded-xl px-4 pb-10 pt-5 sm:px-7 sm:pb-12 sm:pt-6">
+      <p className="font-sans text-sm font-semibold text-muted">{DEMO.heardLabel}</p>
+      <p data-demo="raw" className="demo-heard mt-1.5 font-mono text-[0.85rem] leading-relaxed">
+        {words.map((word, i) => (
+          <span key={i}>
+            {i > 0 && " "}
+            {fillers.has(word) ? <s className="text-muted decoration-foreground/50">{word}</s> : word}
+          </span>
+        ))}
+      </p>
 
-        <MacWindow title={DEMO.subject} className="window-shadow">
-          <dl className="text-[0.85rem]">
-            <div className="flex gap-2 border-b border-border px-5 py-2.5">
-              <dt className="text-muted">To:</dt>
-              <dd className="font-medium">{DEMO.to}</dd>
-            </div>
-            <div className="hidden gap-2 border-b border-border px-5 py-2.5 sm:flex">
-              <dt className="text-muted">Subject:</dt>
-              <dd className="font-medium">{DEMO.subject}</dd>
-            </div>
-          </dl>
-          <div className="px-5 pb-7 pt-5 sm:min-h-52 sm:px-7">
-            <p className="text-sm font-semibold text-muted">{DEMO.typedLabel}</p>
-            <p className="demo-paste mt-2 font-serif text-[1.1rem] leading-[1.7]">
-              <span data-demo="cleaned" className="selected">
-                {DEMO.cleaned}
-              </span>
-              <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] bg-foreground" />
-            </p>
+      <MacWindow title={DEMO.subject} className="window-shadow mt-5">
+        <dl className="text-[0.85rem]">
+          <div className="flex gap-2 border-b border-border px-5 py-2.5">
+            <dt className="text-muted">To:</dt>
+            <dd className="font-medium">{DEMO.to}</dd>
           </div>
-        </MacWindow>
+        </dl>
+        <div className="px-5 pb-8 pt-4">
+          <p className="text-sm font-semibold text-muted">{DEMO.typedLabel}</p>
+          <p className="demo-paste mt-2 font-serif text-[1.05rem] leading-[1.7]">
+            <span data-demo="cleaned" className="selected">
+              {DEMO.cleaned}
+            </span>
+            <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] bg-foreground" />
+          </p>
+        </div>
+      </MacWindow>
+
+      {/* Where the real overlay sits: centred near the bottom of the screen. */}
+      <div className="absolute inset-x-0 bottom-0 flex translate-y-1/2 justify-center">
+        <OverlayPill />
       </div>
       <figcaption className="sr-only">
         Example in {DEMO.app}: a rambling spoken message becomes a clean, punctuated paragraph. Filler words are removed

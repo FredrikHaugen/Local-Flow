@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
-import { CLEANUP_LEVELS, INSTALL_GUIDE, INTRO, WORDS } from "@/lib/content";
+import { CLEANUP_LEVELS, INSTALL_GUIDE, INTRO, USING, WORDS } from "@/lib/content";
 import { README_FACTS } from "@/lib/site";
 
 const readme = readFileSync(resolve(process.cwd(), "../README.md"), "utf8");
@@ -11,7 +11,11 @@ describe("content facts", () => {
   test("the speed claim is the sourced one", () => {
     const phrase = "typically in about a second with the base model";
     expect(project).toContain(phrase);
-    expect(INTRO.body).toContain(phrase);
+    expect(USING.paragraphs.join(" ")).toContain(phrase);
+  });
+
+  test("the intro is one short promise", () => {
+    expect(INTRO.body.split(/\s+/).length).toBeLessThanOrEqual(25);
   });
 
   test.each(README_FACTS)("README and the site's requirements both state %s", (fact) => {

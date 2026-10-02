@@ -1,6 +1,5 @@
 import { Audio } from "@/components/Audio";
 import { Cleanup } from "@/components/Cleanup";
-import { DesktopDemo } from "@/components/DesktopDemo";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Install } from "@/components/Install";
@@ -15,7 +14,6 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Intro />
-        <DesktopDemo />
         <Using />
         <Cleanup />
         <Words />
