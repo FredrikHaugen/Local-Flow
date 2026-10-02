@@ -22,8 +22,9 @@ export const USING = {
     "peluni lives in the menu bar, and the text lands in whichever app has focus, typically in about a second with the base model.",
   ],
   sceneLabel: "One dictation, from what whisper heard to what gets pasted",
-  // The take the hero walks through.
+  // The take the hero walks through, and the app it lands in.
   window: {
+    app: "Reminders",
     // What you said, and the indexes of the words the cleanup dropped from it.
     raw: "um pick up the uh charger and like oat milk on the way home",
     dropped: [0, 4, 7] as number[],

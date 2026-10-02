@@ -1,13 +1,22 @@
 import { OverlayPill } from "@/components/OverlayPill";
 import { USING } from "@/lib/content";
 
-// The hero's picture is the take itself, set in the page's own type: what whisper heard, with the
-// words cleanup drops struck through, the overlay as peluni cleans it up, then the sentence that lands.
+// The hero's picture: one Reminders window, no desktop around it. What whisper heard sits on top with
+// the words cleanup drops struck through, the overlay rides the seam while peluni cleans it up, and the
+// sentence that lands sits below at the size you'd read it in the app.
 export function Take() {
   const raw = USING.window.raw.split(" ");
   return (
-    <figure aria-label={USING.sceneLabel} className="mt-14 sm:mt-20">
-      <p data-scene="raw" className="font-mono text-[clamp(1.05rem,0.9rem+0.7vw,1.5rem)] leading-relaxed text-foreground">
+    <figure aria-label={USING.sceneLabel} className="window-shadow mt-12 overflow-hidden rounded-xl bg-card sm:mt-14">
+      <p className="relative border-b border-border px-4 py-2 text-center font-sans text-[0.8rem] font-semibold text-foreground/80">
+        <span aria-hidden="true" className="absolute left-3 top-1/2 flex -translate-y-1/2 gap-1.5">
+          <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+          <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+          <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+        </span>
+        {USING.window.app}
+      </p>
+      <p data-scene="raw" className="bg-background/60 px-6 pb-9 pt-6 font-mono text-[clamp(0.95rem,0.88rem+0.35vw,1.2rem)] leading-relaxed text-foreground sm:px-10">
         {raw.map((word, i) => (
           <span key={i}>
             {i > 0 && " "}
@@ -19,14 +28,15 @@ export function Take() {
           </span>
         ))}
       </p>
-      <div className="my-6 flex items-center gap-4 sm:my-8">
-        <OverlayPill phase="cleaning" />
-        <span aria-hidden="true" className="h-px flex-1 bg-border" />
+      <div className="relative border-t border-border px-6 pb-8 pt-10 sm:px-10">
+        <div className="absolute left-6 top-0 -translate-y-1/2 sm:left-10">
+          <OverlayPill phase="cleaning" />
+        </div>
+        <p className="text-[clamp(1.4rem,1.15rem+1vw,2rem)] leading-[1.3]">
+          {USING.window.text}
+          <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-foreground" />
+        </p>
       </div>
-      <p className="text-balance text-[clamp(2.1rem,1.2rem+3.6vw,4.4rem)] leading-[1.08] tracking-[-0.02em]">
-        {USING.window.text}
-        <span aria-hidden="true" className="caret ml-1 inline-block h-[1em] w-[3px] translate-y-[0.14em] bg-foreground" />
-      </p>
     </figure>
   );
 }
