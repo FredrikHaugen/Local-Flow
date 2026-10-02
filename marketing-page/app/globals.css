@@ -5,6 +5,7 @@
  * are the macOS text-selection blue (on text shown as just pasted) and the logo's teal as the
  * small record light.
  */
+
 :root {
   --background: #f1f2ee;
   --foreground: #171a18;

@@ -16,12 +16,19 @@ describe("findExternalRefs", () => {
     ]);
   });
 
-  test("ignores same-origin assets, data URIs and plain links", () => {
+  test("still flags a remote preload or stylesheet with other attributes after href", () => {
+    const html = `<link rel="preload" href="https://cdn.example.com/f.woff2" as="font"><link href="//x.example/a.css" rel="stylesheet">`;
+    expect(findExternalRefs(html)).toEqual(["https://cdn.example.com/f.woff2", "//x.example/a.css"]);
+  });
+
+  test("ignores same-origin assets, data URIs, plain links and canonical links", () => {
     const html = `
       <script src="/_next/static/chunks/main.js"></script>
       <link rel="stylesheet" href="/_next/static/css/app.css">
       <img alt="" src="data:image/png;base64,AAAA">
-      <a href="https://github.com/FredrikHaugen/peluni">GitHub</a>`;
+      <a href="https://github.com/FredrikHaugen/peluni">GitHub</a>
+      <link rel="canonical" href="https://peluni.app"/>
+      <link rel="alternate" type="text/markdown" href="https://peluni.app/llms.txt">`;
     expect(findExternalRefs(html)).toEqual([]);
   });
 });

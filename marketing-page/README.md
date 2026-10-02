@@ -21,6 +21,17 @@ scripts, fonts and images out of the shipped HTML.
 
 **Look:** grey-green paper, charcoal in dark mode, Source Serif 4 for reading, Atkinson Hyperlegible
 Next for the interface and Atkinson Hyperlegible Mono for transcripts (all self-hosted, see
-`app/fonts/README.md`). The only colors are macOS's selection blue on pasted text and the logo teal
-as the record light. The logomark is `components/Logomark.tsx`; favicons are `app/favicon.ico`,
+`app/fonts/README.md`). The logo teal is the one accent: the record light, and the marker under
+words peluni put there. The logomark is `components/Logomark.tsx`; favicons are `app/favicon.ico`,
 `app/icon.svg` and `app/apple-icon.png`.
+
+The share image is `app/opengraph-image.png` (1200×630, with its alt text in
+`opengraph-image.alt.txt`); regenerate it if the hero or brand changes. The web manifest is
+`app/manifest.ts`.
+
+**Search:** `SITE.url` in `lib/site.ts` is the one canonical origin. From it come `metadataBase` and
+the canonical link (`app/layout.tsx`), `app/robots.ts`, `app/sitemap.ts`, the `SoftwareApplication`
+JSON-LD (`components/JsonLd.tsx`) and `/llms.txt` (`app/llms.txt/route.ts`), all built from the same
+facts as the page and pinned by `__tests__/seo.test.ts`. The JSON-LD has no ratings, reviews or
+FAQPage on purpose. `pnpm check` treats `<link rel="canonical">`/`"alternate"` as non-fetches.
+Security headers are in `vercel.json` (`next.config` headers don't apply to a static export).

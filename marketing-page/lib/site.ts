@@ -5,6 +5,8 @@ const repoUrl = "https://github.com/FredrikHaugen/peluni";
 
 export const SITE = {
   name: "peluni",
+  // The canonical origin: metadataBase, the canonical link, sitemap, robots and JSON-LD all derive from it.
+  url: "https://peluni.app",
   description:
     "peluni is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and the text appears in whatever app you're using, transcribed and cleaned up on your Mac.",
   repoUrl,
@@ -12,6 +14,17 @@ export const SITE = {
   releasesUrl: `${repoUrl}/releases`,
   version: "0.1.0",
   license: "MIT",
+} as const;
+
+// Search and share metadata. The <title> carries the words people search for ("dictation", "Mac",
+// "offline"); "offline" is the Wi-Fi band's claim (content.ts AUDIO).
+export const SEO = {
+  title: `${SITE.name}: free offline voice dictation for Mac`,
+  ogImageAlt: `${SITE.name}: free, open-source voice dictation for macOS that runs on your Mac.`,
+  // JSON-LD: the requirement strings below are README_FACTS, so they stay in sync with the README.
+  operatingSystem: "macOS 14 (Sonoma) or later",
+  processor: "Apple Silicon (M1 or later)",
+  category: "UtilitiesApplication",
 } as const;
 
 // Phone visitors: peluni is a Mac app, so the phone's job is to get this page onto the Mac.
@@ -27,8 +40,8 @@ export const PHONE = {
 export const ANALYTICS = {
   clarityId: "yreithgab3",
   storageKey: "lf-analytics",
-  banner:
-    "Can we use Microsoft Clarity to see how people use this page? It sets cookies and records anonymous sessions. It stays off unless you allow it.",
+  // Kept short: on a phone this bar sits over the hero until it's answered.
+  banner: "Allow Microsoft Clarity analytics? It sets cookies and records anonymous sessions. Off unless you allow it.",
   allow: "Allow",
   decline: "No thanks",
   settings: "Analytics settings",
