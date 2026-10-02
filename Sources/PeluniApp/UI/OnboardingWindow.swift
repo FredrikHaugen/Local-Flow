@@ -10,14 +10,14 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Welcome to LocalFlow").font(.title.bold())
+            Text("Welcome to peluni").font(.title.bold())
             Text("Everything runs on this Mac. Three quick steps:")
 
             permissionRow(
                 granted: permissions.micGranted,
                 title: "Microphone",
                 detail: permissions.micAction == .openSystemSettings
-                    ? "Access was turned off. Switch LocalFlow on in System Settings → Privacy & Security → Microphone."
+                    ? "Access was turned off. Switch peluni on in System Settings → Privacy & Security → Microphone."
                     : "To hear you while you hold the hotkey.",
                 button: buttonTitle(permissions.micAction)
             ) {
@@ -28,7 +28,7 @@ struct OnboardingView: View {
                 granted: permissions.accessibilityGranted,
                 title: "Accessibility",
                 detail: permissions.accessibilityAction == .openSystemSettings
-                    ? "Switch LocalFlow on in System Settings → Privacy & Security → Accessibility."
+                    ? "Switch peluni on in System Settings → Privacy & Security → Accessibility."
                     : "To type the transcript into the app you're using.",
                 button: buttonTitle(permissions.accessibilityAction)
             ) {
@@ -117,7 +117,7 @@ final class OnboardingWindowController {
             contentRect: .zero,
             styleMask: [.titled, .closable],
             backing: .buffered, defer: false)
-        win.title = "LocalFlow Setup"
+        win.title = "peluni Setup"
         win.contentView = NSHostingView(rootView: OnboardingView(permissions: permissions, models: models))
         win.center()
         win.isReleasedWhenClosed = false

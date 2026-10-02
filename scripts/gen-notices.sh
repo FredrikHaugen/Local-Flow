@@ -16,7 +16,7 @@ emit() { # $1 = heading, $2 = license file
 }
 
 {
-    echo "LocalFlow includes the following third-party software. Each is"
+    echo "peluni includes the following third-party software. Each is"
     echo "distributed under the license reproduced below."
     echo
     emit "whisper.cpp $(sed -n 's/^WHISPER_VERSION := //p' Makefile)" Packaging/licenses/whisper.cpp.LICENSE

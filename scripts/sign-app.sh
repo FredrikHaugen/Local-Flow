@@ -1,5 +1,5 @@
 #!/bin/bash
-# Sign LocalFlow.app inside-out: loose nested Mach-O first, then frameworks,
+# Sign peluni.app inside-out: loose nested Mach-O first, then frameworks,
 # then the app (with entitlements), so each outer seal covers already-final
 # inner code. Never uses --deep, which would stamp the app's flags and
 # entitlements onto nested code.
@@ -8,13 +8,13 @@ set -euo pipefail
 
 APP="${1:?}"; IDENTITY="${2:?}"; MODE="${3:?}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-ENTITLEMENTS="$ROOT/Packaging/LocalFlow.entitlements"
+ENTITLEMENTS="$ROOT/Packaging/peluni.entitlements"
 
 case "$MODE" in
     release) FLAGS=(--options runtime --timestamp) ;;
     dev)     FLAGS=(--options runtime --timestamp=none)
              # Self-signed cert has no Team ID; without this, library validation blocks whisper.framework.
-             ENTITLEMENTS="$ROOT/Packaging/LocalFlow.dev.entitlements" ;;
+             ENTITLEMENTS="$ROOT/Packaging/peluni.dev.entitlements" ;;
     adhoc)   FLAGS=(--timestamp=none) ;;  # unchanged from the previous ad-hoc fallback
     *) echo "sign-app.sh: unknown mode '$MODE'" >&2; exit 2 ;;
 esac

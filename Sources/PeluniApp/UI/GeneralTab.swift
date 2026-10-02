@@ -27,7 +27,7 @@ struct GeneralTab: View {
                     .font(.caption).foregroundStyle(.secondary)
             }
             Section("Startup") {
-                Toggle("Launch LocalFlow at login", isOn: launchAtLogin)
+                Toggle("Launch peluni at login", isOn: launchAtLogin)
             }
             Section("AI cleanup") {
                 Picker("Cleanup level", selection: $cleanupLevel) {
@@ -54,7 +54,7 @@ struct GeneralTab: View {
                     if enable { try SMAppService.mainApp.register() }
                     else { try SMAppService.mainApp.unregister() }
                 } catch {
-                    NSLog("LocalFlow launch-at-login failed: \(error)")
+                    NSLog("peluni launch-at-login failed: \(error)")
                 }
             })
     }

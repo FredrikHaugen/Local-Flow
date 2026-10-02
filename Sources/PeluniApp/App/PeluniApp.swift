@@ -54,6 +54,6 @@ private struct MenuContent: View {
         SettingsLink { Text("Settings…") }.keyboardShortcut(",")
         Button("Caret probe…") { CaretProbeWindowController.show() }
         Divider()
-        Button("Quit LocalFlow") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q")
+        Button("Quit peluni") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q")
     }
 }

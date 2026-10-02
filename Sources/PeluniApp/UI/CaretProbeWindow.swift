@@ -61,7 +61,7 @@ final class CaretProbeModel: ObservableObject {
     private func sample() {
         let frontmost = NSWorkspace.shared.frontmostApplication
         let app = frontmost?.localizedName ?? "?"
-        guard app != "LocalFlow" else { return }
+        guard app != "peluni" else { return }
         var appEnhanced = false
         if let pid = frontmost?.processIdentifier {
             if enhanceAX && !enhancedPIDs.contains(pid) {

@@ -4,7 +4,7 @@ import os
 
 /// Active CGEventTap over key events (plus scroll/click for dismissal), alive
 /// only while the autocomplete toggle is on. An *active* tap needs
-/// Accessibility — which LocalFlow already requires — not Input Monitoring.
+/// Accessibility — which peluni already requires — not Input Monitoring.
 ///
 /// The tap runs on its OWN thread with its own run loop: the window server
 /// holds every keyboard event for our callback, so it must never wait on the
@@ -72,7 +72,7 @@ final class KeystrokeTapService: @unchecked Sendable {
             userInfo: retained.toOpaque()
         ) else {
             retained.release()
-            NSLog("LocalFlow: keystroke tap creation failed (Accessibility not granted?)")
+            NSLog("peluni: keystroke tap creation failed (Accessibility not granted?)")
             return false
         }
         selfRetain = retained
@@ -88,7 +88,7 @@ final class KeystrokeTapService: @unchecked Sendable {
             ready.signal()
             CFRunLoopRun()   // exits when stop() calls CFRunLoopStop
         }
-        thread.name = "LocalFlow.KeystrokeTap"
+        thread.name = "peluni.KeystrokeTap"
         thread.qualityOfService = .userInteractive
         self.thread = thread
         thread.start()
@@ -125,7 +125,7 @@ final class KeystrokeTapService: @unchecked Sendable {
             port.withLock { if let tap = $0 { CGEvent.tapEnable(tap: tap, enable: true) } }
             return Unmanaged.passUnretained(event)
         case .keyDown:
-            // LocalFlow's own synthesized events (dictation's ⌘V paste, the
+            // peluni's own synthesized events (dictation's ⌘V paste, the
             // typing fallback) must never arm an autocomplete trigger.
             if event.getIntegerValueField(.eventSourceUnixProcessID) == ownPID {
                 return Unmanaged.passUnretained(event)

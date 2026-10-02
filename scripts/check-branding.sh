@@ -8,6 +8,7 @@ cd "$(dirname "$0")/.."
 [ $# -gt 0 ] || set -- .
 hits=$(git grep --untracked -nIi -e 'localflow' -e 'local flow' -e 'local-flow' -- "$@" \
     ':!docs/superpowers/plans/' \
+    ':!scripts/check-branding.sh' \
     ':!Sources/PeluniCore/LegacyRename.swift' \
     ':!Tests/PeluniCoreTests/LegacyRenameTests.swift' \
     | grep -v '(formerly LocalFlow)' || true)

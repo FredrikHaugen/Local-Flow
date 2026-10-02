@@ -1,23 +1,23 @@
 #!/bin/bash
-# Build, sign (Developer ID + hardened runtime), notarize and staple LocalFlow,
+# Build, sign (Developer ID + hardened runtime), notarize and staple peluni,
 # then package a signed, notarized, stapled DMG and re-verify it as a user
 # would receive it.
 #
 # Credentials come only from a notarytool keychain profile (never from this
 # file). One-time setup:
-#   xcrun notarytool store-credentials LocalFlow-notary --apple-id <email> --team-id <TEAMID>
-# Env overrides: NOTARY_PROFILE (default LocalFlow-notary), DEVELOPER_ID (identity name).
+#   xcrun notarytool store-credentials peluni-notary --apple-id <email> --team-id <TEAMID>
+# Env overrides: NOTARY_PROFILE (default peluni-notary), DEVELOPER_ID (identity name).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 die() { echo "ERROR: $*" >&2; exit 1; }
 
-NOTARY_PROFILE="${NOTARY_PROFILE:-LocalFlow-notary}"
+NOTARY_PROFILE="${NOTARY_PROFILE:-peluni-notary}"
 PLIST=Packaging/Info.plist
 VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' "$PLIST" 2>/dev/null || true)
 BUILD=$(/usr/libexec/PlistBuddy -c 'Print CFBundleVersion' "$PLIST" 2>/dev/null || true)
-APP="dist/LocalFlow.app"
-DMG="dist/LocalFlow-$VERSION.dmg"
+APP="dist/peluni.app"
+DMG="dist/peluni-$VERSION.dmg"
 
 # --- Fail fast: everything checkable before the multi-minute build. ---
 # Collect every problem so one run tells you everything to fix.
@@ -57,7 +57,7 @@ if [ "${#problems[@]}" -gt 0 ]; then
     exit 1
 fi
 
-echo "==> Releasing LocalFlow $VERSION ($BUILD)"
+echo "==> Releasing peluni $VERSION ($BUILD)"
 echo "    identity: $IDENTITY"
 echo "    profile:  $NOTARY_PROFILE"
 
@@ -93,7 +93,7 @@ bash scripts/verify-signing.sh "$APP" --release
 syspolicy_check notary-submission "$APP"
 
 # --- 2. Notarize + staple the app ---
-ZIP="dist/LocalFlow-$VERSION-notarize.zip"
+ZIP="dist/peluni-$VERSION-notarize.zip"
 rm -f "$ZIP"
 ditto -c -k --keepParent "$APP" "$ZIP"
 notarize "$ZIP"
@@ -112,11 +112,11 @@ cleanup() {
 }
 trap cleanup EXIT
 
-ditto "$APP" "$STAGE/LocalFlow.app"
+ditto "$APP" "$STAGE/peluni.app"
 ln -s /Applications "$STAGE/Applications"
 cp LICENSE "$STAGE/LICENSE.txt"
 rm -f "$DMG" "$DMG.sha256"
-hdiutil create -volname "LocalFlow $VERSION" -srcfolder "$STAGE" -fs HFS+ -format UDZO -ov "$DMG"
+hdiutil create -volname "peluni $VERSION" -srcfolder "$STAGE" -fs HFS+ -format UDZO -ov "$DMG"
 codesign --force --timestamp --sign "$IDENTITY" "$DMG"
 
 # --- 4. Notarize + staple the DMG ---
@@ -130,8 +130,8 @@ spctl -a -vvv -t open --context context:primary-signature "$DMG"
 
 MOUNT=$(mktemp -d)
 hdiutil attach "$DMG" -readonly -nobrowse -noautoopen -mountpoint "$MOUNT" -quiet
-M_APP="$MOUNT/LocalFlow.app"
-[ -d "$M_APP" ] || die "DMG has no LocalFlow.app at its root"
+M_APP="$MOUNT/peluni.app"
+[ -d "$M_APP" ] || die "DMG has no peluni.app at its root"
 [ "$(readlink "$MOUNT/Applications")" = "/Applications" ] || die "DMG Applications symlink is missing or wrong"
 m_ver=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' "$M_APP/Contents/Info.plist")
 m_build=$(/usr/libexec/PlistBuddy -c 'Print CFBundleVersion' "$M_APP/Contents/Info.plist")

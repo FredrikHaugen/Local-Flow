@@ -19,11 +19,11 @@ final class AudioCaptureService {
         let input = engine.inputNode
         let inputFormat = input.outputFormat(forBus: 0)
         guard inputFormat.sampleRate > 0 else {
-            throw NSError(domain: "LocalFlow.audio", code: 1,
+            throw NSError(domain: "peluni.audio", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "No audio input device"])
         }
         guard let converter = AVAudioConverter(from: inputFormat, to: Self.targetFormat) else {
-            throw NSError(domain: "LocalFlow.audio", code: 2,
+            throw NSError(domain: "peluni.audio", code: 2,
                           userInfo: [NSLocalizedDescriptionKey: "Cannot convert mic format"])
         }
 

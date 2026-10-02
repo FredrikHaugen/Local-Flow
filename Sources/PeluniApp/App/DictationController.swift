@@ -86,7 +86,7 @@ final class DictationController: ObservableObject {
         permissions.refresh()
         guard permissions.micGranted else {
             hotkey.reset()
-            let message = "Microphone access is off. Allow it in LocalFlow Setup."
+            let message = "Microphone access is off. Allow it in peluni Setup."
             lastTranscript = message
             setPhase(machine.phase, message: message)
             OnboardingWindowController.showIfNeeded(permissions: permissions, models: .shared)
@@ -109,7 +109,7 @@ final class DictationController: ObservableObject {
             hotkey.reset()
             machine.handle(.failed)
             setPhase(machine.phase, message: error.localizedDescription)
-            NSLog("LocalFlow audio start failed: \(error.localizedDescription)")
+            NSLog("peluni audio start failed: \(error.localizedDescription)")
         }
     }
 
@@ -162,7 +162,7 @@ final class DictationController: ObservableObject {
                 guard machine.handle(.cleanupDone) else { return } // cancelled mid-cleanup
                 setPhase(machine.phase)
                 lastTranscript = cleaned
-                NSLog("LocalFlow transcript: \(cleaned)")
+                NSLog("peluni transcript: \(cleaned)")
                 let method = InjectionMethod(
                     rawValue: UserDefaults.standard.string(forKey: "injectionMethod") ?? "paste") ?? .paste
                 let result = await injector.inject(cleaned, method: method)

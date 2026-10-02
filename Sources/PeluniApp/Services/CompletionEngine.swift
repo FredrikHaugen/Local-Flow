@@ -95,7 +95,7 @@ actor CompletionEngine {
         loadTasks.removeAll()
         container = nil
         loadedModelID = nil
-        NSLog("LocalFlow: completion model unloaded")
+        NSLog("peluni: completion model unloaded")
     }
 
     nonisolated func isModelDownloaded(modelID: String) -> Bool {

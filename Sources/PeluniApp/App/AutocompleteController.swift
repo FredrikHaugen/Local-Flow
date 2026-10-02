@@ -37,7 +37,7 @@ final class AutocompleteController: ObservableObject {
         guard tap.start() else {
             // Accessibility revoked: leave the subsystem visibly dead rather
             // than pretending it runs.
-            NSLog("LocalFlow: autocomplete unavailable — event tap could not start")
+            NSLog("peluni: autocomplete unavailable — event tap could not start")
             return
         }
         phaseSub = dictation.$phase.sink { [weak self] phase in
@@ -49,7 +49,7 @@ final class AutocompleteController: ObservableObject {
             Task { @MainActor in self?.contextInvalidated() }
         }
         isRunning = true
-        NSLog("LocalFlow: autocomplete subsystem started")
+        NSLog("peluni: autocomplete subsystem started")
     }
 
     func stop() {
@@ -65,7 +65,7 @@ final class AutocompleteController: ObservableObject {
         }
         activationObserver = nil
         isRunning = false
-        NSLog("LocalFlow: autocomplete subsystem stopped")
+        NSLog("peluni: autocomplete subsystem stopped")
     }
 
     /// Focus moved, app switched, scrolled, or clicked: any pending trigger
@@ -104,7 +104,7 @@ final class AutocompleteController: ObservableObject {
             guard let suggestion = await engine.complete(context: context, modelID: modelID),
                   !Task.isCancelled else { return }
             let ms = Int((ProcessInfo.processInfo.systemUptime - started) * 1000)
-            NSLog("LocalFlow completion (\(ms) ms): \(suggestion)")
+            NSLog("peluni completion (\(ms) ms): \(suggestion)")
             // Task 7 shows the overlay here.
         }
     }

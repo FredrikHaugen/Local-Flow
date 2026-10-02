@@ -30,7 +30,7 @@ actor CleanupEngine {
         guard level != .none, text.count >= minChars else { return text }
         guard let system = builder.systemPrompt(level: level, glossary: glossary) else { return text }
         guard isModelDownloaded(modelID: modelID) else {
-            NSLog("LocalFlow: cleanup model not downloaded; using raw transcript")
+            NSLog("peluni: cleanup model not downloaded; using raw transcript")
             return text
         }
         do {
@@ -55,7 +55,7 @@ actor CleanupEngine {
             return builder.acceptOutput(output, input: text)
         } catch {
             scheduleUnload()
-            NSLog("LocalFlow: cleanup fell back to raw transcript (\(error))")
+            NSLog("peluni: cleanup fell back to raw transcript (\(error))")
             return text
         }
     }
@@ -117,6 +117,6 @@ actor CleanupEngine {
     private func unload() {
         container = nil
         loadedModelID = nil
-        NSLog("LocalFlow: cleanup model unloaded after idle period")
+        NSLog("peluni: cleanup model unloaded after idle period")
     }
 }
