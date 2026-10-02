@@ -6,11 +6,12 @@ import { FOOTER_NOTE, INSTALL_GUIDE, QUESTIONS, WORDS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 describe("Questions", () => {
-  test("answers each question in a native disclosure, practical questions first", () => {
+  test("answers the practical questions in the open, the reference detail in disclosures", () => {
     render(<Questions />);
     const region = screen.getByRole("region", { name: QUESTIONS.title });
     expect(region.id).toBe("faq");
-    expect(region.querySelectorAll("details")).toHaveLength(QUESTIONS.items.length + 3);
+    expect(region.querySelectorAll("details")).toHaveLength(3);
+    for (const item of QUESTIONS.items) expect(within(region).getByRole("heading", { name: item.q, level: 3 })).toBeDefined();
     const models = within(region).getByRole("list", { name: WORDS.modelsTitle });
     expect(models.children).toHaveLength(WORDS.models.length);
     for (const m of WORDS.models) expect(models.textContent).toContain(m.size);

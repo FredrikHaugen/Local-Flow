@@ -24,7 +24,7 @@ export function Intro() {
         </div>
 
         <DesktopScene />
-        <p className="mx-auto mt-6 max-w-3xl text-balance text-center text-[clamp(1.15rem,1rem+0.5vw,1.4rem)]">
+        <p className="mt-6 max-w-3xl text-balance text-[clamp(1.15rem,1rem+0.5vw,1.4rem)]">
           {INTRO.bodyBefore} <Kbd className="py-0 text-[0.8em] leading-normal">{INTRO.key}</Kbd> {INTRO.bodyAfter}
         </p>
 

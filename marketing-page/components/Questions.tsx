@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 function Disclosure({ q, children }: { q: string; children: React.ReactNode }) {
   return (
     <details className="border-t border-border">
-      <summary className="faq-q flex min-h-14 cursor-pointer items-center justify-between gap-6 py-3 text-[1.2rem] font-semibold">
+      <summary className="faq-q flex min-h-14 cursor-pointer items-center justify-between gap-6 py-3 font-sans text-[1.1rem] font-semibold">
         {q}
         <span aria-hidden="true" className="faq-icon text-xl leading-none text-muted">
           +
@@ -15,11 +15,11 @@ function Disclosure({ q, children }: { q: string; children: React.ReactNode }) {
   );
 }
 
-// Practical questions first. The speech
-// models, the requirements and the checksum live here too: they matter once, when you decide.
+// After the download: the practical questions answered in the open, then the reference detail (speech
+// models, requirements, the checksum) folded away, since it matters once, when you decide.
 export function Questions() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-6 px-4 pb-4 pt-24 sm:px-6 sm:pb-8 sm:pt-32">
+    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-6 px-4 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-28">
       <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16">
         <div>
           <h2 id="faq-title" className="text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.1] tracking-[-0.015em]">
@@ -33,12 +33,16 @@ export function Questions() {
             {QUESTIONS.moreAfter}
           </p>
         </div>
-        <div className="border-b border-border">
-          {QUESTIONS.items.map((item) => (
-            <Disclosure key={item.q} q={item.q}>
-              <p>{item.a}</p>
-            </Disclosure>
-          ))}
+        <div>
+          <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
+            {QUESTIONS.items.map((item) => (
+              <div key={item.q}>
+                <h3 className="font-sans text-[1.1rem] font-semibold leading-snug">{item.q}</h3>
+                <p className="mt-2">{item.a}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 border-b border-border">
           <Disclosure q={WORDS.modelsTitle}>
             <p>{WORDS.modelsBody}</p>
             <ul aria-label={WORDS.modelsTitle} className="mt-3 space-y-1">
@@ -65,6 +69,7 @@ export function Questions() {
               <code>{INSTALL_GUIDE.checksumCommand}</code>
             </pre>
           </Disclosure>
+          </div>
         </div>
       </div>
     </section>

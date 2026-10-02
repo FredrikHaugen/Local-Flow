@@ -15,9 +15,9 @@ describe("Home page", () => {
       "top",
       "cleanup",
       "vocabulary",
-      "faq",
       "privacy",
       "install",
+      "faq",
     ]);
   });
 

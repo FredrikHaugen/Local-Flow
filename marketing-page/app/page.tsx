@@ -15,9 +15,9 @@ export default function Home() {
         <Intro />
         <Cleanup />
         <Words />
-        <Questions />
         <Audio />
         <Install />
+        <Questions />
       </main>
       <Footer />
     </>

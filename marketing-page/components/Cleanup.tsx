@@ -5,10 +5,10 @@ import { CLEANUP_LEVELS } from "@/lib/content";
 // Shown at once rather than behind a picker, so the differences sit next to each other.
 export function Cleanup() {
   return (
-    <Chapter id="cleanup" title={CLEANUP_LEVELS.title} wide center className="pt-24 sm:pt-32">
-      <p className="mx-auto mt-4 max-w-2xl">{CLEANUP_LEVELS.intro}</p>
+    <Chapter id="cleanup" title={CLEANUP_LEVELS.title} wide className="pt-24 sm:pt-32">
+      <p className="mt-4 max-w-2xl">{CLEANUP_LEVELS.intro}</p>
 
-      <ol aria-label={CLEANUP_LEVELS.legend} className="window-shadow mx-auto mt-12 max-w-5xl rounded-2xl bg-card text-left">
+      <ol aria-label={CLEANUP_LEVELS.legend} className="window-shadow mt-12 rounded-2xl bg-card text-left">
         {CLEANUP_LEVELS.levels.map((level, i) => (
           <li
             key={level.id}
