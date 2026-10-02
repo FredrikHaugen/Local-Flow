@@ -6,6 +6,9 @@ requirements and speed claim against the repo's root `README.md` and `docs/PROJE
 `__tests__/copy-style.test.ts` fails on dashes, negation-then-reveal phrasing and copy that vouches
 for its own honesty.
 
+The voice and visual rules behind those tests (tone of voice, brand, claims and their sources) are
+kept in a local `.claude/rules/` folder for Claude Code; the tests are the part everyone shares.
+
     pnpm install
     pnpm dev      # http://localhost:3000
     pnpm test     # vitest
