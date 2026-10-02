@@ -19,7 +19,7 @@ export const INTRO = {
 
 export const USING = {
   paragraphs: [
-    "peluni lives in the menu bar, and the text lands in whichever app has focus, typically in about a second with the base model.",
+    "Pasted where your cursor is, typically in about a second with the base model, measured from letting go of the key.",
   ],
   sceneLabel: "Dictating into Reminders",
   // The hero scene: a Reminders list where the last dictation has landed and the next one is being spoken.
@@ -36,7 +36,6 @@ export const USING = {
     text: "Pick up the charger and oat milk on the way home.",
   },
   speedTitle: "How fast is it?",
-  keysEnd: "A tap shorter than 0.3 seconds is ignored, and if a paste can't land, the text waits on your clipboard.",
   // The real overlay's label while recording (Sources/PeluniApp/UI/OverlayView.swift).
   overlayLabel: "Listening…  (esc to cancel)",
 } as const;
@@ -116,9 +115,9 @@ export const AUDIO = {
     label: "Dictating with Wi-Fi off",
     wifi: "Wi-Fi",
     wifiState: "Off",
-    knownTitle: "Known networks",
-    known: ["Home", "Studio 4F"],
     app: "Messages",
+    menus: ["File", "Edit", "View"],
+    clock: "Fri 6:04 PM",
     contact: "Sam",
     incoming: "Still on for 6?",
     text: "Running ten minutes late, start without me and I'll catch up on the notes.",
@@ -158,11 +157,11 @@ export const QUESTIONS = {
   items: [
     {
       q: "Can I dictate hands-free?",
-      a: "Yes. Double-tap Right ⌥ and it keeps recording until you press it once more. Esc cancels at any point.",
+      a: "Yes. Double-tap Right ⌥ and it keeps recording until you press it once more. Esc cancels at any point, and a tap shorter than 0.3 seconds is ignored.",
     },
     {
       q: "Does it keep my transcripts?",
-      a: "The last ten stay in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them.",
+      a: "The last ten stay in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them. If a paste can't land, the text waits on your clipboard.",
     },
     {
       q: "What happens in a password field?",

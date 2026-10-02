@@ -13,7 +13,7 @@ export function Take() {
   const { window: w } = USING;
   const raw = w.raw.split(" ");
   return (
-    <figure aria-label={USING.sceneLabel} className="mt-14 sm:mt-16">
+    <figure aria-label={USING.sceneLabel} className="mt-12">
       <div className="window-shadow overflow-hidden rounded-xl bg-card font-sans">
         <p className="relative border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">
           <span aria-hidden="true" className="absolute left-3 top-1/2 flex -translate-y-1/2 gap-1.5">
@@ -36,29 +36,29 @@ export function Take() {
               </li>
             ))}
           </ul>
-          <div className="relative px-6 pb-24 pt-6 sm:px-10 sm:pb-28 sm:pt-8">
+          <div className="relative px-6 pb-20 pt-5 sm:px-10 sm:pb-20 sm:pt-6">
             <p className="text-[clamp(1.6rem,1.3rem+1.2vw,2.3rem)] font-bold tracking-[-0.01em]">{w.list}</p>
             <ul className="mt-4 text-[clamp(1.05rem,0.95rem+0.4vw,1.25rem)]">
               {w.earlier.map((item) => (
-                <li key={item} className="flex gap-3 border-b border-border py-3">
+                <li key={item} className="flex gap-3 border-b border-border py-2.5">
                   <Check />
                   {item}
                 </li>
               ))}
               {/* The one that just landed. */}
-              <li className="flex gap-3 border-b border-border py-3">
+              <li className="flex gap-3 border-b border-border py-2.5">
                 <Check />
                 <span>
                   <span className="selected">{w.text}</span>
                 </span>
               </li>
               {/* The next one, while you say it. */}
-              <li className="flex gap-3 py-3">
+              <li className="flex gap-3 py-2.5">
                 <Check />
                 <span aria-hidden="true" className="caret mt-[0.25em] inline-block h-[1.1em] w-[2px] bg-foreground" />
               </li>
             </ul>
-            <div className="absolute inset-x-0 bottom-6 flex justify-center">
+            <div className="absolute inset-x-0 bottom-5 flex justify-center">
               <OverlayPill />
             </div>
           </div>

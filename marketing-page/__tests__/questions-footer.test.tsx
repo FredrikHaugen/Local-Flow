@@ -15,7 +15,6 @@ describe("Questions", () => {
     expect(asked[0]).toBe(USING.speedTitle);
     expect(asked.length).toBeLessThanOrEqual(7);
     expect(region.textContent).toContain(USING.paragraphs[0]);
-    expect(region.textContent).toContain(USING.keysEnd);
     for (const r of INSTALL_GUIDE.requirements) expect(within(region).getByText(r.title)).toBeDefined();
     for (const item of QUESTIONS.items) expect(within(region).getByText(item.a)).toBeDefined();
     expect(QUESTIONS.items[0].q).not.toMatch(/is it free|really free|cost|price/i);

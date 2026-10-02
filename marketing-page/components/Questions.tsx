@@ -35,7 +35,7 @@ export function Questions() {
         <div className="mt-12 gap-x-16 sm:columns-2">
           <Answer q={USING.speedTitle}>
             <p>
-              {USING.paragraphs[0]} {USING.keysEnd}
+              {USING.paragraphs[0]}
             </p>
           </Answer>
           {QUESTIONS.items.map((item) => (
