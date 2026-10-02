@@ -10,21 +10,19 @@ function OfflineScene() {
   return (
     <figure aria-label={scene.label} className="mt-14 text-left font-sans">
       <div className="grid gap-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-8">
-        <div className="flex items-center gap-6 rounded-2xl bg-card px-8 py-8 lg:flex-col lg:items-start lg:justify-between">
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-16 w-16 shrink-0 sm:h-28 sm:w-28" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-            <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" className="opacity-35" />
-            <circle cx="12" cy="19.5" r="0.9" fill="currentColor" className="opacity-35" />
-            <path d="M3.5 3.5l17 17" strokeWidth="2" />
-          </svg>
-          <div className="flex flex-1 items-center justify-between gap-6 lg:w-full">
-            <p>
-              <span className="block text-[2rem] font-semibold leading-tight">{scene.wifi}</span>
-              <span className="text-xl text-muted">{scene.wifiState}</span>
-            </p>
-            <span aria-hidden="true" className="relative h-10 w-[4.5rem] shrink-0 rounded-full bg-foreground/20">
-              <span className="absolute left-1 top-1 h-8 w-8 rounded-full bg-foreground/80" />
-            </span>
-          </div>
+        {/* A Control Center module: the Wi-Fi button greyed out, the label beside it. */}
+        <div className="flex items-center gap-5 self-start rounded-[1.75rem] bg-card p-5 lg:flex-col lg:items-start lg:p-7">
+          <span aria-hidden="true" className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-foreground/15 sm:h-20 sm:w-20">
+            <svg viewBox="0 0 24 24" className="h-8 w-8 sm:h-10 sm:w-10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" className="opacity-40" />
+              <circle cx="12" cy="19.5" r="1" fill="currentColor" className="opacity-40" />
+              <path d="M4 4l16 16" strokeWidth="2.2" />
+            </svg>
+          </span>
+          <p>
+            <span className="block text-[1.6rem] font-semibold leading-tight">{scene.wifi}</span>
+            <span className="text-lg text-muted">{scene.wifiState}</span>
+          </p>
         </div>
 
         <div className="relative rounded-2xl bg-card px-6 pb-24 pt-6 sm:px-10">
@@ -48,7 +46,7 @@ function OfflineScene() {
 // The one section that breaks the page's pattern: centred, the scene first, the claim at display size.
 export function Audio() {
   return (
-    <Chapter id="privacy" title={AUDIO.title} wide hiddenTitle className="band-dark mt-24 py-20 text-center sm:mt-32 sm:py-28">
+    <Chapter id="privacy" title={AUDIO.title} wide hiddenTitle className="band-dark mt-24 pb-16 pt-20 text-center sm:mt-32 sm:pt-28">
       <p className="mx-auto max-w-4xl text-balance text-[clamp(2.4rem,1.5rem+3.8vw,4.75rem)] leading-[1.04] tracking-[-0.02em]">{AUDIO.display}</p>
       <OfflineScene />
       <p className="mx-auto mt-12 max-w-2xl">

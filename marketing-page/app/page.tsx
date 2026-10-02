@@ -5,7 +5,6 @@ import { Header } from "@/components/Header";
 import { Install } from "@/components/Install";
 import { Intro } from "@/components/Intro";
 import { Questions } from "@/components/Questions";
-import { Using } from "@/components/Using";
 import { Words } from "@/components/Words";
 
 export default function Home() {
@@ -14,11 +13,10 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Intro />
-        <Using />
         <Cleanup />
         <Words />
-        <Audio />
         <Questions />
+        <Audio />
         <Install />
       </main>
       <Footer />

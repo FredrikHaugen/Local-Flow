@@ -2,22 +2,17 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Cleanup } from "@/components/Cleanup";
 import { DesktopScene } from "@/components/DesktopScene";
-import { Using } from "@/components/Using";
 import { CLEANUP_LEVELS, USING } from "@/lib/content";
 
-describe("Using it", () => {
-  test("is one line and a key legend", () => {
-    render(<Using />);
-    const region = screen.getByRole("region", { name: USING.title });
-    expect(region.id).toBe("using");
-    for (const p of USING.paragraphs) expect(within(region).getByText(p)).toBeDefined();
-    const legend = region.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!;
-    expect(legend.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
-    expect(within(region).getByText(USING.keysEnd)).toBeDefined();
-  });
-});
-
 describe("DesktopScene", () => {
+  test("carries the speed line, the key legend and the paste fallback", () => {
+    const { container } = render(<DesktopScene />);
+    expect(container.textContent).toContain(USING.paragraphs[0]);
+    expect(container.textContent).toContain(USING.keysEnd);
+    const legend = container.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!;
+    expect(legend.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
+  });
+
   test("its overlay is decorative", () => {
     const { container } = render(<DesktopScene />);
     expect(container.querySelector(".wave-bar")?.closest("[aria-hidden='true']")).not.toBeNull();

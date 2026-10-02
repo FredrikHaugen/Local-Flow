@@ -37,6 +37,13 @@ describe("content facts", () => {
     }
   });
 
+  test("the hero scene strikes exactly the words its pasted line drops", () => {
+    const words = (t: string) => t.toLowerCase().replace(/[^a-z ]/g, " ").split(/\s+/).filter(Boolean);
+    const raw = USING.window.raw.split(" ");
+    const kept = raw.filter((_, i) => !(USING.window.dropped as readonly number[]).includes(i));
+    expect(words(USING.window.text)).toEqual(kept);
+  });
+
   test("the cleanup picker has the app's four levels, Light by default", () => {
     expect(CLEANUP_LEVELS.levels.map((l) => l.id)).toEqual(["none", "light", "medium", "high"]);
     expect(CLEANUP_LEVELS.defaultLevel).toBe("light");

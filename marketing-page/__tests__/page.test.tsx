@@ -13,11 +13,10 @@ describe("Home page", () => {
     const { container } = render(<Home />);
     expect([...container.querySelectorAll("main > section")].map((s) => s.id)).toEqual([
       "top",
-      "using",
       "cleanup",
       "vocabulary",
-      "privacy",
       "faq",
+      "privacy",
       "install",
     ]);
   });

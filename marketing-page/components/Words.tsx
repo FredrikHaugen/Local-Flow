@@ -19,7 +19,7 @@ function withTerms(text: string, terms: readonly string[], className: string) {
 export function Words() {
   return (
     <Chapter id="vocabulary" title={WORDS.title} wide className="pt-20 sm:pt-28">
-      <figure aria-label={WORDS.vocabTitle} className="mt-8 grid items-center gap-10 lg:grid-cols-[22rem_minmax(0,1fr)] lg:gap-14">
+      <figure aria-label={WORDS.vocabTitle} className="mt-8 grid items-start gap-10 lg:grid-cols-[22rem_minmax(0,1fr)] lg:gap-14">
         {/* The Vocabulary tab in Settings: each word once, with what whisper tends to hear instead. */}
         <div className="window-shadow overflow-hidden rounded-xl bg-card font-sans">
           <p className="border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">{WORDS.vocabTitle}</p>
@@ -36,7 +36,7 @@ export function Words() {
           <p className="font-sans text-base text-muted">
             {WORDS.heardLabel}: <span className="font-mono">{WORDS.heard}</span>
           </p>
-          <p className="mt-3 text-[clamp(2rem,1.25rem+3vw,3.6rem)] leading-[1.15] tracking-[-0.02em]">
+          <p className="mt-3 text-[clamp(1.8rem,1.2rem+2.2vw,2.75rem)] leading-[1.15] tracking-[-0.02em]">
             {withTerms(WORDS.typed, WORDS.terms.map((t) => t.term), "selected")}
           </p>
         </div>

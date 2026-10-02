@@ -18,7 +18,6 @@ export const INTRO = {
 } as const;
 
 export const USING = {
-  title: "Using it",
   paragraphs: [
     "peluni lives in the menu bar, and the text lands in whichever app has focus, typically in about a second with the base model.",
   ],
@@ -41,6 +40,9 @@ export const USING = {
   // The app the desktop shot is dictating into.
   window: {
     app: "Reminders",
+    // What you said, and the indexes of the words the cleanup dropped from it.
+    raw: "um pick up the uh charger and like oat milk on the way home",
+    dropped: [0, 4, 7] as number[],
     text: "Pick up the charger and oat milk on the way home.",
   },
   keysLabel: "Keys",
