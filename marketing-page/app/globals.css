@@ -141,7 +141,7 @@ h3 {
   color: inherit;
   text-decoration-line: underline;
   text-decoration-color: var(--rec);
-  text-decoration-thickness: 0.3em;
+  text-decoration-thickness: 0.18em;
   text-underline-offset: -0.08em;
   text-decoration-skip-ink: none;
 }

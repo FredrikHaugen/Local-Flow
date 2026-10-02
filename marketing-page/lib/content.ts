@@ -21,7 +21,7 @@ export const INTRO = {
 
 export const USING = {
   paragraphs: [
-    "The text typically appears about a second after you let go of the key, with the base model.",
+    "With the base model that typically takes about a second.",
   ],
   sceneLabel: "Dictating into Reminders",
   // The hero scene: a Reminders list where the last dictation has landed and the next one is being spoken.
@@ -123,7 +123,7 @@ export const AUDIO = {
   },
   display: "Turn Wi-Fi off and keep dictating.",
   paragraphs: [
-    "Transcription and cleanup run in memory on your Mac, and the app only goes online to fetch a model when you ask for one.",
+    "Transcription and cleanup run in memory on your Mac, and the app only goes online to fetch a model when you ask for one. It never types into a password field.",
   ],
   sourceBefore: "The code for all of this is",
   sourceLink: "on GitHub",
@@ -152,7 +152,7 @@ export const INSTALL_GUIDE = {
 } as const;
 
 // The questions people ask, each answered where it belongs on the page (and as Q&A in /llms.txt), so
-// every answer reads on its own: hands-free under the hero, transcripts and passwords in the privacy band.
+// every answer reads on its own: hands-free by the closing download; transcripts only in /llms.txt.
 export const QUESTIONS = {
   items: [
     {

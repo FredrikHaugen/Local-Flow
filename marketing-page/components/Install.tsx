@@ -9,6 +9,7 @@ export function Install() {
   return (
     <Chapter id="install" title={INSTALL_GUIDE.title} wide hiddenTitle className="pb-12 pt-24 sm:pb-16 sm:pt-32">
       <p className="max-w-4xl text-balance text-[clamp(2.2rem,1.4rem+3.2vw,4.25rem)] leading-[1.06] tracking-[-0.02em]">{INTRO.summary}</p>
+      <p className="mt-6 max-w-2xl text-[clamp(1.2rem,1.05rem+0.6vw,1.5rem)] leading-[1.4]">{QUESTIONS.items[0].a}</p>
       <div data-cta className="mt-10">
         <DownloadButton large />
         <p className="mt-4 font-sans text-[0.95rem] text-muted">

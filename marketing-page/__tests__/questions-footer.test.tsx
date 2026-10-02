@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Footer } from "@/components/Footer";
 import { Audio } from "@/components/Audio";
@@ -8,20 +8,20 @@ import { AUDIO, FOOTER_NOTE, QUESTIONS, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 describe("Answers in place", () => {
-  test("speed and hands-free sit under the hero scene", () => {
+  test("speed is part of the hero's lead, at body size", () => {
     const { container } = render(<Intro />);
     expect(container.textContent).toContain(USING.paragraphs[0]);
-    expect(container.textContent).toContain(QUESTIONS.items[0].a);
   });
 
-  test("transcripts and password fields sit in the privacy band", () => {
+  test("the privacy line also covers password fields", () => {
     render(<Audio />);
     const region = screen.getByRole("region", { name: AUDIO.title });
-    for (const item of QUESTIONS.items.slice(1)) expect(within(region).getByText(item.a)).toBeDefined();
+    expect(region.textContent).toContain("password field");
   });
 
-  test("the download points to the README and to issues", () => {
-    render(<Install />);
+  test("the closing download says how to dictate hands-free, and points to the README and to issues", () => {
+    const { container } = render(<Install />);
+    expect(container.textContent).toContain(QUESTIONS.items[0].a);
     expect(screen.getByRole("link", { name: QUESTIONS.detailsLink }).getAttribute("href")).toBe(`${SITE.repoUrl}#readme`);
     expect(screen.getByRole("link", { name: QUESTIONS.moreLink }).getAttribute("href")).toBe(`${SITE.repoUrl}/issues`);
   });
