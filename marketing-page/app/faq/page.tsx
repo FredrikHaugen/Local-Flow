@@ -12,7 +12,11 @@ export default function FaqPage() {
   return (
     <PageShell path="/faq">
       <PageIntro path="/faq" lead={FAQ.lead} />
-      <PageBody sections={FAQ.items.map((item) => ({ id: item.id, heading: item.q, blocks: [{ p: item.a }] }))} />
+      <PageBody
+        compact
+        indexOnPhone
+        sections={FAQ.items.map((item) => ({ id: item.id, heading: item.q, blocks: [{ p: item.a }] }))}
+      />
       <JsonLdScript data={pageJsonLd("/faq", faqForJsonLd())} />
     </PageShell>
   );

@@ -189,3 +189,8 @@ export const FOOTER_NOTE = {
   site: "The app has no analytics. This website loads Microsoft Clarity only if you allow it.",
   made: "Made for macOS on Apple Silicon.",
 } as const;
+
+// Sub-page furniture (components/PageBody.tsx).
+export const PAGE_NAV = {
+  onThisPage: "On this page",
+} as const;

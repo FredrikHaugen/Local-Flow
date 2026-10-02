@@ -1,5 +1,5 @@
 import type { Inline } from "@/lib/blocks";
-import { SITE } from "@/lib/site";
+import { SEO, SITE } from "@/lib/site";
 
 export const CHANGELOG_PAGE = {
   lead: [
@@ -8,6 +8,7 @@ export const CHANGELOG_PAGE = {
     ".",
   ] as readonly Inline[],
   unreleased: "not released yet",
+  requires: `Needs ${SEO.operatingSystem} and ${SEO.processor}.`,
   formatDate(date: string): string {
     return new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", {
       day: "numeric",

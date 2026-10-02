@@ -28,6 +28,11 @@ describe("privacy facts", () => {
     expect(json(PRIVACY)).toContain(ANALYTICS.settings);
   });
 
+  test("says how long Clarity keeps recordings, with Microsoft's page as the source", () => {
+    expect(json(PRIVACY)).toContain("30 days");
+    expect(json(PRIVACY)).toContain("learn.microsoft.com/en-us/clarity/setup-and-installation/data-retention");
+  });
+
   test("has an ISO date for its last update", () => {
     expect(PRIVACY.updated).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
@@ -47,6 +52,10 @@ describe("security facts", () => {
     expect(release).toContain("set -euo pipefail");
     expect(release).toContain("notarytool");
     expect(release).toContain("spctl");
+  });
+
+  test("gives a command to check the network claim yourself", () => {
+    expect(json(SECURITY)).toContain("nettop -m tcp -p $(pgrep -x peluni)");
   });
 
   test("points vulnerability reports at GitHub's private reporting", () => {

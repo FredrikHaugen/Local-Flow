@@ -6,6 +6,7 @@ import { PageBody } from "@/components/PageBody";
 import { PAGES, page, pageUrl } from "@/lib/pages";
 import { ALL_PAGE_COPY } from "@/lib/pages/all";
 import { pageMetadata } from "@/lib/seo";
+import { PAGE_NAV } from "@/lib/content";
 import { SITE } from "@/lib/site";
 import type { Section } from "@/lib/blocks";
 import Home, { metadata as homeMetadata } from "@/app/page";
@@ -125,6 +126,19 @@ describe("page copy", () => {
     for (const s of strings(ALL_PAGE_COPY).filter((s) => /autocomplete/i.test(s))) {
       expect(s).toMatch(/suggestions yet|experimental/i);
     }
+  });
+
+  test("PageBody lists its sections under On this page, linking each id", () => {
+    const sections: Section[] = [
+      { id: "one", heading: "One", blocks: [{ p: ["Text."] }] },
+      { id: "two", heading: "Two", blocks: [{ p: ["Text."] }] },
+    ];
+    render(<PageBody sections={sections} />);
+    const nav = screen.getByRole("navigation", { name: PAGE_NAV.onThisPage });
+    expect([...nav.querySelectorAll("a")].map((a) => [a.textContent, a.getAttribute("href")])).toEqual([
+      ["One", "#one"],
+      ["Two", "#two"],
+    ]);
   });
 
   test("PageBody gives each section an h2 with its id", () => {

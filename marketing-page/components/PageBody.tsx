@@ -1,8 +1,9 @@
 import { Fragment } from "react";
-import { Chapter } from "@/components/Chapter";
 import type { Block, Inline, Section } from "@/lib/blocks";
+import { PAGE_NAV } from "@/lib/content";
 
-const LINK = "underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground";
+const LINK =
+  "underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground";
 
 export function Inlines({ parts }: { parts: readonly Inline[] }) {
   return (
@@ -31,7 +32,9 @@ function BlockView({ block }: { block: Block }) {
   if ("list" in block) {
     const List = block.ordered ? "ol" : "ul";
     return (
-      <List className={`mt-5 grid gap-3 pl-6 ${block.ordered ? "list-decimal" : "list-disc"}`}>
+      <List
+        className={`mt-5 grid gap-3 pl-6 ${block.ordered ? "list-decimal" : "list-disc"}`}
+      >
         {block.list.map((item, i) => (
           <li key={i}>
             <Inlines parts={item} />
@@ -48,7 +51,11 @@ function BlockView({ block }: { block: Block }) {
         <thead>
           <tr>
             {head.map((h) => (
-              <th key={h} scope="col" className="border-b border-foreground/70 py-2 pr-6 font-semibold">
+              <th
+                key={h}
+                scope="col"
+                className="border-b border-foreground/70 py-2 pr-6 font-semibold"
+              >
                 {h}
               </th>
             ))}
@@ -59,7 +66,11 @@ function BlockView({ block }: { block: Block }) {
             <tr key={row[0]} className="border-b border-border">
               {row.map((cell, i) =>
                 i === 0 ? (
-                  <th key={i} scope="row" className="py-3 pr-6 align-top font-semibold">
+                  <th
+                    key={i}
+                    scope="row"
+                    className="py-3 pr-6 align-top font-semibold"
+                  >
                     {cell}
                   </th>
                 ) : (
@@ -76,17 +87,75 @@ function BlockView({ block }: { block: Block }) {
   );
 }
 
-// A sub-page's sections, each a Chapter (id, plain h2) holding its paragraphs, lists and tables.
-export function PageBody({ sections }: { sections: readonly Section[] }) {
+// The page's sections as links. Beside the text on a wide screen; above it on a phone when `indexOnPhone`.
+function OnThisPage({
+  sections,
+  indexOnPhone,
+}: {
+  sections: readonly Section[];
+  indexOnPhone: boolean;
+}) {
   return (
-    <>
-      {sections.map((section) => (
-        <Chapter key={section.id} id={section.id} title={section.heading} className="pt-14 sm:pt-16">
-          {section.blocks.map((block, i) => (
-            <BlockView key={i} block={block} />
+    <nav
+      aria-label={PAGE_NAV.onThisPage}
+      className={`${indexOnPhone ? "mt-10 border-y border-border py-5" : "hidden"} font-sans text-[0.95rem] lg:sticky lg:top-8 lg:col-start-2 lg:row-start-1 lg:mt-14 lg:block lg:self-start lg:border-y-0 lg:border-l lg:py-0 lg:pl-6`}
+    >
+      <p className="font-semibold">{PAGE_NAV.onThisPage}</p>
+      <ul className="mt-3 grid gap-2">
+        {sections.map((section) => (
+          <li key={section.id}>
+            <a
+              href={`#${section.id}`}
+              className="text-muted underline-offset-4 hover:text-foreground hover:underline"
+            >
+              {section.heading}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+// A sub-page's sections, each with an id and a plain h2, in a reading column with the section list
+// beside it. `compact` sets smaller headings for pages made of many short sections, like the FAQ.
+export function PageBody({
+  sections,
+  compact = false,
+  indexOnPhone = false,
+  after,
+}: {
+  sections: readonly Section[];
+  compact?: boolean;
+  indexOnPhone?: boolean;
+  after?: React.ReactNode;
+}) {
+  const heading = compact
+    ? "text-[clamp(1.3rem,1.2rem+0.4vw,1.55rem)] leading-[1.25]"
+    : "text-[clamp(1.6rem,1.35rem+1vw,2.1rem)] leading-[1.15] tracking-[-0.01em]";
+  return (
+    <div className="px-4 pb-20 sm:px-6 sm:pb-24">
+      <div className="mx-auto max-w-5xl lg:grid lg:grid-cols-[minmax(0,42rem)_minmax(0,1fr)] lg:gap-x-16">
+        <OnThisPage sections={sections} indexOnPhone={indexOnPhone} />
+        <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+          {sections.map((section) => (
+            <section
+              key={section.id}
+              id={section.id}
+              aria-labelledby={`${section.id}-title`}
+              className={`scroll-mt-6 ${compact ? "pt-10" : "pt-14 sm:pt-16"}`}
+            >
+              <h2 id={`${section.id}-title`} className={heading}>
+                {section.heading}
+              </h2>
+              {section.blocks.map((block, i) => (
+                <BlockView key={i} block={block} />
+              ))}
+            </section>
           ))}
-        </Chapter>
-      ))}
-    </>
+          {after}
+        </div>
+      </div>
+    </div>
   );
 }

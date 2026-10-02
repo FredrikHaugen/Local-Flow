@@ -70,7 +70,12 @@ export const PRIVACY: PageCopy & { updated: string; updatedLabel: string } = {
           p: [
             "On your first visit, a banner asks whether to allow Microsoft Clarity. Until you click Allow, nothing from Clarity loads. If you allow it, Clarity records how you use the page, including clicks, scrolling and a replay of the session, under a pseudonymous ID, and Microsoft processes that data under ",
             { text: "its privacy statement", href: "https://privacy.microsoft.com/privacystatement" },
-            ". peluni tells Clarity not to use advertising storage.",
+            ". peluni tells Clarity not to use advertising storage. ",
+            {
+              text: "Microsoft keeps the data for replaying a session for 30 days",
+              href: "https://learn.microsoft.com/en-us/clarity/setup-and-installation/data-retention",
+            },
+            ".",
           ],
         },
         {

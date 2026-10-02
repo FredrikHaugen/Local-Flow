@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { CHANGELOG, parseChangelog } from "@/lib/changelog";
-import { SITE } from "@/lib/site";
+import { CHANGELOG_PAGE } from "@/lib/pages/changelog";
+import { README_FACTS, SITE } from "@/lib/site";
 
 describe("changelog parser", () => {
   test("reads versions, dates and items", () => {
@@ -37,5 +38,17 @@ describe("the repo's CHANGELOG.md", () => {
       const dates = release.days.map((d) => d.date);
       expect(dates).toEqual([...dates].sort().reverse());
     }
+  });
+});
+
+describe("changelog entries", () => {
+  test("each says what kind of change it is in its first word", () => {
+    for (const item of CHANGELOG.flatMap((r) => r.days.flatMap((d) => d.items))) {
+      expect(item, item).toMatch(/^(Added|Changed|Fixed|Removed) /);
+    }
+  });
+
+  test("the page states what each version needs, in the README's words", () => {
+    for (const fact of README_FACTS.slice(0, 2)) expect(CHANGELOG_PAGE.requires).toContain(fact);
   });
 });

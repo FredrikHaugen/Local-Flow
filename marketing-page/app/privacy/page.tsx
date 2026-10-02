@@ -11,10 +11,14 @@ export default function PrivacyPage() {
   return (
     <PageShell path="/privacy">
       <PageIntro path="/privacy" lead={PRIVACY.lead} />
-      <PageBody sections={PRIVACY.sections} />
-      <p className="mx-auto mt-10 max-w-5xl px-4 font-sans text-[0.95rem] text-muted sm:px-6">
-        {PRIVACY.updatedLabel} <time dateTime={PRIVACY.updated}>{PRIVACY.updated}</time>.
-      </p>
+      <PageBody
+        sections={PRIVACY.sections}
+        after={
+          <p className="mt-10 font-sans text-[0.95rem] text-muted">
+            {PRIVACY.updatedLabel} <time dateTime={PRIVACY.updated}>{PRIVACY.updated}</time>.
+          </p>
+        }
+      />
       <JsonLdScript data={pageJsonLd("/privacy")} />
     </PageShell>
   );

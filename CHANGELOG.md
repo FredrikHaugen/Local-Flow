@@ -1,27 +1,30 @@
 # Changelog
 
-What changed in peluni, newest first. Dates are when the change was made.
+What changed in peluni, newest first. Each line starts with what kind of change it is. Dates are when the change was made.
 
 ## 0.1.0 (unreleased)
 
 ### 2026-10-02
 
-- Cleanup loads its model from disk once it's downloaded, so dictating never contacts Hugging Face. A half-finished model download no longer counts as downloaded, so it can be downloaded again.
-- Renamed to peluni (formerly LocalFlow). On first launch, peluni moves your models, vocabulary and settings over from the old app, so nothing is downloaded again.
-- New app icon and menu bar icon.
+- Changed how cleanup loads its model: once the model is downloaded, it loads from disk, and dictating never contacts Hugging Face.
+- Fixed a half-finished model download counting as downloaded. It now shows as not downloaded, so you can download it again.
+- Changed the name to peluni (formerly LocalFlow). On first launch, peluni moves your models, vocabulary and settings over from the old app, so nothing is downloaded again.
+- Changed the app icon and the menu bar icon.
 
 ### 2026-10-01
 
-- The setup window now includes the speech model download, and each permission button says what it will do: Allow, or Open Settings.
-- Download errors say what went wrong, such as no connection or not enough disk space, and offer Retry. Progress bars show a percentage.
-- peluni refuses to record without microphone access or a speech model, before you start talking.
-- A Setup item in the menu bar menu reopens the setup window.
-- A release script that signs the app with a Developer ID and has Apple notarize it.
+- Added the speech model download to the setup window.
+- Changed each permission button in the setup window to say what it will do: Allow, or Open Settings.
+- Changed download errors to say what went wrong, such as no connection or not enough disk space, with a Retry button.
+- Added a percentage to download progress bars.
+- Fixed recording starting without microphone access or a speech model. peluni now says what's missing before you start talking.
+- Added a Setup item to the menu bar menu, which reopens the setup window.
+- Added a release script that signs peluni with a Developer ID and has Apple notarize it. It only matters if you build peluni yourself.
 
 ### 2026-07-19
 
-- An experimental Autocomplete switch in Settings → General. It loads a small model but doesn't show suggestions yet.
+- Added an experimental Autocomplete switch in Settings → General. It loads a small model but doesn't show suggestions yet.
 
 ### 2026-07-04
 
-- First working version (formerly LocalFlow): hold Right ⌥ to dictate, transcription with whisper.cpp on the GPU, optional cleanup by a local model at four levels, custom vocabulary, pasting with clipboard restore, and no typing into password fields.
+- Added the first working version (formerly LocalFlow): hold Right ⌥ to dictate, transcription with whisper.cpp on the GPU, optional cleanup by a local model at four levels, custom vocabulary, pasting with clipboard restore, and no typing into password fields.

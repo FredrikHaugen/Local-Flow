@@ -71,6 +71,11 @@ export const SECURITY: PageCopy = {
             "The app connects to huggingface.co over HTTPS to download a model when you press Download, and to nothing else. It has no update checker: you update by downloading a new release.",
           ],
         },
+        {
+          p: [
+            "To check this yourself, run nettop -m tcp -p $(pgrep -x peluni) in Terminal and dictate a few sentences. With the models downloaded, no connection appears.",
+          ],
+        },
       ],
     },
     {

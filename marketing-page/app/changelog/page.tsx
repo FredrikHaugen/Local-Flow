@@ -20,20 +20,29 @@ export default function ChangelogPage() {
           title={`${release.version} (${release.status === "unreleased" ? CHANGELOG_PAGE.unreleased : CHANGELOG_PAGE.formatDate(release.status)})`}
           className="pt-14 sm:pt-16"
         >
+          <p className="mt-3 font-sans text-[0.95rem] text-muted">{CHANGELOG_PAGE.requires}</p>
           {release.days.map((day) => (
             <div key={day.date} className="mt-8">
               <h3 className="font-sans text-[1.05rem] font-semibold">
                 <time dateTime={day.date}>{CHANGELOG_PAGE.formatDate(day.date)}</time>
               </h3>
               <ul className="mt-3 grid list-disc gap-3 pl-6">
-                {day.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
+                {day.items.map((item) => {
+                  // The first word says what kind of change it is (Added, Changed, Fixed), so it leads in bold.
+                  const space = item.indexOf(" ");
+                  return (
+                    <li key={item}>
+                      <span className="font-semibold">{item.slice(0, space)}</span>
+                      {item.slice(space)}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
         </Chapter>
       ))}
+      <div className="pb-20 sm:pb-24" />
       <JsonLdScript data={pageJsonLd("/changelog")} />
     </PageShell>
   );
