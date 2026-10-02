@@ -1,4 +1,4 @@
-// Product identity, the demo's sample take and the analytics settings. Page copy is in lib/content.ts.
+// Product identity and the analytics settings. Page copy is in lib/content.ts.
 // __tests__/content.test.ts cross-checks README_FACTS against the repo README.
 
 const repoUrl = "https://github.com/FredrikHaugen/peluni";
@@ -21,22 +21,6 @@ export const PHONE = {
   handoff: "Send this page to my Mac",
   shareTitle: "peluni: voice dictation for your Mac",
   copied: "Link copied. Open it on your Mac.",
-} as const;
-
-export const DEMO = {
-  // A rambling spoken take and what the conservative cleanup pass makes of it:
-  // fillers dropped, capitals and punctuation added, nothing reworded.
-  raw: "um hey priya so the build is basically ready uh I just need to fix the signing step and run the tests one more time I think we can like ship it friday afternoon if nothing breaks",
-  cleaned:
-    "Hey Priya, the build is ready. I just need to fix the signing step and run the tests one more time. I think we can ship it Friday afternoon if nothing breaks.",
-  // Words in `raw` that the cleanup pass drops (shown struck through in the demo).
-  fillers: ["um", "so", "basically", "uh", "like"],
-  app: "Mail",
-  subject: "Friday release",
-  heardLabel: "What you said",
-  typedLabel: "What peluni typed",
-  // The real overlay's label while recording (Sources/PeluniApp/UI/OverlayView.swift).
-  overlayLabel: "Listening…  (esc to cancel)",
 } as const;
 
 // Opt-in page analytics. Nothing from Clarity loads, and no cookie is set, until the visitor allows it.

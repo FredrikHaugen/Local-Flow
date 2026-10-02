@@ -8,7 +8,7 @@ export function Install() {
   return (
     <Chapter id="install" title={INSTALL_GUIDE.title} wide className="border-t border-border pb-24 pt-20 sm:pb-32 sm:pt-28">
       {/* The steps as one sentence: a real list for screen readers, read as prose on screen. */}
-      <ol className="mt-6 max-w-4xl text-[clamp(1.4rem,1.1rem+1.2vw,2.1rem)] leading-[1.3] tracking-[-0.01em]">
+      <ol className="mt-6 max-w-4xl text-[clamp(1.2rem,1.05rem+0.6vw,1.5rem)] leading-[1.45]">
         {INSTALL_GUIDE.steps.map((step, i) => (
           <li key={step.before} className="inline">
             {step.before}

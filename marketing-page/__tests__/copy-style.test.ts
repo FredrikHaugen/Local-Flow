@@ -13,7 +13,7 @@ function strings(value: unknown): string[] {
 
 const copy = [
   ...strings(content),
-  ...strings({ PHONE: site.PHONE, DEMO: site.DEMO, ANALYTICS: site.ANALYTICS, description: site.SITE.description }),
+  ...strings({ PHONE: site.PHONE, ANALYTICS: site.ANALYTICS, description: site.SITE.description }),
 ];
 
 const RULES: [string, RegExp][] = [

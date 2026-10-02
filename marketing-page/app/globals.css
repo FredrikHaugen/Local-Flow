@@ -107,16 +107,6 @@ h3 {
     0 1px 0 var(--border);
 }
 
-/* The spoken take above the pasted sentence: readable, but fading toward the result. */
-.ghost-fade {
-  color: color-mix(in oklab, var(--foreground) 62%, transparent);
-}
-.ghost-fade [data-filler] {
-  color: color-mix(in oklab, var(--foreground) 38%, transparent);
-  text-decoration: line-through;
-  text-decoration-thickness: 1px;
-}
-
 /* The page's one dark band (Where your audio goes): the dark palette, scoped to the section, so
    everything inside it uses its own tokens. In dark mode it steps one shade darker than the page. */
 .band-dark {
@@ -158,13 +148,6 @@ h3 {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   border-radius: 2px;
-}
-
-/* The hero card: a hairline edge and a short, soft shadow, so it sits on the page without floating. */
-.card-shadow {
-  box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent),
-    0 18px 40px -30px rgb(0 0 0 / 0.35);
 }
 
 /* A product window on the desk. Plain black shadows read correctly in both themes. */

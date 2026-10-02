@@ -1,33 +1,35 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Cleanup } from "@/components/Cleanup";
+import { DesktopScene } from "@/components/DesktopScene";
 import { Using } from "@/components/Using";
 import { CLEANUP_LEVELS, USING } from "@/lib/content";
 
 describe("Using it", () => {
-  test("is one line, the scene, and the keys in one sentence with keycaps", () => {
-    const { container } = render(<Using />);
+  test("is one line and a key legend", () => {
+    render(<Using />);
     const region = screen.getByRole("region", { name: USING.title });
     expect(region.id).toBe("using");
     for (const p of USING.paragraphs) expect(within(region).getByText(p)).toBeDefined();
-    const keys = region.querySelector(`p[aria-label="${USING.keysLabel}"]`)!;
-    expect(keys.querySelectorAll("kbd")).toHaveLength(USING.keys.length);
-    expect(keys.textContent).toContain(USING.keysEnd);
-    expect(container.querySelector("table, dl")).toBeNull();
+    const legend = region.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!;
+    expect(legend.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
+    expect(within(region).getByText(USING.keysEnd)).toBeDefined();
   });
 });
 
-test("the desktop shot's overlay is decorative", () => {
-  const { container } = render(<Using />);
-  expect(container.querySelector(".wave-bar")?.closest("[aria-hidden='true']")).not.toBeNull();
-});
+describe("DesktopScene", () => {
+  test("its overlay is decorative", () => {
+    const { container } = render(<DesktopScene />);
+    expect(container.querySelector(".wave-bar")?.closest("[aria-hidden='true']")).not.toBeNull();
+  });
 
-test("the menu bar menu truncates recent transcripts the way the app does", () => {
-  render(<Using />);
-  const menu = screen.getByRole("list", { name: USING.menu.recentTitle });
-  const items = within(menu).getAllByRole("listitem");
-  expect(items).toHaveLength(USING.menu.recent.length);
-  for (const item of items) expect(item.textContent!.length).toBeLessThanOrEqual(USING.menu.truncateAt + 1);
+  test("the menu bar menu truncates recent transcripts the way the app does", () => {
+    render(<DesktopScene />);
+    const menu = screen.getByRole("list", { name: USING.menu.recentTitle });
+    const items = within(menu).getAllByRole("listitem");
+    expect(items).toHaveLength(USING.menu.recent.length);
+    for (const item of items) expect(item.textContent!.length).toBeLessThanOrEqual(USING.menu.truncateAt + 1);
+  });
 });
 
 describe("Cleanup levels", () => {

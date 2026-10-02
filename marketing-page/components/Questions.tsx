@@ -16,13 +16,13 @@ function Disclosure({ q, children }: { q: string; children: React.ReactNode }) {
   );
 }
 
-// Practical questions first, in two columns so the list reads as a page, not a wall. The speech
+// Practical questions first. The speech
 // models, the requirements and the checksum live here too: they matter once, when you decide.
 export function Questions() {
   return (
-    <Chapter id="faq" title={QUESTIONS.title} wide className="pb-20 pt-20 sm:pb-28 sm:pt-28">
-      <div className="mt-6 grid gap-x-12 lg:grid-cols-2">
-        <div className="border-b border-border">
+    <Chapter id="faq" title={QUESTIONS.title} className="pb-20 pt-20 sm:pb-28 sm:pt-28">
+      <div className="mt-6 border-b border-border">
+        <div>
           {QUESTIONS.items.slice(0, 4).map((item) => (
             <Disclosure key={item.q} q={item.q}>
               <p>{item.a}</p>
@@ -40,7 +40,7 @@ export function Questions() {
             </ul>
           </Disclosure>
         </div>
-        <div className="border-b border-border">
+        <div>
           {QUESTIONS.items.slice(4).map((item) => (
             <Disclosure key={item.q} q={item.q}>
               <p>{item.a}</p>

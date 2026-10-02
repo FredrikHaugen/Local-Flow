@@ -1,10 +1,10 @@
-import { DesktopDemo } from "@/components/DesktopDemo";
+import { DesktopScene } from "@/components/DesktopScene";
 import { Kbd } from "@/components/Kbd";
 import { SendToMac } from "@/components/SendToMac";
 import { INTRO } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-// The first screen: the promise and the download, then the product doing it, at full width.
+// The first screen: the promise and the download, then the Mac with peluni at work, edge to edge.
 export function Intro() {
   return (
     <section id="top" aria-labelledby="top-title" className="px-4 pt-8 sm:px-6 sm:pt-12 lg:pt-11">
@@ -30,7 +30,7 @@ export function Intro() {
             <SendToMac className="w-full md:hidden" />
           </div>
         </div>
-        <DesktopDemo />
+        <DesktopScene />
       </div>
     </section>
   );

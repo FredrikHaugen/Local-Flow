@@ -1,4 +1,4 @@
-import { DEMO } from "@/lib/site";
+import { USING } from "@/lib/content";
 
 // 24 bars, like the real overlay (OverlayView.swift keeps 24 levels).
 const OVERLAY_BARS = [
@@ -23,8 +23,8 @@ export function OverlayPill() {
         ))}
       </span>
       <span className="whitespace-pre text-[0.8rem] font-medium">
-        <span className="sm:hidden">{DEMO.overlayLabel.split("  ")[0]}</span>
-        <span className="hidden sm:inline">{DEMO.overlayLabel}</span>
+        <span className="sm:hidden">{USING.overlayLabel.split("  ")[0]}</span>
+        <span className="hidden sm:inline">{USING.overlayLabel}</span>
       </span>
     </div>
   );
