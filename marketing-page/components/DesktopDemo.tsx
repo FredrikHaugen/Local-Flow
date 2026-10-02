@@ -7,7 +7,7 @@ const fillers = new Set<string>(DEMO.fillers);
 export function DesktopDemo() {
   const words = DEMO.raw.split(" ");
   return (
-    <figure className="card-shadow mt-9 rounded-2xl bg-card px-6 pb-10 pt-8 sm:mt-10 sm:px-14 sm:pb-12 sm:pt-10">
+    <figure className="card-shadow mt-8 rounded-2xl bg-card px-6 pb-9 pt-7 sm:mt-9 sm:px-14 sm:pb-10 sm:pt-9">
       <p className="sr-only">{DEMO.heardLabel}</p>
       <p data-demo="raw" className="demo-heard ghost-fade max-w-4xl font-mono text-[0.95rem] leading-relaxed sm:text-[1.05rem]">
         {words.map((word, i) => (
@@ -18,7 +18,7 @@ export function DesktopDemo() {
         ))}
       </p>
       <p className="sr-only">{DEMO.typedLabel}</p>
-      <p className="demo-paste mt-5 max-w-4xl font-serif text-[clamp(1.4rem,1.05rem+1.5vw,2.05rem)] leading-[1.32] tracking-[-0.01em]">
+      <p className="demo-paste mt-5 max-w-4xl font-serif text-[clamp(1.35rem,1.05rem+1.3vw,1.85rem)] leading-[1.34] tracking-[-0.01em]">
         <span data-demo="cleaned">{DEMO.cleaned}</span>
         <span aria-hidden="true" className="caret ml-1 inline-block h-[1em] w-[3px] translate-y-[0.15em] bg-foreground" />
       </p>

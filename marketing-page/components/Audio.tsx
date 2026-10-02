@@ -53,7 +53,7 @@ export function Audio() {
         {AUDIO.paragraphs.map((p) => (
           <p key={p}>{p}</p>
         ))}
-        <p className="mt-4 font-sans text-[0.95rem] text-muted">
+        <p className="mt-4 text-muted">
           {AUDIO.storageBefore} <code className="rounded bg-card px-1.5 py-0.5 font-mono text-[0.9em] text-foreground">{AUDIO.storagePath}</code>{" "}
           {AUDIO.storageAfter} {AUDIO.sourceBefore}{" "}
           <a href={SITE.repoUrl} className="text-foreground underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">

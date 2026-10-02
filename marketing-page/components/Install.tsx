@@ -47,10 +47,10 @@ export function Install() {
           </ol>
 
           <h3 className="mt-10 text-[1.2rem]">{INSTALL_GUIDE.requirementsTitle}</h3>
-          <dl className="mt-3 grid gap-x-8 gap-y-3 font-sans text-[0.95rem] sm:grid-cols-2">
+          <dl className="mt-3 grid gap-x-8 gap-y-4 sm:grid-cols-2">
             {INSTALL_GUIDE.requirements.map((r) => (
               <div key={r.title}>
-                <dt className="font-semibold">{r.title}</dt>
+                <dt className="font-sans font-semibold">{r.title}</dt>
                 <dd className="text-muted">{r.detail}</dd>
               </div>
             ))}
