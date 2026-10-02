@@ -57,7 +57,7 @@ export function Cleanup() {
         </div>
       </fieldset>
 
-      <p className="mt-12 max-w-2xl font-sans text-[0.95rem] opacity-75">{CLEANUP_LEVELS.fallback}</p>
+      <p className="mt-12 max-w-2xl">{CLEANUP_LEVELS.fallback}</p>
     </Chapter>
   );
 }

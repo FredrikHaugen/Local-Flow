@@ -46,20 +46,28 @@ export function Install() {
             ))}
           </ol>
 
-          <p className="mt-8">{INSTALL_GUIDE.checksumBody}</p>
-          <pre className="mt-3 overflow-x-auto rounded-md border border-border bg-card px-4 py-3 font-mono text-[0.9rem]">
-            <code>{INSTALL_GUIDE.checksumCommand}</code>
-          </pre>
-
-          <h3 className="mt-12 text-[1.35rem]">{INSTALL_GUIDE.requirementsTitle}</h3>
-          <dl className="mt-4 border-t border-border font-sans">
+          <h3 className="mt-10 text-[1.2rem]">{INSTALL_GUIDE.requirementsTitle}</h3>
+          <dl className="mt-3 grid gap-x-8 gap-y-3 font-sans text-[0.95rem] sm:grid-cols-2">
             {INSTALL_GUIDE.requirements.map((r) => (
-              <div key={r.title} className="grid gap-1 border-b border-border py-3 sm:grid-cols-[16rem_1fr] sm:gap-6">
+              <div key={r.title}>
                 <dt className="font-semibold">{r.title}</dt>
                 <dd className="text-muted">{r.detail}</dd>
               </div>
             ))}
           </dl>
+
+          <details className="mt-8 border-t border-border pt-4">
+            <summary className="faq-q flex cursor-pointer items-center justify-between font-sans font-semibold">
+              {INSTALL_GUIDE.checkTitle}
+              <span aria-hidden="true" className="faq-icon text-xl leading-none text-muted">
+                +
+              </span>
+            </summary>
+            <p className="mt-3">{INSTALL_GUIDE.checksumBody}</p>
+            <pre className="mt-3 overflow-x-auto rounded-md border border-border bg-card px-4 py-3 font-mono text-[0.9rem]">
+              <code>{INSTALL_GUIDE.checksumCommand}</code>
+            </pre>
+          </details>
         </div>
         <div className="lg:pt-8">
           <SetupMock />

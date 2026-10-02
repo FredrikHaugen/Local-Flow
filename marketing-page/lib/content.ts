@@ -14,7 +14,7 @@ export const INTRO = {
   body: `${introBefore} ${introKey} ${introAfter}`,
   download: "Download for Mac",
   requirement: "Needs macOS 14 or later on an Apple Silicon Mac.",
-  release: `Free, version ${SITE.version}.`,
+  release: `Free and open source, version ${SITE.version}.`,
 } as const;
 
 export const USING = {
@@ -177,6 +177,7 @@ export const INSTALL_GUIDE = {
       { name: "Speech model", state: "Base, 148 MB" },
     ],
   },
+  checkTitle: "Check the download",
   checksumBody:
     "Releases are signed with a Developer ID and notarized by Apple. To check a download, put the .sha256 file published with it in the same folder and run:",
   checksumCommand: "shasum -a 256 -c peluni-<version>.dmg.sha256",
