@@ -18,7 +18,7 @@ function WifiOff({ className = "" }: { className?: string }) {
 function OfflineScene() {
   const { scene } = AUDIO;
   return (
-    <figure aria-label={scene.label} className="mt-10 overflow-hidden rounded-2xl bg-overlay-foreground font-sans text-overlay">
+    <figure aria-label={scene.label} className="mt-10 overflow-hidden rounded-2xl bg-overlay-foreground font-sans text-overlay xl:-mx-24">
       {/* The Wi-Fi switch, large and off, across the top. */}
       <div className="flex items-center gap-6 border-b border-black/10 px-8 py-5 sm:px-14">
         <WifiOff className="h-12 w-12 shrink-0" />
@@ -31,12 +31,12 @@ function OfflineScene() {
         </span>
       </div>
       {/* Under it, the reply landing in Messages anyway, while the overlay listens. */}
-      <div className="px-8 py-8 sm:px-14 sm:py-10">
+      <div className="px-8 py-10 sm:px-14 sm:py-14">
         <p className="text-sm font-semibold text-[#6e6e73]">
           {scene.app} · {scene.contact}
         </p>
         <p className="mt-4 w-fit rounded-2xl bg-[#e9e9eb] px-4 py-2 text-[1.1rem]">{scene.incoming}</p>
-        <p className="mt-6 max-w-4xl font-serif text-[clamp(1.6rem,1.2rem+1.8vw,2.75rem)] leading-[1.15] tracking-[-0.015em]">
+        <p className="mt-6 max-w-4xl font-serif text-[clamp(1.8rem,1.2rem+2.6vw,3.5rem)] leading-[1.12] tracking-[-0.015em]">
           {scene.text}
           <span aria-hidden="true" className="caret ml-1 inline-block h-[1em] w-[2px] translate-y-[0.14em] bg-current" />
         </p>

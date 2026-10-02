@@ -9,7 +9,6 @@ const introMore = "When you let go, your words are pasted where your cursor is, 
 
 export const INTRO = {
   title: `${introBefore} ${introKey} ${introAfter}`,
-  summary: "peluni types what you say into any app on your Mac.",
   bodyBefore: introBefore,
   key: introKey,
   bodyAfter: introAfter,
@@ -21,7 +20,7 @@ export const INTRO = {
 
 export const USING = {
   paragraphs: [
-    "With the base model that typically takes about a second.",
+    "With the base model, the text typically lands about a second after you let go.",
   ],
   sceneLabel: "Dictating into Reminders",
   // The hero scene: a Reminders list where the last dictation has landed and the next one is being spoken.

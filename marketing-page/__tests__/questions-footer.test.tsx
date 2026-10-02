@@ -3,16 +3,10 @@ import { describe, expect, test } from "vitest";
 import { Footer } from "@/components/Footer";
 import { Audio } from "@/components/Audio";
 import { Install } from "@/components/Install";
-import { Intro } from "@/components/Intro";
-import { AUDIO, FOOTER_NOTE, QUESTIONS, USING } from "@/lib/content";
+import { AUDIO, FOOTER_NOTE, QUESTIONS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 describe("Answers in place", () => {
-  test("speed is part of the hero's lead, at body size", () => {
-    const { container } = render(<Intro />);
-    expect(container.textContent).toContain(USING.paragraphs[0]);
-  });
-
   test("the privacy line also covers password fields", () => {
     render(<Audio />);
     const region = screen.getByRole("region", { name: AUDIO.title });

@@ -1,25 +1,20 @@
 import { Chapter } from "@/components/Chapter";
 import { DownloadButton } from "@/components/DownloadButton";
-import { INSTALL_GUIDE, INTRO, QUESTIONS } from "@/lib/content";
+import { INSTALL_GUIDE, INTRO, QUESTIONS, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-// The page ends on a decision: what peluni is, at display size, the download, what your Mac needs, and
-// the four install steps as one small strip. The plain label stays for screen readers.
+// The end of the page: how fast it is and how to dictate hands-free, the four install steps at reading
+// size, then the download with what your Mac needs. It ends on the button, not on a restated pitch.
 export function Install() {
   return (
-    <Chapter id="install" title={INSTALL_GUIDE.title} wide hiddenTitle className="pb-12 pt-24 sm:pb-16 sm:pt-32">
-      <p className="max-w-4xl text-balance text-[clamp(2.2rem,1.4rem+3.2vw,4.25rem)] leading-[1.06] tracking-[-0.02em]">{INTRO.summary}</p>
-      <p className="mt-6 max-w-2xl text-[clamp(1.2rem,1.05rem+0.6vw,1.5rem)] leading-[1.4]">{QUESTIONS.items[0].a}</p>
-      <div data-cta className="mt-10">
-        <DownloadButton large />
-        <p className="mt-4 font-sans text-[0.95rem] text-muted">
-          {INTRO.release} {INSTALL_GUIDE.requirements.slice(0, 2).map((r) => `${r.title}.`).join(" ")}
-        </p>
-      </div>
-      <ol className="mt-14 grid gap-x-10 gap-y-4 border-t border-border pt-6 font-sans text-[0.95rem] text-muted sm:grid-cols-2 lg:grid-cols-4">
+    <Chapter id="install" title={INSTALL_GUIDE.title} wide className="pb-12 pt-24 sm:pb-16 sm:pt-32">
+      <p className="mt-4 max-w-2xl text-[clamp(1.15rem,1.05rem+0.4vw,1.35rem)] leading-[1.45]">
+        {USING.paragraphs[0]} {QUESTIONS.items[0].a}
+      </p>
+      <ol className="mt-10 grid max-w-4xl gap-x-12 gap-y-5 text-[1.15rem] leading-snug sm:grid-cols-2">
         {INSTALL_GUIDE.steps.map((step, i) => (
-          <li key={step.before} className="grid grid-cols-[1.5rem_1fr]">
-            <span aria-hidden="true" className="font-semibold text-foreground">
+          <li key={step.before} className="grid grid-cols-[1.75rem_1fr] border-t border-border pt-4">
+            <span aria-hidden="true" className="font-sans font-semibold text-muted">
               {i + 1}
             </span>
             <span>
@@ -37,6 +32,12 @@ export function Install() {
           </li>
         ))}
       </ol>
+      <div data-cta className="mt-12">
+        <DownloadButton large />
+        <p className="mt-4 font-sans text-[0.95rem] text-muted">
+          {INTRO.release} {INSTALL_GUIDE.requirements.slice(0, 2).map((r) => `${r.title}.`).join(" ")}
+        </p>
+      </div>
       <p className="mt-6 font-sans text-[0.95rem] text-muted">
         {QUESTIONS.detailsBefore}
         <a href={`${SITE.repoUrl}#readme`} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">

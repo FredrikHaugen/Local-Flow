@@ -36,7 +36,7 @@ describe("Intro", () => {
 describe("The closing download", () => {
   test("closes on how to use it, the requirements and the page's one version mention", () => {
     const { container } = render(<Install />);
-    expect(container.textContent).toContain(INTRO.summary);
+    expect(container.textContent).toContain(USING.paragraphs[0]);
     const cta = screen.getByRole("link", { name: INSTALL_GUIDE.download }).closest("[data-cta]")!;
     for (const r of INSTALL_GUIDE.requirements.slice(0, 2)) expect(cta.textContent).toContain(r.title);
     expect(cta.textContent).toContain(SITE.version);
