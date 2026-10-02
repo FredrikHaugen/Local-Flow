@@ -1,6 +1,6 @@
 import { Chapter } from "@/components/Chapter";
 import { Logomark } from "@/components/Logomark";
-import { INSTALL_GUIDE } from "@/lib/content";
+import { INSTALL_GUIDE, INTRO } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 // The end of the page, on the dark band: the four steps as one short paragraph, then the download.
@@ -25,13 +25,18 @@ export function Install() {
           </li>
         ))}
       </ol>
-      <a
-        href={SITE.releasesUrl}
-        className="mt-12 inline-flex min-h-16 items-center gap-3 rounded-xl bg-foreground py-3 pl-3 pr-7 font-sans text-[1.2rem] font-semibold text-background transition-opacity hover:opacity-90"
-      >
-        <Logomark className="h-10 w-10" />
-        {INSTALL_GUIDE.download}
-      </a>
+      <div data-cta className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <a
+          href={SITE.releasesUrl}
+          className="inline-flex min-h-16 items-center gap-3 rounded-xl bg-foreground py-3 pl-3 pr-7 font-sans text-[1.2rem] font-semibold text-background transition-opacity hover:opacity-90"
+        >
+          <Logomark className="h-10 w-10" />
+          {INSTALL_GUIDE.download}
+        </a>
+        <p className="font-sans text-muted">
+          {INTRO.release} {INTRO.requirement}
+        </p>
+      </div>
     </Chapter>
   );
 }
