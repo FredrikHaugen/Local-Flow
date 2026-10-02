@@ -1,10 +1,11 @@
 import { Chapter } from "@/components/Chapter";
 import { CLEANUP_LEVELS } from "@/lib/content";
 
-// One sentence at hero scale that changes as you step through the levels. The raw take is already in
-// the hero, so here only the result moves. The picker works without JavaScript: four radios, and CSS
+// The same take at every level: what whisper heard, with the words that level drops struck through,
+// then the sentence that gets pasted, at hero scale. The picker works without JavaScript: four radios, and CSS
 // (:has) shows the matching output.
 export function Cleanup() {
+  const raw = CLEANUP_LEVELS.raw.split(" ");
   return (
     <Chapter id="cleanup" title={CLEANUP_LEVELS.title} wide className="desk mt-24 py-16 sm:mt-32 sm:py-24">
       <p className="mt-4 max-w-2xl">{CLEANUP_LEVELS.intro}</p>
@@ -31,6 +32,15 @@ export function Cleanup() {
             <div key={level.id} data-out={level.id} className="level-out">
               <p className="font-sans text-base text-muted">
                 {level.name}: {level.detail}
+              </p>
+              {/* The take as whisper heard it, with the words this level drops struck through. */}
+              <p data-raw={level.id} className="mt-4 max-w-4xl font-mono text-[clamp(0.95rem,0.85rem+0.4vw,1.15rem)] leading-relaxed text-muted">
+                {raw.map((word, i) => (
+                  <span key={i}>
+                    {i > 0 && " "}
+                    {(level.dropped as readonly number[]).includes(i) ? <s className="decoration-foreground/70">{word}</s> : word}
+                  </span>
+                ))}
               </p>
               <div className="mt-4 min-h-[3.8em] text-[clamp(2rem,1.25rem+3vw,3.9rem)] leading-[1.15] tracking-[-0.02em]">
                 {level.paragraphs.map((text) => (

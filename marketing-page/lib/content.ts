@@ -27,10 +27,10 @@ export const USING = {
     label: "peluni's menu bar menu",
     recentTitle: "Recent transcripts",
     recent: [
+      "Pick up the charger and oat milk on the way home.",
       "Ship the peluni build to Priya.",
       "Running ten minutes late, start without me and I'll catch up on the notes.",
       "Hey Priya, the build is ready. I just need to fix the signing step.",
-      "Pick up the charger and oat milk on the way home.",
     ],
     truncateAt: 48,
     commands: [
@@ -40,8 +40,8 @@ export const USING = {
   },
   // The app the desktop shot is dictating into.
   window: {
-    app: "Notes",
-    text: "Onboarding: send the welcome email after the first model download finishes, not before. Most people want to try it right away.",
+    app: "Reminders",
+    text: "Pick up the charger and oat milk on the way home.",
   },
   keysLabel: "Keys",
   // One sentence, four clauses, keys drawn inline.
@@ -50,19 +50,23 @@ export const USING = {
     { how: "double-tap", key: "Right ⌥", result: "to keep recording with your hands free" },
     { how: "press", key: "Esc", result: "to cancel" },
   ],
-  keysEnd: "and a tap shorter than 0.3 seconds is ignored.",
+  keysEnd: "and a tap shorter than 0.3 seconds is ignored. If a paste can't land, the text waits on your clipboard.",
 } as const;
 
 // Level names and descriptions are the app's own (Sources/PeluniApp/UI/GeneralTab.swift);
 // the outputs illustrate what each level changes.
 export const CLEANUP_LEVELS = {
   title: "Cleanup levels",
-  intro: "Whisper writes down everything you say, false starts included. You choose how much of it gets pasted.",
+  intro:
+    "Whisper writes down everything you say, false starts included. You choose how much of it gets pasted, and if the model errors or takes over ten seconds you get the raw transcript.",
+  raw: "um so the demo moved to thursday no wait friday and uh we still need the slides the script a backup laptop and the hdmi adapter",
   legend: "Cleanup level",
   defaultLevel: "light",
   levels: [
     {
       id: "none",
+      // Indexes of the words in `raw` this level drops.
+      dropped: [] as number[],
       name: "None",
       detail: "raw transcript",
       paragraphs: [
@@ -72,6 +76,7 @@ export const CLEANUP_LEVELS = {
     },
     {
       id: "light",
+      dropped: [0, 11] as number[],
       name: "Light",
       detail: "fillers and punctuation",
       paragraphs: [
@@ -81,6 +86,7 @@ export const CLEANUP_LEVELS = {
     },
     {
       id: "medium",
+      dropped: [0, 1, 6, 7, 8, 11] as number[],
       name: "Medium",
       detail: "also grammar and false starts",
       paragraphs: ["The demo moved to Friday, and we still need the slides, the script, a backup laptop and the HDMI adapter."],
@@ -88,6 +94,7 @@ export const CLEANUP_LEVELS = {
     },
     {
       id: "high",
+      dropped: [0, 1, 6, 7, 8, 10, 11, 22] as number[],
       name: "High",
       detail: "also structure and lists",
       paragraphs: ["The demo moved to Friday. We still need:"],
@@ -184,20 +191,8 @@ export const QUESTIONS = {
       a: "No. It needs Apple Silicon (M1 or later) and macOS 14 or later.",
     },
     {
-      q: "What if a paste can't land?",
-      a: "The text stays on your clipboard and the overlay asks you to press ⌘V.",
-    },
-    {
-      q: "What if the cleanup model fails?",
-      a: "If it errors or takes longer than ten seconds, peluni pastes the raw transcript instead.",
-    },
-    {
       q: "Does it keep my transcripts?",
       a: "The last ten stay in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them.",
-    },
-    {
-      q: "Where are the models and my vocabulary stored?",
-      a: "In ~/Library/Application Support/peluni/. Your vocabulary is a plain JSON file in the same folder.",
     },
     {
       q: "What happens in a password field?",
