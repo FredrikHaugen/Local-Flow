@@ -24,7 +24,7 @@ function KeyVisual() {
   );
 }
 
-// The overlay LocalFlow shows while it listens, at storyboard scale.
+// The overlay peluni shows while it listens, at storyboard scale.
 function VoiceVisual() {
   return (
     <div className="surface-ink flex h-20 w-full max-w-xs items-center gap-4 rounded-full bg-ink px-6 text-ink-foreground shadow-[0_24px_48px_-24px_var(--ink)] sm:h-24">

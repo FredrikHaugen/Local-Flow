@@ -88,7 +88,7 @@ function ModelVisual() {
 
 const VISUALS = [DragVisual, AllowVisual, ModelVisual];
 
-// "About This Mac", reduced to the two lines that decide whether LocalFlow runs.
+// "About This Mac", reduced to the two lines that decide whether peluni runs.
 function WillItRun() {
   return (
     <div>

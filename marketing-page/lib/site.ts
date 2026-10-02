@@ -1,14 +1,14 @@
 // Single source of truth for every product fact on the site.
 // __tests__/site.test.ts cross-checks README_FACTS against the repo README.
 
-const repoUrl = "https://github.com/FredrikHaugen/Local-Flow";
+const repoUrl = "https://github.com/FredrikHaugen/peluni";
 
 export const SITE = {
-  name: "LocalFlow",
+  name: "peluni",
   // Speed leads; "about a second" is docs/PROJECT.md's "typically in about a second with the base model".
   tagline: "Just talk. It's typed in about a second.",
   description:
-    "LocalFlow is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and clean text appears in any app — transcribed and cleaned up entirely on-device.",
+    "peluni is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and clean text appears in any app — transcribed and cleaned up entirely on-device.",
   repoUrl,
   // /releases rather than /releases/latest: the latter 404s until the first release is published.
   releasesUrl: `${repoUrl}/releases`,
@@ -29,15 +29,15 @@ export const NAV = [
   { href: "#faq", label: "FAQ" },
 ] as const;
 
-// Phone visitors: LocalFlow is a Mac app, so the phone's job is to get this page onto the Mac.
+// Phone visitors: peluni is a Mac app, so the phone's job is to get this page onto the Mac.
 export const PHONE = {
   menu: "Menu",
   close: "Close",
   menuTitle: "On this page",
   handoffLead: "Reading on a phone?",
-  handoffNote: "LocalFlow runs on your Mac. Send yourself the link and download it there.",
+  handoffNote: "peluni runs on your Mac. Send yourself the link and download it there.",
   handoff: "Send this page to my Mac",
-  shareTitle: "LocalFlow: voice dictation for your Mac",
+  shareTitle: "peluni: voice dictation for your Mac",
   copied: "Link copied. Open it on your Mac.",
   swipe: "Swipe",
 } as const;
@@ -51,7 +51,7 @@ export const HERO = {
     ", speak, let go — clean text lands in whatever app you're using. No upload, no queue: transcription and cleanup run on your Mac, so your voice never leaves it.",
 } as const;
 
-// The hero's proof line: what LocalFlow is built on (README, "How it works") and its sourced speed
+// The hero's proof line: what peluni is built on (README, "How it works") and its sourced speed
 // (docs/PROJECT.md). Open source you can audit instead of logos and testimonials we don't have.
 export const HERO_PROOF = {
   lead: "Built on",
@@ -75,10 +75,10 @@ export const DEMO = {
   to: "Priya",
   subject: "Friday release",
   heardLabel: "What you said",
-  typedLabel: "What LocalFlow typed",
+  typedLabel: "What peluni typed",
   // The key you're holding while the overlay listens.
   holdKey: "right ⌥",
-  // The real overlay's label while recording (Sources/LocalFlowApp/UI/OverlayView.swift).
+  // The real overlay's label while recording (Sources/PeluniApp/UI/OverlayView.swift).
   overlayLabel: "Listening…  (esc to cancel)",
   menuItems: ["Mail", "File", "Edit", "View", "Message"],
   clock: "Fri 4:12 PM",
@@ -112,13 +112,13 @@ export const SPEED = {
   stamp: "Pasted about a second after you let go",
 } as const;
 
-// "Use it anywhere": the same hotkey in different apps. LocalFlow pastes into whatever field is focused.
+// "Use it anywhere": the same hotkey in different apps. peluni pastes into whatever field is focused.
 export const ANYWHERE = {
   railLabel: "Example apps",
   title: "Wherever your cursor is",
   mark: "your cursor is",
   intro:
-    "If you can type there, you can talk there. LocalFlow pastes into the focused app — no plugins, no integrations, nothing to switch to.",
+    "If you can type there, you can talk there. peluni pastes into the focused app — no plugins, no integrations, nothing to switch to.",
   apps: [
     {
       app: "Messages",
@@ -186,7 +186,7 @@ export const HOW = {
 export const STEPS = [
   {
     title: "Hold Right ⌥",
-    body: "Anywhere — your editor, a chat window, a browser form. A small waveform shows LocalFlow is listening.",
+    body: "Anywhere — your editor, a chat window, a browser form. A small waveform shows peluni is listening.",
   },
   {
     title: "Speak naturally",
@@ -216,13 +216,13 @@ export const CONTROL_TRACKS = {
 } as const;
 
 // "Make it yours": the real settings, each shown as a working piece of UI.
-// Level names and descriptions are the app's own (Sources/LocalFlowApp/UI/GeneralTab.swift);
+// Level names and descriptions are the app's own (Sources/PeluniApp/UI/GeneralTab.swift);
 // the outputs are an illustration of what each level changes.
 export const YOURS = {
   title: "Tuned to how you talk",
   mark: "how you talk",
   intro:
-    "Every card here is a real setting in LocalFlow. Choose how much it tidies, teach it your words, pick the model that fits your Mac.",
+    "Every card here is a real setting in peluni. Choose how much it tidies, teach it your words, pick the model that fits your Mac.",
 } as const;
 
 export const CLEANUP = {
@@ -230,7 +230,7 @@ export const CLEANUP = {
   body: "Four cleanup levels, from your exact words to tidy lists. Light is the default.",
   legend: "Cleanup level",
   heardLabel: "You said",
-  typedLabel: "LocalFlow types",
+  typedLabel: "peluni types",
   exampleNote: "Example output",
   raw: "um so the demo moved to thursday no wait friday and uh we still need three things the slides the script and a backup laptop",
   // The app's own promise, shown under the picker.
@@ -279,14 +279,14 @@ export const VOCAB = {
   panelTitle: "Vocabulary",
   terms: [
     { term: "Priya", soundsLike: [] as string[] },
-    { term: "LocalFlow", soundsLike: ["local flow"] },
+    { term: "peluni", soundsLike: ["pell oony"] },
     { term: "MLX", soundsLike: ["em el ex"] },
   ],
-  heard: "ship the local flow build to priya",
-  typed: "Ship the LocalFlow build to Priya.",
+  heard: "ship the pell oony build to priya",
+  typed: "Ship the peluni build to Priya.",
 } as const;
 
-// Speech models from Sources/LocalFlowCore/ModelCatalog.swift (sizes rounded, decimal units as in the README).
+// Speech models from Sources/PeluniCore/ModelCatalog.swift (sizes rounded, decimal units as in the README).
 export const MODELS = {
   title: "Pick your model",
   body: "Start with Base. Bigger models trade disk space for accuracy, and each is downloaded from Hugging Face only when you ask.",
@@ -300,23 +300,23 @@ export const MODELS = {
   ],
 } as const;
 
-// The menu bar menu and the paste-failure notice (Sources/LocalFlowApp/App/LocalFlowApp.swift, DictationController.swift).
+// The menu bar menu and the paste-failure notice (Sources/PeluniApp/App/PeluniApp.swift, DictationController.swift).
 export const NEVER_LOST = {
   title: "Nothing you say gets lost",
   body: "If a paste can't land, the text waits on your clipboard and the overlay tells you to press ⌘V. Your last ten transcripts sit in the menu bar, one click from your clipboard — kept in memory, never written to disk.",
   overlay: "Copied — press ⌘V",
-  menuStatus: "Ship the LocalFlow build to Priya.",
+  menuStatus: "Ship the peluni build to Priya.",
   submenu: "Recent transcripts",
   // Full transcripts; the menu truncates them at 48 characters, as the app does.
   recent: [
-    "Ship the LocalFlow build to Priya.",
+    "Ship the peluni build to Priya.",
     "Running ten minutes late — start without me and I'll catch up on the notes.",
     "Hey Priya, the build is ready. I just need to fix the signing step.",
   ],
   truncateAt: 48,
   menuItems: [
     { label: "Settings…", shortcut: "⌘," },
-    { label: "Quit LocalFlow", shortcut: "⌘Q" },
+    { label: "Quit peluni", shortcut: "⌘Q" },
   ],
 } as const;
 
@@ -376,12 +376,12 @@ export const PRIVACY_POINTS = [
   },
   {
     title: "Password fields are off-limits",
-    body: "LocalFlow detects secure fields and never types into them or writes to your clipboard there.",
+    body: "peluni detects secure fields and never types into them or writes to your clipboard there.",
   },
 ] as const;
 
 export const REQUIREMENTS = [
-  { title: "macOS 14 (Sonoma) or later", detail: "LocalFlow lives in the menu bar; there's no Dock icon." },
+  { title: "macOS 14 (Sonoma) or later", detail: "peluni lives in the menu bar; there's no Dock icon." },
   {
     title: "Apple Silicon (M1 or later)",
     detail: "Built for arm64 only — Intel Macs aren't supported.",
@@ -414,7 +414,7 @@ export const VERIFY = {
     {
       id: "source",
       title: "Read every line",
-      body: "LocalFlow is MIT licensed and built in the open. The audio pipeline, the model downloader and the paste code are all on GitHub.",
+      body: "peluni is MIT licensed and built in the open. The audio pipeline, the model downloader and the paste code are all on GitHub.",
       link: "Browse the source",
       files: ["AudioCaptureService.swift", "TranscriptionEngine.swift", "CleanupEngine.swift", "ModelManager.swift", "TextInjector.swift"],
     },
@@ -422,8 +422,8 @@ export const VERIFY = {
       id: "download",
       title: "Check the download",
       body: "Releases are signed with a Developer ID and notarized by Apple, so the app opens without Gatekeeper warnings. A SHA-256 checksum is published next to each one.",
-      command: `shasum -a 256 -c LocalFlow-${SITE.version}.dmg.sha256`,
-      result: `LocalFlow-${SITE.version}.dmg: OK`,
+      command: `shasum -a 256 -c peluni-${SITE.version}.dmg.sha256`,
+      result: `peluni-${SITE.version}.dmg: OK`,
     },
   ],
 } as const;
@@ -440,12 +440,12 @@ export const INSTALL = {
     { label: "Chip", need: "Apple M1 or later" },
     { label: "macOS", need: "Sonoma 14 or later" },
   ],
-  checkNo: "Intel Mac, or macOS 13 and earlier? LocalFlow won't run there. It is built for Apple Silicon only.",
+  checkNo: "Intel Mac, or macOS 13 and earlier? peluni won't run there. It is built for Apple Silicon only.",
   steps: [
     {
       title: "Drag it to Applications",
-      body: "Open the DMG and drag LocalFlow onto Applications. It lives in the menu bar; there's no Dock icon.",
-      app: "LocalFlow",
+      body: "Open the DMG and drag peluni onto Applications. It lives in the menu bar; there's no Dock icon.",
+      app: "peluni",
       folder: "Applications",
     },
     {
@@ -456,7 +456,7 @@ export const INSTALL = {
     },
     {
       title: "Get the speech model",
-      body: "Base, 148 MB, downloaded from Hugging Face. It is the only download LocalFlow makes until you ask for another.",
+      body: "Base, 148 MB, downloaded from Hugging Face. It is the only download peluni makes until you ask for another.",
       model: "Base",
       size: "148 MB",
       source: "huggingface.co",
@@ -477,11 +477,11 @@ export const FAQ = {
   items: [
     {
       q: "Is it really free?",
-      a: "Yes. LocalFlow is MIT licensed open source: no account, no subscription, no trial and no paid tier. You can read, build and change every line.",
+      a: "Yes. peluni is MIT licensed open source: no account, no subscription, no trial and no paid tier. You can read, build and change every line.",
     },
     {
       q: "Does anything I say leave my Mac?",
-      a: "No. Audio is recorded, transcribed and cleaned up on your Mac, and the text is pasted locally. The only network traffic LocalFlow ever produces is downloading model files from Hugging Face, and only when you ask.",
+      a: "No. Audio is recorded, transcribed and cleaned up on your Mac, and the text is pasted locally. The only network traffic peluni ever produces is downloading model files from Hugging Face, and only when you ask.",
     },
     {
       q: "Does it work offline?",
@@ -489,7 +489,7 @@ export const FAQ = {
     },
     {
       q: "Will it run on my Intel Mac?",
-      a: "No. LocalFlow is built for Apple Silicon (M1 or later) only, and needs macOS 14 (Sonoma) or later.",
+      a: "No. peluni is built for Apple Silicon (M1 or later) only, and needs macOS 14 (Sonoma) or later.",
     },
     {
       q: "Which languages does it understand?",
@@ -501,7 +501,7 @@ export const FAQ = {
     },
     {
       q: "What happens in password fields?",
-      a: "Nothing. LocalFlow detects secure fields and never types into them or writes to your clipboard there.",
+      a: "Nothing. peluni detects secure fields and never types into them or writes to your clipboard there.",
     },
   ],
 } as const;

@@ -110,7 +110,7 @@ function OfflineProof() {
 function SourceProof() {
   return (
     <div className="font-mono text-xs leading-relaxed">
-      <p className="text-ink-muted">Sources/LocalFlowApp/</p>
+      <p className="text-ink-muted">Sources/PeluniApp/</p>
       <ul className="mt-1.5">
         {SOURCE.files.map((file) => (
           <li key={file} className="flex items-center gap-2 border-l border-ink-border pl-3">

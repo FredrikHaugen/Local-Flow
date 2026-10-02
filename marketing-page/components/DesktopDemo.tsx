@@ -45,7 +45,7 @@ function MenuBar() {
         </span>
       ))}
       <span className="ml-auto flex items-center gap-4">
-        {/* LocalFlow's menu-bar mic, lit while it listens. */}
+        {/* peluni's menu-bar mic, lit while it listens. */}
         <span className="grid h-5 w-7 place-items-center rounded-md bg-accent-foreground text-accent">
           <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
             <rect x="9" y="3" width="6" height="11" rx="3" />

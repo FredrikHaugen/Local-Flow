@@ -261,7 +261,7 @@ body {
 /* The footer's name, as wide as the column allows, with the record light as its full stop. */
 .footer-name {
   white-space: nowrap;
-  font-size: clamp(5rem, 25.5vw, 16.9rem);
+  font-size: clamp(5rem, 40vw, 26.6rem);
   line-height: 0.78;
   letter-spacing: -0.015em;
 }

@@ -17,7 +17,7 @@ describe("site facts", () => {
   });
 
   test("links point at the GitHub repo", () => {
-    expect(SITE.repoUrl).toBe("https://github.com/FredrikHaugen/Local-Flow");
+    expect(SITE.repoUrl).toBe("https://github.com/FredrikHaugen/peluni");
     expect(SITE.releasesUrl).toBe(`${SITE.repoUrl}/releases`);
   });
 
