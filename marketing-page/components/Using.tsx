@@ -71,7 +71,6 @@ export function Using() {
         ))}
         {USING.keysEnd}
       </p>
-      <p className="mt-5 max-w-2xl text-muted">{USING.sceneNote}</p>
     </Chapter>
   );
 }

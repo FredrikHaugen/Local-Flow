@@ -47,21 +47,15 @@ function OfflineScene() {
 
 export function Audio() {
   return (
-    <Chapter id="privacy" title={AUDIO.title} wide display className="band-dark mt-24 py-20 sm:mt-32 sm:py-28">
+    <Chapter id="privacy" title={AUDIO.title} wide className="band-dark mt-24 py-20 sm:mt-32 sm:py-28">
       <OfflineScene />
-      <div className="mt-14 max-w-2xl">
-        {AUDIO.paragraphs.map((p) => (
-          <p key={p}>{p}</p>
-        ))}
-        <p className="mt-4 text-muted">
-          {AUDIO.storageBefore} <code className="rounded bg-card px-1.5 py-0.5 font-mono text-[0.9em] text-foreground">{AUDIO.storagePath}</code>{" "}
-          {AUDIO.storageAfter} {AUDIO.sourceBefore}{" "}
-          <a href={SITE.repoUrl} className="text-foreground underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
-            {AUDIO.sourceLink}
-          </a>
-          {AUDIO.sourceAfter}
-        </p>
-      </div>
+      <p className="mt-14 max-w-2xl">
+        {AUDIO.paragraphs[0]} {AUDIO.sourceBefore}{" "}
+        <a href={SITE.repoUrl} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
+          {AUDIO.sourceLink}
+        </a>
+        {AUDIO.sourceAfter}
+      </p>
     </Chapter>
   );
 }

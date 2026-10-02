@@ -25,10 +25,6 @@
   --logo-tile: #d9d9d9;
   --logo-stroke: #141413;
   --logo-rim: transparent;
-  /* macOS window controls in the product mock. */
-  --mac-close: #ff5f57;
-  --mac-min: #febc2e;
-  --mac-max: #28c840;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -48,9 +44,6 @@
     --logo-tile: #141413;
     --logo-stroke: #d9d9d9;
     --logo-rim: #3a3e38;
-    --mac-close: #ff5f57;
-    --mac-min: #febc2e;
-    --mac-max: #28c840;
   }
 }
 
@@ -69,9 +62,6 @@
   --color-rec: var(--rec);
   --color-overlay: var(--overlay);
   --color-overlay-foreground: var(--overlay-foreground);
-  --color-mac-close: var(--mac-close);
-  --color-mac-min: var(--mac-min);
-  --color-mac-max: var(--mac-max);
   --font-sans: var(--font-ui), system-ui, sans-serif;
   --font-serif: var(--font-text), Georgia, serif;
   --font-mono: var(--font-code), ui-monospace, Menlo, monospace;

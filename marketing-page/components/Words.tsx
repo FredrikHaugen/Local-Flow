@@ -1,5 +1,4 @@
 import { Chapter } from "@/components/Chapter";
-import { MacWindow } from "@/components/MacWindow";
 import { WORDS } from "@/lib/content";
 
 // Mark every vocabulary term (and alias) inside a line of text.
@@ -16,63 +15,45 @@ function withTerms(text: string, terms: readonly string[], className: string) {
   );
 }
 
+// The vocabulary's one job, at the size of the cleanup sentence: what whisper heard, and what landed.
+// The speech models follow as a quiet row, since picking one is a one-time choice.
 export function Words() {
   const heardTerms = WORDS.terms.flatMap((t) => [t.term, ...t.soundsLike]);
   return (
     <Chapter id="vocabulary" title={WORDS.title} wide className="pt-20 sm:pt-28">
-      <div className="mt-8 grid gap-14 lg:grid-cols-2 lg:gap-16">
-        <div>
-          <h3 className="text-[1.35rem]">{WORDS.vocabTitle}</h3>
-          <p className="mt-3">{WORDS.vocabBody}</p>
-          <MacWindow title={WORDS.vocabTitle} className="window-shadow mt-6" bodyClassName="divide-y divide-border">
-            {WORDS.terms.map((entry) => (
-              <div key={entry.term} className="flex items-baseline justify-between gap-3 px-4 py-2.5">
-                <span className="font-semibold">{entry.term}</span>
-                <span className="truncate text-sm text-muted">
-                  {entry.soundsLike.length > 0 ? `sounds like: ${entry.soundsLike.join(", ")}` : ""}
-                </span>
-              </div>
-            ))}
-          </MacWindow>
-          <dl className="mt-5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
-            <dt className="font-sans text-sm font-semibold text-muted">{WORDS.heardLabel}</dt>
-            <dd className="font-mono text-[0.9rem]">
-              {withTerms(WORDS.heard, heardTerms, "bg-transparent text-foreground underline decoration-dotted underline-offset-4")}
-            </dd>
-            <dt className="font-sans text-sm font-semibold text-muted">{WORDS.typedLabel}</dt>
-            <dd>{withTerms(WORDS.typed, WORDS.terms.map((t) => t.term), "selected")}</dd>
-          </dl>
-        </div>
+      <p className="mt-5 max-w-2xl">{WORDS.vocabBody}</p>
 
-        <div>
-          <h3 className="text-[1.35rem]">{WORDS.modelsTitle}</h3>
-          <p className="mt-3">{WORDS.modelsBody}</p>
-          <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[24rem] border-collapse font-sans text-[0.98rem]">
-              <caption className="sr-only">{WORDS.modelsTitle}</caption>
-              <thead>
-                <tr className="border-b-2 border-foreground text-left">
-                  {WORDS.modelsColumns.map((c) => (
-                    <th key={c} scope="col" className="py-2 pr-4 font-semibold">
-                      {c}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {WORDS.models.map((m) => (
-                  <tr key={m.name} className="border-b border-border">
-                    <th scope="row" className="py-2.5 pr-4 text-left font-semibold">
-                      {m.name}
-                    </th>
-                    <td className="py-2.5 pr-4 tabular-nums">{m.size}</td>
-                    <td className="py-2.5 text-muted">{m.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <figure aria-label={WORDS.vocabTitle} className="mt-10">
+        <p className="font-sans text-sm font-semibold text-muted">{WORDS.heardLabel}</p>
+        <p className="mt-2 font-mono text-[clamp(1.05rem,0.95rem+0.5vw,1.35rem)] text-muted">
+          {withTerms(WORDS.heard, heardTerms, "bg-transparent text-foreground underline decoration-dotted underline-offset-4")}
+        </p>
+        <p className="mt-6 font-sans text-sm font-semibold text-muted">{WORDS.typedLabel}</p>
+        <p className="mt-2 text-[clamp(2rem,1.25rem+3vw,3.9rem)] leading-[1.15] tracking-[-0.02em]">
+          {withTerms(WORDS.typed, WORDS.terms.map((t) => t.term), "selected")}
+        </p>
+        <ul aria-label={WORDS.vocabTitle} className="mt-8 flex flex-wrap gap-2 font-sans text-[0.95rem]">
+          {WORDS.terms.map((entry) => (
+            <li key={entry.term} className="rounded-md border border-border bg-card px-3 py-1.5">
+              <span className="font-semibold">{entry.term}</span>
+              {entry.soundsLike.length > 0 && <span className="text-muted"> sounds like “{entry.soundsLike.join(", ")}”</span>}
+            </li>
+          ))}
+        </ul>
+      </figure>
+
+      <div className="mt-16 border-t border-border pt-8">
+        <h3 className="text-[1.35rem]">{WORDS.modelsTitle}</h3>
+        <p className="mt-2 max-w-2xl">{WORDS.modelsBody}</p>
+        <ul aria-label={WORDS.modelsTitle} className="mt-6 grid gap-x-8 gap-y-4 font-sans sm:grid-cols-3 lg:grid-cols-5">
+          {WORDS.models.map((m) => (
+            <li key={m.name}>
+              <span className="block font-semibold">{m.name}</span>
+              <span className="block tabular-nums">{m.size}</span>
+              <span className="block text-[0.95rem] text-muted">{m.note}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </Chapter>
   );

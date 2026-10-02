@@ -4,15 +4,15 @@ import { Words } from "@/components/Words";
 import { WORDS } from "@/lib/content";
 
 describe("Vocabulary and speech models", () => {
-  test("has a vocabulary example and a models table", () => {
+  test("shows what was heard and what landed, the terms, and every model with its size", () => {
     render(<Words />);
     const region = screen.getByRole("region", { name: WORDS.title });
     expect(region.id).toBe("vocabulary");
-    expect(within(region).getByRole("heading", { level: 3, name: WORDS.vocabTitle })).toBeDefined();
-    expect(within(region).getByRole("heading", { level: 3, name: WORDS.modelsTitle })).toBeDefined();
-    for (const t of WORDS.terms) expect(within(region).getAllByText(t.term).length).toBeGreaterThan(0);
-    const table = within(region).getByRole("table", { name: WORDS.modelsTitle });
-    expect(within(table).getAllByRole("row")).toHaveLength(WORDS.models.length + 1);
-    expect(table.parentElement?.className).toContain("overflow-x-auto");
+    const moment = within(region).getByRole("figure", { name: WORDS.vocabTitle });
+    expect(moment.textContent).toContain(WORDS.typed);
+    expect(within(moment).getByRole("list", { name: WORDS.vocabTitle }).children).toHaveLength(WORDS.terms.length);
+    const models = within(region).getByRole("list", { name: WORDS.modelsTitle });
+    expect(models.children).toHaveLength(WORDS.models.length);
+    for (const m of WORDS.models) expect(models.textContent).toContain(m.size);
   });
 });

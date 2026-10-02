@@ -22,9 +22,6 @@ export const USING = {
   paragraphs: [
     "peluni lives in the menu bar, and the text lands in whichever app has focus, typically in about a second with the base model.",
   ],
-  // Under the scene: what the keys do, and what happens when a paste can't land.
-  sceneNote:
-    "If a paste can't land, the text stays on your clipboard and the overlay asks you to press ⌘V. Your last ten transcripts wait in the menu, in memory, until you quit.",
   // The menu bar menu (Sources/PeluniApp/App/PeluniApp.swift); the app truncates entries at 48 characters.
   menu: {
     label: "peluni's menu bar menu",
@@ -61,7 +58,6 @@ export const USING = {
 export const CLEANUP_LEVELS = {
   title: "Cleanup levels",
   intro: "Whisper writes down everything you say, false starts included. You choose how much of it gets pasted.",
-  fallback: "If the cleanup model errors or takes longer than ten seconds, peluni pastes the raw transcript instead.",
   legend: "Cleanup level",
   defaultLevel: "light",
   levels: [
@@ -117,9 +113,7 @@ export const WORDS = {
   typedLabel: "Pasted",
   typed: "Ship the peluni build to Priya.",
   modelsTitle: "Speech models",
-  modelsBody:
-    "Start with Base. The larger models are more accurate and take more disk space, and each one is downloaded from Hugging Face only when you pick it in Settings.",
-  modelsColumns: ["Model", "Size", "Good for"],
+  modelsBody: "Start with Base. Larger models are more accurate, and each is downloaded only when you pick it in Settings.",
   models: [
     { name: "Tiny", size: "78 MB", note: "older Macs, quick notes" },
     { name: "Base", size: "148 MB", note: "where to start" },
@@ -144,9 +138,6 @@ export const AUDIO = {
   paragraphs: [
     "Turn Wi-Fi off and keep dictating. The microphone is read at 16 kHz, whisper.cpp transcribes on the GPU and the cleanup model runs through MLX, all in memory on your Mac. The app only goes online to download a model from Hugging Face when you ask for one, and it won't type into a password field or touch the clipboard while one has focus.",
   ],
-  storageBefore: "Models are kept in",
-  storagePath: "~/Library/Application Support/peluni/",
-  storageAfter: "and your vocabulary is a plain JSON file in the same folder.",
   sourceBefore: "The code for all of this is",
   sourceLink: "on GitHub",
   sourceAfter: ", MIT licensed.",
@@ -164,19 +155,11 @@ export const INSTALL_GUIDE = {
     },
     { before: "Download the Base speech model (148 MB) from the same window. Then hold Right ⌥ and talk.", link: "", after: "" },
   ],
-  // The setup window (Sources/PeluniApp/UI/OnboardingWindow.swift), finished.
-  setup: {
-    title: "Welcome to peluni",
-    rows: [
-      { name: "Microphone", state: "Allowed" },
-      { name: "Accessibility", state: "Allowed" },
-      { name: "Speech model", state: "Base, 148 MB" },
-    ],
-  },
   checkTitle: "Check the download",
   checksumBody:
     "Releases are signed with a Developer ID and notarized by Apple. To check a download, put the .sha256 file published with it in the same folder and run:",
   checksumCommand: "shasum -a 256 -c peluni-<version>.dmg.sha256",
+  download: "Download for Mac",
   requirementsTitle: "Requirements",
   requirements: [
     { title: "macOS 14 (Sonoma) or later", detail: "peluni runs from the menu bar." },
@@ -205,8 +188,20 @@ export const QUESTIONS = {
       a: "No. It needs Apple Silicon (M1 or later) and macOS 14 or later.",
     },
     {
+      q: "What if a paste can't land?",
+      a: "The text stays on your clipboard and the overlay asks you to press ⌘V.",
+    },
+    {
+      q: "What if the cleanup model fails?",
+      a: "If it errors or takes longer than ten seconds, peluni pastes the raw transcript instead.",
+    },
+    {
       q: "Does it keep my transcripts?",
       a: "The last ten stay in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them.",
+    },
+    {
+      q: "Where are the models and my vocabulary stored?",
+      a: "In ~/Library/Application Support/peluni/. Your vocabulary is a plain JSON file in the same folder.",
     },
     {
       q: "What happens in a password field?",
