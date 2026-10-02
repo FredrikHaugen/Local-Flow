@@ -11,7 +11,15 @@
   --muted: #4d524e;
   --card: #ffffff;
   --border: #cfd3cc;
-  /* The desktop behind the product demo. */
+  /* The spoken take above the pasted sentence: readable, but fading toward the result. */
+.ghost-fade {
+  color: color-mix(in oklab, var(--foreground) 45%, transparent);
+}
+.ghost-fade [data-filler] {
+  color: color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+
+/* The desktop behind the product demo. */
   --desk: #dde1da;
   /* macOS text selection. */
   --select: #b4d5fe;
@@ -113,6 +121,14 @@ h3 {
   box-shadow:
     inset 0 -2px 0 var(--border),
     0 1px 0 var(--border);
+}
+
+/* The spoken take above the pasted sentence: readable, but fading toward the result. */
+.ghost-fade {
+  color: color-mix(in oklab, var(--foreground) 45%, transparent);
+}
+.ghost-fade [data-filler] {
+  color: color-mix(in oklab, var(--foreground) 22%, transparent);
 }
 
 /* The desktop behind the product demo. */

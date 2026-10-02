@@ -16,7 +16,7 @@ describe("DesktopDemo", () => {
 
   test("the spoken take is ghosted behind the paragraph that landed", () => {
     const { container } = render(<DesktopDemo />);
-    expect(container.querySelector("[data-demo='raw']")?.className).toContain("text-foreground/30");
+    expect(container.querySelector("[data-demo='raw']")?.className).toContain("ghost-fade");
     expect(container.querySelector("[data-demo='cleaned']")?.classList.contains("selected")).toBe(false);
   });
 
