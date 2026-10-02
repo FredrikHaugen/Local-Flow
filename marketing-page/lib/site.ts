@@ -8,7 +8,7 @@ export const SITE = {
   // The canonical origin: metadataBase, the canonical link, sitemap, robots and JSON-LD all derive from it.
   url: "https://peluni.app",
   description:
-    "peluni is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and the text appears in whatever app you're using, transcribed and cleaned up on your Mac.",
+    "peluni is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and the text lands in the app you're using, transcribed and cleaned up on your Mac.",
   repoUrl,
   // /releases rather than /releases/latest: the latter 404s until the first release is published.
   releasesUrl: `${repoUrl}/releases`,

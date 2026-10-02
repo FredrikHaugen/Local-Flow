@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { AnalyticsConsent } from "@/components/AnalyticsConsent";
-import { JsonLd } from "@/components/JsonLd";
-import { SEO, SITE } from "@/lib/site";
+import { SITE } from "@/lib/site";
 import "./globals.css";
 
 // Self-hosted, latin subset only (see app/fonts/README.md).
@@ -30,25 +29,10 @@ const code = localFont({
   preload: false,
 });
 
+// Each page sets its own title, description, canonical link and share card (lib/seo.ts).
 // og:image comes from app/opengraph-image.png (+ .alt.txt); X falls back to it for the large card.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: SEO.title,
-  description: SITE.description,
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: SEO.title,
-    description: SITE.description,
-    url: "/",
-    siteName: SITE.name,
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: SEO.title,
-    description: SITE.description,
-  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -59,7 +43,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col">
         {children}
-        <JsonLd />
         <AnalyticsConsent />
       </body>
     </html>

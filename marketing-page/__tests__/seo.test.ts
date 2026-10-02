@@ -1,15 +1,17 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, test, vi } from "vitest";
-import { metadata } from "@/app/layout";
+import { metadata as layoutMetadata } from "@/app/layout";
+import { metadata } from "@/app/page";
 import { GET, llmsTxt } from "@/app/llms.txt/route";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
-import { jsonLd } from "@/components/JsonLd";
+import { homeJsonLd as jsonLd } from "@/components/JsonLd";
 import { AUDIO, QUESTIONS } from "@/lib/content";
+import { PAGES } from "@/lib/pages";
 import { README_FACTS, SEO, SITE } from "@/lib/site";
 
-// next/font only works inside a Next build; the layout's metadata is all this file needs.
+// next/font only works inside a Next build; the layout's metadata base is all this file needs from it.
 vi.mock("next/font/local", () => ({ default: () => ({ variable: "" }) }));
 
 const readme = readFileSync(resolve(process.cwd(), "../README.md"), "utf8");
@@ -17,9 +19,11 @@ const readme = readFileSync(resolve(process.cwd(), "../README.md"), "utf8");
 describe("search metadata", () => {
   test("one canonical origin everywhere", () => {
     expect(SITE.url).toBe("https://peluni.app");
-    expect(metadata.metadataBase?.toString()).toBe(`${SITE.url}/`);
+    expect(layoutMetadata.metadataBase?.toString()).toBe(`${SITE.url}/`);
     expect(metadata.alternates?.canonical).toBe("/");
-    expect(sitemap()).toEqual([{ url: `${SITE.url}/` }]);
+    expect(sitemap()).toEqual(
+      PAGES.map((p) => ({ url: p.path === "/" ? `${SITE.url}/` : `${SITE.url}${p.path}` })),
+    );
     expect(robots().sitemap).toBe(`${SITE.url}/sitemap.xml`);
   });
 

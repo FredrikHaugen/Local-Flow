@@ -44,6 +44,8 @@ describe("no template tells", () => {
 
   test("the version is stated once", () => {
     const { container } = render(<Home />);
+    // Visible text only: the JSON-LD script also names the version, for search engines.
+    for (const script of container.querySelectorAll("script")) script.remove();
     expect(container.textContent!.split(SITE.version).length - 1).toBe(1);
   });
 
