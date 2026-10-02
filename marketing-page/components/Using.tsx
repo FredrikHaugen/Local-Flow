@@ -4,7 +4,7 @@ import { USING } from "@/lib/content";
 
 export function Using() {
   return (
-    <Chapter id="using" title={USING.title} className="pt-24 sm:pt-32">
+    <Chapter id="using" title={USING.title} className="pt-20 sm:pt-28">
       {USING.paragraphs.map((p) => (
         <p key={p} className="mt-5">
           {p}

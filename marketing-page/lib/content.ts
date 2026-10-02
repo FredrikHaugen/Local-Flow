@@ -36,10 +36,8 @@ export const USING = {
 // the outputs illustrate what each level changes.
 export const CLEANUP_LEVELS = {
   title: "Cleanup levels",
-  paragraphs: [
-    "Whisper writes down everything you say, false starts included. The cleanup pass decides how much of that you keep. Light, the default, drops filler words and adds punctuation. High also turns a spoken list into a written one.",
-    "If the cleanup model errors or takes longer than ten seconds, peluni pastes the raw transcript instead.",
-  ],
+  intro: "Whisper writes down everything you say, false starts included. You choose how much of it gets pasted.",
+  fallback: "If the cleanup model errors or takes longer than ten seconds, peluni pastes the raw transcript instead.",
   legend: "Cleanup level",
   heardLabel: "You said",
   typedLabel: "Pasted",
@@ -202,6 +200,6 @@ export const FOOTER_NOTE = {
     { label: "Issues", href: `${SITE.repoUrl}/issues` },
     { label: "MIT License", href: `${SITE.repoUrl}/blob/main/LICENSE` },
   ],
-  site: "This site loads Microsoft Clarity only if you allow it, and serves its own fonts.",
+  site: "The app has no analytics. This website loads Microsoft Clarity only if you allow it.",
   made: "Made for macOS on Apple Silicon.",
 } as const;

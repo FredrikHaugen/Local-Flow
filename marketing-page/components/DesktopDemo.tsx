@@ -33,31 +33,38 @@ function OverlayPill() {
   );
 }
 
-// The product doing its one job: what you said, the overlay while you said it, and the paste.
+// The product doing its one job: what you said, in the margin, and the paste, in a full-size
+// window, with the overlay where the real one sits, near the bottom of the screen.
 export function DesktopDemo() {
   const words = DEMO.raw.split(" ");
   return (
-    <figure className="desk relative rounded-xl px-4 pb-10 pt-5 sm:px-7 sm:pb-12 sm:pt-6">
-      <p className="font-sans text-sm font-semibold text-muted">{DEMO.heardLabel}</p>
-      <p data-demo="raw" className="demo-heard mt-1.5 font-mono text-[0.85rem] leading-relaxed">
-        {words.map((word, i) => (
-          <span key={i}>
-            {i > 0 && " "}
-            {fillers.has(word) ? <s className="text-muted decoration-foreground/50">{word}</s> : word}
-          </span>
-        ))}
-      </p>
+    <figure className="relative mt-12 grid gap-6 pb-8 sm:mt-14 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-10">
+      <div className="lg:pt-16">
+        <p className="font-sans text-sm font-semibold text-muted">{DEMO.heardLabel}</p>
+        <p data-demo="raw" className="demo-heard mt-1.5 font-mono text-[0.85rem] leading-relaxed text-muted">
+          {words.map((word, i) => (
+            <span key={i}>
+              {i > 0 && " "}
+              {fillers.has(word) ? <s className="decoration-foreground/60">{word}</s> : <span className="text-foreground">{word}</span>}
+            </span>
+          ))}
+        </p>
+      </div>
 
-      <MacWindow title={DEMO.subject} className="window-shadow mt-5">
-        <dl className="text-[0.85rem]">
-          <div className="flex gap-2 border-b border-border px-5 py-2.5">
+      <MacWindow title={DEMO.subject} className="window-shadow">
+        <dl className="text-[0.9rem]">
+          <div className="flex gap-2 border-b border-border px-6 py-3 sm:px-10">
             <dt className="text-muted">To:</dt>
             <dd className="font-medium">{DEMO.to}</dd>
           </div>
+          <div className="hidden gap-2 border-b border-border px-10 py-3 sm:flex">
+            <dt className="text-muted">Subject:</dt>
+            <dd className="font-medium">{DEMO.subject}</dd>
+          </div>
         </dl>
-        <div className="px-5 pb-8 pt-4">
-          <p className="text-sm font-semibold text-muted">{DEMO.typedLabel}</p>
-          <p className="demo-paste mt-2 font-serif text-[1.05rem] leading-[1.7]">
+        <div className="px-6 pb-16 pt-6 sm:px-10 sm:pb-20 sm:pt-8">
+          <p className="sr-only">{DEMO.typedLabel}</p>
+          <p className="demo-paste font-serif text-[1.1rem] leading-[1.75] sm:text-[1.3rem]">
             <span data-demo="cleaned" className="selected">
               {DEMO.cleaned}
             </span>
@@ -66,8 +73,7 @@ export function DesktopDemo() {
         </div>
       </MacWindow>
 
-      {/* Where the real overlay sits: centred near the bottom of the screen. */}
-      <div className="absolute inset-x-0 bottom-0 flex translate-y-1/2 justify-center">
+      <div className="absolute bottom-0 right-0 flex justify-center lg:left-[16.5rem]">
         <OverlayPill />
       </div>
       <figcaption className="sr-only">
