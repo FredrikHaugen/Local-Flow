@@ -9,8 +9,11 @@ export const CHANGELOG_PAGE = {
   ] as readonly Inline[],
   unreleased: "not released yet",
   requires: `Needs ${SEO.operatingSystem} and ${SEO.processor}.`,
-  unreleasedNote:
-    "Not on the releases page yet, so the Download links lead to an empty page for now. Until it's published, build it from the source with make run, as the README explains.",
+  unreleasedNote: [
+    "Not on the releases page yet, so the Download links lead to an empty page for now. Until it's published, build it from the source with ",
+    { code: "make run" },
+    ", as the README explains.",
+  ] as readonly Inline[],
   formatDate(date: string): string {
     return new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", {
       day: "numeric",

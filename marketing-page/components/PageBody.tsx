@@ -11,6 +11,10 @@ export function Inlines({ parts }: { parts: readonly Inline[] }) {
       {parts.map((part, i) =>
         typeof part === "string" ? (
           <Fragment key={i}>{part}</Fragment>
+        ) : "code" in part ? (
+          <code key={i} className="font-mono text-[0.9em]">
+            {part.code}
+          </code>
         ) : (
           <a key={i} href={part.href} className={LINK}>
             {part.text}

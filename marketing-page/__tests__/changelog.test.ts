@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import { inlineText } from "@/lib/blocks";
 import { CHANGELOG, parseChangelog } from "@/lib/changelog";
 import { CHANGELOG_PAGE } from "@/lib/pages/changelog";
 import { README_FACTS, SITE } from "@/lib/site";
@@ -56,7 +57,7 @@ describe("changelog entries", () => {
 describe("an unreleased version", () => {
   test("says it isn't on the releases page yet and how to build it", () => {
     expect(CHANGELOG[0].status).toBe("unreleased");
-    expect(CHANGELOG_PAGE.unreleasedNote).toContain("releases page");
-    expect(CHANGELOG_PAGE.unreleasedNote).toContain("make run");
+    expect(inlineText(CHANGELOG_PAGE.unreleasedNote)).toContain("releases page");
+    expect(inlineText(CHANGELOG_PAGE.unreleasedNote)).toContain("make run");
   });
 });

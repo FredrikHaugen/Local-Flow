@@ -71,7 +71,11 @@ export const SECURITY: PageCopy = {
             caption: "What peluni keeps, where, and until when",
             head: ["What", "Where", "Gone when"],
             rows: [
-              ["Recorded audio", "Memory only, for one dictation", "It has been transcribed"],
+              [
+                "Recorded audio",
+                "Memory only, for one dictation",
+                "It has been transcribed",
+              ],
               ["Last ten transcripts", "Memory only", "You quit peluni"],
               [
                 "Speech models",
@@ -103,7 +107,11 @@ export const SECURITY: PageCopy = {
         },
         {
           p: [
-            "To remove all of it, quit peluni, delete it from Applications, delete ~/Library/Application Support/peluni/, and run defaults delete com.figge.peluni in Terminal.",
+            "To remove all of it, quit peluni, delete it from Applications, delete ",
+            { code: "~/Library/Application Support/peluni/" },
+            ", and run ",
+            { code: "defaults delete com.figge.peluni" },
+            " in Terminal.",
           ],
         },
       ],
@@ -119,7 +127,9 @@ export const SECURITY: PageCopy = {
         },
         {
           p: [
-            "To check this yourself, run nettop -m tcp -p $(pgrep -x peluni) in Terminal and dictate a few sentences. With the models downloaded, no connection appears.",
+            "To check this yourself, run ",
+            { code: "nettop -m tcp -p $(pgrep -x peluni)" },
+            " in Terminal and dictate a few sentences. With the models downloaded, no connection appears.",
           ],
         },
       ],
@@ -142,7 +152,10 @@ export const SECURITY: PageCopy = {
         {
           p: [
             "Report it privately through ",
-            { text: "GitHub's vulnerability reporting", href: `${SITE.repoUrl}/security/advisories/new` },
+            {
+              text: "GitHub's vulnerability reporting",
+              href: `${SITE.repoUrl}/security/advisories/new`,
+            },
             ", not in a public issue. Reports go to Fredrik Haugen, who maintains peluni.",
           ],
         },
