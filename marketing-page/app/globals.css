@@ -5,6 +5,20 @@
  * The teal is pale: it's a fill behind ink text. Text, icons and thin strokes on paper use
  * --accent-ink. Every color on the site comes from these tokens.
  */
+
+/* The display face's fallback: Arial scaled to Archivo ExtraCondensed's width (Next's own numbers),
+ * with weight 800 declared so headings aren't synthetically bolded wider. Liberation Sans is
+ * Arial's metric twin on Linux. See the display font in app/layout.tsx. */
+@font-face {
+  font-family: "display-fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans");
+  font-weight: 800;
+  size-adjust: 75.29%;
+  ascent-override: 116.62%;
+  descent-override: 27.89%;
+  line-gap-override: 0%;
+}
+
 :root {
   --background: #f6f5f1;
   --foreground: #141413;

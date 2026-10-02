@@ -84,10 +84,11 @@ export function AnalyticsConsent() {
     <div
       role="dialog"
       aria-label={ANALYTICS.settings}
-      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-2xl border border-border bg-card p-5 shadow-[0_24px_48px_-24px_var(--foreground)] sm:inset-x-auto sm:right-6 sm:bottom-6"
+      // Phones: a slim bar flush with the bottom edge, so the hero stays visible. Wider: a corner card.
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-12px_32px_-24px_var(--foreground)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-md sm:rounded-2xl sm:border sm:p-5 sm:shadow-[0_24px_48px_-24px_var(--foreground)]"
     >
-      <p className="text-sm leading-relaxed">{ANALYTICS.banner}</p>
-      <div className="mt-4 flex gap-3">
+      <p className="text-sm leading-snug sm:leading-relaxed">{ANALYTICS.banner}</p>
+      <div className="mt-2.5 flex gap-3 sm:mt-4">
         <button
           type="button"
           onClick={allow}
