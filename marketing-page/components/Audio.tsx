@@ -1,69 +1,78 @@
 import { Chapter } from "@/components/Chapter";
+import { OverlayPill } from "@/components/OverlayPill";
 import { AUDIO } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-// One line icon per stage, drawn on a 24-unit grid, in the order of AUDIO.stages.
-const STAGE_ICONS = [
-  <path key="mic" d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3ZM5 11a7 7 0 0 0 14 0M12 18v3" />,
-  <path key="trim" d="M4 12h3m10 0h3M9 7v10m6-10v10M9 12h6" />,
-  <path key="chip" d="M7 7h10v10H7zM10 3v4m4-4v4m-4 10v4m4-4v4M3 10h4m-4 4h4m10-4h4m-4 4h4" />,
-  <path key="clean" d="M4 7h11M4 12h16M4 17h8m6-2 3 3m0-3-3 3" />,
-  <path key="paste" d="M9 4h6v3H9zM7 6H5v15h14V6h-2m-8 7h6m-6 4h4" />,
-];
-
-// The privacy argument, drawn at display size: every stage inside the line around "Your Mac", the
-// connection to the network cut, and the one thing that ever crosses the line hanging below.
-function AudioPath() {
+// The privacy claim as a scene you could screenshot: Wi-Fi switched off in the menu bar, the overlay
+// listening, and the message landing anyway.
+function OfflineScene() {
+  const { scene } = AUDIO;
   return (
-    <figure aria-label={AUDIO.pathLabel} className="mt-12 font-sans">
-      <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_4.5rem_10.5rem] lg:gap-0">
-        <div className="rounded-3xl border-[3px] border-foreground bg-background/70 px-6 pb-10 pt-6 sm:px-8">
-          <p className="text-base font-semibold">{AUDIO.boundary}</p>
-          <ol className="audio-path mt-8 grid gap-y-8 sm:grid-cols-5 sm:gap-x-14">
-            {AUDIO.stages.map((stage, i) => (
-              <li key={stage.name} className="relative">
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-12 w-12 sm:h-14 sm:w-14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  {STAGE_ICONS[i]}
-                </svg>
-                <strong className="mt-4 block text-[1.3rem] leading-tight">{stage.name}</strong>
-                <span className="mt-1 block text-base text-muted">{stage.detail}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-        {/* The cut connection: a line out of the Mac with a cross through it. */}
-        <svg aria-hidden="true" viewBox="0 0 80 40" className="mx-auto hidden h-10 w-20 lg:block" fill="none" stroke="currentColor" strokeLinecap="round">
-          <path d="M0 20h80" strokeWidth="3" className="text-foreground/40" />
-          <path d="M30 8l20 24M50 8 30 32" strokeWidth="4" />
-        </svg>
-        <div className="flex items-center gap-4 rounded-3xl border-[3px] border-foreground/30 px-6 py-6 lg:flex-col lg:text-center">
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-14 w-14 shrink-0 sm:h-20 sm:w-20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-            <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" className="text-muted" />
-            <circle cx="12" cy="19.5" r="0.9" fill="currentColor" className="text-muted" />
-            <path d="M3 3l18 18" strokeWidth="2.2" />
+    <figure aria-label={scene.label} className="mt-10">
+      <div className="desk-scene relative h-[30rem] overflow-hidden rounded-2xl font-sans text-[0.95rem] sm:h-[32rem]">
+        <div aria-hidden="true" className="flex h-8 items-center justify-end gap-5 border-b border-border/70 px-4 text-[0.8rem]">
+          <span className="grid h-6 w-8 place-items-center rounded bg-foreground/10">
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0" className="opacity-40" />
+              <path d="M4 4l16 16" />
+            </svg>
+          </span>
+          <svg viewBox="10 26 90 68" className="h-3.5 w-auto" fill="none">
+            <path d="M20 41H43.6522L68.7826 83H88" stroke="currentColor" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="80" cy="41" r="12" className="rec-dot fill-rec" />
           </svg>
-          <p>
-            <strong className="block text-[1.35rem]">{AUDIO.network}</strong>
-            <span className="text-base text-muted">{AUDIO.networkState}</span>
+          <span className="tabular-nums">Fri 4:12 PM</span>
+        </div>
+
+        {/* The Wi-Fi menu, open and switched off. */}
+        <div className="window-shadow absolute right-4 top-9 z-10 w-64 rounded-lg bg-card px-4 py-3 sm:right-24">
+          <p className="flex items-center justify-between font-semibold">
+            {scene.wifi}
+            <span aria-hidden="true" className="relative h-5 w-9 rounded-full bg-foreground/20">
+              <span className="absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-card shadow" />
+            </span>
           </p>
+          <p className="mt-1 text-sm text-muted">{scene.wifiState}</p>
+        </div>
+
+        {/* The app the message lands in. */}
+        <div className="window-shadow absolute left-4 right-4 top-20 overflow-hidden rounded-xl bg-card sm:left-10 sm:right-auto sm:w-[34rem] lg:left-16">
+          <p className="border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">{scene.app}</p>
+          <div className="grid gap-3 px-5 py-5">
+            <p className="max-w-[75%] justify-self-start rounded-2xl bg-background px-4 py-2">{scene.incoming}</p>
+            <p className="max-w-[80%] justify-self-end rounded-2xl bg-select px-4 py-2 font-serif text-[1.1rem] text-select-foreground">
+              {scene.text}
+              <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-current" />
+            </p>
+          </div>
+        </div>
+
+        <div className="absolute inset-x-0 bottom-10 flex justify-center">
+          <div className="origin-bottom scale-125 sm:scale-150">
+            <OverlayPill />
+          </div>
         </div>
       </div>
-      <div className="ml-12">
-        <span aria-hidden="true" className="block h-10 w-[3px] bg-foreground/40" />
-        <p className="inline-block rounded-xl border-[3px] border-foreground/30 px-5 py-3 text-base">
-          <strong>{AUDIO.outside}</strong> <span className="text-muted">{AUDIO.outsideDetail}</span>
-        </p>
-      </div>
+      <figcaption className="mt-8 max-w-3xl text-[clamp(2rem,1.3rem+3vw,3.75rem)] leading-[1.08] tracking-[-0.015em]">
+        {AUDIO.caption}
+      </figcaption>
     </figure>
   );
 }
 
 export function Audio() {
   return (
-    <Chapter id="privacy" title={AUDIO.title} wide className="desk mt-24 py-16 sm:mt-32 sm:py-24">
-      <p className="mt-6 max-w-3xl text-[clamp(2.2rem,1.4rem+3.4vw,4.25rem)] leading-[1.08] tracking-[-0.015em]">{AUDIO.display}</p>
-      <AudioPath />
-      <div className="mt-10 max-w-2xl">
+    <Chapter id="privacy" title={AUDIO.title} wide className="pt-20 sm:pt-28">
+      <OfflineScene />
+      <ol aria-label={AUDIO.pathLabel} className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 font-sans text-[0.95rem] text-muted">
+        {AUDIO.stages.map((stage, i) => (
+          <li key={stage} className="flex items-center gap-2">
+            {i > 0 && <span aria-hidden="true">→</span>}
+            {stage}
+          </li>
+        ))}
+      </ol>
+      <div className="mt-8 max-w-2xl">
         {AUDIO.paragraphs.map((p) => (
           <p key={p}>{p}</p>
         ))}

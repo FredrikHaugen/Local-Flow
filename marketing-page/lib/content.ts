@@ -131,21 +131,22 @@ export const WORDS = {
 
 export const AUDIO = {
   title: "Where your audio goes",
-  display: "Turn Wi-Fi off and keep dictating.",
-  paragraphs: ["Your recording stays in memory, and peluni won't type into a password field or touch the clipboard while one has focus."],
-  network: "Network",
-  networkState: "not used while you dictate",
-  pathLabel: "The path a recording takes",
-  boundary: "Your Mac",
-  stages: [
-    { name: "Microphone", detail: "read at 16 kHz" },
-    { name: "Trim", detail: "silence cut off" },
-    { name: "whisper.cpp", detail: "transcribes on the GPU" },
-    { name: "Cleanup model", detail: "runs through MLX" },
-    { name: "Paste", detail: "where your cursor is" },
+  // The scene: dictating into Messages with Wi-Fi switched off.
+  scene: {
+    label: "Dictating with Wi-Fi off",
+    wifi: "Wi-Fi",
+    wifiState: "Off",
+    app: "Messages",
+    contact: "Sam",
+    incoming: "Still on for 6?",
+    text: "Running ten minutes late, start without me and I'll catch up on the notes.",
+  },
+  caption: "Turn Wi-Fi off and keep dictating.",
+  pathLabel: "The path a recording takes, all on your Mac",
+  stages: ["Microphone at 16 kHz", "silence trimmed", "whisper.cpp on the GPU", "cleanup through MLX", "pasted"],
+  paragraphs: [
+    "Your recording stays in memory, and the app only goes online to download a model from Hugging Face when you ask for one. peluni won't type into a password field or touch the clipboard while one has focus.",
   ],
-  outside: "Hugging Face",
-  outsideDetail: "only when you download a model",
   storageBefore: "Models are kept in",
   storagePath: "~/Library/Application Support/peluni/",
   storageAfter: "and your vocabulary is a plain JSON file in the same folder.",

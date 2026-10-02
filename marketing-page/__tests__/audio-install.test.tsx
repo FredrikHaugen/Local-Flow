@@ -6,17 +6,15 @@ import { AUDIO, INSTALL_GUIDE } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 describe("Where your audio goes", () => {
-  test("draws the path a recording takes, inside the Mac, with one way out", () => {
+  test("shows dictation working with Wi-Fi off, then the path in one line", () => {
     render(<Audio />);
     const region = screen.getByRole("region", { name: AUDIO.title });
     expect(region.id).toBe("privacy");
-    const path = within(region).getByRole("figure", { name: AUDIO.pathLabel });
-    expect([...path.querySelectorAll("ol > li")].map((li) => li.querySelector("strong")?.textContent)).toEqual(
-      AUDIO.stages.map((s) => s.name),
-    );
-    expect(within(path).getByText(AUDIO.boundary)).toBeDefined();
-    expect(within(path).getByText(AUDIO.outside)).toBeDefined();
-    expect(within(path).getByText(AUDIO.network)).toBeDefined();
+    const scene = within(region).getByRole("figure", { name: AUDIO.scene.label });
+    expect(within(scene).getByText(AUDIO.scene.wifiState)).toBeDefined();
+    expect(within(scene).getByText(AUDIO.caption)).toBeDefined();
+    const path = within(region).getByRole("list", { name: AUDIO.pathLabel });
+    expect([...path.querySelectorAll("li")].map((li) => li.textContent?.replace("→", ""))).toEqual([...AUDIO.stages]);
   });
 
   test("then says it in prose, with the storage path and a link to the source", () => {
