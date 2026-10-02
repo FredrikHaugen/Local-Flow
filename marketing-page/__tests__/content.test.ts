@@ -12,7 +12,7 @@ describe("content facts", () => {
     // The site rewords PROJECT.md's "typically in about a second with the base model" but keeps every part of it.
     expect(project).toContain("typically in about a second with the base model");
     const said = USING.paragraphs.join(" ");
-    for (const part of ["Typically", "about a second", "with the base model"]) expect(said).toContain(part);
+    for (const part of ["typically", "about a second", "with the base model"]) expect(said.toLowerCase()).toContain(part);
   });
 
   test("the intro is one short promise", () => {

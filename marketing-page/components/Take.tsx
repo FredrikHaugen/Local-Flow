@@ -14,7 +14,7 @@ export function Take() {
   return (
     <figure aria-label={USING.sceneLabel} className="window-shadow mt-12 overflow-hidden rounded-xl bg-card font-sans">
       <p className="relative border-b border-border px-4 py-2 text-center text-[0.8rem] font-semibold text-foreground/80">
-        <span aria-hidden="true" className="absolute left-3 top-1/2 hidden -translate-y-1/2 gap-1.5 sm:flex">
+        <span aria-hidden="true" className="absolute left-3 top-1/2 flex -translate-y-1/2 gap-1.5">
           <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
           <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
           <span className="h-3 w-3 rounded-full bg-[#28c840]" />

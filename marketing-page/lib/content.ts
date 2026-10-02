@@ -21,7 +21,7 @@ export const INTRO = {
 
 export const USING = {
   paragraphs: [
-    "Typically about a second after you let go of the key, with the base model.",
+    "The text typically appears about a second after you let go of the key, with the base model.",
   ],
   sceneLabel: "Dictating into Reminders",
   // The hero scene: a Reminders list where the last dictation has landed and the next one is being spoken.
