@@ -15,7 +15,7 @@ struct PeluniApp: App {
             MenuContent()
                 .environmentObject(appState)
         } label: {
-            Image(systemName: "mic")
+            MenuBarIcon()
                 .onAppear {
                     OnboardingWindowController.showIfNeeded(permissions: appState.permissions, models: .shared)
                     appState.startServices()
@@ -24,6 +24,24 @@ struct PeluniApp: App {
 
         Settings {
             SettingsView().environmentObject(appState)
+        }
+    }
+}
+
+/// The logomark as a template image, which macOS tints for light and dark menu bars. `swift build`
+/// binaries carry no bundle resources, so they fall back to the SF Symbol.
+private let menuBarImage: NSImage? = {
+    let image = Bundle.main.image(forResource: "MenuBarIcon")
+    image?.isTemplate = true
+    return image
+}()
+
+private struct MenuBarIcon: View {
+    var body: some View {
+        if let menuBarImage {
+            Image(nsImage: menuBarImage)
+        } else {
+            Image(systemName: "mic")
         }
     }
 }

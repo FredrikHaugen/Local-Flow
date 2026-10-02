@@ -26,6 +26,8 @@ cp "$PRODUCTS/PeluniApp" "$APP/Contents/MacOS/peluni"
 cp Packaging/Info.plist "$APP/Contents/Info.plist"
 cp LICENSE "$APP/Contents/Resources/LICENSE.txt"
 cp Packaging/THIRD_PARTY_NOTICES.txt "$APP/Contents/Resources/THIRD_PARTY_NOTICES.txt"
+# App icon (Finder, DMG, About) and the menu bar template icon; regenerate with scripts/make-icons.sh.
+cp Packaging/AppIcon.icns Packaging/MenuBarIcon.png Packaging/MenuBarIcon@2x.png "$APP/Contents/Resources/"
 
 # Embed the dynamic whisper framework (binaryTarget) and make sure the rpath exists.
 if [ -d "$PRODUCTS/PackageFrameworks/whisper.framework" ]; then
