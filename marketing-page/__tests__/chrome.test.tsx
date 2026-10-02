@@ -1,7 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Header } from "@/components/Header";
-import { Section } from "@/components/Section";
 import { SITE } from "@/lib/site";
 
 describe("Header", () => {
@@ -12,19 +11,5 @@ describe("Header", () => {
     expect(within(nav).getByRole("link", { name: "Source" }).getAttribute("href")).toBe(SITE.repoUrl);
     expect(within(nav).getByRole("link", { name: "Download" }).getAttribute("href")).toBe(SITE.releasesUrl);
     expect(within(nav).getAllByRole("link")).toHaveLength(2);
-  });
-});
-
-describe("Section", () => {
-  test("is a region labelled by its h2", () => {
-    render(
-      <Section id="demo" title="Demo title" intro="Intro text">
-        <p>Body</p>
-      </Section>,
-    );
-    const region = screen.getByRole("region", { name: "Demo title" });
-    expect(region.id).toBe("demo");
-    expect(within(region).getByRole("heading", { level: 2, name: "Demo title" })).toBeDefined();
-    expect(within(region).getByText("Intro text")).toBeDefined();
   });
 });

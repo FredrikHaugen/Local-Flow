@@ -1,7 +1,9 @@
 import { describe, expect, test } from "vitest";
 import * as content from "@/lib/content";
+import * as site from "@/lib/site";
 
-// The patterns that made the old site read as generated. Every string in lib/content.ts is checked.
+// The patterns that made the old site read as generated. Every string in lib/content.ts is checked,
+// plus the copy that lives in lib/site.ts.
 function strings(value: unknown): string[] {
   if (typeof value === "string") return [value];
   if (Array.isArray(value)) return value.flatMap(strings);
@@ -9,7 +11,10 @@ function strings(value: unknown): string[] {
   return [];
 }
 
-const copy = strings(content);
+const copy = [
+  ...strings(content),
+  ...strings({ PHONE: site.PHONE, DEMO: site.DEMO, ANALYTICS: site.ANALYTICS, description: site.SITE.description }),
+];
 
 const RULES: [string, RegExp][] = [
   ["em or en dash", /[—–]/],

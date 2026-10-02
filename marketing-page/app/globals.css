@@ -29,18 +29,6 @@
   --mac-close: #ff5f57;
   --mac-min: #febc2e;
   --mac-max: #28c840;
-  /* Old section tokens, removed in Task 8. */
-  --accent: #9ddeb9;
-  --accent-foreground: #141413;
-  --accent-ink: #1a6e4a;
-  --ink: #141413;
-  --ink-foreground: #f6f5f1;
-  --ink-muted: #a19f98;
-  --ink-border: #2e2d2a;
-  --ink-accent: #9ddeb9;
-  --wallpaper: #9ddeb9;
-  --cta-edge: #141413;
-  --caret: #1a6e4a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -63,18 +51,6 @@
     --mac-close: #ff5f57;
     --mac-min: #febc2e;
     --mac-max: #28c840;
-    /* Old section tokens, removed in Task 8. */
-    --accent: #9ddeb9;
-    --accent-foreground: #141413;
-    --accent-ink: #9ddeb9;
-    --ink: #262924;
-    --ink-foreground: #eceee9;
-    --ink-muted: #a8ada6;
-    --ink-border: #3a3e38;
-    --ink-accent: #9ddeb9;
-    --wallpaper: #5e9a78;
-    --cta-edge: #4d8f6a;
-    --caret: #eceee9;
   }
 }
 
@@ -84,18 +60,9 @@
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-border: var(--border);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent-ink: var(--accent-ink);
   --color-logo-tile: var(--logo-tile);
   --color-logo-stroke: var(--logo-stroke);
   --color-logo-rim: var(--logo-rim);
-  --color-cta-edge: var(--cta-edge);
-  --color-ink: var(--ink);
-  --color-ink-foreground: var(--ink-foreground);
-  --color-ink-muted: var(--ink-muted);
-  --color-ink-border: var(--ink-border);
-  --color-ink-accent: var(--ink-accent);
   --color-desk: var(--desk);
   --color-select: var(--select);
   --color-select-foreground: var(--select-foreground);
@@ -108,7 +75,6 @@
   --font-sans: var(--font-ui), system-ui, sans-serif;
   --font-serif: var(--font-text), Georgia, serif;
   --font-mono: var(--font-code), ui-monospace, Menlo, monospace;
-  --font-display: var(--font-text), Georgia, serif;
 }
 
 html {
@@ -142,78 +108,11 @@ h3 {
   border-radius: 4px;
 }
 
-/* On ink surfaces the ring uses the brighter signal color. */
-.surface-ink :focus-visible {
-  outline-color: var(--ink-accent);
-}
-
-/* On the accent CTA block the ring flips to the accent's own foreground. */
-.surface-accent :focus-visible {
-  outline-color: var(--accent-foreground);
-}
-
-/* Old sections' headline class, removed in Task 8. */
-.font-display {
-  font-family: var(--font-text), Georgia, serif;
-}
-
-/*
- * The signature move: in every headline, the key phrase is "just typed" — a solid selection
- * block in the signal color with the text cursor parked after it.
- */
-.typed {
-  --typed-bg: var(--accent);
-  /* A painted band rather than a full background, so stacked lines don't merge into one slab. */
-  background: linear-gradient(var(--typed-bg), var(--typed-bg)) no-repeat 0 62% / 100% 80%;
-  color: var(--accent-foreground);
-  /* Barely any left padding, so a highlight that starts a line stays in line with the text above. */
-  padding: 0 0.07em 0 0.03em;
-  margin: 0 -0.02em 0 -0.03em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-.surface-ink .typed {
-  --typed-bg: var(--ink-accent);
-  color: var(--ink);
-}
-
-.surface-accent .typed {
-  --typed-bg: var(--ink);
-  color: var(--ink-foreground);
-}
-
-.typed-caret {
-  display: inline-block;
-  width: 0.06em;
-  height: 0.86em;
-  margin-left: 0;
-  vertical-align: -0.06em;
-  border-radius: 0.03em;
-  background: var(--caret);
-}
-
-.surface-ink .typed-caret {
-  background: var(--ink-accent);
-}
-
-.surface-accent .typed-caret {
-  background: var(--ink);
-}
-
 /* Keycap: flat top, deeper bottom edge. */
 .keycap {
   box-shadow:
     inset 0 -2px 0 var(--border),
     0 1px 0 var(--border);
-}
-
-/* The teal "desktop": a soft vignette over the accent so the band has depth. */
-.wallpaper {
-  background:
-    radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--ink-foreground) 22%, transparent), transparent 60%),
-    radial-gradient(90% 70% at 50% 110%, color-mix(in oklab, var(--ink) 28%, transparent), transparent 70%),
-    var(--wallpaper);
 }
 
 /* The desktop behind the product demo. */
@@ -236,14 +135,6 @@ h3 {
     0 0 0 1px rgb(0 0 0 / 0.08),
     0 30px 60px -28px rgb(0 0 0 / 0.45),
     0 10px 20px -12px rgb(0 0 0 / 0.25);
-}
-
-/* Freshly pasted text gets a faint signal-colored wash, like a just-landed selection. */
-.just-pasted {
-  background: color-mix(in oklab, var(--accent) 45%, transparent);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  border-radius: 3px;
 }
 
 /*
@@ -282,56 +173,6 @@ h3 {
   display: block;
 }
 
-/* The closing band's object: the one key, huge and tilted, desktop only. */
-.cta-key {
-  display: none;
-  position: absolute;
-  right: 6%;
-  top: 2.5rem;
-  width: 22rem;
-  height: 22rem;
-  place-items: center;
-  rotate: 8deg;
-  border-radius: 4rem;
-  border-bottom: 1.25rem solid var(--ink-border);
-  background: var(--ink);
-  color: var(--ink-foreground);
-  font-size: 15rem;
-  line-height: 1;
-  box-shadow: 0 50px 80px -30px rgb(0 0 0 / 0.6);
-}
-.cta-key::after {
-  content: "";
-  position: absolute;
-  right: 2.25rem;
-  top: 2.25rem;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  background: var(--ink-accent);
-}
-@media (min-width: 64rem) {
-  .cta-key {
-    display: grid;
-  }
-}
-
-/* The footer's name, as wide as the column allows, with the record light as its full stop. */
-.footer-name {
-  white-space: nowrap;
-  font-size: clamp(5rem, 40vw, 26.6rem);
-  line-height: 0.78;
-  letter-spacing: -0.015em;
-}
-.footer-name span {
-  display: inline-block;
-  width: 0.16em;
-  height: 0.16em;
-  margin-left: 0.04em;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
 /* FAQ disclosures: no default marker; the + turns into a filled x when open. */
 .faq-q {
   list-style: none;
@@ -344,9 +185,6 @@ h3 {
 }
 details[open] .faq-icon {
   transform: rotate(45deg);
-  background: var(--foreground);
-  border-color: var(--foreground);
-  color: var(--background);
 }
 
 @keyframes wave {
@@ -378,33 +216,6 @@ details[open] .faq-icon {
   50% {
     opacity: 0.35;
   }
-}
-
-/* The storyboard keycap: a deep bottom edge that presses down and springs back. */
-@keyframes key-press {
-  0%,
-  12%,
-  100% {
-    transform: translateY(0);
-    box-shadow:
-      0 10px 0 color-mix(in oklab, var(--accent) 62%, var(--ink)),
-      0 30px 50px -20px color-mix(in oklab, var(--accent) 70%, transparent);
-  }
-  20%,
-  80% {
-    transform: translateY(7px);
-    box-shadow:
-      0 3px 0 color-mix(in oklab, var(--accent) 62%, var(--ink)),
-      0 16px 30px -18px color-mix(in oklab, var(--accent) 70%, transparent);
-  }
-}
-
-.key-press {
-  transform: translateY(7px);
-  box-shadow:
-    0 3px 0 color-mix(in oklab, var(--accent) 62%, var(--ink)),
-    0 16px 30px -18px color-mix(in oklab, var(--accent) 70%, transparent);
-  animation: key-press 3.2s ease-in-out infinite;
 }
 
 /*
@@ -444,38 +255,12 @@ details[open] .faq-icon {
   }
 }
 
-/* The held key: pressed in its resting state; it pops up as the take resets and again as you let go. */
-@keyframes hold-key {
-  0%,
-  50%,
-  56%,
-  81%,
-  90%,
-  100% {
-    transform: none;
-    background: var(--ink-accent);
-    color: var(--ink);
-  }
-  52%,
-  54%,
-  83%,
-  88% {
-    transform: translateY(-2px);
-    background: color-mix(in oklab, var(--ink-foreground) 10%, transparent);
-    color: var(--ink-foreground);
-  }
-}
-
 .demo-heard {
   animation: demo-heard 12s linear infinite;
 }
 
 .demo-paste {
   animation: demo-paste 12s ease-in-out infinite;
-}
-
-.hold-key {
-  animation: hold-key 12s ease-in-out infinite;
 }
 
 .wave-bar {
@@ -506,37 +291,14 @@ details[open] .faq-icon {
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
 
-/* The transcription bar fills in as the speed figure scrolls into view, where scroll-driven
-   animations exist. Elsewhere (and with reduced motion) it simply sits there, full. */
-@keyframes speed-fill {
-  from {
-    scale: 0 1;
-  }
-  to {
-    scale: 1 1;
-  }
-}
-
-@supports (animation-timeline: view()) {
-  .speed-fill {
-    transform-origin: left center;
-    animation: speed-fill linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 100%;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .wave-bar {
     animation: none;
   }
   .caret,
   .rec-dot,
-  .key-press,
   .demo-heard,
   .demo-paste,
-  .hold-key,
-  .speed-fill,
   *,
   *::before,
   *::after {
@@ -548,25 +310,3 @@ details[open] .faq-icon {
   }
 }
 
-/* Swipe rails on phones: the peek of the next card is the affordance, so the scrollbar goes. */
-.no-scrollbar {
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.swipe-hint i {
-  height: 0.25rem;
-  width: 0.75rem;
-  border-radius: 9999px;
-  background: currentColor;
-  opacity: 0.35;
-}
-.swipe-hint i:first-child {
-  width: 1.5rem;
-  background: var(--accent-ink);
-  opacity: 1;
-}
-.surface-ink .swipe-hint i:first-child {
-  background: var(--ink-accent);
-}

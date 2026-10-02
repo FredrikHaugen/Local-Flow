@@ -39,15 +39,16 @@ test("every looping animation is stopped for reduced-motion users", () => {
   expect(reduced).toMatch(/animation: none !important;/);
 });
 
-test("ink and accent surfaces keep a visible focus ring", () => {
-  expect(css).toMatch(/\.surface-ink :focus-visible\s*\{\s*outline-color: var\(--ink-accent\);/);
-  expect(css).toMatch(/\.surface-accent :focus-visible\s*\{\s*outline-color: var\(--accent-foreground\);/);
-});
-
 test("headings and reading text use the serif, interface text the sans", () => {
   expect(css).toMatch(/body\s*\{[^}]*font-family: var\(--font-text\)/);
   expect(css).toMatch(/--font-sans: var\(--font-ui\)/);
   expect(css).toMatch(/--font-serif: var\(--font-text\)/);
   expect(css).toMatch(/--font-mono: var\(--font-code\)/);
   expect(css).not.toMatch(/archivo|geist/i);
+});
+
+test("the template devices are gone", () => {
+  for (const selector of [".typed", ".wallpaper", ".footer-name", ".cta-key", ".swipe-hint", ".just-pasted"]) {
+    expect(css).not.toContain(`${selector} {`);
+  }
 });

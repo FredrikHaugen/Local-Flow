@@ -50,6 +50,11 @@ describe.each([
   test("the logo teal is the record light", () => {
     expect(t["--rec"]).toBe("#9ddeb9");
   });
+
+  test("the logo teal is only the record light", () => {
+    const teal = Object.entries(t).filter(([, v]) => v === "#9ddeb9").map(([k]) => k);
+    expect(teal).toEqual(["--rec"]);
+  });
 });
 
 test("dark mode is charcoal, not near-black", () => {
