@@ -27,7 +27,7 @@ function OfflineScene() {
           </div>
         </div>
 
-        <div className="relative rounded-2xl bg-card px-6 pb-16 pt-5 sm:px-8">
+        <div className="relative rounded-2xl bg-card px-6 pb-20 pt-5 sm:px-8">
           <p className="text-center text-[0.8rem] font-semibold text-muted">{scene.app}</p>
           <div className="mt-5 grid gap-3">
             <p className="max-w-[75%] justify-self-start rounded-2xl bg-background px-4 py-2">{scene.incoming}</p>
@@ -36,7 +36,7 @@ function OfflineScene() {
               <span aria-hidden="true" className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.18em] bg-current" />
             </p>
           </div>
-          <div className="absolute inset-x-0 -bottom-5 flex justify-center">
+          <div className="absolute inset-x-0 bottom-4 flex justify-center">
             <OverlayPill />
           </div>
         </div>

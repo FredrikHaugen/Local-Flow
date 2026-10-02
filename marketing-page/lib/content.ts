@@ -98,7 +98,7 @@ export const CLEANUP_LEVELS = {
 
 // Speech models from Sources/PeluniCore/ModelCatalog.swift (sizes rounded, decimal units as in the README).
 export const WORDS = {
-  title: "Vocabulary and speech models",
+  title: "Vocabulary",
   vocabTitle: "Vocabulary",
   vocabBody:
     "Add the words whisper keeps getting wrong, like your colleagues' names or the acronyms your team uses. peluni passes them to whisper as hints, and any alias you list under “sounds like” is replaced the same way every time.",
@@ -112,7 +112,7 @@ export const WORDS = {
   heard: "ship the pell oony build to priya",
   typedLabel: "Pasted",
   typed: "Ship the peluni build to Priya.",
-  modelsTitle: "Speech models",
+  modelsTitle: "Which speech model should I use?",
   modelsBody: "Start with Base. Larger models are more accurate, and each is downloaded only when you pick it in Settings.",
   models: [
     { name: "Tiny", size: "78 MB", note: "older Macs, quick notes" },

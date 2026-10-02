@@ -16,7 +16,6 @@ function withTerms(text: string, terms: readonly string[], className: string) {
 }
 
 // The vocabulary's one job, at the size of the cleanup sentence: what whisper heard, and what landed.
-// The speech models follow as a quiet row, since picking one is a one-time choice.
 export function Words() {
   const heardTerms = WORDS.terms.flatMap((t) => [t.term, ...t.soundsLike]);
   return (
@@ -42,19 +41,6 @@ export function Words() {
         </ul>
       </figure>
 
-      <div className="mt-16 border-t border-border pt-8">
-        <h3 className="text-[1.35rem]">{WORDS.modelsTitle}</h3>
-        <p className="mt-2 max-w-2xl">{WORDS.modelsBody}</p>
-        <ul aria-label={WORDS.modelsTitle} className="mt-6 grid gap-x-8 gap-y-4 font-sans sm:grid-cols-3 lg:grid-cols-5">
-          {WORDS.models.map((m) => (
-            <li key={m.name}>
-              <span className="block font-semibold">{m.name}</span>
-              <span className="block tabular-nums">{m.size}</span>
-              <span className="block text-muted">{m.note}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
     </Chapter>
   );
 }

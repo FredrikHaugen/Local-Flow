@@ -76,7 +76,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-text), Georgia, serif;
   font-optical-sizing: auto;
-  font-size: 1.1875rem;
+  font-size: clamp(1.1875rem, 1rem + 0.35vw, 1.3125rem);
   line-height: 1.6;
 }
 

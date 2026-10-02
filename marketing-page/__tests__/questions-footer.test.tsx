@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Footer } from "@/components/Footer";
 import { Questions } from "@/components/Questions";
-import { FOOTER_NOTE, INSTALL_GUIDE, QUESTIONS } from "@/lib/content";
+import { FOOTER_NOTE, INSTALL_GUIDE, QUESTIONS, WORDS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 describe("Questions", () => {
@@ -10,7 +10,10 @@ describe("Questions", () => {
     render(<Questions />);
     const region = screen.getByRole("region", { name: QUESTIONS.title });
     expect(region.id).toBe("faq");
-    expect(region.querySelectorAll("details")).toHaveLength(QUESTIONS.items.length + 2);
+    expect(region.querySelectorAll("details")).toHaveLength(QUESTIONS.items.length + 3);
+    const models = within(region).getByRole("list", { name: WORDS.modelsTitle });
+    expect(models.children).toHaveLength(WORDS.models.length);
+    for (const m of WORDS.models) expect(models.textContent).toContain(m.size);
     for (const r of INSTALL_GUIDE.requirements) {
       expect(within(region).getByText(r.title)).toBeDefined();
       expect(within(region).getByText(r.detail)).toBeDefined();
