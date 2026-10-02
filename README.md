@@ -119,6 +119,9 @@ shaders; and rebuilds must be signed with the stable `make cert` identity or
 macOS revokes permissions on every build. `CLAUDE.md` documents these and the
 architecture for AI-assisted sessions.
 
+The marketing site is a separate Next.js project in `marketing-page/`
+(`pnpm install && pnpm dev`); see its README.
+
 ## Contributing
 
 Contributions are very welcome — this is an early project (v0.1.0) and help
