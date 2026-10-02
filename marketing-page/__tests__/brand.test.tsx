@@ -58,6 +58,6 @@ describe("Wordmark", () => {
     const { container } = render(<Wordmark />);
     expect(container.querySelector("rect")?.getAttribute("class")).toContain("fill-logo-tile");
     expect(container.querySelector("path")?.getAttribute("class")).toContain("stroke-logo-stroke");
-    expect(container.querySelector("circle")?.getAttribute("class")).toContain("fill-accent");
+    expect(container.querySelector("circle")?.getAttribute("class")).toContain("fill-rec");
   });
 });
