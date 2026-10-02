@@ -2,15 +2,19 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Footer } from "@/components/Footer";
 import { Questions } from "@/components/Questions";
-import { FOOTER_NOTE, INSTALL_GUIDE, QUESTIONS, WORDS } from "@/lib/content";
+import { FOOTER_NOTE, INSTALL_GUIDE, QUESTIONS, USING, WORDS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 describe("Questions", () => {
-  test("answers the practical questions in the open, the reference detail in disclosures", () => {
+  test("answers everything in the open, the keys first", () => {
     render(<Questions />);
     const region = screen.getByRole("region", { name: QUESTIONS.title });
     expect(region.id).toBe("faq");
-    expect(region.querySelectorAll("details")).toHaveLength(3);
+    expect(region.querySelectorAll("details")).toHaveLength(0);
+    expect(within(region).getAllByRole("heading", { level: 3 })[0].textContent).toBe(USING.keysTitle);
+    expect(region.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
+    expect(region.textContent).toContain(USING.paragraphs[0]);
+    expect(region.textContent).toContain(USING.keysEnd);
     for (const item of QUESTIONS.items) expect(within(region).getByRole("heading", { name: item.q, level: 3 })).toBeDefined();
     const models = within(region).getByRole("list", { name: WORDS.modelsTitle });
     expect(models.children).toHaveLength(WORDS.models.length);

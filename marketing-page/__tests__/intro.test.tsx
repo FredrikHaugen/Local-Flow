@@ -29,16 +29,6 @@ describe("Intro", () => {
   });
 });
 
-describe("Installing", () => {
-  test("next to the steps: the key legend, the speed line and the paste fallback", () => {
-    const { container } = render(<Install />);
-    expect(container.textContent).toContain(USING.paragraphs[0]);
-    expect(container.textContent).toContain(USING.keysEnd);
-    const legend = container.querySelector(`dl[aria-label="${USING.keysLabel}"]`)!;
-    expect(legend.querySelectorAll("dt kbd")).toHaveLength(USING.keys.length);
-  });
-});
-
 describe("The closing download", () => {
   test("carries the requirement and the page's one version mention", () => {
     render(<Install />);

@@ -31,7 +31,8 @@ export const USING = {
     text: "Pick up the charger and oat milk on the way home.",
   },
   keysLabel: "Keys",
-  // The key legend, next to the install steps.
+  keysTitle: "Which keys does it use?",
+  // The key legend, the first of the questions.
   keys: [
     { how: "Hold", key: "Right ⌥", result: "to record" },
     { how: "Double-tap", key: "Right ⌥", result: "to keep recording with your hands free" },
