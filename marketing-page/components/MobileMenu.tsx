@@ -65,7 +65,7 @@ export function MobileMenu() {
           </ul>
           <a
             href={SITE.releasesUrl}
-            className="mt-8 flex min-h-14 items-center justify-center gap-2.5 rounded-full bg-accent px-6 font-semibold text-accent-foreground"
+            className="mt-8 flex min-h-14 items-center justify-center gap-2.5 rounded-full border-2 border-cta-edge bg-accent px-6 font-semibold text-accent-foreground shadow-[0_4px_0_var(--cta-edge)]"
           >
             <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 4v12M6 11l6 6 6-6M5 20h14" />

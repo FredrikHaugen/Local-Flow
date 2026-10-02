@@ -22,7 +22,7 @@ export function Header() {
           </ul>
           <a
             href={SITE.releasesUrl}
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-accent-foreground bg-accent px-4 py-1.5 font-semibold text-accent-foreground transition-transform hover:-translate-y-px md:min-h-0 dark:border-transparent"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-cta-edge bg-accent px-4 py-1.5 font-semibold text-accent-foreground transition-transform hover:-translate-y-px md:min-h-0"
           >
             Download
           </a>

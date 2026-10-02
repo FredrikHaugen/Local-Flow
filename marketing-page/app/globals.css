@@ -26,6 +26,10 @@
   --logo-rim: transparent;
   /* The teal "desktop" band behind the product demo and the closing CTA. */
   --wallpaper: #9ddeb9;
+  /* The teal buttons are keycaps: an edge and a bottom lip in this color. */
+  --cta-edge: #141413;
+  /* The text cursor after a highlighted phrase. */
+  --caret: #1a6e4a;
   /* macOS window controls in the product mocks. */
   --mac-close: #ff5f57;
   --mac-min: #febc2e;
@@ -51,8 +55,10 @@
     --logo-tile: #141413;
     --logo-stroke: #d9d9d9;
     --logo-rim: #3a3935;
-    /* Dimmed so the band doesn't glare on a dark page; ink text on it stays above 7:1. */
-    --wallpaper: #78b893;
+    /* Dimmed so the band doesn't glare on a dark page; ink text on it stays above 5:1. */
+    --wallpaper: #5e9a78;
+    --cta-edge: #4d8f6a;
+    --caret: #eceae4;
     --mac-close: #ff5f57;
     --mac-min: #febc2e;
     --mac-max: #28c840;
@@ -71,6 +77,7 @@
   --color-logo-tile: var(--logo-tile);
   --color-logo-stroke: var(--logo-stroke);
   --color-logo-rim: var(--logo-rim);
+  --color-cta-edge: var(--cta-edge);
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
   --color-ink-muted: var(--ink-muted);
@@ -154,7 +161,7 @@ body {
   margin-left: 0;
   vertical-align: -0.06em;
   border-radius: 0.03em;
-  background: var(--accent-ink);
+  background: var(--caret);
 }
 
 .surface-ink .typed-caret {

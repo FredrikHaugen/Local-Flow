@@ -24,7 +24,7 @@ export function Hero() {
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
               <a
                 href={SITE.releasesUrl}
-                className="inline-flex items-center gap-2.5 rounded-full border-2 border-accent-foreground bg-accent px-6 py-3.5 font-semibold text-accent-foreground shadow-[0_4px_0_var(--accent-foreground)] transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-4 sm:text-lg dark:border-transparent dark:shadow-[0_10px_28px_-10px_var(--accent)]"
+                className="inline-flex items-center gap-2.5 rounded-full border-2 border-cta-edge bg-accent px-6 py-3.5 font-semibold text-accent-foreground shadow-[0_4px_0_var(--cta-edge)] transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-4 sm:text-lg"
               >
                 <svg
                   aria-hidden="true"
@@ -69,7 +69,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative mt-10 sm:mt-12 lg:mt-9">
+      <div className="relative mt-10 sm:mt-12 lg:mt-7">
         <DesktopDemo />
       </div>
     </section>
