@@ -22,6 +22,13 @@ describe("Answers in place", () => {
 });
 
 describe("Footer", () => {
+  test("credits the maintainer with a link to GitHub", () => {
+    render(<Footer />);
+    const link = screen.getByRole("link", { name: SITE.maintainer.name });
+    expect(link.getAttribute("href")).toBe(SITE.maintainer.url);
+    expect(link.closest("p")?.textContent).toBe("Made for macOS on Apple Silicon by Fredrik Haugen.");
+  });
+
   test("links the project, says analytics are opt-in, and shows no version", () => {
     const { container } = render(<Footer />);
     for (const link of FOOTER_NOTE.links) {

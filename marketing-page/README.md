@@ -17,7 +17,7 @@ kept in a local `.claude/rules/` folder for Claude Code; the tests are the part 
 `out/` is plain HTML/CSS/JS and can be hosted anywhere.
 
 **Privacy:** no cookies and no third-party requests unless a visitor opts in to
-Microsoft Clarity analytics through the consent banner
+Microsoft Clarity and Google Analytics through the consent banner
 (`components/AnalyticsConsent.tsx`); declining or ignoring it loads nothing.
 Fonts are self-hosted from `app/fonts/`. `pnpm check` keeps third-party
 scripts, fonts and images out of the shipped HTML.

@@ -58,8 +58,30 @@ describe("JSON-LD", () => {
       name: SITE.name,
       softwareVersion: SITE.version,
       isAccessibleForFree: true,
-      offers: { price: "0" },
     });
+  });
+
+  test("uses only properties Schema.org defines for SoftwareApplication", () => {
+    // validator.schema.org flags codeRepository here (it belongs to SoftwareSourceCode); sameAs links the repo.
+    expect(app).not.toHaveProperty("codeRepository");
+  });
+
+  test("offers nothing to download before the first release", () => {
+    // No release on GitHub yet, and FACTS.md says payment comes from 1.0: an Offer or downloadUrl
+    // would describe a product nobody can get. Add both back with the first release.
+    expect(app).not.toHaveProperty("offers");
+    expect(app).not.toHaveProperty("downloadUrl");
+    expect(app.sameAs).toEqual([SITE.repoUrl]);
+  });
+
+  test("names the maintainer the LICENSE names", () => {
+    const license = readFileSync(resolve(process.cwd(), "../LICENSE"), "utf8");
+    expect(license).toContain(`Copyright (c) 2026 ${SITE.maintainer.name}`);
+    const person = graph.find((n) => n["@type"] === "Person")!;
+    expect(person).toMatchObject({ "@id": "https://peluni.app/#maintainer", name: SITE.maintainer.name, url: SITE.maintainer.url });
+    expect(app).toMatchObject({ author: { "@id": "https://peluni.app/#maintainer" } });
+    const site = graph.find((n) => n["@type"] === "WebSite")!;
+    expect(site).toMatchObject({ publisher: { "@id": "https://peluni.app/#maintainer" } });
   });
 
   test("requirements are the README's own words", () => {

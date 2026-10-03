@@ -2,8 +2,11 @@ import type { PageCopy } from "@/lib/blocks";
 import { ANALYTICS, SITE } from "@/lib/site";
 
 // Sources: the app (no network code beyond Hugging Face downloads; NSLog records states and lengths;
-// history in memory), components/AnalyticsConsent.tsx, and Microsoft's Clarity cookie list:
-// https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-cookies
+// history in memory), components/AnalyticsConsent.tsx, Microsoft's Clarity cookie list
+// (https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-cookies) and Google's
+// GA4 pages: cookies https://support.google.com/analytics/answer/11397207, IP addresses
+// https://support.google.com/analytics/answer/12017362, retention (set to 2 months by Fredrik,
+// 2026-10-03) https://support.google.com/analytics/answer/7667196.
 export const PRIVACY: PageCopy & { updated: string; updatedLabel: string } = {
   updated: "2026-10-03",
   updatedLabel: "Last updated",
@@ -68,13 +71,30 @@ export const PRIVACY: PageCopy & { updated: string; updatedLabel: string } = {
       blocks: [
         {
           p: [
-            "On your first visit, a banner asks whether to allow Microsoft Clarity. Until you click Allow, nothing from Clarity loads. If you allow it, Clarity records how you use the page, including clicks, scrolling and a replay of the session, under a pseudonymous ID, and Microsoft processes that data under ",
+            "On your first visit, a banner asks whether to allow analytics from Microsoft Clarity and Google Analytics. One answer covers both, and until you click Allow, nothing from either loads.",
+          ],
+        },
+        {
+          p: [
+            "If you allow it, Clarity records how you use the page, including clicks, scrolling and a replay of the session, under a pseudonymous ID, and Microsoft processes that data under ",
             { text: "its privacy statement", href: "https://privacy.microsoft.com/privacystatement" },
             ". peluni tells Clarity not to use advertising storage. ",
             {
               text: "Microsoft keeps the data for replaying a session for 30 days",
               href: "https://learn.microsoft.com/en-us/clarity/setup-and-installation/data-retention",
             },
+            ".",
+          ],
+        },
+        {
+          p: [
+            "Google Analytics records the pages you view, the page that sent you here, whether you scroll to the bottom of a page, which links to other sites you click, and your browser, device and rough location, under a random ID kept in a cookie. Google works out the location from your IP address; ",
+            {
+              text: "for visitors in the EU, Switzerland and the UK it then discards the address without storing it",
+              href: "https://support.google.com/analytics/answer/12017362",
+            },
+            ". peluni turns off advertising storage, ad personalization and Google signals. peluni's Google Analytics account keeps the data for 2 months, and Google processes it under ",
+            { text: "its privacy policy", href: "https://policies.google.com/privacy" },
             ".",
           ],
         },
@@ -96,8 +116,18 @@ export const PRIVACY: PageCopy & { updated: string; updatedLabel: string } = {
           },
         },
         {
+          table: {
+            caption: "Cookies Google Analytics sets after you allow it",
+            head: ["Cookie", "Set by", "What it's for"],
+            rows: [
+              ["_ga", "peluni.app", "Tells visitors apart by a random ID. Kept for 2 years"],
+              [`_ga_${ANALYTICS.gaId.slice(2)}`, "peluni.app", "Keeps track of your current visit. Kept for 2 years"],
+            ],
+          },
+        },
+        {
           p: [
-            `Your answer to the banner is saved in your browser's local storage, not in a cookie. Change it any time with ${ANALYTICS.settings} at the bottom of every page.`,
+            `Your answer to the banner is saved in your browser's local storage, not in a cookie. Change it any time with ${ANALYTICS.settings} at the bottom of every page. Choosing ${ANALYTICS.decline} after allowing analytics also deletes the Google Analytics cookies.`,
           ],
         },
       ],
@@ -108,7 +138,7 @@ export const PRIVACY: PageCopy & { updated: string; updatedLabel: string } = {
       blocks: [
         {
           p: [
-            `Clarity runs only with your consent, and you can withdraw it with ${ANALYTICS.settings}. You can ask what data is held about you and have it corrected or deleted. Clarity's data is held by Microsoft, whose privacy statement explains how to reach them. You can also complain to your local data protection authority.`,
+            `Clarity and Google Analytics run only with your consent, and you can withdraw it with ${ANALYTICS.settings}. You can ask what data is held about you and have it corrected or deleted. Clarity's data is held by Microsoft and Google Analytics data by Google, and each one's privacy statement explains how to reach them. You can also complain to your local data protection authority.`,
           ],
         },
       ],

@@ -14,6 +14,16 @@ export const SITE = {
   buildUrl: `${repoUrl}#quick-start-from-source`,
   version: "0.0.1",
   license: "MIT",
+  // ../LICENSE copyright holder; also named on /privacy and /security.
+  maintainer: { name: "Fredrik Haugen", url: "https://github.com/FredrikHaugen" },
+} as const;
+
+// Projects peluni is built on, linked from the copy so a reader can check what it says about them.
+// whisper.cpp: Makefile WHISPER_ZIP_URL. MLX: Package.swift (mlx-swift-lm builds on mlx-swift).
+export const UPSTREAM = {
+  whisperCpp: "https://github.com/ggml-org/whisper.cpp",
+  mlx: "https://github.com/ml-explore/mlx-swift",
+  notarization: "https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution",
 } as const;
 
 // Search and share metadata. The <title> carries the words people search for ("dictation", "Mac",
@@ -35,12 +45,16 @@ export const PHONE = {
   copied: "Link copied. Open it on your Mac.",
 } as const;
 
-// Opt-in page analytics. Nothing from Clarity loads, and no cookie is set, until the visitor allows it.
+// Opt-in page analytics. Nothing from Clarity or Google Analytics loads, and no cookie is set, until the
+// visitor allows it.
 export const ANALYTICS = {
   clarityId: "yreithgab3",
+  // Google Analytics 4 measurement ID; its cookies are _ga and _ga_<ID without "G-"> (privacy.ts).
+  gaId: "G-TJXGVP9MFM",
   storageKey: "lf-analytics",
   // Kept short: on a phone this bar sits over the hero until it's answered.
-  banner: "Allow Microsoft Clarity analytics? It sets cookies and records anonymous sessions. Off unless you allow it.",
+  banner:
+    "Allow analytics from Microsoft Clarity and Google Analytics? Both set cookies and record how this site is used, under a random ID. Off unless you allow it.",
   allow: "Allow",
   decline: "No thanks",
   settings: "Analytics settings",

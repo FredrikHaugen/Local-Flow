@@ -1,5 +1,5 @@
 import type { PageCopy } from "@/lib/blocks";
-import { SITE } from "@/lib/site";
+import { SITE, UPSTREAM } from "@/lib/site";
 
 // Sources: Packaging/peluni.entitlements, scripts/sign-app.sh, scripts/verify-signing.sh,
 // scripts/release.sh, Makefile (make cert), TextInjector.swift (secure-field checks), AutocompleteController.swift,
@@ -142,7 +142,9 @@ export const SECURITY: PageCopy = {
           p: [
             "No release has been published yet. A build you make with ",
             { code: "make run" },
-            " is signed with a certificate created on your own Mac, so macOS keeps its permissions between builds. For releases, the release script signs with a Developer ID, turns on the hardened runtime and has Apple notarize the build, and it stops if any of those checks fails.",
+            " is signed with a certificate created on your own Mac, so macOS keeps its permissions between builds. For releases, the release script signs with a Developer ID, turns on the hardened runtime and has Apple ",
+            { text: "notarize", href: UPSTREAM.notarization },
+            " the build, and it stops if any of those checks fails.",
           ],
         },
       ],

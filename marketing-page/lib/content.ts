@@ -197,8 +197,9 @@ export const FOOTER_NOTE = {
     { label: "Issues", href: `${SITE.repoUrl}/issues` },
     { label: "MIT License", href: `${SITE.repoUrl}/blob/main/LICENSE` },
   ],
-  site: "The app has no analytics. This website loads Microsoft Clarity only if you allow it.",
-  made: "Made for macOS on Apple Silicon.",
+  site: "The app has no analytics. This website loads Microsoft Clarity and Google Analytics only if you allow it.",
+  // Wording approved by Fredrik, 2026-10-03. Footer.tsx links his name (SITE.maintainer) between the two.
+  made: { before: "Made for macOS on Apple Silicon by ", after: "." },
 } as const;
 
 // Sub-page furniture (components/PageBody.tsx).

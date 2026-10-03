@@ -4,7 +4,8 @@ import { SEO, SITE } from "@/lib/site";
 
 // Schema.org for search engines and AI answers. The home page describes the app; every other page is
 // a WebPage about it (FAQPage on /faq, where the questions are visible). No ratings or reviews (there
-// are none to cite), no Organization (there isn't one), no breadcrumbs (the site is one level deep).
+// are none to cite), no Organization (there isn't one; the maintainer is a Person), no breadcrumbs (the site is one level deep).
+// No Offer or downloadUrl until the first release is on GitHub (seo.test.ts guards this).
 export function homeJsonLd() {
   const home = pageUrl("/");
   const license = FOOTER_NOTE.links.find((link) => link.label === "MIT License")!.href;
@@ -18,6 +19,7 @@ export function homeJsonLd() {
         name: SITE.name,
         description: SITE.description,
         inLanguage: "en",
+        publisher: { "@id": `${home}#maintainer` },
       },
       {
         "@type": "SoftwareApplication",
@@ -31,9 +33,15 @@ export function homeJsonLd() {
         softwareVersion: SITE.version,
         license,
         isAccessibleForFree: true,
-        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        author: { "@id": `${home}#maintainer` },
         sameAs: [SITE.repoUrl],
         isPartOf: { "@id": `${home}#website` },
+      },
+      {
+        "@type": "Person",
+        "@id": `${home}#maintainer`,
+        name: SITE.maintainer.name,
+        url: SITE.maintainer.url,
       },
     ],
   };

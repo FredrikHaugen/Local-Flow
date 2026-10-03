@@ -12,6 +12,8 @@ const text = localFont({
   src: "./fonts/source-serif-4-latin.woff2",
   weight: "400 700",
   display: "swap",
+  // Size the fallback from a serif so the swap to Source Serif doesn't move the h1 (the LCP element).
+  adjustFontFallback: "Times New Roman",
 });
 
 const ui = localFont({
