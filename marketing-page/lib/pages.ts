@@ -46,7 +46,7 @@ export const PAGES: readonly PageInfo[] = [
     nav: "Help",
     title: "peluni help: setup, settings and messages",
     description:
-      "Install peluni, allow Microphone and Accessibility, pick a speech model, and find out what each peluni message means and what to do about it.",
+      "Build peluni from source, allow Microphone and Accessibility, pick a speech model, and find out what each peluni message means and what to do about it.",
     h1: "Help with peluni",
     header: true,
   },

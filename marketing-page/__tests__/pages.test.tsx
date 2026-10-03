@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { render, screen } from "@testing-library/react";
 import type { ComponentType } from "react";
 import { describe, expect, test } from "vitest";
@@ -18,6 +20,12 @@ import * as PrivacyPage from "@/app/privacy/page";
 import * as SecurityPage from "@/app/security/page";
 import * as ChangelogPage from "@/app/changelog/page";
 import { FAQ } from "@/lib/pages/faq";
+import * as content from "@/lib/content";
+import * as site from "@/lib/site";
+import { llmsTxt } from "@/app/llms.txt/route";
+import { homeJsonLd } from "@/components/JsonLd";
+import { HELP } from "@/lib/pages/help";
+import { inlineText } from "@/lib/blocks";
 
 // Every page's module, by path. Each page task adds its line here.
 const ROUTES: Record<string, { default: ComponentType; metadata: unknown }> = {
@@ -154,5 +162,52 @@ describe("/faq", () => {
     render(<Page />);
     const headings = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
     for (const item of FAQ.items) expect(headings).toContain(item.q);
+  });
+});
+
+// peluni has no release yet (0.0.1), so nothing may offer one. Model downloads inside the app are
+// plain text, never links, so they pass.
+describe("before the first release", () => {
+  test.each(Object.keys(ROUTES))("%s offers no download and no releases link", (path) => {
+    const Page = ROUTES[path].default;
+    const { container, unmount } = render(<Page />);
+    for (const a of container.querySelectorAll("a")) {
+      expect(a.getAttribute("href") ?? "", path).not.toMatch(/\/releases/);
+      expect(a.textContent ?? "", path).not.toMatch(/download/i);
+    }
+    for (const b of container.querySelectorAll("button")) expect(b.textContent ?? "", path).not.toMatch(/download/i);
+    unmount();
+  });
+
+  test("no copy mentions a DMG, the releases page or downloading peluni", () => {
+    const copy = strings({ content, site, ALL_PAGE_COPY });
+    for (const s of copy) {
+      expect(s, s).not.toMatch(/\bDMG\b|releases page|\/releases\b|download (peluni|the app)|Download for Mac/i);
+    }
+    expect("releasesUrl" in SITE).toBe(false);
+  });
+
+  test("search engines and AI tools aren't sent to a download either", () => {
+    const app = homeJsonLd()["@graph"].find((n) => n["@type"] === "SoftwareApplication")!;
+    expect(app).not.toHaveProperty("downloadUrl");
+    expect(llmsTxt()).not.toMatch(/releases|Download/);
+    expect(llmsTxt()).toContain(SITE.buildUrl);
+  });
+
+  test("the build link lands on the README's quick start", () => {
+    const readme = readFileSync(resolve(process.cwd(), "../README.md"), "utf8");
+    expect(readme).toContain("## Quick start (from source)");
+    expect(SITE.buildUrl).toBe(`${SITE.repoUrl}#quick-start-from-source`);
+  });
+
+  test("/help#install still exists and now says how to build it", () => {
+    const install = HELP.sections.find((s) => s.id === "install")!;
+    const text = install.blocks
+      .flatMap((b) => ("p" in b ? [b.p] : "list" in b ? b.list : []))
+      .map(inlineText)
+      .join(" ");
+    expect(text).toContain("make run");
+    expect(text).toContain("Xcode 16.3");
+    expect(text).not.toMatch(/DMG/);
   });
 });

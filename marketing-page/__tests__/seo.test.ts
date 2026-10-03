@@ -58,7 +58,6 @@ describe("JSON-LD", () => {
       name: SITE.name,
       softwareVersion: SITE.version,
       isAccessibleForFree: true,
-      downloadUrl: SITE.releasesUrl,
       offers: { price: "0" },
     });
   });
@@ -92,7 +91,7 @@ describe("llms.txt", () => {
   test("is Markdown built from the site's facts", async () => {
     const text = llmsTxt();
     expect(text.startsWith(`# ${SITE.name}\n\n> ${SITE.description}`)).toBe(true);
-    expect(text).toContain(SITE.releasesUrl);
+    expect(text).toContain(SITE.buildUrl);
     for (const item of QUESTIONS.items) expect(text).toContain(item.a);
     expect(await GET().text()).toBe(text);
   });

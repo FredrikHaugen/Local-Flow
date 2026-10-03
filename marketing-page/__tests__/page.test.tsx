@@ -27,12 +27,9 @@ describe("Home page", () => {
     }
   });
 
-  test("every link has an accessible name and every Download goes to the releases page", () => {
+  test("every link has an accessible name", () => {
     render(<Home />);
     for (const link of screen.getAllByRole("link")) expect(link.textContent?.trim() || link.getAttribute("aria-label")).toBeTruthy();
-    const downloads = screen.getAllByRole("link", { name: /download/i });
-    expect(downloads.length).toBeGreaterThanOrEqual(2);
-    for (const link of downloads) expect(link.getAttribute("href")).toBe(SITE.releasesUrl);
   });
 });
 

@@ -2,7 +2,7 @@ import type { PageCopy } from "@/lib/blocks";
 import { SITE } from "@/lib/site";
 
 // Sources: Packaging/peluni.entitlements, scripts/sign-app.sh, scripts/verify-signing.sh,
-// scripts/release.sh, TextInjector.swift (secure-field checks), AutocompleteController.swift,
+// scripts/release.sh, Makefile (make cert), TextInjector.swift (secure-field checks), AutocompleteController.swift,
 // ModelCatalog.swift (download URL), and GitHub private vulnerability reporting (enabled).
 export const SECURITY: PageCopy = {
   lead: [
@@ -122,7 +122,7 @@ export const SECURITY: PageCopy = {
       blocks: [
         {
           p: [
-            "The app connects to huggingface.co over HTTPS to download a model when you press Download, and to nothing else. It has no update checker: you update by downloading a new release.",
+            "The app connects to huggingface.co over HTTPS to download a model when you press Download, and to nothing else. It has no update checker.",
           ],
         },
         {
@@ -140,7 +140,9 @@ export const SECURITY: PageCopy = {
       blocks: [
         {
           p: [
-            "Release builds are signed with a Developer ID, run with the hardened runtime and are notarized by Apple. The release script stops if signing, notarization or Gatekeeper's own check fails, so a published build opens without a warning.",
+            "No release has been published yet. A build you make with ",
+            { code: "make run" },
+            " is signed with a certificate created on your own Mac, so macOS keeps its permissions between builds. For releases, the release script signs with a Developer ID, turns on the hardened runtime and has Apple notarize the build, and it stops if any of those checks fails.",
           ],
         },
       ],

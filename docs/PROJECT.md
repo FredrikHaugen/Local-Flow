@@ -76,4 +76,4 @@ Two build-system subtleties are load-bearing: the app bundle must be built with 
 
 ## Status & roadmap
 
-Version 0.1.0. Deliberately out of scope for now: voice-driven command mode for editing selected text, live streaming partial transcripts while recording (transcription on release is already fast enough at >15× real-time), auto-learning vocabulary from corrections, persisted history, and non-macOS platforms.
+Version 0.0.1, in development and not released yet. Deliberately out of scope for now: voice-driven command mode for editing selected text, live streaming partial transcripts while recording (transcription on release is already fast enough at >15× real-time), auto-learning vocabulary from corrections, persisted history, and non-macOS platforms.
