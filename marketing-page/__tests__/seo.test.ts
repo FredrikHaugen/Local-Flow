@@ -58,8 +58,16 @@ describe("JSON-LD", () => {
       name: SITE.name,
       softwareVersion: SITE.version,
       isAccessibleForFree: true,
-      offers: { price: "0" },
+      codeRepository: SITE.repoUrl,
     });
+  });
+
+  test("offers nothing to download before the first release", () => {
+    // No release on GitHub yet, and FACTS.md says payment comes from 1.0: an Offer or downloadUrl
+    // would describe a product nobody can get. Add both back with the first release.
+    expect(app).not.toHaveProperty("offers");
+    expect(app).not.toHaveProperty("downloadUrl");
+    expect(app.sameAs).toEqual([SITE.repoUrl]);
   });
 
   test("requirements are the README's own words", () => {
