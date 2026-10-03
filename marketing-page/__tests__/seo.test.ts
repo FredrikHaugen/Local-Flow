@@ -70,6 +70,16 @@ describe("JSON-LD", () => {
     expect(app.sameAs).toEqual([SITE.repoUrl]);
   });
 
+  test("names the maintainer the LICENSE names", () => {
+    const license = readFileSync(resolve(process.cwd(), "../LICENSE"), "utf8");
+    expect(license).toContain(`Copyright (c) 2026 ${SITE.maintainer.name}`);
+    const person = graph.find((n) => n["@type"] === "Person")!;
+    expect(person).toMatchObject({ "@id": "https://peluni.app/#maintainer", name: SITE.maintainer.name, url: SITE.maintainer.url });
+    expect(app).toMatchObject({ author: { "@id": "https://peluni.app/#maintainer" } });
+    const site = graph.find((n) => n["@type"] === "WebSite")!;
+    expect(site).toMatchObject({ publisher: { "@id": "https://peluni.app/#maintainer" } });
+  });
+
   test("requirements are the README's own words", () => {
     for (const req of [SEO.operatingSystem, SEO.processor]) {
       expect(README_FACTS).toContain(req);

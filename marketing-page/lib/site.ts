@@ -14,6 +14,8 @@ export const SITE = {
   buildUrl: `${repoUrl}#quick-start-from-source`,
   version: "0.0.1",
   license: "MIT",
+  // ../LICENSE copyright holder; also named on /privacy and /security.
+  maintainer: { name: "Fredrik Haugen", url: "https://github.com/FredrikHaugen" },
 } as const;
 
 // Projects peluni is built on, linked from the copy so a reader can check what it says about them.

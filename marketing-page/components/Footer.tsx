@@ -2,6 +2,7 @@ import { AnalyticsSettingsButton } from "@/components/AnalyticsConsent";
 import { Wordmark } from "@/components/Wordmark";
 import { FOOTER_NOTE } from "@/lib/content";
 import { PAGES } from "@/lib/pages";
+import { SITE } from "@/lib/site";
 
 const LINK = "underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground";
 // Standalone list links get a 44 px tap target; the settings button sits inside a sentence and keeps LINK.
@@ -35,7 +36,13 @@ export function Footer() {
             <p className="text-muted">
               {FOOTER_NOTE.site} <AnalyticsSettingsButton className={`${LINK} text-muted`} />
             </p>
-            <p className="text-muted">{FOOTER_NOTE.made}</p>
+            <p className="text-muted">
+              {FOOTER_NOTE.made.before}
+              <a href={SITE.maintainer.url} className={`${LINK} text-muted`}>
+                {SITE.maintainer.name}
+              </a>
+              {FOOTER_NOTE.made.after}
+            </p>
           </div>
         </div>
       </div>
