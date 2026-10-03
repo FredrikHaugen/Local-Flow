@@ -76,3 +76,14 @@ describe("security facts", () => {
     expect(json(SECURITY)).toContain("/security/advisories/new");
   });
 });
+
+describe("response headers", () => {
+  const headers: { key: string; value: string }[] = JSON.parse(
+    readFileSync(resolve(process.cwd(), "vercel.json"), "utf8"),
+  ).headers.find((h: { source: string }) => h.source === "/(.*)").headers;
+  const header = (key: string) => headers.find((h) => h.key === key)?.value;
+
+  test("HSTS covers subdomains for two years", () => {
+    expect(header("Strict-Transport-Security")).toBe("max-age=63072000; includeSubDomains");
+  });
+});
