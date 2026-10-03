@@ -66,16 +66,7 @@ actor CleanupEngine {
     }
 
     nonisolated func isModelDownloaded(modelID: String) -> Bool {
-        // HubCache layout: <llmDir>/models--mlx-community--<name>/snapshots/<rev>/config.json
-        let dirName = "models--" + modelID.replacingOccurrences(of: "/", with: "--")
-        let snapshots = llmDir.appendingPathComponent(dirName).appendingPathComponent("snapshots")
-        guard let revs = try? FileManager.default.contentsOfDirectory(atPath: snapshots.path) else {
-            return false
-        }
-        return revs.contains { rev in
-            FileManager.default.fileExists(
-                atPath: snapshots.appendingPathComponent(rev).appendingPathComponent("config.json").path)
-        }
+        HubSnapshot.directory(modelID: modelID, in: llmDir) != nil
     }
 
     private func ensureLoaded(
@@ -88,11 +79,16 @@ actor CleanupEngine {
         }
         container = nil
 
+        // A downloaded model loads from its snapshot directory: a .directory configuration never
+        // reaches the hub downloader, so cleanup stays offline. Only warmUp() on a model that isn't
+        // downloaded yet uses the id, which downloads it.
+        let configuration = HubSnapshot.directory(modelID: modelID, in: llmDir)
+            .map { ModelConfiguration(directory: $0) } ?? ModelConfiguration(id: modelID)
         let client = HubClient(cache: HubCache(location: .fixed(directory: llmDir)))
         let c = try await loadModelContainer(
             from: #hubDownloader(client),
             using: #huggingFaceTokenizerLoader(),
-            configuration: ModelConfiguration(id: modelID),
+            configuration: configuration,
             progressHandler: { p in progress(p.fractionCompleted) }
         )
         // Warm-up generation absorbs Metal shader compilation latency.

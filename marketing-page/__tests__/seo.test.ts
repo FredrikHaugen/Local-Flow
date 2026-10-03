@@ -1,15 +1,18 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, test, vi } from "vitest";
-import { metadata } from "@/app/layout";
+import { metadata as layoutMetadata } from "@/app/layout";
+import { metadata } from "@/app/page";
 import { GET, llmsTxt } from "@/app/llms.txt/route";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
-import { jsonLd } from "@/components/JsonLd";
+import { homeJsonLd as jsonLd, pageJsonLd } from "@/components/JsonLd";
 import { AUDIO, QUESTIONS } from "@/lib/content";
+import { PAGES } from "@/lib/pages";
+import { FAQ, faqForJsonLd } from "@/lib/pages/faq";
 import { README_FACTS, SEO, SITE } from "@/lib/site";
 
-// next/font only works inside a Next build; the layout's metadata is all this file needs.
+// next/font only works inside a Next build; the layout's metadata base is all this file needs from it.
 vi.mock("next/font/local", () => ({ default: () => ({ variable: "" }) }));
 
 const readme = readFileSync(resolve(process.cwd(), "../README.md"), "utf8");
@@ -17,9 +20,11 @@ const readme = readFileSync(resolve(process.cwd(), "../README.md"), "utf8");
 describe("search metadata", () => {
   test("one canonical origin everywhere", () => {
     expect(SITE.url).toBe("https://peluni.app");
-    expect(metadata.metadataBase?.toString()).toBe(`${SITE.url}/`);
+    expect(layoutMetadata.metadataBase?.toString()).toBe(`${SITE.url}/`);
     expect(metadata.alternates?.canonical).toBe("/");
-    expect(sitemap()).toEqual([{ url: `${SITE.url}/` }]);
+    expect(sitemap()).toEqual(
+      PAGES.map((p) => ({ url: p.path === "/" ? `${SITE.url}/` : `${SITE.url}${p.path}` })),
+    );
     expect(robots().sitemap).toBe(`${SITE.url}/sitemap.xml`);
   });
 
@@ -71,6 +76,18 @@ describe("JSON-LD", () => {
   });
 });
 
+describe("FAQ JSON-LD", () => {
+  test("is a FAQPage carrying every visible question and answer", () => {
+    const data = pageJsonLd("/faq", faqForJsonLd());
+    expect(data["@type"]).toBe("FAQPage");
+    expect(data.mainEntity?.map((q) => q.name)).toEqual(FAQ.items.map((i) => i.q));
+  });
+
+  test("other pages are plain WebPages", () => {
+    expect(pageJsonLd("/features")["@type"]).toBe("WebPage");
+  });
+});
+
 describe("llms.txt", () => {
   test("is Markdown built from the site's facts", async () => {
     const text = llmsTxt();
@@ -78,5 +95,15 @@ describe("llms.txt", () => {
     expect(text).toContain(SITE.releasesUrl);
     for (const item of QUESTIONS.items) expect(text).toContain(item.a);
     expect(await GET().text()).toBe(text);
+  });
+});
+
+describe("llms.txt pages", () => {
+  test("lists every page with its address and description", () => {
+    const text = llmsTxt();
+    for (const p of PAGES.filter((p) => p.path !== "/")) {
+      expect(text).toContain(`[${p.nav}](${SITE.url}${p.path})`);
+      expect(text).toContain(p.description);
+    }
   });
 });

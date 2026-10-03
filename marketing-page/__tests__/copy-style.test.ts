@@ -2,11 +2,14 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { llmsTxt } from "@/app/llms.txt/route";
+import { CHANGELOG } from "@/lib/changelog";
 import * as content from "@/lib/content";
+import { PAGES } from "@/lib/pages";
+import { ALL_PAGE_COPY } from "@/lib/pages/all";
 import * as site from "@/lib/site";
 
 // The patterns that make a page read as generated (.claude/rules/TOV.md has the why and the fixes).
-// Every string in lib/content.ts is checked, plus the copy in lib/site.ts, the share alt text and /llms.txt.
+// Every string in lib/content.ts and lib/pages/ is checked, plus the copy in lib/site.ts, the share alt text and /llms.txt.
 function strings(value: unknown): string[] {
   if (typeof value === "string") return [value];
   if (Array.isArray(value)) return value.flatMap(strings);
@@ -18,6 +21,7 @@ const root = process.cwd();
 
 const copy = [
   ...strings(content),
+  ...strings({ ALL_PAGE_COPY, PAGES, CHANGELOG }),
   ...strings({
     PHONE: site.PHONE,
     ANALYTICS: site.ANALYTICS,
@@ -83,6 +87,11 @@ describe("copy style", () => {
   test("no dashes in component or app source", () => {
     const files = [...sourceFiles(resolve(root, "components")), ...sourceFiles(resolve(root, "app"))];
     expect(files.filter((f) => /[—–]/.test(readFileSync(f, "utf8")))).toEqual([]);
+  });
+
+  test("every copy module in lib/pages is checked", () => {
+    const files = readdirSync(resolve(root, "lib/pages")).filter((f) => f.endsWith(".ts") && f !== "all.ts");
+    expect(files.map((f) => f.replace(/\.ts$/, "")).sort()).toEqual(Object.keys(ALL_PAGE_COPY).sort());
   });
 
   test("section headings are plain labels, not slogans", () => {

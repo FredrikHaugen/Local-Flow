@@ -36,6 +36,14 @@ describe("Home page", () => {
   });
 });
 
+describe("links onward", () => {
+  test("each section links to the page that goes deeper", () => {
+    const { container } = render(<Home />);
+    const hrefs = [...container.querySelectorAll("main a")].map((a) => a.getAttribute("href"));
+    for (const href of ["/features#cleanup", "/features#vocabulary", "/privacy", "/help"]) expect(hrefs).toContain(href);
+  });
+});
+
 describe("no template tells", () => {
   test("no em or en dashes anywhere on the page", () => {
     const { container } = render(<Home />);
@@ -44,6 +52,8 @@ describe("no template tells", () => {
 
   test("the version is stated once", () => {
     const { container } = render(<Home />);
+    // Visible text only: the JSON-LD script also names the version, for search engines.
+    for (const script of container.querySelectorAll("script")) script.remove();
     expect(container.textContent!.split(SITE.version).length - 1).toBe(1);
   });
 

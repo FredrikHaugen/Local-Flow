@@ -1,4 +1,5 @@
 import { Chapter } from "@/components/Chapter";
+import { MoreLink } from "@/components/MoreLink";
 import { WORDS } from "@/lib/content";
 
 // Mark every vocabulary term (and alias) inside a line of text.
@@ -43,6 +44,7 @@ export function Words() {
         </div>
       </figure>
 
+      <MoreLink {...WORDS.more} />
     </Chapter>
   );
 }

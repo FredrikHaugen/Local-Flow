@@ -89,6 +89,7 @@ export const CLEANUP_LEVELS = {
       list: ["The slides", "The script", "A backup laptop", "The HDMI adapter"],
     },
   ],
+  more: { text: "How cleanup decides, and when it's skipped", href: "/features#cleanup" },
 } as const;
 
 export const WORDS = {
@@ -106,6 +107,7 @@ export const WORDS = {
   heard: "ship the pell oony build to priya",
   typedLabel: "Pasted",
   typed: "Ship the peluni build to Priya.",
+  more: { text: "More on vocabulary and speech models", href: "/features#vocabulary" },
 } as const;
 
 export const AUDIO = {
@@ -127,6 +129,7 @@ export const AUDIO = {
   sourceBefore: "The code for all of this is",
   sourceLink: "on GitHub",
   sourceAfter: ".",
+  more: { text: "What the app and this site do with your data", href: "/privacy" },
 } as const;
 
 export const INSTALL_GUIDE = {
@@ -148,6 +151,7 @@ export const INSTALL_GUIDE = {
     },
     { title: "Microphone and Accessibility access", detail: "Granted once, in the setup window." },
   ],
+  more: { text: "Setup help and what each message means", href: "/help" },
 } as const;
 
 // The questions people ask, each answered where it belongs on the page (and as Q&A in /llms.txt), so
@@ -160,7 +164,7 @@ export const QUESTIONS = {
     },
     {
       q: "Does it keep my transcripts?",
-      a: "peluni keeps your last ten transcripts in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them. If a paste can't land, the text waits on your clipboard.",
+      a: "peluni keeps your last ten transcripts in memory so you can copy one again from the menu bar. Nothing is written to disk, and quitting clears them. If peluni can't send the keystrokes, the text waits on your clipboard.",
     },
     {
       q: "What happens in a password field?",
@@ -184,4 +188,9 @@ export const FOOTER_NOTE = {
   ],
   site: "The app has no analytics. This website loads Microsoft Clarity only if you allow it.",
   made: "Made for macOS on Apple Silicon.",
+} as const;
+
+// Sub-page furniture (components/PageBody.tsx).
+export const PAGE_NAV = {
+  onThisPage: "On this page",
 } as const;

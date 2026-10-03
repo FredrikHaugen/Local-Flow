@@ -42,7 +42,7 @@ delete the old app from Applications.
 - Disk space for models, downloaded on first use:
   - Speech model: 78 MB (Tiny) to 1.6 GB (Large v3 Turbo). Base, the recommended start, is 148 MB.
   - Optional cleanup LLM: 0.7 GB (Llama 3.2 1B) or 2.3 GB (Qwen3 4B)
-  - Optional autocomplete LLM, for inline text suggestions while you type: 0.3 GB (Qwen2.5 0.5B), or reuse the 0.7 GB Llama 3.2 1B
+  - Optional autocomplete LLM (experimental: it loads, but suggestions aren't shown yet): 0.3 GB (Qwen2.5 0.5B), or reuse the 0.7 GB Llama 3.2 1B
 - An internet connection only while downloading models; everything else works offline
 - Microphone and Accessibility permissions (the setup window walks you through both)
 

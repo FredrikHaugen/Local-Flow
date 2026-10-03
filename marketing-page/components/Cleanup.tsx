@@ -1,4 +1,5 @@
 import { Chapter } from "@/components/Chapter";
+import { MoreLink } from "@/components/MoreLink";
 import { CLEANUP_LEVELS } from "@/lib/content";
 
 // One take at all four levels, read top to bottom: the raw transcript, then each level tidying a little more.
@@ -48,6 +49,7 @@ export function Cleanup() {
           </li>
         ))}
       </ol>
+      <MoreLink {...CLEANUP_LEVELS.more} />
     </Chapter>
   );
 }

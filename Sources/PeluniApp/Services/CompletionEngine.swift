@@ -104,18 +104,7 @@ actor CompletionEngine {
 
     /// HubCache layout: <llmDir>/models--<org>--<name>/snapshots/<rev>/config.json
     private nonisolated func cachedSnapshotDirectory(modelID: String) -> URL? {
-        let dirName = "models--" + modelID.replacingOccurrences(of: "/", with: "--")
-        let snapshots = llmDir.appendingPathComponent(dirName).appendingPathComponent("snapshots")
-        guard let revs = try? FileManager.default.contentsOfDirectory(atPath: snapshots.path) else {
-            return nil
-        }
-        for rev in revs {
-            let dir = snapshots.appendingPathComponent(rev)
-            if FileManager.default.fileExists(atPath: dir.appendingPathComponent("config.json").path) {
-                return dir
-            }
-        }
-        return nil
+        HubSnapshot.directory(modelID: modelID, in: llmDir)
     }
 
     private func ensureLoaded(

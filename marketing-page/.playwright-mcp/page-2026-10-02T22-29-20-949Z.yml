@@ -1,0 +1,221 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "peluni" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - navigation "Main" [ref=e11]:
+        - link "Features" [ref=e12] [cursor=pointer]:
+          - /url: /features
+        - link "How it works" [ref=e13] [cursor=pointer]:
+          - /url: /how-it-works
+        - link "Help" [ref=e14] [cursor=pointer]:
+          - /url: /help
+        - link "FAQ" [ref=e15] [cursor=pointer]:
+          - /url: /faq
+        - link "Download" [ref=e16] [cursor=pointer]:
+          - /url: https://github.com/FredrikHaugen/peluni/releases
+  - main [ref=e17]:
+    - region [ref=e18]:
+      - generic [ref=e19]:
+        - heading "Hold Right ⌥ and talk." [level=1] [ref=e20]:
+          - text: Hold
+          - generic [ref=e21]: Right ⌥
+          - text: and talk.
+        - paragraph [ref=e22]: When you let go, your words are pasted where your cursor is, already cleaned up.
+        - link "Download for Mac" [ref=e24] [cursor=pointer]:
+          - /url: https://github.com/FredrikHaugen/peluni/releases
+        - figure "Dictating into Reminders" [ref=e25]:
+          - paragraph [ref=e26]: Reminders
+          - generic [ref=e31]:
+            - paragraph [ref=e32]: Errands
+            - list [ref=e33]:
+              - listitem [ref=e34]: Return the library books
+              - listitem [ref=e36]:
+                - generic [ref=e38]:
+                  - text: Pick up the charger and oat milk on the way home.
+                  - generic [ref=e39]:
+                    - text: "Heard:"
+                    - generic [ref=e40]: um
+                    - generic [ref=e41]: pick
+                    - generic [ref=e42]: up
+                    - generic [ref=e43]: the
+                    - generic [ref=e44]: uh
+                    - generic [ref=e45]: charger
+                    - generic [ref=e46]: and
+                    - generic [ref=e47]: like
+                    - generic [ref=e48]: oat
+                    - generic [ref=e49]: milk
+                    - generic [ref=e50]: "on"
+                    - generic [ref=e51]: the
+                    - generic [ref=e52]: way
+                    - generic [ref=e53]: home
+              - listitem [ref=e54]:
+                - generic [ref=e57]: Listening…
+        - button "Reading on a phone? Send this page to my Mac" [ref=e76]:
+          - generic [ref=e77]: Reading on a phone?
+          - generic [ref=e78]: Send this page to my Mac
+          - generic [aria-hidden] [ref=e79]: →
+    - region [ref=e80]:
+      - generic [ref=e82]:
+        - heading "Cleanup levels" [level=2] [ref=e83]
+        - paragraph [ref=e84]: Whisper writes down everything you say, false starts included. You choose how much of it gets pasted. If cleanup fails or takes more than ten seconds, you get the raw transcript.
+        - list "The same take at each cleanup level" [ref=e85]:
+          - listitem [ref=e86]:
+            - generic [ref=e87]:
+              - paragraph [ref=e88]: None
+              - paragraph [ref=e89]: raw transcript
+            - paragraph [ref=e91]: um so the demo moved to thursday no wait friday and uh we still need the slides the script a backup laptop and the hdmi adapter
+          - listitem [ref=e92]:
+            - generic [ref=e93]:
+              - paragraph [ref=e94]: Lightdefault
+              - paragraph [ref=e95]: fillers and punctuation
+            - paragraph [ref=e97]: So the demo moved to Thursday, no wait, Friday, and we still need the slides, the script, a backup laptop and the HDMI adapter.
+          - listitem [ref=e98]:
+            - generic [ref=e99]:
+              - paragraph [ref=e100]: Medium
+              - paragraph [ref=e101]: also grammar and false starts
+            - paragraph [ref=e103]: The demo moved to Friday, and we still need the slides, the script, a backup laptop and the HDMI adapter.
+          - listitem [ref=e104]:
+            - generic [ref=e105]:
+              - paragraph [ref=e106]: High
+              - paragraph [ref=e107]: also structure and lists
+            - generic [ref=e108]:
+              - paragraph [ref=e109]: "The demo moved to Friday. We still need:"
+              - list [ref=e110]:
+                - listitem [ref=e111]: The slides
+                - listitem [ref=e112]: The script
+                - listitem [ref=e113]: A backup laptop
+                - listitem [ref=e114]: The HDMI adapter
+        - paragraph [ref=e115]:
+          - link "How cleanup decides, and when it's skipped" [ref=e116] [cursor=pointer]:
+            - /url: /features#cleanup
+    - region [ref=e117]:
+      - generic [ref=e119]:
+        - heading "Vocabulary" [level=2] [ref=e120]
+        - figure "Vocabulary" [ref=e121]:
+          - generic [ref=e122]:
+            - paragraph [ref=e123]: Vocabulary
+            - list "Vocabulary" [ref=e124]:
+              - listitem [ref=e125]:
+                - generic [ref=e126]: Priya
+              - listitem [ref=e127]:
+                - generic [ref=e128]: peluni
+                - generic [ref=e129]: sounds like “pell oony”
+              - listitem [ref=e130]:
+                - generic [ref=e131]: MLX
+                - generic [ref=e132]: sounds like “em el ex”
+              - listitem [ref=e133]:
+                - generic [ref=e134]: Kubernetes
+                - generic [ref=e135]: sounds like “cooper netties”
+          - generic [ref=e136]:
+            - paragraph [ref=e137]: "Heard: ship the pell oony build to priya"
+            - paragraph [ref=e138]:
+              - text: Ship the
+              - mark [ref=e139]: peluni
+              - text: build to
+              - mark [ref=e140]: Priya
+              - text: .
+            - paragraph [ref=e141]: Add the words whisper keeps getting wrong, like your colleagues' names or the acronyms your team uses. peluni passes them to whisper as hints, and any alias you list under “sounds like” is replaced the same way every time.
+        - paragraph [ref=e142]:
+          - link "More on vocabulary and speech models" [ref=e143] [cursor=pointer]:
+            - /url: /features#vocabulary
+    - region [ref=e144]:
+      - generic [ref=e146]:
+        - heading "Where your audio goes" [level=2] [ref=e147]
+        - paragraph [ref=e148]: Turn Wi-Fi off and keep dictating.
+        - figure "Dictating with Wi-Fi off" [ref=e149]:
+          - paragraph [ref=e155]:
+            - generic [ref=e156]: Wi-Fi
+            - text: "Off"
+          - generic [ref=e159]:
+            - paragraph [ref=e160]: Messages · Sam
+            - paragraph [ref=e161]: Still on for 6?
+            - paragraph [ref=e162]: Running ten minutes late, start without me and I'll catch up on the notes.
+            - generic [ref=e164]: Listening…
+        - paragraph [ref=e182]:
+          - text: Transcription and cleanup run in memory on your Mac, and the app only goes online to fetch a model when you ask for one. It never types into a password field. The code for all of this is
+          - link "on GitHub" [ref=e183] [cursor=pointer]:
+            - /url: https://github.com/FredrikHaugen/peluni
+          - text: .
+        - paragraph [ref=e184]:
+          - link "What the app and this site do with your data" [ref=e185] [cursor=pointer]:
+            - /url: /privacy
+    - region [ref=e186]:
+      - generic [ref=e188]:
+        - heading "Download" [level=2] [ref=e189]
+        - paragraph [ref=e190]: With the base model, the text typically lands about a second after you let go. Double-tap Right ⌥ to keep recording with your hands free, and press it once more to stop. Esc cancels at any point, and a tap shorter than 0.3 seconds is ignored.
+        - list [ref=e191]:
+          - listitem [ref=e192]:
+            - generic [aria-hidden] [ref=e193]: "1"
+            - generic [ref=e194]:
+              - text: Download the DMG from the
+              - link "releases page" [ref=e195] [cursor=pointer]:
+                - /url: https://github.com/FredrikHaugen/peluni/releases
+              - text: .
+          - listitem [ref=e196]:
+            - generic [aria-hidden] [ref=e197]: "2"
+            - generic [ref=e198]: Drag peluni to Applications.
+          - listitem [ref=e199]:
+            - generic [aria-hidden] [ref=e200]: "3"
+            - generic [ref=e201]: Allow Microphone and Accessibility when the setup window asks.
+          - listitem [ref=e202]:
+            - generic [aria-hidden] [ref=e203]: "4"
+            - generic [ref=e204]: Download the Base speech model when the setup window offers it.
+        - generic [ref=e205]:
+          - link "Download for Mac" [ref=e206] [cursor=pointer]:
+            - /url: https://github.com/FredrikHaugen/peluni/releases
+          - paragraph [ref=e207]: Free and open source, version 0.1.0. macOS 14 (Sonoma) or later. Apple Silicon (M1 or later).
+        - paragraph [ref=e208]:
+          - text: Speech model sizes and how to check a download are in the
+          - link "README" [ref=e209] [cursor=pointer]:
+            - /url: https://github.com/FredrikHaugen/peluni#readme
+          - text: ". Anything else:"
+          - link "open an issue on GitHub" [ref=e210] [cursor=pointer]:
+            - /url: https://github.com/FredrikHaugen/peluni/issues
+          - text: .
+        - paragraph [ref=e211]:
+          - link "Setup help and what each message means" [ref=e212] [cursor=pointer]:
+            - /url: /help
+  - contentinfo [ref=e213]:
+    - generic [ref=e214]:
+      - generic [ref=e215]: peluni
+      - generic [ref=e221]:
+        - list "Pages" [ref=e222]:
+          - listitem [ref=e223]:
+            - link "Features" [ref=e224] [cursor=pointer]:
+              - /url: /features
+          - listitem [ref=e225]:
+            - link "How it works" [ref=e226] [cursor=pointer]:
+              - /url: /how-it-works
+          - listitem [ref=e227]:
+            - link "Help" [ref=e228] [cursor=pointer]:
+              - /url: /help
+          - listitem [ref=e229]:
+            - link "FAQ" [ref=e230] [cursor=pointer]:
+              - /url: /faq
+          - listitem [ref=e231]:
+            - link "Privacy" [ref=e232] [cursor=pointer]:
+              - /url: /privacy
+          - listitem [ref=e233]:
+            - link "Security" [ref=e234] [cursor=pointer]:
+              - /url: /security
+          - listitem [ref=e235]:
+            - link "Changelog" [ref=e236] [cursor=pointer]:
+              - /url: /changelog
+        - list [ref=e237]:
+          - listitem [ref=e238]:
+            - link "Source" [ref=e239] [cursor=pointer]:
+              - /url: https://github.com/FredrikHaugen/peluni
+          - listitem [ref=e240]:
+            - link "Releases" [ref=e241] [cursor=pointer]:
+              - /url: https://github.com/FredrikHaugen/peluni/releases
+          - listitem [ref=e242]:
+            - link "Issues" [ref=e243] [cursor=pointer]:
+              - /url: https://github.com/FredrikHaugen/peluni/issues
+          - listitem [ref=e244]:
+            - link "MIT License" [ref=e245] [cursor=pointer]:
+              - /url: https://github.com/FredrikHaugen/peluni/blob/main/LICENSE
+        - paragraph [ref=e246]:
+          - text: The app has no analytics. This website loads Microsoft Clarity only if you allow it.
+          - button "Analytics settings" [ref=e247]
+        - paragraph [ref=e248]: Made for macOS on Apple Silicon.

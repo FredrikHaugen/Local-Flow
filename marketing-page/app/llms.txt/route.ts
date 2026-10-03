@@ -1,4 +1,5 @@
 import { AUDIO, INSTALL_GUIDE, QUESTIONS, USING } from "@/lib/content";
+import { PAGES } from "@/lib/pages";
 import { SITE } from "@/lib/site";
 
 // /llms.txt (llmstxt.org): a plain-Markdown summary for AI tools, built from the same facts as the page.
@@ -28,6 +29,10 @@ export function llmsTxt() {
     USING.paragraphs[0],
     "",
     ...QUESTIONS.items.flatMap((item) => [`### ${item.q}`, "", item.a, ""]),
+    "## Pages",
+    "",
+    ...PAGES.filter((p) => p.path !== "/").map((p) => `- [${p.nav}](${SITE.url}${p.path}): ${p.description}`),
+    "",
     "## Links",
     "",
     `- [Website](${SITE.url}/)`,
