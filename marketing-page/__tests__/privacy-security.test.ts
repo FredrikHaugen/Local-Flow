@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 import { PRIVACY } from "@/lib/pages/privacy";
 import { SECURITY } from "@/lib/pages/security";
+import { FOOTER_NOTE } from "@/lib/content";
 import { ANALYTICS } from "@/lib/site";
 
 const source = (path: string) => readFileSync(resolve(process.cwd(), "..", path), "utf8");
@@ -31,6 +32,35 @@ describe("privacy facts", () => {
   test("says how long Clarity keeps recordings, with Microsoft's page as the source", () => {
     expect(json(PRIVACY)).toContain("30 days");
     expect(json(PRIVACY)).toContain("learn.microsoft.com/en-us/clarity/setup-and-installation/data-retention");
+  });
+
+  test("names the cookies Google documents for Google Analytics 4", () => {
+    // https://support.google.com/analytics/answer/11397207
+    for (const cookie of ["_ga", `_ga_${ANALYTICS.gaId.slice(2)}`]) expect(json(PRIVACY)).toContain(cookie);
+  });
+
+  test("says Google signals and ad personalization are off, as the banner code does", () => {
+    const code = source("marketing-page/components/AnalyticsConsent.tsx");
+    expect(code).toContain("allow_google_signals: false");
+    expect(code).toContain("allow_ad_personalization_signals: false");
+    expect(json(PRIVACY)).toContain("Google signals");
+  });
+
+  test("links Google's privacy policy and names both tools in the rights section", () => {
+    expect(json(PRIVACY)).toContain("policies.google.com/privacy");
+    const rights = json(PRIVACY.sections.find((s) => s.id === "rights"));
+    for (const tool of ["Clarity", "Google Analytics"]) expect(rights).toContain(tool);
+  });
+
+  test("says Google Analytics records scrolling and clicks on outbound links (enhanced measurement defaults)", () => {
+    // https://support.google.com/analytics/answer/9216061: scroll and outbound click are on by default.
+    expect(json(PRIVACY)).toContain("scroll to the bottom of a page");
+    expect(json(PRIVACY)).toContain("links to other sites you click");
+  });
+
+  test("the banner and footer name both analytics tools", () => {
+    for (const text of [ANALYTICS.banner, FOOTER_NOTE.site])
+      for (const tool of ["Microsoft Clarity", "Google Analytics"]) expect(text).toContain(tool);
   });
 
   test("has an ISO date for its last update", () => {

@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { ANALYTICS } from "@/lib/site";
 
-// Microsoft Clarity, strictly opt-in. Until the visitor clicks Allow, nothing from clarity.ms is
-// requested and no cookie is set; the exported HTML carries no third-party script (pnpm check).
+// Microsoft Clarity and Google Analytics, strictly opt-in and under one choice. Until the visitor
+// clicks Allow, nothing from clarity.ms or googletagmanager.com is requested and no cookie is set;
+// the exported HTML carries no third-party script (pnpm check).
 // The choice is kept in localStorage, and the footer's settings button reopens the banner.
 
 const SETTINGS_EVENT = "lf-analytics-settings";
@@ -13,6 +14,8 @@ type Clarity = ((...args: unknown[]) => void) & { q?: unknown[][] };
 declare global {
   interface Window {
     clarity?: Clarity;
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -46,12 +49,52 @@ function loadClarity() {
   window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "granted" });
 }
 
+// Google's gtag.js snippet, run only after consent. Advertising storage, ad personalization and
+// Google signals stay off, so the data is used for site statistics only (privacy.ts says so).
+function loadGoogleAnalytics() {
+  if (document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    // gtag.js reads the arguments object itself, not an array.
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer!.push(arguments);
+  };
+  window.gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "granted",
+  });
+  window.gtag("js", new Date());
+  window.gtag("config", ANALYTICS.gaId, { allow_google_signals: false, allow_ad_personalization_signals: false });
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS.gaId}`;
+  document.head.appendChild(script);
+}
+
+// Withdrawn consent: stop Google Analytics in this page and delete the cookies it set.
+function stopGoogleAnalytics() {
+  (window as unknown as Record<string, unknown>)[`ga-disable-${ANALYTICS.gaId}`] = true;
+  window.gtag?.("consent", "update", { analytics_storage: "denied" });
+  const names = ["_ga", `_ga_${ANALYTICS.gaId.slice(2)}`];
+  const host = window.location.hostname;
+  for (const name of names)
+    for (const domain of ["", `; domain=${host}`, `; domain=.${host}`])
+      document.cookie = `${name}=; Max-Age=0; path=/${domain}`;
+}
+
+function loadAnalytics() {
+  loadClarity();
+  loadGoogleAnalytics();
+}
+
 export function AnalyticsConsent() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const choice = readChoice();
-    if (choice === "granted") loadClarity();
+    if (choice === "granted") loadAnalytics();
     // Reading localStorage only exists after mount, so the banner can't be part of the static HTML.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     else if (choice === null) setOpen(true);
@@ -63,7 +106,7 @@ export function AnalyticsConsent() {
 
   function allow() {
     saveChoice("granted");
-    loadClarity();
+    loadAnalytics();
     setOpen(false);
   }
 
@@ -72,8 +115,9 @@ export function AnalyticsConsent() {
     saveChoice("denied");
     setOpen(false);
     if (wasGranted) {
-      // Clarity can't be unloaded from a running page: tell it to stop, then start clean.
+      // Neither tool can be unloaded from a running page: tell both to stop, then start clean.
       window.clarity?.("consentv2", { ad_Storage: "denied", analytics_Storage: "denied" });
+      stopGoogleAnalytics();
       window.location.reload();
     }
   }

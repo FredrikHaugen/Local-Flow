@@ -45,12 +45,16 @@ export const PHONE = {
   copied: "Link copied. Open it on your Mac.",
 } as const;
 
-// Opt-in page analytics. Nothing from Clarity loads, and no cookie is set, until the visitor allows it.
+// Opt-in page analytics. Nothing from Clarity or Google Analytics loads, and no cookie is set, until the
+// visitor allows it.
 export const ANALYTICS = {
   clarityId: "yreithgab3",
+  // Google Analytics 4 measurement ID; its cookies are _ga and _ga_<ID without "G-"> (privacy.ts).
+  gaId: "G-TJXGVP9MFM",
   storageKey: "lf-analytics",
   // Kept short: on a phone this bar sits over the hero until it's answered.
-  banner: "Allow Microsoft Clarity analytics? It sets cookies and records anonymous sessions. Off unless you allow it.",
+  banner:
+    "Allow analytics from Microsoft Clarity and Google Analytics? Both set cookies and record how this site is used, under a random ID. Off unless you allow it.",
   allow: "Allow",
   decline: "No thanks",
   settings: "Analytics settings",
