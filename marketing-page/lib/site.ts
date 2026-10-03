@@ -16,6 +16,14 @@ export const SITE = {
   license: "MIT",
 } as const;
 
+// Projects peluni is built on, linked from the copy so a reader can check what it says about them.
+// whisper.cpp: Makefile WHISPER_ZIP_URL. MLX: Package.swift (mlx-swift-lm builds on mlx-swift).
+export const UPSTREAM = {
+  whisperCpp: "https://github.com/ggml-org/whisper.cpp",
+  mlx: "https://github.com/ml-explore/mlx-swift",
+  notarization: "https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution",
+} as const;
+
 // Search and share metadata. The <title> carries the words people search for ("dictation", "Mac",
 // "offline"); "offline" is the Wi-Fi band's claim (content.ts AUDIO).
 export const SEO = {

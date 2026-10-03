@@ -1,4 +1,5 @@
 import type { PageCopy } from "@/lib/blocks";
+import { UPSTREAM } from "@/lib/site";
 
 // Sources: Settings tabs (Sources/PeluniApp/UI/*Tab.swift), ModelCatalog.swift, CleanupEngine.swift,
 // TextInjector.swift, docs/PROJECT.md. Autocomplete is left out: it shows no suggestions yet.
@@ -77,7 +78,9 @@ export const FEATURES: PageCopy = {
       blocks: [
         {
           p: [
-            "peluni transcribes with whisper.cpp on your Mac's GPU. The setup window downloads one speech model, and you can switch any time in Settings → Models. Every model understands several languages.",
+            "peluni transcribes with ",
+            { text: "whisper.cpp", href: UPSTREAM.whisperCpp },
+            " on your Mac's GPU. The setup window downloads one speech model, and you can switch any time in Settings → Models. Every model understands several languages.",
           ],
         },
         {

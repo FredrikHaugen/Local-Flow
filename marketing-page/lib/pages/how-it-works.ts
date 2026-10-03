@@ -1,5 +1,5 @@
 import type { PageCopy } from "@/lib/blocks";
-import { SITE } from "@/lib/site";
+import { SITE, UPSTREAM } from "@/lib/site";
 
 // Sources: README.md "How it works", docs/PROJECT.md "The processing pipeline" and "Reliability
 // principles", DictationController.swift and TranscriptionEngine.swift for the messages.
@@ -36,7 +36,8 @@ export const HOW_IT_WORKS: PageCopy = {
       blocks: [
         {
           p: [
-            "whisper.cpp turns the audio into text on your Mac's GPU, with your vocabulary passed in as hints. A filter then removes what whisper invents when it hears noise instead of speech, such as [Music] or (applause), while keeping parentheses you actually said. Your “sounds like” aliases are replaced after that.",
+            { text: "whisper.cpp", href: UPSTREAM.whisperCpp },
+            " turns the audio into text on your Mac's GPU, with your vocabulary passed in as hints. A filter then removes what whisper invents when it hears noise instead of speech, such as [Music] or (applause), while keeping parentheses you actually said. Your “sounds like” aliases are replaced after that.",
           ],
         },
       ],
@@ -47,7 +48,9 @@ export const HOW_IT_WORKS: PageCopy = {
       blocks: [
         {
           p: [
-            "A small language model, run through Apple's MLX framework, tidies the text at the level you chose. It works under one rule: it can't block or corrupt a dictation. An error, an output that adds or drops too much, or a run longer than ten seconds all fall back to the raw transcript.",
+            "A small language model, run through Apple's ",
+            { text: "MLX", href: UPSTREAM.mlx },
+            " framework, tidies the text at the level you chose. It works under one rule: it can't block or corrupt a dictation. An error, an output that adds or drops too much, or a run longer than ten seconds all fall back to the raw transcript.",
           ],
         },
         {
