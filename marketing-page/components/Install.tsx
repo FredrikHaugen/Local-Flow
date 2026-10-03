@@ -1,11 +1,11 @@
 import { Chapter } from "@/components/Chapter";
 import { MoreLink } from "@/components/MoreLink";
-import { DownloadButton } from "@/components/DownloadButton";
+import { Inlines } from "@/components/PageBody";
 import { INSTALL_GUIDE, INTRO, QUESTIONS, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-// The end of the page: how fast it is and how to dictate hands-free, the four install steps at reading
-// size, then the download with what your Mac needs. It ends on the button, not on a restated pitch.
+// The end of the page: how fast it is and how to dictate hands-free, the four build steps at reading
+// size, then where the release stands and what your Mac needs to run it.
 export function Install() {
   return (
     <Chapter id="install" title={INSTALL_GUIDE.title} wide className="pb-12 pt-24 sm:pb-16 sm:pt-32">
@@ -14,31 +14,19 @@ export function Install() {
       </p>
       <ol className="mt-10 grid max-w-4xl gap-x-12 gap-y-5 text-[1.15rem] leading-snug sm:grid-cols-2">
         {INSTALL_GUIDE.steps.map((step, i) => (
-          <li key={step.before} className="grid grid-cols-[1.75rem_1fr] border-t border-border pt-4">
+          <li key={i} className="grid grid-cols-[1.75rem_1fr] border-t border-border pt-4">
             <span aria-hidden="true" className="font-sans font-semibold text-muted">
               {i + 1}
             </span>
             <span>
-              {step.before}
-              {step.link && (
-                <>
-                  {" "}
-                  <a href={SITE.releasesUrl} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">
-                    {step.link}
-                  </a>
-                  {step.after}
-                </>
-              )}
+              <Inlines parts={step} />
             </span>
           </li>
         ))}
       </ol>
-      <div data-cta className="mt-12">
-        <DownloadButton large />
-        <p className="mt-4 font-sans text-[0.95rem] text-muted">
-          {INTRO.release} {INSTALL_GUIDE.requirements.slice(0, 2).map((r) => `${r.title}.`).join(" ")}
-        </p>
-      </div>
+      <p data-status className="mt-12 max-w-2xl font-sans text-[1.05rem]">
+        {INTRO.release} {INSTALL_GUIDE.requirements.slice(0, 2).map((r) => `${r.title}.`).join(" ")}
+      </p>
       <p className="mt-6 font-sans text-[0.95rem] text-muted">
         {QUESTIONS.detailsBefore}
         <a href={`${SITE.repoUrl}#readme`} className="underline decoration-foreground/40 underline-offset-4 hover:decoration-foreground">

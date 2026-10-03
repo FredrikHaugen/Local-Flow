@@ -1,7 +1,7 @@
 import type { PageCopy } from "@/lib/blocks";
 import { SITE } from "@/lib/site";
 
-// Sources: README.md (Install, Upgrading), OnboardingWindow.swift, the Settings tabs, the overlay and
+// Sources: README.md (Quick start, Requirements, Upgrading), OnboardingWindow.swift, the Settings tabs, the overlay and
 // menu messages in DictationController.swift and TranscriptionEngine.swift, DownloadErrorMessage.swift,
 // ModelManager.swift (disk margin). Messages containing a dash are described, never quoted.
 
@@ -15,18 +15,27 @@ export const QUOTED_MESSAGES = [
 
 export const HELP: PageCopy = {
   lead: [
-    "How to install peluni, what each Settings tab holds, and what to do when peluni shows a message you didn't expect.",
+    "How to build and set up peluni, what each Settings tab holds, and what to do when peluni shows a message you didn't expect.",
   ],
   sections: [
     {
       id: "install",
-      heading: "Installing",
+      heading: "Building from source",
       blocks: [
+        { p: ["peluni isn't released yet, so there's no app to download. You build it on your Mac instead."] },
         {
           list: [
-            ["Download the DMG from the ", { text: "releases page", href: SITE.releasesUrl }, "."],
             [
-              "Open it and drag peluni onto Applications, then open peluni from there. It runs in the menu bar and has no Dock icon.",
+              "Install Xcode 16.3 or later. Building needs a Mac with Apple Silicon and macOS 15.2 or later. On Xcode 26 or later, also run ",
+              { code: "xcodebuild -downloadComponent MetalToolchain" },
+              " once.",
+            ],
+            [
+              "Clone ",
+              { text: "the repository", href: SITE.repoUrl },
+              " and run ",
+              { code: "make run" },
+              " in its folder. The first build takes several minutes; later ones are quicker. peluni opens in the menu bar and has no Dock icon.",
             ],
             [
               "The peluni Setup window asks for Microphone access, so peluni can hear you while you hold the key, and Accessibility access, so it can paste into the app you're using.",
@@ -38,7 +47,7 @@ export const HELP: PageCopy = {
           ],
           ordered: true,
         },
-        { p: ["peluni needs macOS 14 (Sonoma) or later on a Mac with Apple Silicon (M1 or later)."] },
+        { p: ["peluni itself runs on macOS 14 (Sonoma) or later on a Mac with Apple Silicon (M1 or later)."] },
       ],
     },
     {

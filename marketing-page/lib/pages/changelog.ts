@@ -10,7 +10,7 @@ export const CHANGELOG_PAGE = {
   unreleased: "not released yet",
   requires: `Needs ${SEO.operatingSystem} and ${SEO.processor}.`,
   unreleasedNote: [
-    "Not on the releases page yet, so the Download links lead to an empty page for now. Until it's published, build it from the source with ",
+    "There's no download for this version. Build it from the source with ",
     { code: "make run" },
     ", as the README explains.",
   ] as readonly Inline[],

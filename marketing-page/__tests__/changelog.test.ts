@@ -55,9 +55,9 @@ describe("changelog entries", () => {
 });
 
 describe("an unreleased version", () => {
-  test("says it isn't on the releases page yet and how to build it", () => {
+  test("says there's no download and how to build it", () => {
     expect(CHANGELOG[0].status).toBe("unreleased");
-    expect(inlineText(CHANGELOG_PAGE.unreleasedNote)).toContain("releases page");
+    expect(inlineText(CHANGELOG_PAGE.unreleasedNote)).not.toMatch(/releases page|Download links/);
     expect(inlineText(CHANGELOG_PAGE.unreleasedNote)).toContain("make run");
   });
 });

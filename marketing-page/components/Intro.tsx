@@ -1,11 +1,11 @@
-import { DownloadButton } from "@/components/DownloadButton";
 import { Kbd } from "@/components/Kbd";
+import { Inlines } from "@/components/PageBody";
 import { SendToMac } from "@/components/SendToMac";
 import { Take } from "@/components/Take";
 import { INTRO } from "@/lib/content";
 
-// The first screen: how you use it as the headline, what happens when you let go, the download, then
-// Reminders mid-dictation. What peluni is, in one line, closes the page next to the second download.
+// The first screen: how you use it as the headline, what happens when you let go, where it stands (not
+// released yet), then Reminders mid-dictation.
 export function Intro() {
   return (
     <section id="top" aria-labelledby="top-title" className="px-4 pt-8 sm:px-6 sm:pt-10">
@@ -16,13 +16,13 @@ export function Intro() {
         <p className="mt-6 max-w-2xl text-[clamp(1.2rem,1.05rem+0.6vw,1.5rem)] leading-[1.4]">
           {INTRO.bodyMore}
         </p>
-        <div data-cta className="mt-8">
-          <DownloadButton />
-        </div>
+        <p data-status className="mt-8 max-w-2xl font-sans text-[1.1rem] leading-normal">
+          <Inlines parts={INTRO.status} />
+        </p>
 
         <Take />
 
-        {/* Phones only: the download is for a Mac, so offer to send the page there. */}
+        {/* Phones only: peluni is for a Mac, so offer to send the page there. */}
         <SendToMac className="mt-6 md:hidden" />
       </div>
     </section>

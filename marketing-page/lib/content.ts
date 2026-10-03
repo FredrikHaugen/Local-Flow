@@ -1,5 +1,6 @@
 // The page's copy. Product facts are backed by ../README.md and ../docs/PROJECT.md; tests in
 // __tests__/content.test.ts and __tests__/copy-style.test.ts keep both the facts and the voice honest.
+import type { Inline } from "@/lib/blocks";
 import { SITE } from "@/lib/site";
 
 const introBefore = "Hold";
@@ -14,8 +15,13 @@ export const INTRO = {
   bodyAfter: introAfter,
   bodyMore: introMore,
   body: `${introBefore} ${introKey} ${introAfter} ${introMore}`,
-  download: "Download for Mac",
-  release: `Free and open source, version ${SITE.version}.`,
+  // Where the Download button was. There is no release yet (0.0.1), so it says so and points to the build.
+  status: [
+    "peluni isn't released yet, so there's nothing to download. If you have Xcode, you can ",
+    { text: "build it from the source", href: SITE.buildUrl },
+    " today.",
+  ] as readonly Inline[],
+  release: `Free and open source. Version ${SITE.version} is still in development, ahead of any beta.`,
 } as const;
 
 export const USING = {
@@ -133,14 +139,17 @@ export const AUDIO = {
 } as const;
 
 export const INSTALL_GUIDE = {
-  title: "Download",
+  title: "Building it yourself",
   steps: [
-    { before: "Download the DMG from the", link: "releases page", after: "." },
-    { before: "Drag peluni to Applications.", link: "", after: "" },
-    { before: "Allow Microphone and Accessibility when the setup window asks.", link: "", after: "" },
-    { before: "Download the Base speech model when the setup window offers it.", link: "", after: "" },
-  ],
-  download: "Download for Mac",
+    [
+      "Install Xcode 16.3 or later on a Mac with Apple Silicon and macOS 15.2 or later. On Xcode 26, also run ",
+      { code: "xcodebuild -downloadComponent MetalToolchain" },
+      " once.",
+    ],
+    ["Clone the ", { text: "peluni repository", href: SITE.repoUrl }, " from GitHub."],
+    ["In its folder, run ", { code: "make run" }, ". The first build takes several minutes; later ones are quicker."],
+    ["Allow Microphone and Accessibility when the setup window asks, then download the Base speech model it offers."],
+  ] as readonly (readonly Inline[])[],
   requirementsTitle: "What does my Mac need?",
   requirements: [
     { title: "macOS 14 (Sonoma) or later", detail: "peluni runs from the menu bar." },
@@ -171,7 +180,7 @@ export const QUESTIONS = {
       a: "peluni detects secure fields and won't type into them or write to the clipboard while one has focus.",
     },
   ],
-  detailsBefore: "Speech model sizes and how to check a download are in the ",
+  detailsBefore: "Build requirements and speech model sizes are in the ",
   detailsLink: "README",
   detailsAfter: ".",
   moreBefore: "Anything else: ",
@@ -182,7 +191,6 @@ export const QUESTIONS = {
 export const FOOTER_NOTE = {
   links: [
     { label: "Source", href: SITE.repoUrl },
-    { label: "Releases", href: SITE.releasesUrl },
     { label: "Issues", href: `${SITE.repoUrl}/issues` },
     { label: "MIT License", href: `${SITE.repoUrl}/blob/main/LICENSE` },
   ],

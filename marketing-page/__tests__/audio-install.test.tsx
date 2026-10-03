@@ -23,13 +23,14 @@ describe("Where your audio goes", () => {
   });
 });
 
-describe("Installing", () => {
-  test("ends the page on the real steps and the download", () => {
+describe("Building it yourself", () => {
+  test("ends the page on the real build steps", () => {
     render(<Install />);
     const region = screen.getByRole("region", { name: INSTALL_GUIDE.title });
     expect(region.id).toBe("install");
     expect(region.querySelectorAll("ol > li")).toHaveLength(INSTALL_GUIDE.steps.length);
-    expect(within(region).getByRole("link", { name: INSTALL_GUIDE.steps[0].link }).getAttribute("href")).toBe(SITE.releasesUrl);
-    expect(within(region).getByRole("link", { name: INSTALL_GUIDE.download }).getAttribute("href")).toBe(SITE.releasesUrl);
+    expect(within(region).getByRole("link", { name: "peluni repository" }).getAttribute("href")).toBe(SITE.repoUrl);
+    expect(region.querySelector("ol code")?.textContent).toBe("xcodebuild -downloadComponent MetalToolchain");
+    expect([...region.querySelectorAll("ol code")].map((c) => c.textContent)).toContain("make run");
   });
 });

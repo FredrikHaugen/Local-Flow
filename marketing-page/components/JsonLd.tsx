@@ -30,7 +30,6 @@ export function homeJsonLd() {
         processorRequirements: SEO.processor,
         softwareVersion: SITE.version,
         license,
-        downloadUrl: SITE.releasesUrl,
         isAccessibleForFree: true,
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         sameAs: [SITE.repoUrl],

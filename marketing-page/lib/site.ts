@@ -10,8 +10,8 @@ export const SITE = {
   description:
     "peluni is free, open-source voice dictation for macOS. Hold Right ⌥, speak, and the text lands in the app you're using, transcribed and cleaned up on your Mac.",
   repoUrl,
-  // /releases rather than /releases/latest: the latter 404s until the first release is published.
-  releasesUrl: `${repoUrl}/releases`,
+  // README "## Quick start (from source)". There is no release yet, so this is how to get peluni.
+  buildUrl: `${repoUrl}#quick-start-from-source`,
   version: "0.0.1",
   license: "MIT",
 } as const;
@@ -30,7 +30,6 @@ export const SEO = {
 // Phone visitors: peluni is a Mac app, so the phone's job is to get this page onto the Mac.
 export const PHONE = {
   handoffLead: "Reading on a phone?",
-  handoffNote: "peluni runs on your Mac. Send yourself the link and download it there.",
   handoff: "Send this page to my Mac",
   shareTitle: "peluni: voice dictation for your Mac",
   copied: "Link copied. Open it on your Mac.",

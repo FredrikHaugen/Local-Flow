@@ -5,14 +5,12 @@ import { PAGES } from "@/lib/pages";
 import { SITE } from "@/lib/site";
 
 describe("Header", () => {
-  test("has the wordmark linking home, the page links and Download", () => {
+  test("has the wordmark linking home and the page links", () => {
     render(<Header />);
     expect(screen.getByText(SITE.name).closest("a")?.getAttribute("href")).toBe("/");
     const nav = screen.getByRole("navigation", { name: "Main" });
-    expect(within(nav).getByRole("link", { name: "Download" }).getAttribute("href")).toBe(SITE.releasesUrl);
-    const pageLinks = within(nav)
-      .getAllByRole("link")
-      .filter((a) => a.textContent !== "Download");
-    expect(pageLinks.map((a) => a.getAttribute("href"))).toEqual(PAGES.filter((p) => p.header).map((p) => p.path));
+    expect(within(nav).getAllByRole("link").map((a) => a.getAttribute("href"))).toEqual(
+      PAGES.filter((p) => p.header).map((p) => p.path),
+    );
   });
 });

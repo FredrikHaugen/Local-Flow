@@ -6,13 +6,13 @@ import { INSTALL_GUIDE, INTRO, USING } from "@/lib/content";
 import { PHONE, SITE } from "@/lib/site";
 
 describe("Intro", () => {
-  test("is the page's h1 and the download, then one take from speech to text", () => {
+  test("is the page's h1 and where the release stands, then one take from speech to text", () => {
     render(<Intro />);
     const region = screen.getByRole("region", { name: INTRO.title });
     expect(region.id).toBe("top");
     expect(within(region).getByRole("heading", { level: 1, name: INTRO.title })).toBeDefined();
     expect(region.textContent).toContain(INTRO.bodyMore);
-    expect(within(region).getByRole("link", { name: INTRO.download }).getAttribute("href")).toBe(SITE.releasesUrl);
+    expect(within(region).getByRole("link", { name: "build it from the source" }).getAttribute("href")).toBe(SITE.buildUrl);
     expect(within(region).getByRole("figure", { name: USING.sceneLabel })).toBeDefined();
   });
 
@@ -33,12 +33,12 @@ describe("Intro", () => {
   });
 });
 
-describe("The closing download", () => {
-  test("closes on how to use it, the requirements and the page's one version mention", () => {
+describe("The closing status", () => {
+  test("closes on how to use it, the run requirements and the page's one version mention", () => {
     const { container } = render(<Install />);
     expect(container.textContent).toContain(USING.paragraphs[0]);
-    const cta = screen.getByRole("link", { name: INSTALL_GUIDE.download }).closest("[data-cta]")!;
-    for (const r of INSTALL_GUIDE.requirements.slice(0, 2)) expect(cta.textContent).toContain(r.title);
-    expect(cta.textContent).toContain(SITE.version);
+    const status = container.querySelector("[data-status]")!;
+    for (const r of INSTALL_GUIDE.requirements.slice(0, 2)) expect(status.textContent).toContain(r.title);
+    expect(status.textContent).toContain(SITE.version);
   });
 });

@@ -74,7 +74,7 @@ export const FAQ = {
       id: "app-store",
       q: "Why isn't peluni in the Mac App Store?",
       a: [
-        "Pasting into other apps needs Accessibility access, which sandboxed apps can't use that way, and the App Store requires the sandbox. So peluni is downloaded from GitHub instead. The ",
+        "Pasting into other apps needs Accessibility access, which sandboxed apps can't use that way, and the App Store requires the sandbox. So once it's released, peluni will be published on GitHub instead. The ",
         { text: "security page", href: "/security" },
         " explains what it does with that access.",
       ],

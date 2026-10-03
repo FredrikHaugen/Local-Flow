@@ -1,10 +1,9 @@
 import { Wordmark } from "@/components/Wordmark";
 import { PAGES } from "@/lib/pages";
-import { SITE } from "@/lib/site";
 
 const LINK = "underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground";
 
-// The wordmark home, the main pages, and Download. Wraps onto a second row on a phone.
+// The wordmark home and the main pages. Wraps onto a second row on a phone.
 export function Header({ current }: { current?: string }) {
   return (
     <header className="border-b border-border px-4 sm:px-6">
@@ -25,9 +24,6 @@ export function Header({ current }: { current?: string }) {
               {p.nav}
             </a>
           ))}
-          <a href={SITE.releasesUrl} className={`${LINK} font-semibold`}>
-            Download
-          </a>
         </nav>
       </div>
     </header>
