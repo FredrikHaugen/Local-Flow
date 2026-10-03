@@ -12,7 +12,7 @@ export const SITE = {
   repoUrl,
   // /releases rather than /releases/latest: the latter 404s until the first release is published.
   releasesUrl: `${repoUrl}/releases`,
-  version: "0.1.0",
+  version: "0.0.1",
   license: "MIT",
 } as const;
 

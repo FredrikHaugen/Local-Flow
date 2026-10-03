@@ -2,7 +2,7 @@
 
 What changed in peluni, newest first. Each line starts with what kind of change it is. Dates are when the change was made.
 
-## 0.1.0 (unreleased)
+## 0.0.1 (unreleased)
 
 ### 2026-10-02
 

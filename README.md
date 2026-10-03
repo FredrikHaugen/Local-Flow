@@ -144,7 +144,7 @@ The marketing site is a separate Next.js project in `marketing-page/`
 
 ## Contributing
 
-Contributions are very welcome — this is an early project (v0.1.0) and help
+Contributions are very welcome — this is an early project (v0.0.1, not released yet) and help
 is appreciated, whether that's a bug fix, a feature, docs, or just filing a
 good issue. To get started:
 
