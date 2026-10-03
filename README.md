@@ -15,10 +15,9 @@ clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 
 ## Install
 
-peluni is not released yet: version 0.0.1 is in development, ahead of any
-beta, so there is no DMG to download. To try it now, build it from source
-with `make run` (see [Quick start](#quick-start-from-source) and the build
-requirements below). The setup window then walks you through three steps:
+There is no release yet, so there is no DMG to download. To try it now,
+build it from source with `make run` (see [Quick start](#quick-start-from-source)
+and the build requirements below). The setup window then walks you through three steps:
 allow **Microphone**, allow **Accessibility**, and download the **speech
 model** (148 MB). Then hold **Right ⌥** anywhere and talk.
 

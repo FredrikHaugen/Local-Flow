@@ -140,9 +140,9 @@ export const SECURITY: PageCopy = {
       blocks: [
         {
           p: [
-            "The release script signs a build with a Developer ID, runs it with the hardened runtime and has Apple notarize it, and it stops if signing, notarization or Gatekeeper's own check fails. No release has been published yet. A build you make with ",
+            "No release has been published yet. A build you make with ",
             { code: "make run" },
-            " is signed with a certificate created on your own Mac, so macOS keeps its permissions between builds.",
+            " is signed with a certificate created on your own Mac, so macOS keeps its permissions between builds. For releases, the release script signs with a Developer ID, turns on the hardened runtime and has Apple notarize the build, and it stops if any of those checks fails.",
           ],
         },
       ],

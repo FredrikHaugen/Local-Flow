@@ -26,7 +26,7 @@ export const HELP: PageCopy = {
         {
           list: [
             [
-              "Install Xcode 16.3 or later. Building needs a Mac with Apple Silicon and macOS 15.2 or later. On Xcode 26 or later, also run ",
+              "Install Xcode 16.3 or later, which itself needs macOS 15.2 on a Mac with Apple Silicon. On Xcode 26 or later, also run ",
               { code: "xcodebuild -downloadComponent MetalToolchain" },
               " once.",
             ],
@@ -47,7 +47,7 @@ export const HELP: PageCopy = {
           ],
           ordered: true,
         },
-        { p: ["peluni itself runs on macOS 14 (Sonoma) or later on a Mac with Apple Silicon (M1 or later)."] },
+        { p: ["Once built, peluni runs on macOS 14 (Sonoma) or later with Apple Silicon (M1 or later). The newer macOS is only for Xcode."] },
       ],
     },
     {

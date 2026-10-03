@@ -17,11 +17,13 @@ export const INTRO = {
   body: `${introBefore} ${introKey} ${introAfter} ${introMore}`,
   // Where the Download button was. There is no release yet (0.0.1), so it says so and points to the build.
   status: [
-    "peluni isn't released yet, so there's nothing to download. If you have Xcode, you can ",
+    "peluni isn't released yet, so there's nothing to download. With Xcode 16.3 on a Mac with Apple Silicon, you can ",
     { text: "build it from the source", href: SITE.buildUrl },
-    " today.",
+    " today. To hear when it's out, ",
+    { text: "watch the repository", href: SITE.repoUrl },
+    " on GitHub and pick Releases.",
   ] as readonly Inline[],
-  release: `Free and open source. Version ${SITE.version} is still in development, ahead of any beta.`,
+  release: `Free and open source. Version ${SITE.version} is an early development build, not ready for a beta yet.`,
 } as const;
 
 export const USING = {
@@ -142,7 +144,7 @@ export const INSTALL_GUIDE = {
   title: "Building it yourself",
   steps: [
     [
-      "Install Xcode 16.3 or later on a Mac with Apple Silicon and macOS 15.2 or later. On Xcode 26, also run ",
+      "Install Xcode 16.3 or later, which itself needs macOS 15.2 on a Mac with Apple Silicon. On Xcode 26, also run ",
       { code: "xcodebuild -downloadComponent MetalToolchain" },
       " once.",
     ],
@@ -150,6 +152,7 @@ export const INSTALL_GUIDE = {
     ["In its folder, run ", { code: "make run" }, ". The first build takes several minutes; later ones are quicker."],
     ["Allow Microphone and Accessibility when the setup window asks, then download the Base speech model it offers."],
   ] as readonly (readonly Inline[])[],
+  runsOn: "Once built, it runs on macOS 14 (Sonoma) or later with Apple Silicon (M1 or later).",
   requirementsTitle: "What does my Mac need?",
   requirements: [
     { title: "macOS 14 (Sonoma) or later", detail: "peluni runs from the menu bar." },

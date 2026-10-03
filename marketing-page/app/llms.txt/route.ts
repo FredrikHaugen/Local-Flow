@@ -12,7 +12,7 @@ export function llmsTxt() {
     "",
     `> ${SITE.description}`,
     "",
-    `${SITE.name} is ${SITE.license} licensed. It isn't released yet: version ${SITE.version} is in development, and you can build it from the source. Speech recognition runs on whisper.cpp on the Metal GPU; an optional small LLM on Apple MLX removes filler words and fixes punctuation.`,
+    `${SITE.name} is ${SITE.license} licensed. It isn't released yet: version ${SITE.version} is an early development build, and you can build it from the source. Speech recognition runs on whisper.cpp on the Metal GPU; an optional small LLM on Apple MLX removes filler words and fixes punctuation.`,
     "",
     "## Requirements",
     "",

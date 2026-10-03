@@ -4,13 +4,13 @@ import { Inlines } from "@/components/PageBody";
 import { INSTALL_GUIDE, INTRO, QUESTIONS, USING } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
-// The end of the page: how fast it is and how to dictate hands-free, the four build steps at reading
-// size, then where the release stands and what your Mac needs to run it.
+// The end of the page: where the release stands and what a Mac needs to run it, the four build steps at
+// reading size, then how fast it is and how to dictate hands-free.
 export function Install() {
   return (
     <Chapter id="install" title={INSTALL_GUIDE.title} wide className="pb-12 pt-24 sm:pb-16 sm:pt-32">
-      <p className="mt-4 max-w-2xl text-[clamp(1.15rem,1.05rem+0.4vw,1.35rem)] leading-[1.45]">
-        {USING.paragraphs[0]} {QUESTIONS.items[0].a}
+      <p data-status className="mt-4 max-w-2xl text-[clamp(1.15rem,1.05rem+0.4vw,1.35rem)] leading-[1.45]">
+        {INTRO.release} {INSTALL_GUIDE.runsOn}
       </p>
       <ol className="mt-10 grid max-w-4xl gap-x-12 gap-y-5 text-[1.15rem] leading-snug sm:grid-cols-2">
         {INSTALL_GUIDE.steps.map((step, i) => (
@@ -24,8 +24,8 @@ export function Install() {
           </li>
         ))}
       </ol>
-      <p data-status className="mt-12 max-w-2xl font-sans text-[1.05rem]">
-        {INTRO.release} {INSTALL_GUIDE.requirements.slice(0, 2).map((r) => `${r.title}.`).join(" ")}
+      <p className="mt-12 max-w-2xl text-[1.15rem] leading-[1.45]">
+        {USING.paragraphs[0]} {QUESTIONS.items[0].a}
       </p>
       <p className="mt-6 font-sans text-[0.95rem] text-muted">
         {QUESTIONS.detailsBefore}
