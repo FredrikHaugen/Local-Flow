@@ -49,3 +49,11 @@ describe("content facts", () => {
     expect(INSTALL_GUIDE.steps.length).toBe(4);
   });
 });
+
+describe("README before the first release", () => {
+  test("doesn't send anyone to the empty releases page", () => {
+    expect(readme).not.toContain("/releases)");
+    expect(readme).not.toMatch(/Download `peluni-<version>\.dmg`/);
+    expect(readme).toContain("not released yet");
+  });
+});

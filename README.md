@@ -3,7 +3,7 @@
 Fully-local voice dictation for macOS. Hold **Right ⌥**, speak, release —
 clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 
-**Website:** [peluni.app](https://peluni.app) · **Download:** [Releases](https://github.com/FredrikHaugen/peluni/releases)
+**Website:** [peluni.app](https://peluni.app) · **Status:** version 0.0.1, not released yet. Build it from source (below).
 
 - **Transcription:** whisper.cpp (Metal) with downloadable ggml models
 - **Cleanup:** a small local LLM via Apple MLX removes filler words and fixes
@@ -15,16 +15,15 @@ clean text appears in whatever app you're using. Nothing ever leaves your Mac.
 
 ## Install
 
-1. Download `peluni-<version>.dmg` from the
-   [Releases page](https://github.com/FredrikHaugen/peluni/releases).
-   It is signed with a Developer ID and notarized by Apple, so it opens
-   without Gatekeeper warnings. To check the download, put the `.sha256` file
-   published with it in the same folder and run `shasum -a 256 -c peluni-<version>.dmg.sha256`.
-2. Open the DMG and drag **peluni** onto **Applications**, then launch it.
-   It lives in the menu bar (the peluni mark); there is no Dock icon.
-3. The setup window walks you through three steps: allow **Microphone**,
-   allow **Accessibility**, and download the **speech model**
-   (148 MB). Then hold **Right ⌥** anywhere and talk.
+peluni is not released yet: version 0.0.1 is in development, ahead of any
+beta, so there is no DMG to download. To try it now, build it from source
+with `make run` (see [Quick start](#quick-start-from-source) and the build
+requirements below). The setup window then walks you through three steps:
+allow **Microphone**, allow **Accessibility**, and download the **speech
+model** (148 MB). Then hold **Right ⌥** anywhere and talk.
+
+The first release will be a Developer ID signed, notarized DMG on the
+Releases page, with a `.sha256` file to check it against.
 
 ### Upgrading from an earlier version
 
