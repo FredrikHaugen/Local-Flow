@@ -33,7 +33,6 @@ export function homeJsonLd() {
         softwareVersion: SITE.version,
         license,
         isAccessibleForFree: true,
-        codeRepository: SITE.repoUrl,
         author: { "@id": `${home}#maintainer` },
         sameAs: [SITE.repoUrl],
         isPartOf: { "@id": `${home}#website` },

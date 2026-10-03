@@ -58,8 +58,12 @@ describe("JSON-LD", () => {
       name: SITE.name,
       softwareVersion: SITE.version,
       isAccessibleForFree: true,
-      codeRepository: SITE.repoUrl,
     });
+  });
+
+  test("uses only properties Schema.org defines for SoftwareApplication", () => {
+    // validator.schema.org flags codeRepository here (it belongs to SoftwareSourceCode); sameAs links the repo.
+    expect(app).not.toHaveProperty("codeRepository");
   });
 
   test("offers nothing to download before the first release", () => {
